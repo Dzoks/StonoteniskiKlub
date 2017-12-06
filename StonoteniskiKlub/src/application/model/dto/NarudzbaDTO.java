@@ -10,6 +10,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class NarudzbaDTO {
 
@@ -19,7 +21,7 @@ public class NarudzbaDTO {
 	private BooleanProperty obradjeno;
 	private IntegerProperty idDistributeraOpreme;
 	private StringProperty nazivDistributeraOpreme;
-	private ArrayList<NarudzbaStavkaDTO> listaStavki;
+	private ObservableList<NarudzbaStavkaDTO> listaStavki;
 	
 	public NarudzbaDTO() {
 		super();
@@ -38,7 +40,23 @@ public class NarudzbaDTO {
 		this.idDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleIntegerProperty(idDistributeraOpreme);
 		this.nazivDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleStringProperty(DistributerOpremeDAO.SELECT_BY_ID(idDistributeraOpreme));
 		this.obradjeno = obradjeno==null ? null : new SimpleBooleanProperty(obradjeno);
-		listaStavki = new ArrayList<>();
+		listaStavki = FXCollections.observableArrayList();
+	}
+	
+	public NarudzbaDTO(Integer id, Date datum, Boolean opremaKluba, Boolean obradjeno, Integer idDistributeraOpreme, ObservableList<NarudzbaStavkaDTO> listaStavki) {
+		super();
+		this.id = id==null ? null : new SimpleIntegerProperty(id);
+		this.datum = datum;
+		if(opremaKluba) {
+			this.vrsta = new SimpleStringProperty("Oprema kluba");
+		}
+		else {
+			this.vrsta = new SimpleStringProperty("Oprema clana");
+		}
+		this.idDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleIntegerProperty(idDistributeraOpreme);
+		this.nazivDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleStringProperty(DistributerOpremeDAO.SELECT_BY_ID(idDistributeraOpreme));
+		this.obradjeno = obradjeno==null ? null : new SimpleBooleanProperty(obradjeno);
+		this.listaStavki = listaStavki;
 	}
 
 	public Integer getId() {
@@ -55,6 +73,10 @@ public class NarudzbaDTO {
 
 	public void setDatum(Date datum) {
 		this.datum = datum;
+	}
+
+	public BooleanProperty obradjenoProperty() {
+		return obradjeno;
 	}
 
 	public String getVrsta() {
@@ -89,11 +111,11 @@ public class NarudzbaDTO {
 		this.nazivDistributeraOpreme.set(nazivDistributeraOpreme);
 	}
 
-	public ArrayList<NarudzbaStavkaDTO> getListaStavki() {
+	public ObservableList<NarudzbaStavkaDTO> getListaStavki() {
 		return listaStavki;
 	}
 
-	public void setListaStavki(ArrayList<NarudzbaStavkaDTO> listaStavki) {
+	public void setListaStavki(ObservableList<NarudzbaStavkaDTO> listaStavki) {
 		this.listaStavki = listaStavki;
 	}
 }

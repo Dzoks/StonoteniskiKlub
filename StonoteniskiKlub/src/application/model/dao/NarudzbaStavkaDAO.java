@@ -9,10 +9,38 @@ import java.sql.Statement;
 import application.model.dto.NarudzbaStavkaDTO;
 import application.model.dto.OpremaTipDTO;
 import application.util.ConnectionPool;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class NarudzbaStavkaDAO {
 
-	private static final String SQL_INSERT = "INSERT INTO narudzba_stavka VALUES (?, ?, ?, ?, ?, ?, ?)";
+	private static final String SQL_SELECT_BY_IDNARUDZBE = "SELECT * FROM narudzba_stavka WHERE NARUDZBA_Id=?";
+	private static final String SQL_INSERT = "INSERT INTO narudzba_stavka VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String SQL_DELETE = "DELETE FROM narudzba_stavka WHERE NARUDZBA_Id=? AND OPREMA_TIP_Id=? AND Velicina=?";
+	
+	public static ObservableList<NarudzbaStavkaDTO> SELECT_BY_IDNARUDZBE(Integer id) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ObservableList<NarudzbaStavkaDTO> listaStavkiNarudzbe = FXCollections.observableArrayList();
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_BY_IDNARUDZBE, false, id);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				listaStavkiNarudzbe.add(new NarudzbaStavkaDTO(rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getString("Velicina"), rs.getInt("Kolicina"), rs.getDouble("Cijena"), rs.getBoolean("Obradjeno")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.getInstance().checkIn(c);
+			ConnectionPool.close(rs, ps);
+		}
+		
+		return listaStavkiNarudzbe;
+	}
 	
 	public static void INSERT(NarudzbaStavkaDTO narudzbaStavka) {
 		Connection c = null;
@@ -21,6 +49,22 @@ public class NarudzbaStavkaDAO {
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			ps = ConnectionPool.prepareStatement(c, SQL_INSERT, false, narudzbaStavka.getIdNarudzbe() , narudzbaStavka.getIdTipaOpreme(), narudzbaStavka.getVelicina(), narudzbaStavka.getKolicina(), narudzbaStavka.getCijena(), narudzbaStavka.getObradjeno());
+			ps.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.getInstance().checkIn(c);
+			ConnectionPool.close(ps);
+		}
+	}
+	
+	public static void DELETE(NarudzbaStavkaDTO narudzbaStavka) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			ps = ConnectionPool.prepareStatement(c, SQL_DELETE, false, narudzbaStavka.getIdNarudzbe() , narudzbaStavka.getIdTipaOpreme(), narudzbaStavka.getVelicina());
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

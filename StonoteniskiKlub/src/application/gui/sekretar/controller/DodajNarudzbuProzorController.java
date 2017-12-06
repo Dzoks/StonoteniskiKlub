@@ -6,11 +6,16 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.gui.trener.controller.DodajTipOpremeProzorController;
+import application.model.dao.NarudzbaDAO;
+import application.model.dao.NarudzbaStavkaDAO;
 import application.model.dao.OpremaTipDAO;
+import application.model.dto.NarudzbaDTO;
 import application.model.dto.NarudzbaStavkaDTO;
 import application.model.dto.OpremaTipDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,12 +26,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
-
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ComboBox;
-
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
@@ -71,7 +78,8 @@ public class DodajNarudzbuProzorController extends BaseController implements Ini
 	private TableColumn<NarudzbaStavkaDTO, Double> cijena;
 	
 	private Boolean opremaKluba = false;
-	private Integer idNarudzbe; 
+	private NarudzbaDTO naroudzba; 
+	private Boolean zaEditovanje = false;
 	private ObservableList<NarudzbaStavkaDTO> listaStavkiNarudzbe = FXCollections.observableArrayList();
 
 	@Override
@@ -80,6 +88,8 @@ public class DodajNarudzbuProzorController extends BaseController implements Ini
 		
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, 1, 1);
 		spinnerKolicina.setValueFactory(valueFactory);
+		
+		dodajKonteksniMeni();
 	}
 	
 	public void popuniTabelu() {
@@ -92,8 +102,65 @@ public class DodajNarudzbuProzorController extends BaseController implements Ini
 		cijena.setCellValueFactory(new PropertyValueFactory<NarudzbaStavkaDTO, Double>("cijena"));
 		
 		tblNarudzbe.setItems(listaStavkiNarudzbe);
-		
-		
+	}
+	
+	public void ubaciUBazu() {
+		NarudzbaDAO.INSERT(naroudzba, opremaKluba);
+		if(!listaStavkiNarudzbe.isEmpty()) {
+			for(NarudzbaStavkaDTO narudzbaStavka : listaStavkiNarudzbe) {
+				NarudzbaStavkaDAO.INSERT(narudzbaStavka);
+			}
+		}
+	}
+	
+	public void azurirajUBazi() {
+		if(!naroudzba.getListaStavki().isEmpty()) {
+			for(NarudzbaStavkaDTO narudzbaStavka : naroudzba.getListaStavki()) {
+				NarudzbaStavkaDAO.DELETE(narudzbaStavka);
+			}
+		}
+		if(!listaStavkiNarudzbe.isEmpty()) {
+			for(NarudzbaStavkaDTO narudzbaStavka : listaStavkiNarudzbe) {
+				NarudzbaStavkaDAO.INSERT(narudzbaStavka);
+			}
+		}
+	}
+	
+	public void evidentirajDodavanje() {
+		if(zaEditovanje) {
+			azurirajUBazi();
+		}
+		else {
+			ubaciUBazu();
+		}
+		primaryStage.close();
+	}
+	
+	public void dodajKonteksniMeni() {
+		ContextMenu cm = new ContextMenu();
+	    MenuItem obrisiStavku = new MenuItem("Obrisi stavku");
+	    obrisiStavku.setOnAction(new EventHandler<ActionEvent>() {
+	        @Override
+	        public void handle(ActionEvent t) {
+	            NarudzbaStavkaDTO selektovanaNarudzba = listaStavkiNarudzbe.get(tblNarudzbe.getSelectionModel().getSelectedIndex());
+	            if (selektovanaNarudzba != null){ 
+	            	listaStavkiNarudzbe.remove(tblNarudzbe.getSelectionModel().getSelectedIndex());
+	            	NarudzbaStavkaDAO.DELETE(selektovanaNarudzba);
+	            }
+	        }
+	    });
+	    cm.getItems().add(obrisiStavku);
+
+	    tblNarudzbe.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+	        @Override
+	        public void handle(MouseEvent t) {
+	            if(t.getButton() == MouseButton.SECONDARY)
+	            {
+	           cm.show(tblNarudzbe , t.getScreenX() , t.getScreenY());
+	            }
+	        }
+	    });
 	}
 	
 	public void disableDugme() {
@@ -117,14 +184,14 @@ public class DodajNarudzbuProzorController extends BaseController implements Ini
 			Integer idTipaOpreme = comboBoxTip.getSelectionModel().getSelectedItem().getId();
 			String velicina = "";
 			if(opremaKluba) {
-				velicina = "/";
+				velicina = "-";
 			}
 			else {
 				velicina = txtVelicina.getText();
 			}
 			Integer kolicina = spinnerKolicina.getValue();
 			Double cijena = Double.valueOf(txtCijena.getText());
-			NarudzbaStavkaDTO narudzbaStavka = new NarudzbaStavkaDTO(this.idNarudzbe, idTipaOpreme, velicina, kolicina, cijena, false);
+			NarudzbaStavkaDTO narudzbaStavka = new NarudzbaStavkaDTO(naroudzba.getId(), idTipaOpreme, velicina, kolicina, cijena, false);
 			if(listaStavkiNarudzbe.isEmpty()) {
 				listaStavkiNarudzbe.add(narudzbaStavka);
 			}
@@ -187,7 +254,15 @@ public class DodajNarudzbuProzorController extends BaseController implements Ini
 		opremaKluba = true;
 	}
 	
-	public void setIdNarudzbe(Integer idNarudzbe) {
-		this.idNarudzbe = idNarudzbe;
+	public void setNarudzba(NarudzbaDTO narudzba) {
+		this.naroudzba = narudzba;
+	}
+
+	public void setListaStavkiNarudzbe(ObservableList<NarudzbaStavkaDTO> listaStavkiNarudzbe) {
+		this.listaStavkiNarudzbe = listaStavkiNarudzbe;
+	}
+
+	public void setZaEditovanje() {
+		this.zaEditovanje = true;
 	}
 }

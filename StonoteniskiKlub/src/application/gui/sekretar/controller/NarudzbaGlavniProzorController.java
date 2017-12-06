@@ -16,6 +16,9 @@ import application.model.dao.DistributerOpremeDAO;
 import application.model.dao.NarudzbaDAO;
 import application.model.dto.DistributerOpremeDTO;
 import application.model.dto.NarudzbaDTO;
+import application.model.dto.NarudzbaStavkaDTO;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -27,6 +30,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DialogEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
@@ -63,8 +67,13 @@ public class NarudzbaGlavniProzorController extends BaseController implements In
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		btnIzmjeni.setDisable(true);
 		popuniTabelu();
 		ucitajComboBoxeve();
+	}
+	
+	public void disableDugmeIzmjeni() {
+		btnIzmjeni.disableProperty().bind(tblNarudzbe.getSelectionModel().getSelectedItem().obradjenoProperty().not());
 	}
 	
 	public void popuniTabelu() {
@@ -77,6 +86,24 @@ public class NarudzbaGlavniProzorController extends BaseController implements In
 		ObservableList<NarudzbaDTO> listaNarudzbi = NarudzbaDAO.SELECT_ALL();
 		
 		tblNarudzbe.setItems(listaNarudzbi);
+		tblNarudzbe.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<NarudzbaDTO>() {
+
+			@Override
+			public void changed(ObservableValue<? extends NarudzbaDTO> observable, NarudzbaDTO oldValue,NarudzbaDTO newValue) {
+				if (tblNarudzbe.getSelectionModel().getSelectedItem()!=null) {
+					if(tblNarudzbe.getSelectionModel().getSelectedItem().getObradjeno()) {
+						btnIzmjeni.setDisable(true);
+					}
+					else {
+						btnIzmjeni.setDisable(false);
+					}
+				}
+				else {
+					btnIzmjeni.setDisable(true);
+				}
+			}
+		});
+
 	}
 	
 	public void ucitajComboBoxeve() {
@@ -114,24 +141,80 @@ public class NarudzbaGlavniProzorController extends BaseController implements In
 				controller.setOpremaKluba();
 			}
 			controller.disableDugme();
-			controller.setIdNarudzbe(NarudzbaDAO.SELECT_NEXT_ID());
+			NarudzbaDTO narudzba = null;
+			try {
+				narudzba = new NarudzbaDTO(NarudzbaDAO.SELECT_NEXT_ID(), df.parse(trenutniDatumString), opremaKluba, false, comboBoxDistributer.getSelectionModel().getSelectedItem().getId());
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+  		  	controller.setNarudzba(narudzba);
 			
-			controller.setParametre(comboBoxDistributer.getSelectionModel().getSelectedItem().getNaziv(), trenutniDatumString, "/");
+			controller.setParametre(comboBoxDistributer.getSelectionModel().getSelectedItem().getNaziv(), trenutniDatumString, "-");
 			noviStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		          public void handle(WindowEvent we) {
+		        	  we.consume();
 		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da zapamtite narudzbu?", ButtonType.YES, ButtonType.NO);
 		              Optional<ButtonType> rezultat = alert.showAndWait();
 		              if(ButtonType.YES.equals(rezultat.get())) {
-		            	  NarudzbaDTO novaNarudzba = null;
-		            	  try {
-		            		  novaNarudzba = new NarudzbaDTO(null, df.parse(trenutniDatumString), opremaKluba, false, comboBoxDistributer.getSelectionModel().getSelectedItem().getId());
-		      			  } catch (ParseException e) {
-		      				  e.printStackTrace();
-		      			  }
-		            	  NarudzbaDAO.INSERT(novaNarudzba, opremaKluba);
+		            	  controller.ubaciUBazu();
+		            	  noviStage.close();
+		              }
+		              else if(ButtonType.NO.equals(rezultat.get())) {
+		            	  noviStage.close();
 		              }
 		          }});
-			noviStage.showAndWait();       
+			noviStage.showAndWait(); 
+			popuniTabelu();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void idiNaIzmjenuNarudzbe() {
+		Stage noviStage = new Stage();
+		
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/sekretar/view/DodajNarudzbuProzor.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root,761,548);
+			DodajNarudzbuProzorController controller = loader.<DodajNarudzbuProzorController>getController();
+			controller.setPrimaryStage(noviStage);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			
+			NarudzbaDTO selektovanaNarudzba = tblNarudzbe.getSelectionModel().selectedItemProperty().get();
+			
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			String datumNarudzbe = df.format(selektovanaNarudzba.getDatum());
+			Boolean opremaKluba =  "Oprema kluba".equals(selektovanaNarudzba.getVrsta());
+			if(opremaKluba) {
+				controller.VelicinaOnemoguceno();
+				controller.setOpremaKluba();
+			}
+			controller.disableDugme();
+  		  	controller.setNarudzba(selektovanaNarudzba);
+  		  	controller.setZaEditovanje();
+  		  	controller.setListaStavkiNarudzbe(selektovanaNarudzba.getListaStavki());
+  		  	controller.popuniTabelu();
+			
+			controller.setParametre(comboBoxDistributer.getSelectionModel().getSelectedItem().getNaziv(), datumNarudzbe, selektovanaNarudzba.getId().toString());
+			noviStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		          public void handle(WindowEvent we) {
+		        	  we.consume();
+		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sacuvate izmjene?", ButtonType.YES, ButtonType.NO);
+		              Optional<ButtonType> rezultat = alert.showAndWait();
+		              if(ButtonType.YES.equals(rezultat.get())) {
+		            	  controller.azurirajUBazi();
+		            	  noviStage.close();
+		              }
+		              else if(ButtonType.NO.equals(rezultat.get())) {
+		            	  noviStage.close();
+		              }
+		          }});
+			noviStage.showAndWait(); 
+			popuniTabelu();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -141,7 +224,7 @@ public class NarudzbaGlavniProzorController extends BaseController implements In
 		Stage noviStage = new Stage();
 		
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("application/gui/sekretar/controller/DodajDistributeraProzor.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/sekretar/view/DodajDistributeraProzor.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			Scene scene = new Scene(root,265,219);
 			DodajDistributeraProzorController controller = loader.<DodajDistributeraProzorController>getController();

@@ -15,7 +15,8 @@ public class NarudzbaDAO {
 
 	private static final String SQL_SELECT_ALL = "SELECT * FROM narudzba";
 	private static final String SQL_SELECT_NEXT_ID = "SELECT MAX(Id) FROM narudzba";
-	private static final String SQL_INSERT = "INSERT INTO narudzba VALUES (null, ?, ?, ?, ?)";
+	private static final String SQL_INSERT = "INSERT INTO narudzba VALUES (?, ?, ?, ?, ?)";
+	private static final String SQL_UPDATE = "UPDATE narudzba SET OpremaKluba=?, DISTRIBUTER_OPREME_Id=? WHERE Id=?";
 	
 	public static ObservableList<NarudzbaDTO> SELECT_ALL() {
 		ObservableList<NarudzbaDTO> listaNarudzbi = FXCollections.observableArrayList();
@@ -29,7 +30,7 @@ public class NarudzbaDAO {
 			rs = s.executeQuery(SQL_SELECT_ALL);
 			
 			while(rs.next()) {
-				listaNarudzbi.add(new NarudzbaDTO(rs.getInt("Id"), rs.getDate("Datum"), rs.getBoolean("OpremaKluba"), rs.getBoolean("Obradjeno"), rs.getInt("DISTRIBUTER_OPREME_Id")));
+				listaNarudzbi.add(new NarudzbaDTO(rs.getInt("Id"), rs.getDate("Datum"), rs.getBoolean("OpremaKluba"), rs.getBoolean("Obradjeno"), rs.getInt("DISTRIBUTER_OPREME_Id"), NarudzbaStavkaDAO.SELECT_BY_IDNARUDZBE(rs.getInt("Id"))));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,7 +74,7 @@ public class NarudzbaDAO {
 		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
-			ps = ConnectionPool.prepareStatement(c, SQL_INSERT, true, narudzba.getDatum(), vrstaOpreme, narudzba.getObradjeno(), narudzba.getIdDistributeraOpreme());
+			ps = ConnectionPool.prepareStatement(c, SQL_INSERT, true, narudzba.getId(), narudzba.getDatum(), vrstaOpreme, narudzba.getObradjeno(), narudzba.getIdDistributeraOpreme());
 			ps.execute();
 			rs = ps.getGeneratedKeys();
 			rs.next();
@@ -86,5 +87,21 @@ public class NarudzbaDAO {
 		}
 		
 		return id;
+	}
+	
+	public static void UPDATE(NarudzbaDTO narudzba, Boolean vrstaOpreme) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE, true, vrstaOpreme, narudzba.getIdDistributeraOpreme(), narudzba.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.getInstance().checkIn(c);
+			ConnectionPool.close(ps);
+		}
 	}
 }

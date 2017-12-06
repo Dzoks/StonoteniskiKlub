@@ -64,7 +64,7 @@
             <TableColumn fx:id="cijena" prefWidth="118.0" text="Cijena" />
         </columns>
       </TableView>
-      <Button fx:id="btnEvidentiraj" layoutX="533.0" layoutY="492.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="214.0" text="Evidentiraj" />
+      <Button fx:id="btnEvidentiraj" layoutX="533.0" layoutY="492.0" mnemonicParsing="false" onAction="#evidentirajDodavanje" prefHeight="42.0" prefWidth="214.0" text="Evidentiraj" />
       <Button fx:id="btnDodajTipOpreme" layoutX="301.0" layoutY="146.0" mnemonicParsing="false" onAction="#idiNaDodajTipOpreme" prefHeight="25.0" prefWidth="25.0" text="+" />
    </children>
 </AnchorPane>
