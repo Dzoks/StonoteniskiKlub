@@ -8,11 +8,10 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+		BaseController.changeScene("/application/PocetniProzor.fxml", primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Stonoteniski Klub");
 		primaryStage.show();
-		//aloooo
 	}
 
 	public static void main(String[] args) {
