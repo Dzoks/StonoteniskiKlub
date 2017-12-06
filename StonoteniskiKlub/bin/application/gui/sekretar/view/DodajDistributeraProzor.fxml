@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="219.0" prefWidth="265.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodajDistributeraProzorController">
+   <children>
+      <Label layoutX="16.0" layoutY="23.0" text="Naziv" />
+      <Label layoutX="16.0" layoutY="59.0" text="Telefon" />
+      <Label layoutX="16.0" layoutY="95.0" text="Adresa" />
+      <Label layoutX="16.0" layoutY="133.0" text="Mail" />
+      <TextField fx:id="txtNaziv" layoutX="73.0" layoutY="19.0" prefHeight="25.0" prefWidth="178.0" promptText="Naziv" />
+      <TextField fx:id="txtTelefon" layoutX="73.0" layoutY="55.0" prefHeight="25.0" prefWidth="178.0" promptText="XXX/XXX-XXX" />
+      <TextField fx:id="txtAdresa" layoutX="73.0" layoutY="91.0" prefHeight="25.0" prefWidth="178.0" promptText="Adresa" />
+      <TextField fx:id="txtMail" layoutX="73.0" layoutY="129.0" prefHeight="25.0" prefWidth="178.0" promptText="Mail" />
+      <Button fx:id="btnDodaj" layoutX="159.0" layoutY="180.0" mnemonicParsing="false" onAction="#provjeriParametre" prefHeight="25.0" prefWidth="92.0" text="Dodaj" />
+   </children>
+</AnchorPane>

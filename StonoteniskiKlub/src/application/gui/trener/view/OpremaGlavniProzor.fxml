@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="484.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.OpremaGlavniProzorController">
+   <children>
+      <TabPane prefHeight="484.0" prefWidth="761.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Oprema kluba">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="277.0" prefWidth="732.0">
+                          <columns>
+                            <TableColumn prefWidth="132.0" text="ID" />
+                            <TableColumn prefWidth="117.0" text="Tip" />
+                              <TableColumn prefWidth="164.0" text="Proizvodjac" />
+                              <TableColumn prefWidth="167.0" text="Model" />
+                              <TableColumn prefWidth="151.0" text="Donirana" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="btnPretraziOpremaKluba" layoutX="532.0" layoutY="333.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="214.0" text="Pretrazi" />
+                        <Button fx:id="btnDodajOpremaKluba" layoutX="532.0" layoutY="399.0" mnemonicParsing="false" onAction="#idiNaDodajOpremu" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Oprema clanova">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="277.0" prefWidth="732.0">
+                          <columns>
+                            <TableColumn prefWidth="57.0" text="ID" />
+                            <TableColumn prefWidth="84.0" text="Tip" />
+                              <TableColumn prefWidth="99.0" text="Proizvodjac" />
+                              <TableColumn prefWidth="93.0" text="Model" />
+                              <TableColumn prefWidth="99.0" text="JMB" />
+                              <TableColumn prefWidth="101.0" text="Ime " />
+                              <TableColumn prefWidth="105.0" text="Prezime" />
+                              <TableColumn prefWidth="93.0" text="Donirana" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="btnPretraziOpremaClanova" layoutX="532.0" layoutY="333.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="214.0" text="Pretrazi" />
+                        <Button fx:id="btnDodajOpremaClanova" layoutX="532.0" layoutY="399.0" mnemonicParsing="false" onAction="#idiNaDodajOpremu" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
