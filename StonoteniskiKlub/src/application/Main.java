@@ -12,6 +12,7 @@ public class Main extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Stonoteniski Klub");
 		primaryStage.show();
+		//aloooo
 	}
 
 	public static void main(String[] args) {
