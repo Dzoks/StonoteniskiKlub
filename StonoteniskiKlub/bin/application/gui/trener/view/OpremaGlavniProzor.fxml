@@ -15,17 +15,17 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="277.0" prefWidth="732.0">
+                        <TableView fx:id="tblOpremaKluba" layoutX="14.0" layoutY="14.0" prefHeight="277.0" prefWidth="732.0">
                           <columns>
-                            <TableColumn prefWidth="132.0" text="ID" />
-                            <TableColumn prefWidth="117.0" text="Tip" />
-                              <TableColumn prefWidth="164.0" text="Proizvodjac" />
-                              <TableColumn prefWidth="167.0" text="Model" />
-                              <TableColumn prefWidth="151.0" text="Donirana" />
+                            <TableColumn fx:id="idKlub" prefWidth="132.0" text="ID" />
+                            <TableColumn fx:id="tipKlub" prefWidth="117.0" text="Tip" />
+                              <TableColumn fx:id="proizvodjacKlub" prefWidth="164.0" text="Proizvodjac" />
+                              <TableColumn fx:id="modelKlub" prefWidth="167.0" text="Model" />
+                              <TableColumn fx:id="doniranaKlub" prefWidth="151.0" text="Donirana" />
                           </columns>
                         </TableView>
                         <Button fx:id="btnPretraziOpremaKluba" layoutX="532.0" layoutY="333.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="214.0" text="Pretrazi" />
-                        <Button fx:id="btnDodajOpremaKluba" layoutX="532.0" layoutY="399.0" mnemonicParsing="false" onAction="#idiNaDodajOpremu" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
+                        <Button fx:id="btnDodajOpremaKluba" layoutX="532.0" layoutY="399.0" mnemonicParsing="false" onAction="#idiNaDodajOpremuKluba" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
                      </children>
                   </AnchorPane>
             </content>
@@ -34,20 +34,20 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="277.0" prefWidth="732.0">
+                        <TableView fx:id="tblOpremaClana" layoutX="14.0" layoutY="14.0" prefHeight="277.0" prefWidth="732.0">
                           <columns>
-                            <TableColumn prefWidth="57.0" text="ID" />
-                            <TableColumn prefWidth="84.0" text="Tip" />
-                              <TableColumn prefWidth="99.0" text="Proizvodjac" />
-                              <TableColumn prefWidth="93.0" text="Model" />
-                              <TableColumn prefWidth="99.0" text="JMB" />
-                              <TableColumn prefWidth="101.0" text="Ime " />
-                              <TableColumn prefWidth="105.0" text="Prezime" />
-                              <TableColumn prefWidth="93.0" text="Donirana" />
+                            <TableColumn fx:id="idClan" prefWidth="57.0" text="ID" />
+                            <TableColumn fx:id="tipClan" prefWidth="84.0" text="Tip" />
+                              <TableColumn fx:id="proizvodjacClan" prefWidth="99.0" text="Proizvodjac" />
+                              <TableColumn fx:id="modelClan" prefWidth="93.0" text="Model" />
+                              <TableColumn fx:id="jmbClan" prefWidth="99.0" text="JMB" />
+                              <TableColumn fx:id="imeClan" prefWidth="101.0" text="Ime " />
+                              <TableColumn fx:id="prezimeClan" prefWidth="105.0" text="Prezime" />
+                              <TableColumn fx:id="doniranaClan" prefWidth="93.0" text="Donirana" />
                           </columns>
                         </TableView>
                         <Button fx:id="btnPretraziOpremaClanova" layoutX="532.0" layoutY="333.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="214.0" text="Pretrazi" />
-                        <Button fx:id="btnDodajOpremaClanova" layoutX="532.0" layoutY="399.0" mnemonicParsing="false" onAction="#idiNaDodajOpremu" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
+                        <Button fx:id="btnDodajOpremaClanova" layoutX="532.0" layoutY="399.0" mnemonicParsing="false" onAction="#idiNaDodajOpremuClana" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
                      </children>
                   </AnchorPane>
             </content>

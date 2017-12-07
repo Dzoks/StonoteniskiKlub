@@ -20,8 +20,8 @@ public class OpremaKlubaDTO extends OpremaDTO{
 	
 	public OpremaKlubaDTO(Integer id, Integer idNarudzbe, Integer idTipaOpreme, Integer idDonacije, Boolean donirana, String opis, Boolean aktivan) {
 		super(id, idNarudzbe, idTipaOpreme, idDonacije, donirana);
-		this.opis = new SimpleStringProperty(opis);
-		this.aktivan = new SimpleBooleanProperty(donirana);
+		this.opis = opis==null ? null : new SimpleStringProperty(opis);
+		this.aktivan = aktivan==null ? null : new SimpleBooleanProperty(aktivan);
 	}
 	
 	public String getOpis() {

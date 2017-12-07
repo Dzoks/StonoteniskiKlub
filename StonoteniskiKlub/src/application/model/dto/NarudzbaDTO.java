@@ -1,6 +1,9 @@
 package application.model.dto;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import application.model.dao.DistributerOpremeDAO;
@@ -117,5 +120,14 @@ public class NarudzbaDTO {
 
 	public void setListaStavki(ObservableList<NarudzbaStavkaDTO> listaStavki) {
 		this.listaStavki = listaStavki;
+	}
+
+	@Override
+	public String toString() {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date datumNarudzbe = datum; 
+		String datumNarudzbeString = df.format(datumNarudzbe); 
+		
+		return id.get() + " - " + datumNarudzbeString + " - " + nazivDistributeraOpreme.get();
 	}
 }
