@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 public class NarudzbaDAO {
 
 	private static final String SQL_SELECT_ALL = "SELECT * FROM narudzba";
+	private static final String SQL_SELECT_OBRADJENE = "SELECT * FROM narudzba WHERE Obradjeno=false";
 	private static final String SQL_SELECT_NEXT_ID = "SELECT MAX(Id) FROM narudzba";
 	private static final String SQL_INSERT = "INSERT INTO narudzba VALUES (?, ?, ?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE narudzba SET OpremaKluba=?, DISTRIBUTER_OPREME_Id=? WHERE Id=?";
@@ -28,6 +29,30 @@ public class NarudzbaDAO {
 			c = ConnectionPool.getInstance().checkOut();
 			s = c.createStatement();
 			rs = s.executeQuery(SQL_SELECT_ALL);
+			
+			while(rs.next()) {
+				listaNarudzbi.add(new NarudzbaDTO(rs.getInt("Id"), rs.getDate("Datum"), rs.getBoolean("OpremaKluba"), rs.getBoolean("Obradjeno"), rs.getInt("DISTRIBUTER_OPREME_Id"), NarudzbaStavkaDAO.SELECT_BY_IDNARUDZBE(rs.getInt("Id"))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.getInstance().checkIn(c);
+			ConnectionPool.close(rs, s);
+		}
+		
+		return listaNarudzbi;
+	}
+	
+	public static ObservableList<NarudzbaDTO> SELECT_OBRADJENE() {
+		ObservableList<NarudzbaDTO> listaNarudzbi = FXCollections.observableArrayList();
+		Connection c = null;
+		Statement s = null;
+		ResultSet rs = null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			s = c.createStatement();
+			rs = s.executeQuery(SQL_SELECT_OBRADJENE);
 			
 			while(rs.next()) {
 				listaNarudzbi.add(new NarudzbaDTO(rs.getInt("Id"), rs.getDate("Datum"), rs.getBoolean("OpremaKluba"), rs.getBoolean("Obradjeno"), rs.getInt("DISTRIBUTER_OPREME_Id"), NarudzbaStavkaDAO.SELECT_BY_IDNARUDZBE(rs.getInt("Id"))));
