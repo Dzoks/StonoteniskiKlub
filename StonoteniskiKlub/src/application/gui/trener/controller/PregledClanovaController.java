@@ -5,6 +5,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
+import application.model.dao.ClanDAO;
+import application.model.dto.ClanDTO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +18,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,22 +28,22 @@ import javafx.stage.WindowEvent;
 public class PregledClanovaController extends BaseController implements Initializable {
 
     @FXML
-    private TableView<?> twTabela;
+    private TableView<ClanDTO> twTabela;
 
     @FXML
-    private TableColumn<?, ?> tcIme;
+    private TableColumn<ClanDTO, String> tcIme;
 
     @FXML
-    private TableColumn<?, ?> tcPrezime;
+    private TableColumn<ClanDTO, String> tcPrezime;
 
     @FXML
-    private TableColumn<?, ?> tcImeRoditelja;
+    private TableColumn<ClanDTO, String> tcImeRoditelja;
 
     @FXML
-    private TableColumn<?, ?> tcAktivan;
+    private TableColumn<ClanDTO, Boolean> tcAktivan;
 
     @FXML
-    private TableColumn<?, ?> tcRegistrovan;
+    private TableColumn<ClanDTO, Boolean> tcRegistrovan;
 
     @FXML
     private MenuItem miIzmjeni;
@@ -50,11 +56,29 @@ public class PregledClanovaController extends BaseController implements Initiali
 
     @FXML
     private TextField txtPrezime;
+    
+    
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		tcIme.setCellFactory(TextFieldTableCell.forTableColumn());
+		tcIme.setCellValueFactory(new PropertyValueFactory<ClanDTO, String>("ime"));
 		
+		tcPrezime.setCellFactory(TextFieldTableCell.forTableColumn());
+		tcPrezime.setCellValueFactory(new PropertyValueFactory<ClanDTO, String>("prezime"));
+		
+		tcImeRoditelja.setCellFactory(TextFieldTableCell.forTableColumn());
+		tcImeRoditelja.setCellValueFactory(new PropertyValueFactory<ClanDTO, String>("imeRoditelja"));
+		
+		tcAktivan.setCellValueFactory(new PropertyValueFactory<ClanDTO, Boolean>("aktivan"));
+		tcAktivan.setVisible(false);
+		
+		tcRegistrovan.setCellValueFactory(new PropertyValueFactory<ClanDTO, Boolean>("registrovan"));
+		tcRegistrovan.setVisible(false);
+		
+		listaClanova = FXCollections.observableArrayList();
+		listaClanova.addAll(ClanDAO.selectAll());
+		twTabela.setItems(listaClanova);
 	}
 	
 	public void idiNaPregledOpreme() {
@@ -108,10 +132,45 @@ public class PregledClanovaController extends BaseController implements Initiali
 				}
 			});
 			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.show();
+			stage.showAndWait();
+			ClanDTO clan = control.getClan();
+			if(clan!=null)
+				listaClanova.add(clan);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void izmjeniClana() {
+		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
+		
+		try {
+    		Stage stage = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/IzmjenaClanaView.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			IzmjenaClanaController control = loader.<IzmjenaClanaController>getController();
+			control.setClan(clan);
+			control.popuniPolja();
+			control.setPrimaryStage(stage);
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.setTitle("Izmjena");
+			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent event) {
+					event.consume();
+					control.izlaz();
+				}
+			});
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.show();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private ObservableList<ClanDTO> listaClanova;
 }
 

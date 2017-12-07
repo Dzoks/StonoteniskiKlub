@@ -14,13 +14,15 @@
       <TextField fx:id="txtPrezime" layoutX="291.0" layoutY="99.0" prefHeight="31.0" prefWidth="218.0" promptText="Prezime" />
       <TextField fx:id="txtImeRoditelja" layoutX="291.0" layoutY="151.0" prefHeight="31.0" prefWidth="218.0" promptText="Ime roditelja" />
       <TextField fx:id="txtJMB" layoutX="292.0" layoutY="202.0" prefHeight="31.0" prefWidth="218.0" promptText="JMB" />
+      <ComboBox fx:id="cbTelefon" editable="true" layoutX="292.0" layoutY="250.0" onKeyPressed="#sacuvajTelefon" prefHeight="31.0" prefWidth="180.0" promptText="Telefon" />
+      <Button layoutX="477.0" layoutY="250.0" mnemonicParsing="false" onAction="#obrisiTelefon" prefHeight="31.0" prefWidth="32.0" text="X" />
       <RadioButton fx:id="rbMusko" layoutX="308.0" layoutY="302.0" mnemonicParsing="false" text="Muško" />
       <RadioButton fx:id="rbZensko" layoutX="407.0" layoutY="302.0" mnemonicParsing="false" text="Žensko" />
       <DatePicker fx:id="dpDatumRodjenja" layoutX="291.0" layoutY="340.0" promptText="dd/MM/yyyy" showWeekNumbers="true" />
-      <Button layoutX="40.0" layoutY="305.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="31.0" prefWidth="200.0" text="Dodaj fotografiju" />
-      <Button fx:id="btnUclani" layoutX="350.0" layoutY="442.0" mnemonicParsing="false" onAction="#izvrsiUclanjivanje" text="Učlani" />
+      <Button layoutX="40.0" layoutY="297.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="31.0" prefWidth="200.0" text="Dodaj fotografiju" />
+      <Button fx:id="btnUclani" layoutX="350.0" layoutY="442.0" mnemonicParsing="false" onAction="#sacuvajIzmjene" text="Sačuvaj" />
       <Button layoutX="429.0" layoutY="442.0" mnemonicParsing="false" onAction="#izlaz" text="Odustani" />
       <ImageView fx:id="ivSlika" fitHeight="236.0" fitWidth="200.0" layoutX="40.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
-      <ComboBox fx:id="cbTelefon" editable="true" layoutX="292.0" layoutY="250.0" prefHeight="31.0" prefWidth="218.0" promptText="Telefon" />
+      <Button layoutX="40.0" layoutY="340.0" mnemonicParsing="false" onAction="#obrisiFotografiju" prefHeight="31.0" prefWidth="200.0" text="Obriši fotografiju" />
    </children>
 </AnchorPane>
