@@ -17,7 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class ControllerMain extends BaseController implements Initializable {
+public class ControllerMainBrada extends BaseController implements Initializable {
 
     @FXML
     private ResourceBundle resources;
@@ -39,7 +39,7 @@ public class ControllerMain extends BaseController implements Initializable {
     void openUclanjivanje(ActionEvent event) {
     	try {
     		Stage stage = new Stage();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("UclanjivanjeForm.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/UclanjivanjeView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			UclanjivanjeController control = loader.<UclanjivanjeController>getController();
 			control.setPrimaryStage(stage);

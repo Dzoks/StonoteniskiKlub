@@ -253,7 +253,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 	public void otvoriFormuZaNoviTelefon() {
 		try {
     		Stage stage = new Stage();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("DodajTelefonForm.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/DodajTelefonView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			NoviTelefonController control = loader.<NoviTelefonController>getController();
 			control.setPrimaryStage(stage);
