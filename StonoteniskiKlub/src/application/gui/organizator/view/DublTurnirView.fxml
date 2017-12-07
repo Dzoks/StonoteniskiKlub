@@ -28,22 +28,22 @@
             <TableColumn fx:id="clnJMBG2" prefWidth="114.0" text="JMBG2" />
          </columns>
       </TableView>
-      <Button id="btnPrijavi" fx:id="btnPrijavi" layoutX="582.0" layoutY="72.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Prijavi">
+      <Button id="btnPrijavi" fx:id="btnPrijavi" layoutX="582.0" layoutY="72.0" mnemonicParsing="false" onAction="#prijaviEkipu" prefHeight="39.0" prefWidth="81.0" text="Prijavi">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button id="btnIzmjeni" fx:id="btnIzmjeni" layoutX="582.0" layoutY="134.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Izmjeni">
+      <Button id="btnIzmjeni" fx:id="btnIzmjeni" layoutX="582.0" layoutY="134.0" mnemonicParsing="false" onAction="#izmjeniEkipu" prefHeight="39.0" prefWidth="81.0" text="Izmjeni">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button id="btnZrijeb" fx:id="btnZrijeb" layoutX="582.0" layoutY="192.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Žrijeb">
+      <Button id="btnZrijeb" fx:id="btnZrijeb" layoutX="582.0" layoutY="192.0" mnemonicParsing="false" onAction="#prikaziZrijeb" prefHeight="39.0" prefWidth="81.0" text="Žrijeb">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button id="btnNazad" fx:id="btnNazad" layoutX="582.0" layoutY="376.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="81.0" text="Nazad">
+      <Button id="btnNazad" fx:id="btnNazad" layoutX="582.0" layoutY="376.0" mnemonicParsing="false" onAction="#vratiNazad" prefHeight="46.0" prefWidth="81.0" text="Nazad">
          <font>
             <Font size="18.0" />
          </font>

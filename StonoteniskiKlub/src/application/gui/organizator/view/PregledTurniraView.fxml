@@ -24,12 +24,12 @@
          </font>
       </Label>
       <ComboBox fx:id="cbKategorija" layoutX="41.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0" />
-      <Button fx:id="btnNazad" layoutX="293.0" layoutY="174.0" mnemonicParsing="false" text="Nazad">
+      <Button fx:id="btnNazad" layoutX="293.0" layoutY="174.0" mnemonicParsing="false" onAction="#vratiNazad" text="Nazad">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnZrijeb" layoutX="293.0" layoutY="106.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="75.0" text="Žrijeb">
+      <Button fx:id="btnZrijeb" layoutX="293.0" layoutY="106.0" mnemonicParsing="false" onAction="#prikaziZrijeb" prefHeight="39.0" prefWidth="75.0" text="Žrijeb">
          <font>
             <Font size="18.0" />
          </font>

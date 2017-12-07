@@ -44,5 +44,12 @@ public class DublZrijebController extends BaseController{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public void inicijalizuj(Integer id){
+		primaryStage.setTitle("Dubl žrijeb");
+	}	
+	
+	public void ok(){
+		primaryStage.close();
+	}
 }
