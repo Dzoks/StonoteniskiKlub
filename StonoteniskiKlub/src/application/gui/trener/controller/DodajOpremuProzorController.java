@@ -6,9 +6,12 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.gui.sekretar.controller.DodajNarudzbuProzorController;
+import application.model.dao.ClanDAO;
 import application.model.dao.DistributerOpremeDAO;
 import application.model.dao.NarudzbaDAO;
+import application.model.dao.OpremaClanaDAO;
 import application.model.dao.OpremaTipDAO;
+import application.model.dto.ClanDTO;
 import application.model.dto.DistributerOpremeDTO;
 import application.model.dto.NarudzbaDTO;
 import application.model.dto.NarudzbaStavkaDTO;
@@ -24,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -48,7 +52,7 @@ public class DodajOpremuProzorController extends BaseController implements Initi
 	@FXML
 	private TextField txtVelicina;
 	@FXML
-	private ComboBox comboBoxClan;
+	private ComboBox<ClanDTO> comboBoxClan;
 	@FXML
 	private ComboBox<NarudzbaDTO> comboBoxNarudzba;
 	@FXML
@@ -76,7 +80,7 @@ public class DodajOpremuProzorController extends BaseController implements Initi
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ucitajComboBoxeve();
+		btnDodaj.setDisable(true);
 		checkBoxDonirana.selectedProperty().addListener(new ChangeListener<Boolean>() {
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -92,26 +96,45 @@ public class DodajOpremuProzorController extends BaseController implements Initi
 		checkBoxNijeSelektovan();
 	}
 	
+	public void popuniTabelu(ObservableList<NarudzbaStavkaDTO> listaStavkiNarudzbe) {
+		id.setCellValueFactory(new PropertyValueFactory<NarudzbaStavkaDTO, Integer>("idNarudzbe"));
+		tipOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavkaDTO, String>("tipOpreme"));
+		proizvodjacOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavkaDTO, String>("tipProizvodjac"));
+		modelOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavkaDTO, String>("tipModel"));
+		kolicina.setCellValueFactory(new PropertyValueFactory<NarudzbaStavkaDTO, Integer>("kolicina"));
+		velicina.setCellValueFactory(new PropertyValueFactory<NarudzbaStavkaDTO, String>("velicina"));
+		cijena.setCellValueFactory(new PropertyValueFactory<NarudzbaStavkaDTO, Double>("cijena"));
+		obradjeno.setCellValueFactory(new PropertyValueFactory<NarudzbaStavkaDTO, Boolean>("obradjeno"));
+		
+		tblNarudzbe.setItems(listaStavkiNarudzbe);
+	}
+	
 	public void ucitajComboBoxeve() {
 		ObservableList<OpremaTipDTO> listaTiOpreme = OpremaTipDAO.SELECT_ALL();
 		comboBoxTip.setItems(listaTiOpreme);
 		comboBoxTip.getSelectionModel().selectFirst();
 		
-		//ucitati donacije i clanove
+		//ucitati donacije
 		
-		ObservableList<NarudzbaDTO> listaNarudzbi = NarudzbaDAO.SELECT_OBRADJENE();
+		ObservableList<ClanDTO> listaClanova = OpremaClanaDAO.SELECT_AKTIVNE();
+		comboBoxClan.setItems(listaClanova);
+		comboBoxClan.getSelectionModel().selectFirst();
+		
+		ObservableList<NarudzbaDTO> listaNarudzbi = NarudzbaDAO.SELECT_NEOBRADJENE(opremaKluba);
 		comboBoxNarudzba.setItems(listaNarudzbi);
 		comboBoxNarudzba.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<NarudzbaDTO>() {
 
 			@Override
 			public void changed(ObservableValue<? extends NarudzbaDTO> observable, NarudzbaDTO oldValue, NarudzbaDTO newValue) {
-				ObservableList<NarudzbaStavkaDTO> listaStavki = newValue.getListaStavki();
+				ObservableList<NarudzbaStavkaDTO> listaStavkiNarudzbe = newValue.getListaStavki();
+				popuniTabelu(listaStavkiNarudzbe);
 			}
 		});
 		
 	}
 	
 	public void checkBoxSelektovan() {
+		btnDodaj.setDisable(true);
 		comboBoxNarudzba.setDisable(true);
     	tblNarudzbe.setDisable(true);
     	comboBoxTip.setDisable(false);
@@ -141,6 +164,22 @@ public class DodajOpremuProzorController extends BaseController implements Initi
     	tblNarudzbe.setDisable(false);
 	}
 	
+	public void disableDodajDugme() {
+		if(checkBoxDonirana.isSelected()) {
+			
+		}
+		else {
+			tblNarudzbe.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			    if (newSelection != null) {
+			        btnDodaj.setDisable(false);
+			    }
+			    else {
+			    	btnDodaj.setDisable(true);
+			    }
+			});
+		}
+	}
+	
 	public void idiNaDodajTipOpreme() {
 		Stage noviStage = new Stage();
 		
@@ -154,6 +193,34 @@ public class DodajOpremuProzorController extends BaseController implements Initi
 			noviStage.setResizable(false);
 			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
+			noviStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void idiNaObradiOpremu() {
+		Stage noviStage = new Stage();
+		
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/ObradiOpremuProzor.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root,366,396);
+			ObradiOpremuProzorController controller = loader.<ObradiOpremuProzorController>getController();
+			controller.setPrimaryStage(noviStage);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			
+			if(opremaKluba) {
+				controller.setOpremaKluba();
+				controller.disableParametre();
+			}
+			
+			controller.setStavkaNarudzbe(tblNarudzbe.getSelectionModel().selectedItemProperty().get());
+			controller.postaviSpiner();
+			
 			noviStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -111,6 +111,8 @@ public class OpremaGlavniProzorController extends BaseController implements Init
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			
 			controller.setOpremaKluba();
+			controller.ucitajComboBoxeve();
+			controller.disableDodajDugme();
 			
 			noviStage.showAndWait();
 		} catch (IOException e) {
@@ -131,6 +133,10 @@ public class OpremaGlavniProzorController extends BaseController implements Init
 			noviStage.setResizable(false);
 			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
+			
+			controller.ucitajComboBoxeve();
+			controller.disableDodajDugme();
+			
 			noviStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();

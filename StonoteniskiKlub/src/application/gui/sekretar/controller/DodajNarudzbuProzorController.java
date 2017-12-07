@@ -29,6 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -228,6 +229,7 @@ public class DodajNarudzbuProzorController extends BaseController implements Ini
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
 			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
 			if("YES".equals(controller.getPovratnaVrijednost())) {
 				OpremaTipDTO noviDistributer = controller.vratiTipOpreme();

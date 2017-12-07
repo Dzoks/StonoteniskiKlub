@@ -1,5 +1,6 @@
 package application.model.dto;
 
+import application.model.dao.ClanDAO;
 import application.model.dao.OpremaClanaDAO;
 import application.model.dao.OpremaKlubaDAO;
 import javafx.beans.property.BooleanProperty;
@@ -13,6 +14,7 @@ public class OpremaClanaDTO extends OpremaDTO{
 
 	private StringProperty velicina;
 	private IntegerProperty idClana;
+	private ClanDTO clan;
 	private StringProperty jmbClana;
 	private StringProperty imeClana;
 	private StringProperty prezimeClana;
@@ -30,10 +32,10 @@ public class OpremaClanaDTO extends OpremaDTO{
 		super(id, idNarudzbe, idTipaOpreme, idDonacije, donirana);
 		this.velicina = velicina==null ? null : new SimpleStringProperty(velicina);
 		this.idClana = idClana==null ? null : new SimpleIntegerProperty(idClana);
-		this.jmbClana = idClana==null ? null : new SimpleStringProperty(OpremaClanaDAO.SELECT_JMB_CLAN(idClana));
-		this.imeClana = idClana==null ? null : new SimpleStringProperty(OpremaClanaDAO.SELECT_IME_CLAN(idClana));
-		this.prezimeClana = idClana==null ? null : new SimpleStringProperty(OpremaClanaDAO.SELECT_PREZIME_CLAN(idClana));
-		this.aktivan = idClana==null ? null : new SimpleBooleanProperty(OpremaClanaDAO.SELECT_AKTIVAN_CLAN(idClana));
+		this.clan = idClana==null ? null : ClanDAO.getById(idClana);
+		this.jmbClana = idClana==null ? null : new SimpleStringProperty(clan.getJmb());
+		this.imeClana = idClana==null ? null : new SimpleStringProperty(clan.getIme());
+		this.prezimeClana = idClana==null ? null : new SimpleStringProperty(clan.getPrezime());
 	}
 
 	public String getVelicina() {
@@ -50,6 +52,22 @@ public class OpremaClanaDTO extends OpremaDTO{
 
 	public void setIdClana(Integer idClana) {
 		this.idClana.set(idClana);
+	}
+
+	public ClanDTO getClan() {
+		return clan;
+	}
+
+	public void setClan(ClanDTO clan) {
+		this.clan = clan;
+	}
+
+	public Boolean getAktivan() {
+		return aktivan.get();
+	}
+
+	public void setAktivan(Boolean aktivan) {
+		this.aktivan.set(aktivan);
 	}
 
 	public String getJmbClana() {

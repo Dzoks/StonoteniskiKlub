@@ -46,6 +46,6 @@
             <TableColumn fx:id="obradjeno" prefWidth="75.0" text="Obradjeno" />
         </columns>
       </TableView>
-      <Button fx:id="btnDodaj" layoutX="530.0" layoutY="520.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
+      <Button fx:id="btnDodaj" layoutX="530.0" layoutY="520.0" mnemonicParsing="false" onAction="#idiNaObradiOpremu" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
    </children>
 </AnchorPane>
