@@ -14,35 +14,35 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label id="lblKategorija" layoutX="175.0" layoutY="22.0" text="Muski/Zenski">
+      <Label id="lblKategorija" fx:id="lblKategorija" layoutX="175.0" layoutY="22.0" text="Muski/Zenski">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView layoutX="31.0" layoutY="62.0" prefHeight="350.0" prefWidth="450.0">
+      <TableView fx:id="tblIgraci" layoutX="31.0" layoutY="62.0" prefHeight="350.0" prefWidth="450.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Redni br." />
-          <TableColumn prefWidth="101.0" text="Ime" />
-            <TableColumn prefWidth="133.0" text="Prezime" />
-            <TableColumn prefWidth="145.0" text="JMBG" />
+          <TableColumn fx:id="clnRedniBroj" prefWidth="75.0" text="Redni br." />
+          <TableColumn fx:id="clnIme" prefWidth="101.0" text="Ime" />
+            <TableColumn fx:id="clnPrezime" prefWidth="133.0" text="Prezime" />
+            <TableColumn fx:id="clnJMBG" prefWidth="145.0" text="JMBG" />
         </columns>
       </TableView>
-      <Button id="btnPrijavi" layoutX="498.0" layoutY="62.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Prijavi">
+      <Button id="btnPrijavi" fx:id="btnPrijavi" layoutX="498.0" layoutY="62.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Prijavi">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button id="btnIzmjeni" layoutX="498.0" layoutY="117.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Izmjeni">
+      <Button id="btnIzmjeni" fx:id="btnIzmjeni" layoutX="498.0" layoutY="117.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Izmjeni">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button id="btnZrijeb" layoutX="498.0" layoutY="172.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Žrijeb">
+      <Button id="btnZrijeb" fx:id="btnZrijeb" layoutX="498.0" layoutY="172.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Žrijeb">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button id="btnNazad" layoutX="498.0" layoutY="366.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="81.0" text="Nazad">
+      <Button id="btnNazad" fx:id="btnNazad" layoutX="498.0" layoutY="366.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="81.0" text="Nazad">
          <font>
             <Font size="18.0" />
          </font>
