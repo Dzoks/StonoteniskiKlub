@@ -8,27 +8,26 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="300.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="application.gui.organizator.controller.DublPrijavaController">
+<AnchorPane prefHeight="300.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.DublPrijavaController">
    <children>
       <Label layoutX="24.0" layoutY="254.0" text="Kategorija:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label id="lblKategorija" layoutX="139.0" layoutY="254.0" text="Muski/Zenski">
+      <Label id="lblKategorija" fx:id="lblKategorija" layoutX="139.0" layoutY="254.0" text="Muski/Zenski">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button id="btnSacuvaj" layoutX="578.0" layoutY="248.0" mnemonicParsing="false" text="Sačuvaj">
+      <Button id="btnSacuvaj" fx:id="btnSacuvaj" layoutX="578.0" layoutY="248.0" mnemonicParsing="false" text="Sačuvaj">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
       <Pane layoutX="24.0" layoutY="57.0" prefHeight="173.0" prefWidth="295.0" style="-fx-border-color: black;">
          <children>
-            <TextField id="txtIme1" layoutX="85.0" layoutY="16.0" prefHeight="25.0" prefWidth="185.0" />
+            <TextField id="txtIme1" fx:id="txtIme1" layoutX="85.0" layoutY="16.0" prefHeight="25.0" prefWidth="185.0" />
             <Label layoutX="14.0" layoutY="15.0" text="Ime">
                <font>
                   <Font size="18.0" />
@@ -39,24 +38,24 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField id="txtPrezime1" layoutX="85.0" layoutY="51.0" prefHeight="25.0" prefWidth="185.0" />
+            <TextField id="txtPrezime1" fx:id="txtPrezime1" layoutX="85.0" layoutY="51.0" prefHeight="25.0" prefWidth="185.0" />
             <Label layoutX="21.0" layoutY="87.0" text="JMBG">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField id="txtJmbg1" layoutX="85.0" layoutY="88.0" prefHeight="25.0" prefWidth="185.0" />
+            <TextField id="txtJmbg1" fx:id="txtJmbg1" layoutX="85.0" layoutY="88.0" prefHeight="25.0" prefWidth="185.0" />
             <Label layoutX="15.0" layoutY="128.0" text="Datum rođenja">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <DatePicker id="dpDatumRodjenja1" layoutX="142.0" layoutY="129.0" prefHeight="25.0" prefWidth="130.0" />
+            <DatePicker id="dpDatumRodjenja1" fx:id="dpDatumRodjenja1" layoutX="142.0" layoutY="129.0" prefHeight="25.0" prefWidth="130.0" />
          </children>
       </Pane>
       <Pane layoutX="367.0" layoutY="57.0" prefHeight="173.0" prefWidth="295.0" style="-fx-border-color: black;">
          <children>
-            <TextField id="txtIme2" layoutX="85.0" layoutY="16.0" prefHeight="25.0" prefWidth="185.0" />
+            <TextField id="txtIme2" fx:id="txtIme2" layoutX="85.0" layoutY="16.0" prefHeight="25.0" prefWidth="185.0" />
             <Label layoutX="14.0" layoutY="15.0" text="Ime">
                <font>
                   <Font size="18.0" />
@@ -67,19 +66,19 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField id="txtPrezime2" layoutX="85.0" layoutY="51.0" prefHeight="25.0" prefWidth="185.0" />
+            <TextField id="txtPrezime2" fx:id="txtPrezime2" layoutX="85.0" layoutY="51.0" prefHeight="25.0" prefWidth="185.0" />
             <Label layoutX="21.0" layoutY="87.0" text="JMBG">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField id="txtJmbg2" layoutX="85.0" layoutY="88.0" prefHeight="25.0" prefWidth="185.0" />
+            <TextField id="txtJmbg2" fx:id="txtJmbg2" layoutX="85.0" layoutY="88.0" prefHeight="25.0" prefWidth="185.0" />
             <Label layoutX="15.0" layoutY="128.0" text="Datum rođenja">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <DatePicker id="dpDatumRodjenja2" layoutX="142.0" layoutY="129.0" prefHeight="25.0" prefWidth="130.0" />
+            <DatePicker id="dpDatumRodjenja2" fx:id="dpDatumRodjenja2" layoutX="142.0" layoutY="129.0" prefHeight="25.0" prefWidth="130.0" />
          </children>
       </Pane>
       <Label layoutX="24.0" layoutY="22.0" text="Prvi igrač">
