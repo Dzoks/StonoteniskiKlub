@@ -101,7 +101,13 @@ public class DodajOpremuProzorController extends BaseController implements Initi
 		
 		ObservableList<NarudzbaDTO> listaNarudzbi = NarudzbaDAO.SELECT_OBRADJENE();
 		comboBoxNarudzba.setItems(listaNarudzbi);
-		comboBoxNarudzba.getSelectionModel().selectFirst();
+		comboBoxNarudzba.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<NarudzbaDTO>() {
+
+			@Override
+			public void changed(ObservableValue<? extends NarudzbaDTO> observable, NarudzbaDTO oldValue, NarudzbaDTO newValue) {
+				ObservableList<NarudzbaStavkaDTO> listaStavki = newValue.getListaStavki();
+			}
+		});
 		
 	}
 	
