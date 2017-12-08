@@ -10,12 +10,11 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="945.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
+<AnchorPane prefHeight="400.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="311.0" layoutY="18.0" text="Filtriraj po" />
-      <ComboBox fx:id="cbFilter" layoutX="375.0" layoutY="14.0" prefWidth="150.0" />
-      <TextField fx:id="txtFilter" layoutX="536.0" layoutY="14.0" prefHeight="25.0" prefWidth="258.0" />
+      <ComboBox fx:id="cbFilter" layoutX="375.0" layoutY="14.0" prefWidth="145.0" />
+      <TextField fx:id="txtFilter" layoutX="536.0" layoutY="14.0" prefHeight="25.0" prefWidth="250.0" />
       <TableView layoutX="14.0" layoutY="52.0" prefHeight="299.0" prefWidth="912.0">
          <columns>
             <TableColumn prefWidth="51.0" text="Id" />
@@ -31,7 +30,7 @@
             <TableColumn prefWidth="50.0" text="Aktivan" />
          </columns>
       </TableView>
-      <Button fx:id="btnFiltriraj" layoutX="800.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Filtriraj" />
+      <Button fx:id="btnFiltriraj" layoutX="800.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Filtriraj" />
       <Button fx:id="btnAzuriraj" layoutX="869.0" layoutY="361.0" mnemonicParsing="false" text="Azuriraj" />
       <Button layoutX="794.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Ukloni" />
       <RadioButton layoutX="14.0" layoutY="18.0" mnemonicParsing="false" selected="true" text="Zaposleni">
