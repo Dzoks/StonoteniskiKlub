@@ -152,14 +152,14 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 		File slika = fileChoser.showOpenDialog(primaryStage);
 		if(slika != null) {
 			ivSlika.setImage(new Image(slika.toURI().toString()));
-			slikaOdabrana = true;
+			slikaPromijenjena = true;
 			fotografija = slika;
 		}
 	}
 	
 	public void obrisiFotografiju() {
 		ivSlika.setImage(new Image(getClass().getResourceAsStream("/resources/avatar.png")));
-		slikaOdabrana = false;
+		slikaPromijenjena = true;
 		fotografija = null;
 	}
 	
@@ -210,11 +210,13 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 		clan.setDatumRodjenja(datumRodjenja);
 		clan.setJmb(jmb);
 		clan.setPol(pol);
-		try {
-			clan.setSlika(convertImageToBlob());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(slikaPromijenjena) {
+			try {
+				clan.setSlika(convertImageToBlob());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		OsobaDAO.insertTelefon(clan);
@@ -296,7 +298,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 	}
 	
 	private ObservableList<String> listaTelefona;
-	private boolean slikaOdabrana = false;
+	private boolean slikaPromijenjena = false;
 	private File fotografija;
 }
 

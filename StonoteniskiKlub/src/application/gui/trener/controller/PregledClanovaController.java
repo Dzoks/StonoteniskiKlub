@@ -2,10 +2,17 @@ package application.gui.trener.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
+import application.model.dao.OsobaDAO;
 import application.model.dto.ClanDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,12 +21,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -57,6 +68,27 @@ public class PregledClanovaController extends BaseController implements Initiali
     @FXML
     private TextField txtPrezime;
     
+    @FXML
+    private ImageView ivFotografija;
+
+    @FXML
+    private Label lblIme;
+
+    @FXML
+    private Label lblPrezime;
+
+    @FXML
+    private Label lblImeRoditelja;
+
+    @FXML
+    private ListView<String> lvListaTelefona;
+
+    @FXML
+    private Label lblPol;
+
+    @FXML
+    private Label lblDatumRodjenja;
+    
     
 
 	@Override
@@ -79,6 +111,8 @@ public class PregledClanovaController extends BaseController implements Initiali
 		listaClanova = FXCollections.observableArrayList();
 		listaClanova.addAll(ClanDAO.selectAll());
 		twTabela.setItems(listaClanova);
+		
+		ivFotografija.setImage(new Image(getClass().getResourceAsStream("/resources/avatar.png")));
 	}
 	
 	public void idiNaPregledOpreme() {
@@ -167,6 +201,67 @@ public class PregledClanovaController extends BaseController implements Initiali
 			stage.show();
 			
 		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void izvrsiIsclanjivanje() {
+//		provjriti da li je AKTIVAN, ako nije ERROR
+		
+//		provjeriti da li je uplatio sve clanarine do tad, ako nije ERROR
+		
+//		ako je sve u redu:
+//			* resetovati AKTIVAN
+//			* setovati DATUM_DO u clanstvu na trenutni datum
+	}
+	
+	public void pretragaClanova () {
+		String ime = txtIme.getText();
+		String prezime = txtPrezime.getText();
+		
+		if("".equals(ime) && "".equals(prezime)) {
+			listaClanova = FXCollections.observableArrayList();
+			listaClanova.addAll(ClanDAO.selectAll());
+			twTabela.setItems(listaClanova);
+			return;
+		}
+		
+		listaClanova = FXCollections.observableArrayList();
+		listaClanova.addAll(ClanDAO.selectAllByImePrezime(ime, prezime));
+		twTabela.setItems(listaClanova);
+		return;
+	}
+	
+	public void prikaziDetaljeOClanu() {
+		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
+		
+		lblIme.setText(clan.getIme());
+		lblPrezime.setText(clan.getPrezime());
+		lblImeRoditelja.setText(clan.getImeRoditelja().equals("")?"---":clan.getImeRoditelja());
+		lvListaTelefona.setItems(FXCollections.observableArrayList(clan.getTelefoni()));
+		lblPol.setText(clan.getPol().equals('M')?"Muški":"Ženski");
+//		lblDatumRodjenja.setText(clan.getDatumRodjenja().toString());
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		formatter = formatter.withLocale( Locale.US );  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
+		LocalDate date = null;
+		try {
+			date = LocalDate.parse(clan.getDatumRodjenja().toString(), formatter);
+		}catch(DateTimeParseException e) {
+			date = clan.getDatumRodjenja().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		}
+		
+		lblDatumRodjenja.setText(date.toString());
+		
+		try {
+			java.sql.Blob blob = clan.getSlika();
+			if(blob != null) {
+				ivFotografija.setImage(new Image(blob.getBinaryStream()));
+			}
+			else {
+				ivFotografija.setImage(new Image(getClass().getResourceAsStream("/resources/avatar.png")));
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

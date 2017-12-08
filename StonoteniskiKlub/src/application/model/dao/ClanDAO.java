@@ -17,6 +17,46 @@ public class ClanDAO {
 	private final static String SQL_INSERT = "INSERT INTO CLAN VALUES (?, ?, ?)";
 	private final static String SQL_SELECT_ALL = "SELECT * FROM CLAN c INNER JOIN OSOBA o ON c.OSOBA_ID = o.ID";
 	
+	
+	public static List<ClanDTO> selectAllByImePrezime(String ime, String prezime) {
+		ArrayList<ClanDTO> list = new ArrayList<>();
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_SELECT_ALL + " WHERE ";
+			if(!"".equals(ime)) {
+			 query += "o.IME LIKE '%"+ime+"%'";
+			 if(!"".equals(prezime))
+				 query += " AND o.PREZIME LIKE '%"+prezime+"%'";
+			}
+			else {
+				query += "o.PREZIME LIKE '%"+prezime+"%'";
+			}
+			
+			Object pom[] = { };
+			
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				ClanDTO clan = new ClanDTO(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"), rs.getString("ImeRoditelja"), 
+						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"), rs.getBlob("Fotografija"), null,
+						rs.getBoolean("Aktivan"), rs.getBoolean("Registrovan"));
+				list.add(clan);
+				clan.setTelefoni(OsobaDAO.getTelefoni(clan.getId()));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(rs, ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+
+		return list;
+	}
+	
 	public static ClanDTO getById(int id) {
 		ClanDTO clan = null;
 		Connection c = null;
