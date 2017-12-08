@@ -2,11 +2,10 @@ package application.model.dto;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import application.model.dao.DistributerOpremeDAO;
+import application.model.dao.NarudzbaStavkaDAO;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -43,7 +42,7 @@ public class NarudzbaDTO {
 		this.idDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleIntegerProperty(idDistributeraOpreme);
 		this.nazivDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleStringProperty(DistributerOpremeDAO.SELECT_BY_ID(idDistributeraOpreme));
 		this.obradjeno = obradjeno==null ? null : new SimpleBooleanProperty(obradjeno);
-		listaStavki = FXCollections.observableArrayList();
+		listaStavki = id==null ? FXCollections.observableArrayList() : NarudzbaStavkaDAO.SELECT_BY_IDNARUDZBE(id);
 	}
 	
 	public NarudzbaDTO(Integer id, Date datum, Boolean opremaKluba, Boolean obradjeno, Integer idDistributeraOpreme, ObservableList<NarudzbaStavkaDTO> listaStavki) {

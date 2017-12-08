@@ -4,10 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import application.model.dto.NarudzbaStavkaDTO;
-import application.model.dto.OpremaTipDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +15,7 @@ public class NarudzbaStavkaDAO {
 	private static final String SQL_SELECT_BY_IDNARUDZBE = "SELECT * FROM narudzba_stavka WHERE NARUDZBA_Id=?";
 	private static final String SQL_INSERT = "INSERT INTO narudzba_stavka VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String SQL_DELETE = "DELETE FROM narudzba_stavka WHERE NARUDZBA_Id=? AND OPREMA_TIP_Id=? AND Velicina=?";
+	private final static String SQL_UPDATE_OBRADJENO = "UPDATE narudzba_stavka SET Obradjeno=true WHERE NARUDZBA_Id=? AND OPREMA_TIP_Id=? AND Velicina=?";
 	
 	public static ObservableList<NarudzbaStavkaDTO> SELECT_BY_IDNARUDZBE(Integer id) {
 		Connection c = null;
@@ -66,6 +65,22 @@ public class NarudzbaStavkaDAO {
 			c = ConnectionPool.getInstance().checkOut();
 			ps = ConnectionPool.prepareStatement(c, SQL_DELETE, false, narudzbaStavka.getIdNarudzbe() , narudzbaStavka.getIdTipaOpreme(), narudzbaStavka.getVelicina());
 			ps.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.getInstance().checkIn(c);
+			ConnectionPool.close(ps);
+		}
+	}
+	
+	public static void UPDATE_OBRADJENO(NarudzbaStavkaDTO stavkaNarudzbe) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_OBRADJENO, false, stavkaNarudzbe.getIdNarudzbe(), stavkaNarudzbe.getIdTipaOpreme(), stavkaNarudzbe.getVelicina());
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

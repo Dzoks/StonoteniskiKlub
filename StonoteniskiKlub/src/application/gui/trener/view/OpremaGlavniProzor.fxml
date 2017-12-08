@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
 <AnchorPane prefHeight="484.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.OpremaGlavniProzorController">
    <children>
@@ -24,8 +28,22 @@
                               <TableColumn fx:id="doniranaKlub" prefWidth="151.0" text="Donirana" />
                           </columns>
                         </TableView>
-                        <Button fx:id="btnPretraziOpremaKluba" layoutX="532.0" layoutY="333.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="214.0" text="Pretrazi" />
+                        <Button fx:id="btnPretraziOpremaKluba" layoutX="532.0" layoutY="333.0" mnemonicParsing="false" onAction="#pretragaKlub" prefHeight="42.0" prefWidth="214.0" text="Pretrazi" />
                         <Button fx:id="btnDodajOpremaKluba" layoutX="532.0" layoutY="399.0" mnemonicParsing="false" onAction="#idiNaDodajOpremuKluba" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
+                        <Pane layoutX="14.0" layoutY="301.0" prefHeight="141.0" prefWidth="398.0" style="-fx-border-color: grey; -fx-border-width: 2;">
+                           <children>
+                              <RadioButton fx:id="rdbtnAktivna" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" text="Aktivna" />
+                              <RadioButton fx:id="rdbtnNeaktivna" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" text="Neaktivna" />
+                              <RadioButton fx:id="rdbtnSva" layoutX="14.0" layoutY="89.0" mnemonicParsing="false" text="Sva" />
+                              <Separator layoutX="118.0" layoutY="12.0" orientation="VERTICAL" prefHeight="118.0" prefWidth="21.0" />
+                              <RadioButton fx:id="rdbtnTipKlub" layoutX="144.0" layoutY="21.0" mnemonicParsing="false" text="Tip" />
+                              <RadioButton fx:id="rdbtnProizvodjacKlub" layoutX="144.0" layoutY="55.0" mnemonicParsing="false" text="Proizvodjac" />
+                              <RadioButton fx:id="rdbtnModelKlub" layoutX="144.0" layoutY="89.0" mnemonicParsing="false" text="Model" />
+                              <TextField fx:id="txtTipKlub" layoutX="248.0" layoutY="17.0" prefHeight="25.0" prefWidth="129.0" />
+                              <TextField fx:id="txtProizvodjacKlub" layoutX="248.0" layoutY="51.0" prefHeight="25.0" prefWidth="129.0" />
+                              <TextField fx:id="txtModelKlub" layoutX="248.0" layoutY="85.0" prefHeight="25.0" prefWidth="129.0" />
+                           </children>
+                        </Pane>
                      </children>
                   </AnchorPane>
             </content>
@@ -46,8 +64,24 @@
                               <TableColumn fx:id="doniranaClan" prefWidth="93.0" text="Donirana" />
                           </columns>
                         </TableView>
-                        <Button fx:id="btnPretraziOpremaClanova" layoutX="532.0" layoutY="333.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="214.0" text="Pretrazi" />
+                        <Button fx:id="btnPretraziOpremaClanova" layoutX="532.0" layoutY="333.0" mnemonicParsing="false" onAction="#pretragaClan" prefHeight="42.0" prefWidth="214.0" text="Pretrazi" />
                         <Button fx:id="btnDodajOpremaClanova" layoutX="532.0" layoutY="399.0" mnemonicParsing="false" onAction="#idiNaDodajOpremuClana" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
+                        <Pane layoutX="14.0" layoutY="301.0" prefHeight="141.0" prefWidth="471.0" style="-fx-border-color: grey; -fx-border-width: 2;">
+                           <children>
+                              <RadioButton fx:id="rdbtnTipClan" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" text="Tip" />
+                              <RadioButton fx:id="rdbtnProizvodjacClan" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" text="Proizvodjac" />
+                              <RadioButton fx:id="rdbtnModelClan" layoutX="14.0" layoutY="89.0" mnemonicParsing="false" text="Model" />
+                              <RadioButton fx:id="rdbtnJmb" layoutX="246.0" layoutY="21.0" mnemonicParsing="false" text="JMB" />
+                              <RadioButton fx:id="rdbtnIme" layoutX="246.0" layoutY="55.0" mnemonicParsing="false" text="Ime" />
+                              <RadioButton fx:id="rdbtnPrezime" layoutX="246.0" layoutY="89.0" mnemonicParsing="false" text="Prezime" />
+                              <TextField fx:id="txtProizvodjacClan" layoutX="102.0" layoutY="51.0" prefHeight="25.0" prefWidth="129.0" />
+                              <TextField fx:id="txtTipClan" layoutX="102.0" layoutY="17.0" prefHeight="25.0" prefWidth="129.0" />
+                              <TextField fx:id="txtModelClan" layoutX="102.0" layoutY="85.0" prefHeight="25.0" prefWidth="129.0" />
+                              <TextField fx:id="txtPrezime" layoutX="318.0" layoutY="85.0" prefHeight="25.0" prefWidth="129.0" />
+                              <TextField fx:id="txtIme" layoutX="318.0" layoutY="51.0" prefHeight="25.0" prefWidth="129.0" />
+                              <TextField fx:id="txtJmb" layoutX="318.0" layoutY="17.0" prefHeight="25.0" prefWidth="129.0" />
+                           </children>
+                        </Pane>
                      </children>
                   </AnchorPane>
             </content>

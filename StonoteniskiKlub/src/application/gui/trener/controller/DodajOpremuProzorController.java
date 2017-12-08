@@ -2,35 +2,35 @@ package application.gui.trener.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.gui.sekretar.controller.DodajNarudzbuProzorController;
-import application.model.dao.ClanDAO;
-import application.model.dao.DistributerOpremeDAO;
 import application.model.dao.NarudzbaDAO;
 import application.model.dao.OpremaClanaDAO;
 import application.model.dao.OpremaTipDAO;
 import application.model.dto.ClanDTO;
-import application.model.dto.DistributerOpremeDTO;
 import application.model.dto.NarudzbaDTO;
 import application.model.dto.NarudzbaStavkaDTO;
 import application.model.dto.OpremaTipDTO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -126,11 +126,12 @@ public class DodajOpremuProzorController extends BaseController implements Initi
 
 			@Override
 			public void changed(ObservableValue<? extends NarudzbaDTO> observable, NarudzbaDTO oldValue, NarudzbaDTO newValue) {
-				ObservableList<NarudzbaStavkaDTO> listaStavkiNarudzbe = newValue.getListaStavki();
-				popuniTabelu(listaStavkiNarudzbe);
+				if(newValue != null) {
+					ObservableList<NarudzbaStavkaDTO> listaStavkiNarudzbe = newValue.getListaStavki();
+					popuniTabelu(listaStavkiNarudzbe);
+				}
 			}
 		});
-		
 	}
 	
 	public void checkBoxSelektovan() {
@@ -166,11 +167,16 @@ public class DodajOpremuProzorController extends BaseController implements Initi
 	
 	public void disableDodajDugme() {
 		if(checkBoxDonirana.isSelected()) {
-			
+			if(opremaKluba) {
+				btnDodaj.disableProperty().bind(txtOpis.textProperty().isEmpty());
+			}
+			else {
+				btnDodaj.disableProperty().bind(txtVelicina.textProperty().isEmpty());
+			}
 		}
 		else {
 			tblNarudzbe.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			    if (newSelection != null) {
+			    if (newSelection != null && !newSelection.getObradjeno()) {
 			        btnDodaj.setDisable(false);
 			    }
 			    else {
@@ -217,11 +223,31 @@ public class DodajOpremuProzorController extends BaseController implements Initi
 				controller.setOpremaKluba();
 				controller.disableParametre();
 			}
+			if(checkBoxDonirana.isSelected()) {
+				controller.setDonirana();
+				//controller.setIdDonacije(idDonacije);
+			}
 			
 			controller.setStavkaNarudzbe(tblNarudzbe.getSelectionModel().selectedItemProperty().get());
 			controller.postaviSpiner();
-			
+			controller.disableDugmeEvidentiraj();
+			noviStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		          public void handle(WindowEvent we) {
+		        	  we.consume();
+		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da zapamtite dodavanje?", ButtonType.YES, ButtonType.NO);
+		              Optional<ButtonType> rezultat = alert.showAndWait();
+		              if(ButtonType.YES.equals(rezultat.get())) {
+		            	  if(controller.ubaciUBazu()) {
+		            		  noviStage.close();
+		            	  }
+		              }
+		              else if(ButtonType.NO.equals(rezultat.get())) {
+		            	  noviStage.close();
+		              }
+		          }});
 			noviStage.showAndWait();
+			ucitajComboBoxeve();
+			tblNarudzbe.setItems(null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

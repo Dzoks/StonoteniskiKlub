@@ -13,9 +13,9 @@ public class OpremaDTO {
 	protected IntegerProperty id;
 	protected IntegerProperty idNarudzbe;
 	protected IntegerProperty idTipaOpreme;
-	private StringProperty tipOpreme;
-	private StringProperty tipProizvodjac;
-	private StringProperty tipModel;
+	protected StringProperty tipOpreme;
+	protected StringProperty tipProizvodjac;
+	protected StringProperty tipModel;
 	protected IntegerProperty idDonacije;
 	protected BooleanProperty donirana;
 	
@@ -44,7 +44,12 @@ public class OpremaDTO {
 	}
 
 	public Integer getIdNarudzbe() {
-		return idNarudzbe.get();
+		if(idNarudzbe == null) {
+			return null;
+		}
+		else {
+			return idNarudzbe.get();
+		}
 	}
 
 	public void setIdNarudzbe(Integer idNarudzbe) {
@@ -60,7 +65,12 @@ public class OpremaDTO {
 	}
 
 	public Integer getIdDonacije() {
-		return idDonacije.get();
+		if(idDonacije == null) {
+			return null;
+		}
+		else {
+			return idDonacije.get();
+		}
 	}
 
 	public void setIdDonacije(Integer idDonacije) {

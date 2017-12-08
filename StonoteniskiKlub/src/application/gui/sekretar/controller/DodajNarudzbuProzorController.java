@@ -143,7 +143,10 @@ public class DodajNarudzbuProzorController extends BaseController implements Ini
 	    obrisiStavku.setOnAction(new EventHandler<ActionEvent>() {
 	        @Override
 	        public void handle(ActionEvent t) {
-	            NarudzbaStavkaDTO selektovanaNarudzba = listaStavkiNarudzbe.get(tblNarudzbe.getSelectionModel().getSelectedIndex());
+	        	NarudzbaStavkaDTO selektovanaNarudzba = null;
+	        	if(!listaStavkiNarudzbe.isEmpty()) {
+	        		selektovanaNarudzba = listaStavkiNarudzbe.get(tblNarudzbe.getSelectionModel().getSelectedIndex());	        		
+	        	}
 	            if (selektovanaNarudzba != null){ 
 	            	listaStavkiNarudzbe.remove(tblNarudzbe.getSelectionModel().getSelectedIndex());
 	            	NarudzbaStavkaDAO.DELETE(selektovanaNarudzba);

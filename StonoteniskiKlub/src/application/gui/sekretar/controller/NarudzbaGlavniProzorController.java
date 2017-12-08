@@ -16,7 +16,6 @@ import application.model.dao.DistributerOpremeDAO;
 import application.model.dao.NarudzbaDAO;
 import application.model.dto.DistributerOpremeDTO;
 import application.model.dto.NarudzbaDTO;
-import application.model.dto.NarudzbaStavkaDTO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,11 +29,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DialogEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -72,10 +71,6 @@ public class NarudzbaGlavniProzorController extends BaseController implements In
 		ucitajComboBoxeve();
 	}
 	
-	public void disableDugmeIzmjeni() {
-		btnIzmjeni.disableProperty().bind(tblNarudzbe.getSelectionModel().getSelectedItem().obradjenoProperty().not());
-	}
-	
 	public void popuniTabelu() {
 		id.setCellValueFactory(new PropertyValueFactory<NarudzbaDTO, Integer>("id"));
 		datum.setCellValueFactory(new PropertyValueFactory<NarudzbaDTO, Date>("datum"));
@@ -91,7 +86,7 @@ public class NarudzbaGlavniProzorController extends BaseController implements In
 			@Override
 			public void changed(ObservableValue<? extends NarudzbaDTO> observable, NarudzbaDTO oldValue,NarudzbaDTO newValue) {
 				if (tblNarudzbe.getSelectionModel().getSelectedItem()!=null) {
-					if(tblNarudzbe.getSelectionModel().getSelectedItem().getObradjeno()) {
+					if(NarudzbaDAO.PROVJERA_STATUSA(tblNarudzbe.getSelectionModel().getSelectedItem().getId())) {
 						btnIzmjeni.setDisable(true);
 					}
 					else {
@@ -103,7 +98,15 @@ public class NarudzbaGlavniProzorController extends BaseController implements In
 				}
 			}
 		});
-
+		
+		tblNarudzbe.setOnMousePressed(new EventHandler<MouseEvent>() {
+		    @Override 
+		    public void handle(MouseEvent event) {
+		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+		            idiNaPregledNarudzbe(tblNarudzbe.getSelectionModel().getSelectedItem());                 
+		        }
+		    }
+		});
 	}
 	
 	public void ucitajComboBoxeve() {
@@ -240,6 +243,26 @@ public class NarudzbaGlavniProzorController extends BaseController implements In
 				ucitajComboBoxeve();
 				comboBoxDistributer.getSelectionModel().selectLast();
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void idiNaPregledNarudzbe(NarudzbaDTO narudzba) {
+		Stage noviStage = new Stage();
+		
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/sekretar/view/PregledNarudzbeProzor.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root,761,384);
+			PregledNarudzbeProzorController controller = loader.<PregledNarudzbeProzorController>getController();
+			controller.setPrimaryStage(noviStage);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			controller.setNarudzba(narudzba);
+			controller.popuniPodatke();
+			noviStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
