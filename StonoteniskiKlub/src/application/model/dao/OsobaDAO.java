@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.model.dto.OsobaDTO;
+import application.model.dto.Osoba;
 import application.util.ConnectionPool;
 
 public class OsobaDAO {
@@ -18,8 +18,8 @@ public class OsobaDAO {
 	private static final String SQL_INSERT_TELEFON = "INSERT INTO TELEFON VALUES (?, ?, ?, ?)";
 	private static final String SQL_SELECT_IDENTITY = "SELECT @@IDENTITY";
 
-	public static OsobaDTO getByJmb(String jmb) {
-		OsobaDTO osoba = null;
+	public static Osoba getByJmb(String jmb) {
+		Osoba osoba = null;
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -32,7 +32,7 @@ public class OsobaDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			rs = ps.executeQuery();
 			while (rs.next())
-				osoba = new OsobaDTO(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"),
+				osoba = new Osoba(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"),
 						rs.getString("ImeRoditelja"), rs.getString("JMB"), rs.getString("Pol").charAt(0),
 						rs.getDate("DatumRodjenja"), rs.getBlob("Fotografija"), null);
 			if(osoba != null)
@@ -72,7 +72,7 @@ public class OsobaDAO {
 		return retVal;
 	}
 
-	public static void insert(OsobaDTO osoba) {
+	public static void insert(Osoba osoba) {
 		PreparedStatement ps = null;
 		Connection c = null;
 
@@ -100,12 +100,12 @@ public class OsobaDAO {
 		}
 	}
 	
-	public static void insertSaTelefonom(OsobaDTO osoba) {
+	public static void insertSaTelefonom(Osoba osoba) {
 		insert(osoba);
 		insertTelefon(osoba);
 	}
 	
-	public static void insertTelefon(OsobaDTO osoba) {
+	public static void insertTelefon(Osoba osoba) {
 		PreparedStatement ps = null;
 		Connection c = null;
 

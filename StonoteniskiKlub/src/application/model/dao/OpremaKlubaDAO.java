@@ -8,21 +8,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 
-import application.model.dto.OpremaKlubaDTO;
+import application.model.dto.OpremaKluba;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class OpremaKlubaDAO {
 
-	private static final String SQL_SELECT_ALL = "SELECT * FROM prikaz_opreme_kluba";
-	private static final String SQL_SELECT_AKTIVNOST = "SELECT * FROM prikaz_opreme_kluba WHERE Aktivan=?";
-	private static final String SQL_SELECT_BY = "SELECT  * FROM prikaz_opreme_kluba WHERE LOCATE(?, ";
-	private static final String SQL_INSERT = "{call dodaj_instance_opreme_kluba(?,?,?,?,?,?)}";
+	private static final String SQL_SELECT_ALL = "SELECT * FROM prikaz_opreme_kluba WHERE Obrisan=false";
+	private static final String SQL_SELECT_AKTIVNOST = "SELECT * FROM prikaz_opreme_kluba WHERE Obrisan=false AND Aktivan=?";
+	private static final String SQL_SELECT_BY = "SELECT  * FROM prikaz_opreme_kluba WHERE Obrisan=false AND LOCATE(?, ";
+	private static final String SQL_INSERT = "{call dodaj_instance_opreme_kluba(?,?,?,?,?,?,?)}";
 	private final static String SQL_UPDATE_AKTIVNOST = "UPDATE oprema_klub SET Aktivan=? WHERE OPREMA_Id=?";
+	private final static String SQL_UPDATE_OPIS = "UPDATE oprema_klub SET Opis=? WHERE OPREMA_Id=?";
 	
-	public static ObservableList<OpremaKlubaDTO> SELECT_ALL() {
-		ObservableList<OpremaKlubaDTO> listaOpreme = FXCollections.observableArrayList();
+	public static ObservableList<OpremaKluba> SELECT_ALL() {
+		ObservableList<OpremaKluba> listaOpreme = FXCollections.observableArrayList();
 		Connection c = null;
 		Statement s = null;
 		ResultSet rs = null;
@@ -33,7 +34,7 @@ public class OpremaKlubaDAO {
 			rs = s.executeQuery(SQL_SELECT_ALL);
 			
 			while(rs.next()) {
-				listaOpreme.add(new OpremaKlubaDTO(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Opis"), rs.getBoolean("Aktivan")));
+				listaOpreme.add(new OpremaKluba(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getString("Opis"), rs.getBoolean("Aktivan")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -45,8 +46,8 @@ public class OpremaKlubaDAO {
 		return listaOpreme;
 	}
 	
-	public static ObservableList<OpremaKlubaDTO> SELECT_AKTIVNOST(Boolean aktivan) {
-		ObservableList<OpremaKlubaDTO> listaOpreme = FXCollections.observableArrayList();
+	public static ObservableList<OpremaKluba> SELECT_AKTIVNOST(Boolean aktivan) {
+		ObservableList<OpremaKluba> listaOpreme = FXCollections.observableArrayList();
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -61,7 +62,7 @@ public class OpremaKlubaDAO {
 				rs = ps.executeQuery();
 				
 				while(rs.next()) {
-					listaOpreme.add(new OpremaKlubaDTO(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Opis"), rs.getBoolean("Aktivan")));
+					listaOpreme.add(new OpremaKluba(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getString("Opis"), rs.getBoolean("Aktivan")));
 				}
 			}
 		} catch (SQLException e) {
@@ -74,8 +75,8 @@ public class OpremaKlubaDAO {
 		return listaOpreme;
 	}
 	
-	public static ObservableList<OpremaKlubaDTO> SELECT_BY(Boolean aktivan, String tipPretrage, String rijec) {
-		ObservableList<OpremaKlubaDTO> listaOpreme = FXCollections.observableArrayList();
+	public static ObservableList<OpremaKluba> SELECT_BY(Boolean aktivan, String tipPretrage, String rijec) {
+		ObservableList<OpremaKluba> listaOpreme = FXCollections.observableArrayList();
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -93,7 +94,7 @@ public class OpremaKlubaDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				listaOpreme.add(new OpremaKlubaDTO(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Opis"), rs.getBoolean("Aktivan")));
+				listaOpreme.add(new OpremaKluba(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getString("Opis"), rs.getBoolean("Aktivan")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,7 +106,7 @@ public class OpremaKlubaDAO {
 		return listaOpreme;
 	}
 	
-	public static void INSERT(OpremaKlubaDTO oprema, Integer brojInstanci) {
+	public static void INSERT(OpremaKluba oprema, Integer brojInstanci) {
 		Connection c = null;
 		CallableStatement cs = null;
 		
@@ -129,6 +130,7 @@ public class OpremaKlubaDAO {
 				cs.setInt("inDonacijaId", oprema.getIdDonacije());
 			}
 			
+			cs.setString("inVelicina", oprema.getVelicina());
 			cs.setString("inOpis", oprema.getOpis());
 			cs.executeQuery();
 		}catch (SQLException e) {
@@ -139,13 +141,29 @@ public class OpremaKlubaDAO {
 		}
 	}
 	
-	public static void UPDATE(OpremaKlubaDTO oprema, Boolean aktivan) {
+	public static void UPDATE_AKTIVNOST(OpremaKluba oprema, Boolean aktivan) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_AKTIVNOST, false, aktivan, oprema.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.getInstance().checkIn(c);
+			ConnectionPool.close(ps);
+		}
+	}
+	
+	public static void UPDATE_OPIS(OpremaKluba oprema, String opis) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_OPIS, false, opis, oprema.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import application.model.dto.ClanDTO;
+import application.model.dto.Clan;
 import application.util.ConnectionPool;
 
 public class ClanDAO {
@@ -14,8 +14,8 @@ public class ClanDAO {
 	private final static String SQL_UPDATE_AKTIVAN = "UPDATE CLAN SET Aktivan=? WHERE OSOBA_Id=?";
 	private final static String SQL_INSERT = "INSERT INTO CLAN VALUES (?, ?, ?)";
 	
-	public static ClanDTO getById(int id) {
-		ClanDTO clan = null;
+	public static Clan getById(int id) {
+		Clan clan = null;
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -28,7 +28,7 @@ public class ClanDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			rs = ps.executeQuery();
 			while (rs.next())
-				clan = new ClanDTO(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"), rs.getString("ImeRoditelja"), 
+				clan = new Clan(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"), rs.getString("ImeRoditelja"), 
 						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"), rs.getBlob("Fotografija"), null,
 						rs.getBoolean("Aktivan"), rs.getBoolean("Registrovan"));
 		} catch (SQLException e) {
@@ -61,7 +61,7 @@ public class ClanDAO {
 		}
 	}
 	
-	public static void insert(ClanDTO clan) {
+	public static void insert(Clan clan) {
 		PreparedStatement ps = null;
 		Connection c = null;
 		
@@ -81,7 +81,7 @@ public class ClanDAO {
 		}
 	}
 	
-	public static void insertAll(ClanDTO clan) {
+	public static void insertAll(Clan clan) {
 		OsobaDAO.insertSaTelefonom(clan);
 		insert(clan);
 	}

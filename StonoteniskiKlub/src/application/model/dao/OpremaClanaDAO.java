@@ -8,21 +8,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 
-import application.model.dto.ClanDTO;
-import application.model.dto.OpremaClanaDTO;
+import application.model.dto.Clan;
+import application.model.dto.OpremaClana;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class OpremaClanaDAO {
 
-	private static final String SQL_SELECT_ALL = "SELECT * FROM prikaz_opreme_clana";
+	private static final String SQL_SELECT_ALL = "SELECT * FROM prikaz_opreme_clana WHERE Obrisan=false";
 	private static final String SQL_SELECT_AKTIVNE = "SELECT * FROM prikaz_clana WHERE Aktivan=true";
-	private static final String SQL_SELECT_BY = "SELECT  * FROM prikaz_opreme_clana WHERE LOCATE(?, ";
+	private static final String SQL_SELECT_BY = "SELECT  * FROM prikaz_opreme_clana WHERE Obrisan=false AND LOCATE(?, ";
 	private static final String SQL_INSERT = "{call dodaj_opremu_clana(?,?,?,?,?,?)}";
 	
-	public static ObservableList<OpremaClanaDTO> SELECT_ALL() {
-		ObservableList<OpremaClanaDTO> listaOpreme = FXCollections.observableArrayList();
+	public static ObservableList<OpremaClana> SELECT_ALL() {
+		ObservableList<OpremaClana> listaOpreme = FXCollections.observableArrayList();
 		Connection c = null;
 		Statement s = null;
 		ResultSet rs = null;
@@ -33,7 +33,7 @@ public class OpremaClanaDAO {
 			rs = s.executeQuery(SQL_SELECT_ALL);
 			
 			while(rs.next()) {
-				listaOpreme.add(new OpremaClanaDTO(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getInt("CLAN_Id")));
+				listaOpreme.add(new OpremaClana(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getInt("CLAN_Id")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -45,8 +45,8 @@ public class OpremaClanaDAO {
 		return listaOpreme;
 	}
 	
-	public static ObservableList<ClanDTO> SELECT_AKTIVNE(){
-		ObservableList<ClanDTO> listClanova = FXCollections.observableArrayList();
+	public static ObservableList<Clan> SELECT_AKTIVNE(){
+		ObservableList<Clan> listClanova = FXCollections.observableArrayList();
 		Connection c = null;
 		Statement s = null;
 		ResultSet rs = null;
@@ -57,7 +57,7 @@ public class OpremaClanaDAO {
 			rs = s.executeQuery(SQL_SELECT_AKTIVNE);
 			
 			while(rs.next()) {
-				listClanova.add(new ClanDTO(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"), rs.getString("ImeRoditelja"), 
+				listClanova.add(new Clan(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"), rs.getString("ImeRoditelja"), 
 						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"), rs.getBlob("Fotografija"), null,
 						rs.getBoolean("Aktivan"), rs.getBoolean("Registrovan")));
 			}
@@ -71,8 +71,8 @@ public class OpremaClanaDAO {
 		return listClanova;
 	}
 	
-	public static ObservableList<OpremaClanaDTO> SELECT_BY(String tipPretrage, String rijec) {
-		ObservableList<OpremaClanaDTO> listaOpreme = FXCollections.observableArrayList();
+	public static ObservableList<OpremaClana> SELECT_BY(String tipPretrage, String rijec) {
+		ObservableList<OpremaClana> listaOpreme = FXCollections.observableArrayList();
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -85,7 +85,7 @@ public class OpremaClanaDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				listaOpreme.add(new OpremaClanaDTO(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getInt("CLAN_Id")));
+				listaOpreme.add(new OpremaClana(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getInt("CLAN_Id")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -97,7 +97,7 @@ public class OpremaClanaDAO {
 		return listaOpreme;
 	}
 	
-	public static void INSERT(OpremaClanaDTO oprema) {
+	public static void INSERT(OpremaClana oprema) {
 		Connection c = null;
 		CallableStatement cs = null;
 		

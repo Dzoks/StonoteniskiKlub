@@ -8,7 +8,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		BaseController.changeScene("/application/PocetniProzor.fxml", primaryStage);
+		BaseController.changeScene("/application/PocetniView.fxml", primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Rad sa opremom");
 		primaryStage.show();

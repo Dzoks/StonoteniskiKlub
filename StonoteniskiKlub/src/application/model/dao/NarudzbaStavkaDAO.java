@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import application.model.dto.NarudzbaStavkaDTO;
+import application.model.dto.NarudzbaStavka;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,11 +17,11 @@ public class NarudzbaStavkaDAO {
 	private static final String SQL_DELETE = "DELETE FROM narudzba_stavka WHERE NARUDZBA_Id=? AND OPREMA_TIP_Id=? AND Velicina=?";
 	private final static String SQL_UPDATE_OBRADJENO = "UPDATE narudzba_stavka SET Obradjeno=true WHERE NARUDZBA_Id=? AND OPREMA_TIP_Id=? AND Velicina=?";
 	
-	public static ObservableList<NarudzbaStavkaDTO> SELECT_BY_IDNARUDZBE(Integer id) {
+	public static ObservableList<NarudzbaStavka> SELECT_BY_IDNARUDZBE(Integer id) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ObservableList<NarudzbaStavkaDTO> listaStavkiNarudzbe = FXCollections.observableArrayList();
+		ObservableList<NarudzbaStavka> listaStavkiNarudzbe = FXCollections.observableArrayList();
 		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
@@ -29,7 +29,7 @@ public class NarudzbaStavkaDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				listaStavkiNarudzbe.add(new NarudzbaStavkaDTO(rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getString("Velicina"), rs.getInt("Kolicina"), rs.getDouble("Cijena"), rs.getBoolean("Obradjeno")));
+				listaStavkiNarudzbe.add(new NarudzbaStavka(rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getString("Velicina"), rs.getInt("Kolicina"), rs.getDouble("Cijena"), rs.getBoolean("Obradjeno")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -41,7 +41,7 @@ public class NarudzbaStavkaDAO {
 		return listaStavkiNarudzbe;
 	}
 	
-	public static void INSERT(NarudzbaStavkaDTO narudzbaStavka) {
+	public static void INSERT(NarudzbaStavka narudzbaStavka) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		
@@ -57,7 +57,7 @@ public class NarudzbaStavkaDAO {
 		}
 	}
 	
-	public static void DELETE(NarudzbaStavkaDTO narudzbaStavka) {
+	public static void DELETE(NarudzbaStavka narudzbaStavka) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		
@@ -73,7 +73,7 @@ public class NarudzbaStavkaDAO {
 		}
 	}
 	
-	public static void UPDATE_OBRADJENO(NarudzbaStavkaDTO stavkaNarudzbe) {
+	public static void UPDATE_OBRADJENO(NarudzbaStavka stavkaNarudzbe) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		
