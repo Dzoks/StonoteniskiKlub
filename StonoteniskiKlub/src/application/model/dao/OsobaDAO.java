@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import application.model.dto.OsobaDTO;
 import application.util.ConnectionPool;
 
@@ -18,6 +17,9 @@ public class OsobaDAO {
 	private static final String SQL_INSERT = "INSERT INTO OSOBA VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String SQL_INSERT_TELEFON = "INSERT INTO TELEFON VALUES (?, ?, ?, ?)";
 	private static final String SQL_SELECT_IDENTITY = "SELECT @@IDENTITY";
+	private static final String SQL_GET_ID_BY_TELEFON = "SELECT OSOBA_ID FROM TELEFON WHERE BROJTELEFONA=?";
+	private static final String SQL_DELETE_TELEFON = "DELETE FROM TELEFON WHERE OSOBA_ID=?";
+	private static final String SQL_UPDATE = "UPDATE OSOBA SET IME=?, PREZIME=?, IMERODITELJA=?, POL=?, JMB=?, DATUMRODJENJA=?, FOTOGRAFIJA=? WHERE ID=?";
 
 	public static OsobaDTO getByJmb(String jmb) {
 		OsobaDTO osoba = null;
@@ -36,7 +38,7 @@ public class OsobaDAO {
 				osoba = new OsobaDTO(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"),
 						rs.getString("ImeRoditelja"), rs.getString("JMB"), rs.getString("Pol").charAt(0),
 						rs.getDate("DatumRodjenja"), rs.getBlob("Fotografija"), null);
-			if(osoba != null)
+			if (osoba != null)
 				osoba.setTelefoni(getTelefoni(osoba.getId()));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -44,7 +46,7 @@ public class OsobaDAO {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
-		
+
 		return osoba;
 	}
 
@@ -73,6 +75,31 @@ public class OsobaDAO {
 		return retVal;
 	}
 
+	public static int getIdByTelefon(String telefon) {
+		int id = 0;
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_GET_ID_BY_TELEFON;
+			Object pom[] = { telefon };
+
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			rs = ps.executeQuery();
+			while (rs.next())
+				id = rs.getInt("OSOBA_Id");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(rs, ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+
+		return id;
+	}
+
 	public static void insert(OsobaDTO osoba) {
 		PreparedStatement ps = null;
 		Connection c = null;
@@ -82,15 +109,15 @@ public class OsobaDAO {
 			String query = SQL_INSERT;
 			Object pom[] = { null, osoba.getJmb(), osoba.getIme(), osoba.getImeRoditelja(), osoba.getPrezime(),
 					osoba.getPol().toString(), osoba.getDatumRodjenja(), osoba.getSlika() };
-			
+
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			ps.executeUpdate();
-			
+
 			Object temp[] = {};
-			
+
 			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_IDENTITY, false, temp);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next())
+			while (rs.next())
 				osoba.setId(rs.getInt("@@identity"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -101,11 +128,33 @@ public class OsobaDAO {
 		}
 	}
 	
+	public static void update(OsobaDTO osoba) {
+		PreparedStatement ps = null;
+		Connection c = null;
+
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_UPDATE;
+			Object pom[] = { osoba.getIme(), osoba.getPrezime(), osoba.getImeRoditelja(),
+					osoba.getPol().toString(), osoba.getJmb(), osoba.getDatumRodjenja(), osoba.getSlika(), osoba.getId() };
+
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+	}
+
 	public static void insertSaTelefonom(OsobaDTO osoba) {
 		insert(osoba);
 		insertTelefon(osoba);
 	}
-	
+
 	public static void insertTelefon(OsobaDTO osoba) {
 		PreparedStatement ps = null;
 		Connection c = null;
@@ -113,7 +162,7 @@ public class OsobaDAO {
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT_TELEFON;
-			for(String tel : osoba.getTelefoni()) {
+			for (String tel : osoba.getTelefoni()) {
 				Object pom[] = { tel, osoba.getId(), null, null };
 				ps = ConnectionPool.prepareStatement(c, query, false, pom);
 				ps.executeUpdate();
@@ -126,4 +175,27 @@ public class OsobaDAO {
 			ConnectionPool.getInstance().checkIn(c);
 		}
 	}
+
+	public static void deleteTelefon(int id) {
+		PreparedStatement ps = null;
+		Connection c = null;
+
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_DELETE_TELEFON;
+
+			Object pom[] = { id };
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+	}
+	
+	
 }

@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
+import application.gui.trener.controller.IzmjenaClanaController;
 import application.gui.trener.controller.UclanjivanjeController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,7 +28,28 @@ public class ControllerMainBrada extends BaseController implements Initializable
 
     @FXML
     void openIsclanjivanje(ActionEvent event) {
-
+    	try {
+    		Stage stage = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/IzmjenaClanaView.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			IzmjenaClanaController control = loader.<IzmjenaClanaController>getController();
+			control.setPrimaryStage(stage);
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.setTitle("Izmjena");
+			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent event) {
+					event.consume();
+					control.izlaz();
+				}
+			});
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML
