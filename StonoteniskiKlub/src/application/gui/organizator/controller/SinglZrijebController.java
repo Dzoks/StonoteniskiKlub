@@ -50,5 +50,12 @@ public class SinglZrijebController extends BaseController{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void inicijalizuj(Integer id){
+		primaryStage.setTitle("Singl žrijeb");
+	}
 
+	public void ok(){
+		primaryStage.close();
+	}
 }

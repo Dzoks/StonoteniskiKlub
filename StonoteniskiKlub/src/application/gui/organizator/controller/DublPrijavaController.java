@@ -35,5 +35,12 @@ public class DublPrijavaController extends BaseController{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public void inicijalizuj(Integer id){
+		primaryStage.setTitle("Dubl prijava");
+	}
+	
+	public void sacuvaj(){
+		primaryStage.close();
+	}
 }

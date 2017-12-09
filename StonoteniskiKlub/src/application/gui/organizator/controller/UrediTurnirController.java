@@ -1,4 +1,5 @@
 package application.gui.organizator.controller;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,6 +25,30 @@ public class UrediTurnirController extends BaseController{
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void inicijalizuj(Integer id){
+		primaryStage.setTitle("Pregled turnira");
+	}
+	
+	public void urediTurnir(){
+		try {
+//			if(checkBox==1)
+//			SinglTurnirController noviStage=(SinglTurnirController)changeScene("/application/gui/organizator/view/SinglTurnirView.fxml",primaryStage);
+			DublTurnirController noviStage=(DublTurnirController)changeScene("/application/gui/organizator/view/DublTurnirView.fxml",primaryStage);
+			noviStage.inicijalizuj(1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void vratiNazad(){
+		try {
+			changeScene("/application/gui/organizator/view/TurniriView.fxml", primaryStage);
+			primaryStage.setTitle("Turniri");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

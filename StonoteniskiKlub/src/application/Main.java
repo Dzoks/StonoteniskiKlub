@@ -11,6 +11,7 @@ public class Main extends Application {
 		BaseController.changeScene("/application/gui/trener/view/PregledClanovaView.fxml", primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Turniri");
+		primaryStage.centerOnScreen();
 		primaryStage.show();
 	}
 

@@ -28,5 +28,12 @@ public class SinglPrijavaController extends BaseController{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void inicijalizuj(Integer id){
+		primaryStage.setTitle("Singl prijava");
+	}
 
+	public void sacuvaj(){
+		primaryStage.close();
+	}
 }
