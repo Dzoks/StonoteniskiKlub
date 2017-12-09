@@ -4,16 +4,18 @@ import java.sql.Date;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class TurnirDTO {
 	private IntegerProperty id;
 	private StringProperty naziv;
-	private Date datum;
-	private BooleanProperty zavrsen;
+	private ObjectProperty<Date> datum;
+	private StringProperty zatvoren;
 
 	public TurnirDTO() {
 		super();
@@ -23,45 +25,77 @@ public class TurnirDTO {
 		super();
 		this.id = id==null ? null : new SimpleIntegerProperty(id);
 		this.naziv = naziv==null ? null : new SimpleStringProperty(naziv);
-		this.datum = datum;
-		this.zavrsen=new SimpleBooleanProperty(false);
+		this.datum = datum==null ? null : new SimpleObjectProperty<Date>(datum);
+		this.zatvoren=new SimpleStringProperty("Ne");
 	}
-
-	public Integer getId() {
-		return id.get();
-	}
-
-	public void setId(Integer id) {
-		this.id.set(id);
-	}
-
-	public String getNaziv() {
-		return naziv.get();
-	}
-
-	public void setNaziv(String naziv) {
-		this.naziv.set(naziv);
-	}
-
-	public Date getDatum() {
-		return datum;
-	}
-
-	public void setDatum(Date datum) {
-		this.datum = datum;
-	}
-
-	public Boolean getZavrsen() {
-		return zavrsen.get();
-	}
-
-	public void setZavrsen(Boolean zavrsen) {
-		this.zavrsen.set(zavrsen);
+	
+	public TurnirDTO(Integer id, String naziv, Date datum,Boolean zavrsen) {
+		super();
+		this.id = id==null ? null : new SimpleIntegerProperty(id);
+		this.naziv = naziv==null ? null : new SimpleStringProperty(naziv);
+		this.datum = datum==null ? null : new SimpleObjectProperty<Date>(datum);
+		this.zatvoren = zavrsen==true ? new SimpleStringProperty("Da") : new SimpleStringProperty("Ne");
 	}
 
 	@Override
 	public String toString() {
-		return id.get() + ", " + naziv.get() + ", " + datum;
+		return id.get() + ", " + naziv.get() + ", " + datum.get();
+	}
+
+	public final ObjectProperty<Date> datumProperty() {
+		return this.datum;
 	}
 	
+
+	public final Date getDatum() {
+		return this.datumProperty().get();
+	}
+	
+
+	public final void setDatum(final Date datum) {
+		this.datumProperty().set(datum);
+	}
+
+	public final IntegerProperty idProperty() {
+		return this.id;
+	}
+	
+
+	public final int getId() {
+		return this.idProperty().get();
+	}
+	
+
+	public final void setId(final int id) {
+		this.idProperty().set(id);
+	}
+	
+
+	public final StringProperty nazivProperty() {
+		return this.naziv;
+	}
+	
+
+	public final String getNaziv() {
+		return this.nazivProperty().get();
+	}
+	
+
+	public final void setNaziv(final String naziv) {
+		this.nazivProperty().set(naziv);
+	}
+
+	public final StringProperty zatvorenProperty() {
+		return this.zatvoren;
+	}
+	
+
+	public final String getZatvoren() {
+		return this.zatvorenProperty().get();
+	}
+	
+
+	public final void setZatvoren(final String zatvoren) {
+		this.zatvorenProperty().set(zatvoren);
+	}
 }
