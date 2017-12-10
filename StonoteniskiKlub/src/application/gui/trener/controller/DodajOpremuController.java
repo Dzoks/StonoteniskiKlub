@@ -155,7 +155,6 @@ public class DodajOpremuController extends BaseController implements Initializab
 	}
 	
 	public void checkBoxSelektovan() {
-		btnDodaj.setDisable(true);
 		comboBoxNarudzba.setDisable(true);
     	tblNarudzbe.setDisable(true);
     	comboBoxTip.setDisable(false);

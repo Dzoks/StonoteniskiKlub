@@ -711,7 +711,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/IzmjenaOpremeView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root,266,132);
+			Scene scene = new Scene(root,273,163);
 			IzmjenaOpremeController controller = loader.<IzmjenaOpremeController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
@@ -723,7 +723,22 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			OpremaKluba selektovanaOprema = tblOpremaKluba.getSelectionModel().getSelectedItem();
 			controller.setOprema(selektovanaOprema);
 			controller.ucitajComboBoxeve();
+			controller.provjeriParametre();
 			controller.disable();
+			
+			noviStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		          public void handle(WindowEvent we) {
+		        	  we.consume();
+		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sacuvate izmjene?", ButtonType.YES, ButtonType.NO);
+		              Optional<ButtonType> rezultat = alert.showAndWait();
+		              if(ButtonType.YES.equals(rezultat.get())) {
+		            	  controller.azurirajUBazi();
+		            	  noviStage.close();
+		              }
+		              else if(ButtonType.NO.equals(rezultat.get())) {
+		            	  noviStage.close();
+		              }
+		          }});
 			
 			noviStage.showAndWait();
 			popuniTabele();
@@ -738,7 +753,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/IzmjenaOpremeView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root,266,132);
+			Scene scene = new Scene(root,273,163);
 			IzmjenaOpremeController controller = loader.<IzmjenaOpremeController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
@@ -749,7 +764,22 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			OpremaClana selektovanaOprema = tblOpremaClana.getSelectionModel().getSelectedItem();
 			controller.setOprema(selektovanaOprema);
 			controller.ucitajComboBoxeve();
+			controller.provjeriParametre();
 			controller.disable();
+			
+			noviStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		          public void handle(WindowEvent we) {
+		        	  we.consume();
+		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sacuvate izmjene?", ButtonType.YES, ButtonType.NO);
+		              Optional<ButtonType> rezultat = alert.showAndWait();
+		              if(ButtonType.YES.equals(rezultat.get())) {
+		            	  controller.azurirajUBazi();
+		            	  noviStage.close();
+		              }
+		              else if(ButtonType.NO.equals(rezultat.get())) {
+		            	  noviStage.close();
+		              }
+		          }});
 			
 			noviStage.showAndWait();
 			popuniTabele();
@@ -774,6 +804,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			
 			controller.setOpremaKluba();
 			controller.ucitajComboBoxeve();
+			controller.checkBoxNijeSelektovan();
 			controller.disableDodajDugme();
 			
 			noviStage.showAndWait();
@@ -833,6 +864,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			
 			controller.ucitajComboBoxeve();
+			controller.checkBoxNijeSelektovan();
 			controller.disableDodajDugme();
 			
 			noviStage.showAndWait();

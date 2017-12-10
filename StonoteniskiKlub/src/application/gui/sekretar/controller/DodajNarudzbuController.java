@@ -200,7 +200,7 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 			Double.valueOf(txtCijena.getText());
 			Integer idTipaOpreme = comboBoxTip.getSelectionModel().getSelectedItem().getId();
 			String velicina = "";
-			if(opremaKluba) {
+			if(!comboBoxTip.getSelectionModel().getSelectedItem().getImaVelicinu()) {
 				velicina = "-";
 			}
 			else {

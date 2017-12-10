@@ -1,12 +1,10 @@
 package application.model.dto;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import application.model.dao.DistributerOpremeDAO;
-import application.model.dao.NarudzbaDAO;
 import application.model.dao.NarudzbaStavkaDAO;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -16,8 +14,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class Narudzba {
 

@@ -10,7 +10,6 @@ import java.sql.Types;
 
 import application.model.dto.Clan;
 import application.model.dto.OpremaClana;
-import application.model.dto.OpremaKluba;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

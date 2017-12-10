@@ -3,16 +3,18 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="132.0" prefWidth="266.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="application.gui.trener.controller.IzmjenaOpremeController">
+<AnchorPane prefHeight="163.0" prefWidth="273.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjenaOpremeController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Tip" />
       <Label layoutX="14.0" layoutY="51.0" text="Član" />
-      <ComboBox fx:id="comboBoxTip" layoutX="51.0" layoutY="10.0" prefWidth="150.0" />
-      <ComboBox fx:id="comboBoxClan" layoutX="51.0" layoutY="47.0" prefWidth="150.0" />
-      <Button fx:id="btnDodajTipOpreme" layoutX="219.0" layoutY="10.0" mnemonicParsing="false" onAction="#idiNaDodajTipOpreme" prefHeight="25.0" prefWidth="25.0" text="+" />
-      <Button fx:id="btnEvidentiraj" layoutX="172.0" layoutY="93.0" mnemonicParsing="false" onAction="#sacuvajIzmjene" text="Evidentiraj" />
+      <ComboBox fx:id="comboBoxTip" layoutX="69.0" layoutY="10.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboBoxClan" layoutX="69.0" layoutY="47.0" prefWidth="150.0" />
+      <Button fx:id="btnDodajTipOpreme" layoutX="232.0" layoutY="10.0" mnemonicParsing="false" onAction="#idiNaDodajTipOpreme" prefHeight="25.0" prefWidth="25.0" text="+" />
+      <Button fx:id="btnEvidentiraj" layoutX="182.0" layoutY="124.0" mnemonicParsing="false" onAction="#sacuvajIzmjene" prefHeight="25.0" prefWidth="76.0" text="Evidentiraj" />
+      <Label layoutX="14.0" layoutY="88.0" text="Veličina" />
+      <TextField fx:id="txtVelicina" layoutX="69.0" layoutY="84.0" promptText="Veličina" />
    </children>
 </AnchorPane>

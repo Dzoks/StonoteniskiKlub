@@ -7,13 +7,13 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.OpremaClanaDAO;
 import application.model.dao.OpremaDAO;
-import application.model.dao.OpremaKlubaDAO;
 import application.model.dao.OpremaTipDAO;
 import application.model.dto.Clan;
-import application.model.dto.DistributerOpreme;
 import application.model.dto.Oprema;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaTip;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -36,6 +37,8 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 	private Button btnDodajTipOpreme;
 	@FXML
 	private Button btnEvidentiraj;
+	@FXML
+	private TextField txtVelicina;
 	
 	private Oprema oprema = null;
 	private Boolean opremaKluba = false;
@@ -49,15 +52,35 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 		if(opremaKluba) {
 			comboBoxClan.setDisable(true);
 		}
+		if(!comboBoxTip.getSelectionModel().getSelectedItem().getImaVelicinu()) {
+			txtVelicina.setDisable(true);
+		}
+	}
+	
+	public void provjeriParametre() {
+		if(!comboBoxTip.getSelectionModel().getSelectedItem().getImaVelicinu()) {
+			btnEvidentiraj.disableProperty().bind(comboBoxTip.selectionModelProperty().isNull());
+		}
+		else {
+			btnEvidentiraj.disableProperty().bind(txtVelicina.textProperty().isEmpty());
+		}
 	}
 	
 	public void azurirajUBazi() {
+		String velicina = "";
+		if(comboBoxTip.getSelectionModel().getSelectedItem().getImaVelicinu()) {
+			velicina = txtVelicina.getText();
+		}
+		else {
+			velicina = "-";
+		}
+		
 		if(opremaKluba) {
-			OpremaDAO.UPDATE(oprema, comboBoxTip.getSelectionModel().getSelectedItem().getId());
+			OpremaDAO.UPDATE(oprema, velicina, comboBoxTip.getSelectionModel().getSelectedItem().getId());
 		}
 		else {
 			OpremaClanaDAO.UPDATE((OpremaClana)oprema, comboBoxClan.getSelectionModel().getSelectedItem().getId());
-			OpremaDAO.UPDATE((OpremaClana)oprema, comboBoxTip.getSelectionModel().getSelectedItem().getId());
+			OpremaDAO.UPDATE((OpremaClana)oprema, velicina, comboBoxTip.getSelectionModel().getSelectedItem().getId());
 		}
 	}
 	
@@ -90,6 +113,26 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 			brojac++;
 		}
 		comboBoxTip.getSelectionModel().select(brojac);
+		
+		comboBoxTip.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<OpremaTip>() {
+
+			@Override
+			public void changed(ObservableValue<? extends OpremaTip> observable, OpremaTip oldValue, OpremaTip newValue) {
+				if(newValue != null) {
+					if(newValue.getImaVelicinu()) {
+						txtVelicina.setDisable(false);
+					}
+					else {
+						txtVelicina.setDisable(true);
+					}
+					provjeriParametre();
+				}
+			}
+		});
+		
+		if(comboBoxTip.getSelectionModel().getSelectedItem().getImaVelicinu()) {
+			txtVelicina.setText(oprema.getVelicina());
+		}
 	}
 	
 	public void idiNaDodajTipOpreme() {
