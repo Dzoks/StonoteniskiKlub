@@ -2,22 +2,17 @@ package application.gui.trener.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.gui.sekretar.controller.DodajNarudzbuController;
 import application.model.dao.OpremaClanaDAO;
 import application.model.dao.OpremaDAO;
 import application.model.dao.OpremaKlubaDAO;
-import application.model.dto.Narudzba;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaKluba;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,17 +23,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -48,7 +40,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Callback;
 
 public class OpremaGlavniController extends BaseController implements Initializable{
 	@FXML
@@ -56,9 +47,13 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	@FXML
 	private Button btnDodajOpremaKluba;
 	@FXML
+	private Button btnIzmjeniOpremuKluba;
+	@FXML
 	private Button btnPretraziOpremaClanova;
 	@FXML
 	private Button btnDodajOpremaClanova;
+	@FXML
+	private Button btnIzmjeniOpremuClana;
 	@FXML
 	private TableView<OpremaKluba> tblOpremaKluba;
 	@FXML
@@ -142,6 +137,8 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		btnIzmjeniOpremuClana.disableProperty().bind(tblOpremaClana.getSelectionModel().selectedItemProperty().isNull());
+		btnIzmjeniOpremuKluba.disableProperty().bind(tblOpremaKluba.getSelectionModel().selectedItemProperty().isNull());
 		popuniTabele();
 		podesavanjeZaRdbtnClan();
 		podesavanjaZaRdbtnKlub();
@@ -691,6 +688,8 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		
 		tblOpremaKluba.setItems(listaOpremeKluba);
 		
+		
+		
 		idClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, Integer>("id"));
 		tipClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, String>("tipOpreme"));
 		proizvodjacClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, String>("tipProizvodjac"));
@@ -704,6 +703,59 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		ObservableList<OpremaClana> listaOpremeClana = OpremaClanaDAO.SELECT_ALL();
 		
 		tblOpremaClana.setItems(listaOpremeClana);
+	}
+	
+	public void idiNaIzmjeniOpremuKluba() {
+		Stage noviStage = new Stage();
+		
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/IzmjenaOpremeView.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root,266,132);
+			IzmjenaOpremeController controller = loader.<IzmjenaOpremeController>getController();
+			controller.setPrimaryStage(noviStage);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			
+			controller.setOpremaKluba();
+			OpremaKluba selektovanaOprema = tblOpremaKluba.getSelectionModel().getSelectedItem();
+			controller.setOprema(selektovanaOprema);
+			controller.ucitajComboBoxeve();
+			controller.disable();
+			
+			noviStage.showAndWait();
+			popuniTabele();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void idiNaIzmjeniOpremuClana() {
+		Stage noviStage = new Stage();
+		
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/IzmjenaOpremeView.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root,266,132);
+			IzmjenaOpremeController controller = loader.<IzmjenaOpremeController>getController();
+			controller.setPrimaryStage(noviStage);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			
+			OpremaClana selektovanaOprema = tblOpremaClana.getSelectionModel().getSelectedItem();
+			controller.setOprema(selektovanaOprema);
+			controller.ucitajComboBoxeve();
+			controller.disable();
+			
+			noviStage.showAndWait();
+			popuniTabele();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void idiNaDodajOpremuKluba() {
@@ -735,10 +787,10 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		Stage noviStage = new Stage();
 		
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/IzmjeniOpisOpremeView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/IzmjenaOpisaOpremeView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			Scene scene = new Scene(root,305,185);
-			IzmjeniOpisOpremeController controller = loader.<IzmjeniOpisOpremeController>getController();
+			IzmjenaOpisaOpremeController controller = loader.<IzmjenaOpisaOpremeController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);

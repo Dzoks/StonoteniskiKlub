@@ -10,6 +10,7 @@ import java.sql.Types;
 
 import application.model.dto.Clan;
 import application.model.dto.OpremaClana;
+import application.model.dto.OpremaKluba;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ public class OpremaClanaDAO {
 	private static final String SQL_SELECT_AKTIVNE = "SELECT * FROM prikaz_clana WHERE Aktivan=true";
 	private static final String SQL_SELECT_BY = "SELECT  * FROM prikaz_opreme_clana WHERE Obrisan=false AND LOCATE(?, ";
 	private static final String SQL_INSERT = "{call dodaj_opremu_clana(?,?,?,?,?,?)}";
+	private final static String SQL_UPDATE = "UPDATE oprema_clan SET CLAN_Id=? WHERE OPREMA_Id=?";
 	
 	public static ObservableList<OpremaClana> SELECT_ALL() {
 		ObservableList<OpremaClana> listaOpreme = FXCollections.observableArrayList();
@@ -128,6 +130,22 @@ public class OpremaClanaDAO {
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
 			ConnectionPool.close(cs);
+		}
+	}
+	
+	public static void UPDATE(OpremaClana oprema, Integer idClana) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE, false, idClana, oprema.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.getInstance().checkIn(c);
+			ConnectionPool.close(ps);
 		}
 	}
 }

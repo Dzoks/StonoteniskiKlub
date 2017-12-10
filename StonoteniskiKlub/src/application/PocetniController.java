@@ -23,7 +23,7 @@ public class PocetniController extends BaseController implements Initializable{
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/OpremaGlavniView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root,761,484);
+			Scene scene = new Scene(root,761,526);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
 			noviStage.setTitle("Stonoteniski klub - rad sa opremom");

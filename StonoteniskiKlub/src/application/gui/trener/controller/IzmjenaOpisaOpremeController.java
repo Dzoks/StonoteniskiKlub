@@ -14,7 +14,7 @@ import javafx.event.ActionEvent;
 
 import javafx.scene.control.TextArea;
 
-public class IzmjeniOpisOpremeController extends BaseController implements Initializable{
+public class IzmjenaOpisaOpremeController extends BaseController implements Initializable{
 	@FXML
 	private TextArea txtOpis;
 	@FXML

@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="484.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.OpremaGlavniController">
    <children>
-      <TabPane prefHeight="484.0" prefWidth="761.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="526.0" prefWidth="761.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Oprema kluba">
             <content>
@@ -29,22 +29,23 @@
                               <TableColumn fx:id="doniranaKlub" minWidth="0.0" prefWidth="113.0" text="Donirana" />
                           </columns>
                         </TableView>
-                        <Button fx:id="btnPretraziOpremaKluba" layoutX="532.0" layoutY="333.0" mnemonicParsing="false" onAction="#pretragaKlub" prefHeight="42.0" prefWidth="214.0" text="Pretraži" />
-                        <Button fx:id="btnDodajOpremaKluba" layoutX="532.0" layoutY="399.0" mnemonicParsing="false" onAction="#idiNaDodajOpremuKluba" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
-                        <Pane layoutX="14.0" layoutY="301.0" prefHeight="141.0" prefWidth="398.0" style="-fx-border-color: grey; -fx-border-width: 2;">
+                        <Button fx:id="btnDodajOpremaKluba" layoutX="533.0" layoutY="440.0" mnemonicParsing="false" onAction="#idiNaDodajOpremuKluba" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
+                        <Pane layoutX="14.0" layoutY="301.0" prefHeight="181.0" prefWidth="398.0" style="-fx-border-color: grey; -fx-border-width: 2;">
                            <children>
                               <RadioButton fx:id="rdbtnAktivna" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" text="Aktivna" />
                               <RadioButton fx:id="rdbtnNeaktivna" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" text="Neaktivna" />
                               <RadioButton fx:id="rdbtnSva" layoutX="14.0" layoutY="89.0" mnemonicParsing="false" text="Sva" />
-                              <Separator layoutX="118.0" layoutY="12.0" orientation="VERTICAL" prefHeight="118.0" prefWidth="21.0" />
+                              <Separator layoutX="118.0" layoutY="12.0" orientation="VERTICAL" prefHeight="105.0" prefWidth="21.0" />
                               <RadioButton fx:id="rdbtnTipKlub" layoutX="144.0" layoutY="21.0" mnemonicParsing="false" text="Tip" />
                               <RadioButton fx:id="rdbtnProizvodjacKlub" layoutX="144.0" layoutY="55.0" mnemonicParsing="false" text="Proizvođač" />
                               <RadioButton fx:id="rdbtnModelKlub" layoutX="144.0" layoutY="89.0" mnemonicParsing="false" text="Model" />
                               <TextField fx:id="txtTipKlub" layoutX="248.0" layoutY="17.0" prefHeight="25.0" prefWidth="129.0" promptText="Tip" />
                               <TextField fx:id="txtProizvodjacKlub" layoutX="248.0" layoutY="51.0" prefHeight="25.0" prefWidth="129.0" promptText="Proizvođač" />
                               <TextField fx:id="txtModelKlub" layoutX="248.0" layoutY="85.0" prefHeight="25.0" prefWidth="129.0" promptText="Model" />
+                              <Button fx:id="btnPretraziOpremaKluba" layoutX="163.0" layoutY="125.0" mnemonicParsing="false" onAction="#pretragaKlub" prefHeight="42.0" prefWidth="214.0" text="Pretraži" />
                            </children>
                         </Pane>
+                        <Button fx:id="btnIzmjeniOpremuKluba" layoutX="533.0" layoutY="371.0" mnemonicParsing="false" onAction="#idiNaIzmjeniOpremuKluba" prefHeight="42.0" prefWidth="214.0" text="Izmjeni" />
                      </children>
                   </AnchorPane>
             </content>
@@ -66,9 +67,8 @@
                               <TableColumn fx:id="doniranaClan" minWidth="1.0" prefWidth="74.0" text="Donirana" />
                           </columns>
                         </TableView>
-                        <Button fx:id="btnPretraziOpremaClanova" layoutX="532.0" layoutY="333.0" mnemonicParsing="false" onAction="#pretragaClan" prefHeight="42.0" prefWidth="214.0" text="Pretraži" />
-                        <Button fx:id="btnDodajOpremaClanova" layoutX="532.0" layoutY="399.0" mnemonicParsing="false" onAction="#idiNaDodajOpremuClana" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
-                        <Pane layoutX="14.0" layoutY="301.0" prefHeight="141.0" prefWidth="471.0" style="-fx-border-color: grey; -fx-border-width: 2;">
+                        <Button fx:id="btnDodajOpremaClanova" layoutX="532.0" layoutY="440.0" mnemonicParsing="false" onAction="#idiNaDodajOpremuClana" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
+                        <Pane layoutX="14.0" layoutY="301.0" prefHeight="181.0" prefWidth="471.0" style="-fx-border-color: grey; -fx-border-width: 2;">
                            <children>
                               <RadioButton fx:id="rdbtnTipClan" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" text="Tip" />
                               <RadioButton fx:id="rdbtnProizvodjacClan" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" text="Proizvođač" />
@@ -82,8 +82,10 @@
                               <TextField fx:id="txtPrezime" layoutX="318.0" layoutY="85.0" prefHeight="25.0" prefWidth="129.0" promptText="Prezime" />
                               <TextField fx:id="txtIme" layoutX="318.0" layoutY="51.0" prefHeight="25.0" prefWidth="129.0" promptText="Ime" />
                               <TextField fx:id="txtJmb" layoutX="318.0" layoutY="17.0" prefHeight="25.0" prefWidth="129.0" promptText="JMB" />
+                              <Button fx:id="btnPretraziOpremaClanova" layoutX="231.0" layoutY="125.0" mnemonicParsing="false" onAction="#pretragaClan" prefHeight="42.0" prefWidth="214.0" text="Pretraži" />
                            </children>
                         </Pane>
+                        <Button fx:id="btnIzmjeniOpremuClana" layoutX="533.0" layoutY="371.0" mnemonicParsing="false" onAction="#idiNaIzmjeniOpremuClana" prefHeight="42.0" prefWidth="214.0" text="Izmjeni" />
                      </children>
                   </AnchorPane>
             </content>

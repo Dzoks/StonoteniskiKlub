@@ -1,6 +1,5 @@
 package application.gui.sekretar.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -15,12 +14,8 @@ import application.gui.controller.BaseController;
 import application.gui.sekretar.controller.DodajNarudzbuController;
 import application.model.dao.DistributerOpremeDAO;
 import application.model.dao.NarudzbaDAO;
-import application.model.dao.OpremaDAO;
-import application.model.dao.OpremaKlubaDAO;
 import application.model.dto.DistributerOpreme;
 import application.model.dto.Narudzba;
-import application.model.dto.OpremaClana;
-import application.model.dto.OpremaKluba;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -37,13 +32,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -227,10 +219,10 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 		Stage noviStage = new Stage();
 		
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/sekretar/view/DodajNarudzbuView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/sekretar/view/IzmjenaNarudzbeView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root,761,548);
-			DodajNarudzbuController controller = loader.<DodajNarudzbuController>getController();
+			Scene scene = new Scene(root,761,585);
+			IzmjenaNarudzbeController controller = loader.<IzmjenaNarudzbeController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
@@ -244,11 +236,10 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			Boolean opremaKluba =  "Oprema kluba".equals(selektovanaNarudzba.getVrsta());
 			if(opremaKluba) {
 				controller.VelicinaOnemoguceno();
-				controller.setOpremaKluba();
 			}
-			controller.disableDugme();
-  		  	controller.setNarudzba(selektovanaNarudzba);
-  		  	controller.setZaEditovanje();
+  		  	controller.setNaroudzba(selektovanaNarudzba);
+  		  	controller.ucitajComboBoxeve();
+  		  	controller.disableDugme();
   		  	controller.setListaStavkiNarudzbe(selektovanaNarudzba.getListaStavki());
   		  	controller.popuniTabelu();
 			

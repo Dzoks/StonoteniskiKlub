@@ -1,23 +1,5 @@
 package application.gui.sekretar.controller;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import application.gui.controller.BaseController;
-import application.gui.trener.controller.DodajTipOpremeController;
-import application.model.dao.NarudzbaDAO;
-import application.model.dao.NarudzbaStavkaDAO;
-import application.model.dao.OpremaTipDAO;
-import application.model.dto.Narudzba;
-import application.model.dto.NarudzbaStavka;
-import application.model.dto.OpremaTip;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,22 +15,40 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import application.gui.controller.BaseController;
+import application.gui.trener.controller.DodajTipOpremeController;
+import application.model.dao.DistributerOpremeDAO;
+import application.model.dao.NarudzbaDAO;
+import application.model.dao.NarudzbaStavkaDAO;
+import application.model.dao.OpremaTipDAO;
+import application.model.dto.DistributerOpreme;
+import application.model.dto.Narudzba;
+import application.model.dto.NarudzbaStavka;
+import application.model.dto.OpremaTip;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class DodajNarudzbuController extends BaseController implements Initializable{
-	@FXML
-	private Label lblDistributer;
+import javafx.scene.control.TableColumn;
+
+public class IzmjenaNarudzbeController extends BaseController implements Initializable{
 	@FXML
 	private Label lblDatum;
-	@FXML
-	private Label lblId;
 	@FXML
 	private ComboBox<OpremaTip> comboBoxTip;
 	@FXML
@@ -59,10 +59,6 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 	private TextField txtVelicina;
 	@FXML
 	private Button btnDodajStavku;
-	@FXML
-	private Button btnEvidentiraj;
-	@FXML
-	private Button btnDodajTipOpreme;
 	@FXML
 	private TableView<NarudzbaStavka> tblNarudzbe;
 	@FXML
@@ -79,15 +75,24 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 	private TableColumn<NarudzbaStavka, String> velicina;
 	@FXML
 	private TableColumn<NarudzbaStavka, Double> cijena;
+	@FXML
+	private Button btnEvidentiraj;
+	@FXML
+	private Button btnDodajTipOpreme;
+	@FXML
+	private Label lblId;
+	@FXML
+	private ComboBox<String> comboBoxVrsta;
+	@FXML
+	private ComboBox<DistributerOpreme> comboBoxDistributer;
+	@FXML
+	private Button btnDodajDistributera;
 	
-	private Boolean opremaKluba = false;
-	private Narudzba naroudzba;
+	private Narudzba naroudzba; 
 	private ObservableList<NarudzbaStavka> listaStavkiNarudzbe = FXCollections.observableArrayList();
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ucitajTipoveOpreme();
-		
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, 1, 1);
 		spinnerKolicina.setValueFactory(valueFactory);
 		
@@ -106,16 +111,15 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 		tblNarudzbe.setItems(listaStavkiNarudzbe);
 	}
 	
-	public void ubaciUBazu() {
-		NarudzbaDAO.INSERT(naroudzba, opremaKluba);
-		if(!listaStavkiNarudzbe.isEmpty()) {
-			for(NarudzbaStavka narudzbaStavka : listaStavkiNarudzbe) {
-				NarudzbaStavkaDAO.INSERT(narudzbaStavka);
-			}
-		}
-	}
-	
 	public void azurirajUBazi() {
+		naroudzba.setIdDistributeraOpreme(comboBoxDistributer.getSelectionModel().getSelectedItem().getId());
+		if("Oprema kluba".equals(comboBoxVrsta.getSelectionModel().getSelectedItem())) {
+			NarudzbaDAO.UPDATE(naroudzba, true);
+		}
+		else {
+			NarudzbaDAO.UPDATE(naroudzba, false);
+		}
+		
 		if(!naroudzba.getListaStavki().isEmpty()) {
 			for(NarudzbaStavka narudzbaStavka : naroudzba.getListaStavki()) {
 				NarudzbaStavkaDAO.DELETE(narudzbaStavka);
@@ -126,11 +130,6 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 				NarudzbaStavkaDAO.INSERT(narudzbaStavka);
 			}
 		}
-	}
-	
-	public void evidentirajDodavanje() {
-		ubaciUBazu();
-		primaryStage.close();
 	}
 	
 	public void dodajKonteksniMeni() {
@@ -172,7 +171,24 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 		}
 	}
 	
-	public void ucitajTipoveOpreme() {
+	public void ucitajComboBoxeve() {
+		ObservableList<DistributerOpreme> listaDistributera = DistributerOpremeDAO.SELECT_ALL();
+		comboBoxDistributer.setItems(listaDistributera);
+		int brojac = 0;
+		for(DistributerOpreme distributerOpreme : listaDistributera) {
+			if(distributerOpreme.getId().equals(naroudzba.getIdDistributeraOpreme())) {
+				break;
+			}
+			brojac++;
+		}
+		comboBoxDistributer.getSelectionModel().select(brojac);
+		
+		ObservableList<String> listaVrsta = FXCollections.observableArrayList();
+		listaVrsta.add("Oprema kluba");
+		listaVrsta.add("Oprema clana");
+		comboBoxVrsta.setItems(listaVrsta);
+		comboBoxVrsta.getSelectionModel().select(naroudzba.getVrsta());
+		
 		ObservableList<OpremaTip> listaTipovaOpreme = OpremaTipDAO.SELECT_ALL();
 		comboBoxTip.setItems(listaTipovaOpreme);
 		
@@ -194,13 +210,13 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 		
 		comboBoxTip.getSelectionModel().selectFirst();
 	}
-	
+
 	public void provjeriParametre() {
 		try {
 			Double.valueOf(txtCijena.getText());
 			Integer idTipaOpreme = comboBoxTip.getSelectionModel().getSelectedItem().getId();
 			String velicina = "";
-			if(opremaKluba) {
+			if("Oprema kluba".equals(comboBoxVrsta.getSelectionModel().getSelectedItem())) {
 				velicina = "-";
 			}
 			else {
@@ -233,6 +249,11 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 		}
 	}
 	
+	public void evidentirajDodavanje() {
+		azurirajUBazi();
+		primaryStage.close();
+	}
+	
 	public void idiNaDodajTipOpreme() {
 		Stage noviStage = new Stage();
 		
@@ -250,7 +271,7 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 			if("YES".equals(controller.getPovratnaVrijednost())) {
 				OpremaTip noviTipOpreme = controller.vratiTipOpreme();
 				OpremaTipDAO.INSERT(noviTipOpreme);
-				ucitajTipoveOpreme();
+				ucitajComboBoxeve();
 				comboBoxTip.getSelectionModel().selectLast();
 			}
 		} catch (IOException e) {
@@ -258,8 +279,32 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 		}
 	}
 	
+	public void idiNaDodajDistributera(ActionEvent event) {
+		Stage noviStage = new Stage();
+		
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/sekretar/view/DodajDistributeraView.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root,265,219);
+			DodajDistributeraController controller = loader.<DodajDistributeraController>getController();
+			controller.setPrimaryStage(noviStage);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			noviStage.showAndWait();
+			if("YES".equals(controller.getPovratnaVrijednost())) {
+				DistributerOpreme noviDistributer = controller.vratiDistributeraOpreme();
+				DistributerOpremeDAO.INSERT(noviDistributer);
+				ucitajComboBoxeve();
+				comboBoxDistributer.getSelectionModel().selectLast();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void setParametre(String distributerOpreme, String datum, String idNarudzbe) {
-		lblDistributer.setText(distributerOpreme);
 		lblDatum.setText(datum);
 		lblId.setText(idNarudzbe);
 	}
@@ -267,13 +312,9 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 	public void VelicinaOnemoguceno() {
 		txtVelicina.setDisable(true);
 	}
-	
-	public void setOpremaKluba() {
-		opremaKluba = true;
-	}
-	
-	public void setNarudzba(Narudzba narudzba) {
-		this.naroudzba = narudzba;
+
+	public void setNaroudzba(Narudzba naroudzba) {
+		this.naroudzba = naroudzba;
 	}
 
 	public void setListaStavkiNarudzbe(ObservableList<NarudzbaStavka> listaStavkiNarudzbe) {

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="185.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjeniOpisOpremeController">
+<AnchorPane prefHeight="185.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjenaOpisaOpremeController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Opis" />
       <TextArea fx:id="txtOpis" layoutX="53.0" layoutY="14.0" prefHeight="117.0" prefWidth="241.0" promptText="Opis" />
