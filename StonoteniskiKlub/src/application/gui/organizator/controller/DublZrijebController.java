@@ -39,13 +39,18 @@ public class DublZrijebController extends BaseController{
 	@FXML
 	private Button btnOk;
 	
+	private Integer id;
+	private Integer idKategorije;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	public void inicijalizuj(Integer id){
+	public void inicijalizuj(Integer id,Integer idKategorije){
+		this.id=id;
+		this.idKategorije=idKategorije;
 		primaryStage.setTitle("Dubl žrijeb");
 	}	
 	

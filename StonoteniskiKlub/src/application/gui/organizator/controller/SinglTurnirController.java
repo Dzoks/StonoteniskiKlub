@@ -3,23 +3,29 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
+import application.model.dao.TurnirDAO;
+import application.model.dao.UcesnikPrijavaDAO;
+import application.model.dto.TurnirDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 
 public class SinglTurnirController extends BaseController{
 	@FXML
+	private Label lblNaziv;
+	@FXML
+	private Label lblDatum;
+	@FXML
 	private Label lblKategorija;
 	@FXML
 	private TableView tblIgraci;
-	@FXML
-	private TableColumn clnRedniBroj;
 	@FXML
 	private TableColumn clnIme;
 	@FXML
@@ -35,15 +41,35 @@ public class SinglTurnirController extends BaseController{
 	@FXML
 	private Button btnNazad;
 	
+	private Integer id;
+	private Integer idKategorije;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	public void inicijalizuj(Integer id){
+	public void inicijalizuj(Integer id,Integer idKategorije){
+		this.id=id;
+		this.idKategorije=idKategorije;
+		TurnirDTO turnir=TurnirDAO.getById(id);
+		lblNaziv.setText(turnir.getNaziv());
+		lblDatum.setText(turnir.getDatum().toString());
 		primaryStage.setTitle("Singl turnir");
-		lblKategorija.setText("Muški singl");
+		if(idKategorije==1)
+			lblKategorija.setText("Muški singl");
+		else
+			lblKategorija.setText("Ženski singl");
+		btnIzmjeni.disableProperty().bind(tblIgraci.getSelectionModel().selectedItemProperty().isNull());
+		popuniTabelu();
+	}
+	
+	public void popuniTabelu(){
+		clnIme.setCellValueFactory(new PropertyValueFactory<>("ime"));
+		clnPrezime.setCellValueFactory(new PropertyValueFactory<>("prezime"));
+		clnJMBG.setCellValueFactory(new PropertyValueFactory<>("jmb"));
+		tblIgraci.setItems(UcesnikPrijavaDAO.getAll(id,idKategorije));
 	}
 	
 	public void prijaviIgraca(){
@@ -63,6 +89,7 @@ public class SinglTurnirController extends BaseController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		popuniTabelu();
 	}
 	
 	public void izmjeniIgraca(){
@@ -80,6 +107,7 @@ public class SinglTurnirController extends BaseController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		popuniTabelu();
 	}
 	
 	public void prikaziZrijeb(){
@@ -101,8 +129,8 @@ public class SinglTurnirController extends BaseController{
 	
 	public void vratiNazad(){
 		try {
-			changeScene("/application/gui/organizator/view/UrediTurnirView.fxml", primaryStage);
-			primaryStage.setTitle("Pregled turnira");
+			changeScene("/application/gui/organizator/view/TurniriView.fxml", primaryStage);
+			primaryStage.setTitle("Turniri");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

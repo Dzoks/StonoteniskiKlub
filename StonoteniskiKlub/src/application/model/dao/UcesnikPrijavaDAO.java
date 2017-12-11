@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import application.model.dto.OsobaDTO;
 import application.model.dto.UcesnikPrijavaDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
@@ -17,8 +18,8 @@ public class UcesnikPrijavaDAO {
 	private final static String SQL_INSERT = "insert into UCESNIK_PRIJAVA (TURNIR_Id,TURNIR_KATEGORIJA_Id,OSOBA_Id,Datum) values (?,?,?,?)";
 	private final static String SQL_SELECT_ALL = "select * from UCESNIK_PRIJAVA u inner join OSOBA o on u.OSOBA_Id = o.Id where u.TURNIR_Id=? and u.TURNIR_KATEGORIJA_Id=?";
 	
-	public static ObservableList<UcesnikPrijavaDTO> getAll(Integer idTurnira,Integer idKategorije) {
-		ObservableList<UcesnikPrijavaDTO> retVal = FXCollections.observableArrayList();
+	public static ObservableList<OsobaDTO> getAll(Integer idTurnira,Integer idKategorije) {
+		ObservableList<OsobaDTO> retVal = FXCollections.observableArrayList();
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -31,9 +32,8 @@ public class UcesnikPrijavaDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false,pom);
 			rs = ps.executeQuery();
 			while (rs.next())
-				retVal.add(new UcesnikPrijavaDTO(rs.getInt("OSOBA_Id"), rs.getString("Ime"), rs.getString("Prezime"), 
-						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"), 
-						rs.getInt("Id"), rs.getInt("TURNIR_Id"), rs.getInt("TURNIR_KATEGORIJA_Id"),rs.getDate("Datum")));
+				retVal.add(new OsobaDTO(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"), 
+						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja")));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

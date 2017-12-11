@@ -47,4 +47,11 @@ public class KategorijaTurniraDTO {
 	public final void setKategorija(final String kategorija) {
 		this.kategorijaProperty().set(kategorija);
 	}
+
+	@Override
+	public String toString() {
+		return kategorija.get();
+	}
+	
+	
 }
