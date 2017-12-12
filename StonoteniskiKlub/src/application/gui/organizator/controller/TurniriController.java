@@ -180,17 +180,11 @@ public class TurniriController extends BaseController{
 		txtNaziv.clear();
 		dpDatum.setValue(null);
 	}
-//	UPITNO
-//	public static Date konvertujUSQLDate(String s){
-//		Date sqlDate;
-//		try {
-//			java.util.Date utilDate=new SimpleDateFormat("yyyy-MM-dd").parse(s);
-//			sqlDate=new Date(utilDate.getTime());
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//			JOptionPane.showMessageDialog(null, "Format datuma ne odgovara!", "Greska", JOptionPane.ERROR_MESSAGE);
-//			return null;
-//		}
-//		return sqlDate;
-//	}
+	
+	public static String konvertujIzSQLDate(Date sqlDatum){
+		String datum;
+		String[]niz=sqlDatum.toString().split("-");
+		datum=niz[0]+"."+niz[1]+"."+niz[2]+".";
+		return datum;
+	}
 }

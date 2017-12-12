@@ -51,7 +51,7 @@ public class DublZrijebController extends BaseController{
 	public void inicijalizuj(Integer id,Integer idKategorije){
 		this.id=id;
 		this.idKategorije=idKategorije;
-		primaryStage.setTitle("Dubl žrijeb");
+		primaryStage.setTitle("Žrijeb");
 	}	
 	
 	public void ok(){

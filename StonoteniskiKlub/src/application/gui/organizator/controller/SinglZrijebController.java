@@ -57,7 +57,7 @@ public class SinglZrijebController extends BaseController{
 	public void inicijalizuj(Integer id,Integer idKategorije){
 		this.id=id;
 		this.idKategorije=idKategorije;
-		primaryStage.setTitle("Singl žrijeb");
+		primaryStage.setTitle("Žrijeb");
 		
 	}
 
