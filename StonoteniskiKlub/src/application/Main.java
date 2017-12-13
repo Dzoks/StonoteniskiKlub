@@ -8,9 +8,10 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		BaseController.changeScene("/application/gui/organizator/view/TurniriView.fxml", primaryStage);
+		primaryStage = new Stage();
+		BaseController.changeScene("/application/gui/sekretar/view/DodajZaposlenogView.fxml", primaryStage);
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("Turniri");
+		primaryStage.setTitle("Malina");
 		primaryStage.show();
 	}
 
