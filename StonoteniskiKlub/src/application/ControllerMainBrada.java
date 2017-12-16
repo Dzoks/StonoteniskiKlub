@@ -5,8 +5,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
+import application.gui.sekretar.controller.IzdavanjePotvrdaController;
 import application.gui.trener.controller.IzmjenaClanaController;
 import application.gui.trener.controller.UclanjivanjeController;
+import application.model.dao.ClanDAO;
+import application.model.dto.ClanDTO;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,62 +29,27 @@ public class ControllerMainBrada extends BaseController implements Initializable
     @FXML
     private URL location;
 
-    @FXML
-    void openIsclanjivanje(ActionEvent event) {
-    	try {
-    		Stage stage = new Stage();
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/IzmjenaClanaView.fxml"));
-			AnchorPane root = (AnchorPane) loader.load();
-			IzmjenaClanaController control = loader.<IzmjenaClanaController>getController();
-			control.setPrimaryStage(stage);
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.setResizable(false);
-			stage.setTitle("Izmjena");
-			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-				@Override
-				public void handle(WindowEvent event) {
-					event.consume();
-					control.izlaz();
-				}
-			});
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-    }
 
     @FXML
     void openPotvrde(ActionEvent event) {
-
-    }
-
-    @FXML
-    void openUclanjivanje(ActionEvent event) {
     	try {
     		Stage stage = new Stage();
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/UclanjivanjeView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/sekretar/view/IzdavanjePotvrdaView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			UclanjivanjeController control = loader.<UclanjivanjeController>getController();
+			IzdavanjePotvrdaController control = loader.<IzdavanjePotvrdaController>getController();
 			control.setPrimaryStage(stage);
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.setResizable(false);
-			stage.setTitle("Uclanjivanje");
-			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-				@Override
-				public void handle(WindowEvent event) {
-					event.consume();
-					control.izlaz();
-				}
-			});
+			stage.setTitle("Potvrde");
+			
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
     }
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
