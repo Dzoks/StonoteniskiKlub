@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import java.sql.Blob;
 
 import application.model.dto.OsobaDTO;
 import application.util.ConnectionPool;
@@ -20,7 +23,57 @@ public class OsobaDAO {
 	private static final String SQL_GET_ID_BY_TELEFON = "SELECT OSOBA_ID FROM TELEFON WHERE BROJTELEFONA=?";
 	private static final String SQL_DELETE_TELEFON = "DELETE FROM TELEFON WHERE OSOBA_ID=?";
 	private static final String SQL_UPDATE = "UPDATE OSOBA SET IME=?, PREZIME=?, IMERODITELJA=?, POL=?, JMB=?, DATUMRODJENJA=?, FOTOGRAFIJA=? WHERE ID=?";
+	private static final String SQL_SELECT_ALL_TIPOVI_POTVRDE = "SELECT * FROM POTVRDA_TIP";
+	private static final String SQL_INSERT_POTVRDA = "INSERT INTO potvrda VALUES (?, ?, ?, ?, ?)";
+	
+	
+	
+	public static void insertPotvrda(int idClana, int idTipa, Date datum, Blob tekst) {
+		PreparedStatement ps = null;
+		Connection c = null;
 
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_INSERT_POTVRDA;
+			Object pom[] = { null, idClana, idTipa, datum, tekst };
+
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+	}
+	
+	public static List<String> getTipoviPotvrde() {
+		List<String> retVal = new ArrayList<String>();
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_SELECT_ALL_TIPOVI_POTVRDE;
+			Object pom[] = { };
+
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			rs = ps.executeQuery();
+			while (rs.next())
+				retVal.add(rs.getString("Tip"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(rs, ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+
+		return retVal;
+	}
+	
 	public static OsobaDTO getByJmb(String jmb) {
 		OsobaDTO osoba = null;
 		Connection c = null;
