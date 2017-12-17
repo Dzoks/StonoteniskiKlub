@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="pane" prefHeight="351.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tableClanarine" layoutX="36.0" layoutY="50.0" prefHeight="198.0" prefWidth="448.0">
+      <TableView fx:id="tableDonacije" layoutX="36.0" layoutY="50.0" prefHeight="198.0" prefWidth="448.0">
         <columns>
           <TableColumn fx:id="tableColumnSponzor" prefWidth="68.0" text="Sponzor" />
             <TableColumn fx:id="tableColumnIznos" prefWidth="65.0" text="Iznos" />

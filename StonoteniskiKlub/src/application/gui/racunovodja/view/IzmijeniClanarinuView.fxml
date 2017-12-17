@@ -4,12 +4,13 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="327.0" prefWidth="319.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1">
+<AnchorPane prefHeight="401.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lblClan" layoutX="23.0" layoutY="37.0" text="Clan:" />
       <Label fx:id="lblMjesec" layoutX="25.0" layoutY="78.0" prefHeight="17.0" prefWidth="46.0" text="Mjesec:" />
@@ -19,10 +20,16 @@
       <Spinner fx:id="spinnerMjesec" layoutX="124.0" layoutY="74.0" />
       <Spinner fx:id="spinnerGodina" layoutX="124.0" layoutY="118.0" />
       <DatePicker fx:id="datePicker" layoutX="124.0" layoutY="158.0" />
-      <Button fx:id="btnIzmijeni" layoutX="61.0" layoutY="265.0" mnemonicParsing="false" text="Izmijeni" />
-      <Button fx:id="btnOtkazi" layoutX="174.0" layoutY="265.0" mnemonicParsing="false" text="Otkazi" />
+      <Button fx:id="btnIzmijeni" layoutX="61.0" layoutY="346.0" mnemonicParsing="false" text="Izmijeni" />
+      <Button fx:id="btnOtkazi" layoutX="168.0" layoutY="346.0" mnemonicParsing="false" text="Otkazi" />
       <Label fx:id="lblIznos" layoutX="22.0" layoutY="199.0" prefHeight="17.0" prefWidth="46.0" text="Iznos:" />
       <TextField fx:id="txtIznos" layoutX="125.0" layoutY="195.0" />
       <Label fx:id="lblKM" layoutX="284.0" layoutY="199.0" text="KM" />
+      <Label fx:id="lblOpis" layoutX="22.0" layoutY="231.0" text="Opis:" />
+      <ScrollPane fx:id="scrollPane" layoutX="124.0" layoutY="240.0" prefHeight="75.0" prefWidth="174.0">
+         <content>
+            <TextArea fx:id="txtOpis" prefHeight="74.0" prefWidth="171.0" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
