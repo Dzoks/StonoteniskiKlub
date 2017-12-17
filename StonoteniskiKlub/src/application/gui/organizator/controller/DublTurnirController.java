@@ -3,7 +3,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
+import application.model.dao.KategorijaTurniraDAO;
 import application.model.dao.TurnirDAO;
+import application.model.dao.UcesnikPrijavaDAO;
 import application.model.dto.TurnirDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
@@ -64,12 +67,17 @@ public class DublTurnirController extends BaseController{
 		primaryStage.setTitle("Dubl turnir");
 		TurnirDTO turnir=TurnirDAO.getById(id);
 		lblNaziv.setText(turnir.getNaziv());
-		lblDatum.setText(turnir.getDatum().toString());
-		if(idKategorije==3)
-			lblKategorija.setText("Muški dubl");
-		else
-			lblKategorija.setText("Ženski dubl");
+		lblDatum.setText(TurniriController.konvertujIzSQLDate(turnir.getDatum()));
+		lblKategorija.setText(KategorijaTurniraDAO.getById(idKategorije).toString());	
 		btnIzmjeni.disableProperty().bind(tblEkipe.getSelectionModel().selectedItemProperty().isNull());
+		popuniTabelu();
+	}
+	//REALIZOVATI
+	public void popuniTabelu(){
+		clnIme1.setCellValueFactory(new PropertyValueFactory<>("ime"));
+		clnPrezime1.setCellValueFactory(new PropertyValueFactory<>("prezime"));
+		clnJMBG1.setCellValueFactory(new PropertyValueFactory<>("jmb"));
+		tblEkipe.setItems(UcesnikPrijavaDAO.getAll(id,idKategorije));
 	}
 	
 	public void prijaviEkipu(){

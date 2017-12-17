@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
+import application.model.dao.KategorijaTurniraDAO;
 import application.model.dao.TurnirDAO;
 import application.model.dao.UcesnikPrijavaDAO;
 import application.model.dto.TurnirDTO;
@@ -55,12 +56,9 @@ public class SinglTurnirController extends BaseController{
 		this.idKategorije=idKategorije;
 		TurnirDTO turnir=TurnirDAO.getById(id);
 		lblNaziv.setText(turnir.getNaziv());
-		lblDatum.setText(turnir.getDatum().toString());
+		lblDatum.setText(TurniriController.konvertujIzSQLDate(turnir.getDatum()));
 		primaryStage.setTitle("Singl turnir");
-		if(idKategorije==1)
-			lblKategorija.setText("Muški singl");
-		else
-			lblKategorija.setText("Ženski singl");
+		lblKategorija.setText(KategorijaTurniraDAO.getById(idKategorije).toString());
 		btnIzmjeni.disableProperty().bind(tblIgraci.getSelectionModel().selectedItemProperty().isNull());
 		popuniTabelu();
 	}

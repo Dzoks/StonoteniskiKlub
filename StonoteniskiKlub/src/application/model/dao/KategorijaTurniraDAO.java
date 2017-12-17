@@ -39,7 +39,7 @@ public class KategorijaTurniraDAO {
 		return retVal;
 	}
 	
-	public static KategorijaTurniraDTO getById(int id){
+	public static KategorijaTurniraDTO getById(Integer id){
 		KategorijaTurniraDTO retVal=new KategorijaTurniraDTO();
 		Connection c=null;
 		PreparedStatement ps=null;
@@ -52,7 +52,9 @@ public class KategorijaTurniraDAO {
 			
 			ps=ConnectionPool.prepareStatement(c, query, false, pom);
 			rs=ps.executeQuery();
-			retVal=new KategorijaTurniraDTO(id, rs.getString("Kategorija"));
+			if(rs.next()){
+				retVal=new KategorijaTurniraDTO(rs.getInt("Id"), rs.getString("Kategorija"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

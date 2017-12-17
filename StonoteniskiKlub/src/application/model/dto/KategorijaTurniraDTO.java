@@ -19,6 +19,11 @@ public class KategorijaTurniraDTO {
 		this.kategorija = kategorija==null ? null : new SimpleStringProperty(kategorija);
 	}
 
+	@Override
+	public String toString() {
+		return kategorija.get();
+	}
+
 	public final IntegerProperty idProperty() {
 		return this.id;
 	}
@@ -47,11 +52,7 @@ public class KategorijaTurniraDTO {
 	public final void setKategorija(final String kategorija) {
 		this.kategorijaProperty().set(kategorija);
 	}
-
-	@Override
-	public String toString() {
-		return kategorija.get();
-	}
+	
 	
 	
 }

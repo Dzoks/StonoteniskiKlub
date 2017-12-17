@@ -36,7 +36,7 @@ public class TurniriController extends BaseController{
 	@FXML
 	private TableColumn<TurnirDTO,String> clnNaziv;
 	@FXML
-	private TableColumn<TurnirDTO,Date> clnDatum;
+	private TableColumn<TurnirDTO,String> clnDatum;
 	@FXML
 	private Button btnUredi;
 	@FXML
@@ -80,7 +80,7 @@ public class TurniriController extends BaseController{
 	
 	public void popuniTabelu(){
 		clnNaziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
-		clnDatum.setCellValueFactory(new PropertyValueFactory<>("datum"));
+		clnDatum.setCellValueFactory(new PropertyValueFactory<>("konvertovanDatum"));
 		clnZatvoren.setCellValueFactory(new PropertyValueFactory<>("zatvoren"));
 		tblTurniri.setItems(TurnirDAO.getAll());
 	}
@@ -184,7 +184,7 @@ public class TurniriController extends BaseController{
 	public static String konvertujIzSQLDate(Date sqlDatum){
 		String datum;
 		String[]niz=sqlDatum.toString().split("-");
-		datum=niz[0]+"."+niz[1]+"."+niz[2]+".";
+		datum=niz[2]+"."+niz[1]+"."+niz[0]+".";
 		return datum;
 	}
 }
