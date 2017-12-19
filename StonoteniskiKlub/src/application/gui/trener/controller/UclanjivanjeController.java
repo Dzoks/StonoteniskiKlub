@@ -15,6 +15,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -40,6 +41,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -89,10 +91,13 @@ public class UclanjivanjeController extends BaseController implements Initializa
     private ImageView ivSlika;
     
     @FXML
-    private ComboBox<String> cbTelefon;
+    private Button btnUclani;
     
     @FXML
-    private Button btnUclani;
+    private TextField txtTelefon;
+
+    @FXML
+    private ListView<String> lvTelefoni;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -123,14 +128,14 @@ public class UclanjivanjeController extends BaseController implements Initializa
 		    }
 		});
 		
-		cbTelefon.setItems(listaTelefona);
+		lvTelefoni.setItems(listaTelefona);
 		
 		btnUclani.disableProperty().bind(txtIme.textProperty().isEmpty().or(
 				txtPrezime.textProperty().isEmpty().or(
 						txtJMB.textProperty().isEmpty().or(
 								dpDatumRodjenja.valueProperty().isNull().or(
 										group.selectedToggleProperty().isNull().or(
-												cbTelefon.itemsProperty().isNull()))))));
+												lvTelefoni.itemsProperty().isNull()))))));
 	}
 	
 	public void dodajFotografiju() {
@@ -151,34 +156,25 @@ public class UclanjivanjeController extends BaseController implements Initializa
 	}
 	
 	public void sacuvajTelefon() {
-		String noviTelefon = cbTelefon.getValue();
+		String noviTelefon = txtTelefon.getText();
 		if(noviTelefon.matches("[0-9][0-9][0-9]/[0-9][0-9][0-9]-[0-9][0-9][0-9]")) {
-			int id = cbTelefon.getSelectionModel().getSelectedIndex();
-			if(id != -1) {
-				listaTelefona.set(id, noviTelefon);
-				cbTelefon.setValue("");
-				cbTelefon.getSelectionModel().select(-1);
-				return;
-			}
 			listaTelefona.add(noviTelefon);
-			cbTelefon.setValue("");
-			cbTelefon.getSelectionModel().select(-1);
+			txtTelefon.clear();
 		}
 		else {
 			new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK).show();
-			cbTelefon.setValue("");
-			cbTelefon.getSelectionModel().select(-1);
 		}
 	}
 	
 	public void obrisiTelefon() {
-		int id = cbTelefon.getSelectionModel().getSelectedIndex();
-		if(id != -1) {
-			listaTelefona.remove(id);
-			cbTelefon.setValue("");
-			cbTelefon.getSelectionModel().select(-1);
-			return;
-		}
+//		List<Integer> lista = lvTelefoni.getSelectionModel().getSelectedIndices();
+//		List<String> telefoni = new ArrayList<String>();
+//		for(int index : lista) {
+//			telefoni.add(listaTelefona.get(index));
+//		}
+//		listaTelefona.removeAll(telefoni);
+		int index = lvTelefoni.getSelectionModel().getSelectedIndex();
+		listaTelefona.remove(index);
 	}
 	
 	public void izlaz() {

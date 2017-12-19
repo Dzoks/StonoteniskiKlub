@@ -8,7 +8,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		BaseController.changeScene("/application/MainFormBrada.fxml", primaryStage);
+		BaseController.changeScene("/application/gui/trener/view/PregledClanovaView.fxml", primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Turniri");
 		primaryStage.show();

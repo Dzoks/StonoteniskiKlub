@@ -18,7 +18,7 @@ public class OsobaDAO {
 	private static final String SQL_GET_BY_JMB = "SELECT * FROM OSOBA WHERE JMB=?";
 	private static final String SQL_GET_TELEFON = "SELECT BrojTelefona FROM TELEFON WHERE OSOBA_Id=?";
 	private static final String SQL_INSERT = "INSERT INTO OSOBA VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String SQL_INSERT_TELEFON = "INSERT INTO TELEFON VALUES (?, ?, ?, ?)";
+	private static final String SQL_INSERT_TELEFON = "INSERT INTO TELEFON VALUES (?, ?, ?)";
 	private static final String SQL_SELECT_IDENTITY = "SELECT @@IDENTITY";
 	private static final String SQL_GET_ID_BY_TELEFON = "SELECT OSOBA_ID FROM TELEFON WHERE BROJTELEFONA=?";
 	private static final String SQL_DELETE_TELEFON = "DELETE FROM TELEFON WHERE OSOBA_ID=?";
@@ -216,7 +216,7 @@ public class OsobaDAO {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT_TELEFON;
 			for (String tel : osoba.getTelefoni()) {
-				Object pom[] = { tel, osoba.getId(), null, null };
+				Object pom[] = { tel, osoba.getId(), null };
 				ps = ConnectionPool.prepareStatement(c, query, false, pom);
 				ps.executeUpdate();
 			}

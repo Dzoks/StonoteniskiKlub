@@ -235,11 +235,14 @@ public class PregledClanovaController extends BaseController implements Initiali
 	public void prikaziDetaljeOClanu() {
 		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
 		
+		if(clan == null)
+			return;
+		
 		lblIme.setText(clan.getIme());
 		lblPrezime.setText(clan.getPrezime());
 		lblImeRoditelja.setText(clan.getImeRoditelja().equals("")?"---":clan.getImeRoditelja());
 		lvListaTelefona.setItems(FXCollections.observableArrayList(clan.getTelefoni()));
-		lblPol.setText(clan.getPol().equals('M')?"Muöki":"éenski");
+		lblPol.setText(clan.getPol().equals('M')?"Mu≈°ki":"≈Ωenski");
 //		lblDatumRodjenja.setText(clan.getDatumRodjenja().toString());
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
