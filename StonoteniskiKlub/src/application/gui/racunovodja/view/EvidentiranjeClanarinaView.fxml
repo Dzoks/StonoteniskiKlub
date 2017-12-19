@@ -13,16 +13,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeClanarinaController">
    <children>
-      <TableView fx:id="tableClanarine" layoutX="17.0" layoutY="196.0" prefHeight="198.0" prefWidth="448.0">
+      <TableView fx:id="tableClanarine" layoutX="17.0" layoutY="196.0" prefHeight="198.0" prefWidth="451.0">
         <columns>
           <TableColumn fx:id="tableColumnIme" prefWidth="61.0" text="Ime" />
           <TableColumn fx:id="tableColumnPrezime" prefWidth="72.0" text="Prezime" />
             <TableColumn fx:id="tableColumnMjesec" prefWidth="67.0" text="Mjesec" />
-            <TableColumn fx:id="tableColumnGodina" prefWidth="58.0" text="Godina" />
-            <TableColumn fx:id="tableColumnDatumUplate" prefWidth="93.0" text="Datum uplate" />
-            <TableColumn fx:id="tableColumnIznos" prefWidth="96.0" text="Iznos" />
+            <TableColumn fx:id="tableColumnGodina" prefWidth="76.0" text="Godina" />
+            <TableColumn fx:id="tableColumnDatumUplate" prefWidth="92.0" text="Datum uplate" />
+            <TableColumn fx:id="tableColumnIznos" minWidth="0.0" prefWidth="99.0" text="Iznos" />
         </columns>
       </TableView>
       <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />

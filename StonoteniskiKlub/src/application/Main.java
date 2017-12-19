@@ -9,6 +9,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		BaseController.changeScene("/application/gui/racunovodja/view/PocetniProzorRacunovodja.fxml", primaryStage);
+		//BaseController.changeScene("/application/test/drugi.fxml", primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Turniri");
 		primaryStage.show();
@@ -18,5 +19,4 @@ public class Main extends Application {
 		launch(args);
 
 	}
-
 }

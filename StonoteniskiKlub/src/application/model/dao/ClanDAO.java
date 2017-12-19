@@ -4,16 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.Observable;
 
 import application.model.dto.ClanDTO;
 import application.util.ConnectionPool;
+import javafx.collections.ObservableList;
 
 public class ClanDAO {
 	
 	private final static String SQL_GET_BY_ID = "SELECT * FROM CLAN c left JOIN OSOBA o on c.OSOBA_ID=o.ID where c.OSOBA_ID=?";
 	private final static String SQL_UPDATE_AKTIVAN = "UPDATE CLAN SET Aktivan=? WHERE OSOBA_Id=?";
 	private final static String SQL_INSERT = "INSERT INTO CLAN VALUES (?, ?, ?)";
+	
 	
 	public static ClanDTO getById(int id) {
 		ClanDTO clan = null;
