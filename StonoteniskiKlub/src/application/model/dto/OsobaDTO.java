@@ -31,6 +31,16 @@ public class OsobaDTO {
 		this.jmb = new SimpleStringProperty();
 	}
 	
+	public OsobaDTO(Integer id, String ime, String prezime, String jmb, Character pol,
+			Date datumRodjenja) {
+		super();
+		this.id = new SimpleIntegerProperty(id);
+		this.ime = new SimpleStringProperty(ime);
+		this.prezime = new SimpleStringProperty(prezime);
+		this.jmb = new SimpleStringProperty(jmb);
+		this.pol = pol;
+		this.datumRodjenja = datumRodjenja;
+	}
 
 	public List<String> getTelefoni() {
 		return telefoni;
