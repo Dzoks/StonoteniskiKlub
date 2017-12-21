@@ -1,5 +1,6 @@
 package application.gui.racunovodja.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
+import application.gui.trener.controller.DodajTipOpremeProzorController;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanarinaDAO;
 import application.model.dao.OpremaKlubaDAO;
@@ -17,7 +19,8 @@ import application.model.dto.OpremaKlubaDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
@@ -30,7 +33,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 
 import javafx.scene.layout.AnchorPane;
-
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.scene.control.RadioButton;
 
 import javafx.scene.control.Spinner;
@@ -112,6 +116,7 @@ public class EvidentiranjeClanarinaController extends BaseController{
 	private TextArea txtOpis;
 	
 	private ObservableList<ClanarinaDTO> listaClanarina;
+	private ObservableList<ClanDTO> listaClanova;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ToggleGroup group = new ToggleGroup();
@@ -128,22 +133,27 @@ public class EvidentiranjeClanarinaController extends BaseController{
 	}
 	
 	private void popuniTabelu() {
+		
+		postaviKolone();
+		listaClanarina = ClanarinaDAO.SELECT_ALL();
+		tableClanarine.setItems(listaClanarina);
+		tableClanarine.getSelectionModel().select(0);
+		
+	}
+	
+	private void postaviKolone() {
 		tableColumnIme.setCellValueFactory(new PropertyValueFactory<ClanarinaDTO, String>("imeClana"));
 		tableColumnPrezime.setCellValueFactory(new PropertyValueFactory<ClanarinaDTO, String>("prezimeClana"));
 		tableColumnMjesec.setCellValueFactory(new PropertyValueFactory<ClanarinaDTO, Integer>("mjesec"));
 		tableColumnGodina.setCellValueFactory(new PropertyValueFactory<ClanarinaDTO, Integer>("godina"));
 		tableColumnIznos.setCellValueFactory(new PropertyValueFactory<ClanarinaDTO, Double>("iznos"));
 		tableColumnDatumUplate.setCellValueFactory(new PropertyValueFactory<ClanarinaDTO,String>("datum"));
-		
-		listaClanarina = ClanarinaDAO.SELECT_ALL();
-		tableClanarine.setItems(listaClanarina);
 	}
-	
 	private void popuniComboBox() {
-		ObservableList<ClanDTO> listaClanarina = ClanDAO.SELECT_ALL();
-		comboBoxClanDodaj.setItems(listaClanarina);
+		listaClanova = ClanDAO.SELECT_ALL();
+		comboBoxClanDodaj.setItems(listaClanova);
 		comboBoxClanDodaj.getSelectionModel().selectFirst();
-		comboBoxClanPrikazi.setItems(listaClanarina);
+		comboBoxClanPrikazi.setItems(listaClanova);
 		comboBoxClanPrikazi.getSelectionModel().selectFirst();
 	}
 	
@@ -162,10 +172,6 @@ public class EvidentiranjeClanarinaController extends BaseController{
 		ClanarinaDTO clanarina = new ClanarinaDTO(null, datum, iznos, opis, tipTransakcije, mjesec, godina, clan.getIme(), clan.getPrezime(),clan.getId());
 		ClanarinaDAO.INSERT(clanarina, clan);
 		listaClanarina.add(clanarina);
-	}
-	public void obrisi() {
-		ClanarinaDTO clanarina = tableClanarine.getSelectionModel().getSelectedItem();
-		
 	}
 	
 	public void prikazi() {
@@ -190,6 +196,53 @@ public class EvidentiranjeClanarinaController extends BaseController{
 			}
 			tableClanarine.setItems(lista);
 		}
+	}
+	public void izmijeni() {
+		Stage noviStage = new Stage();
+		System.out.println("prije loader");
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/IzmijeniClanarinuView.fxml"));
+		AnchorPane root;
+		IzmijeniClanarinuController controller=null;
+		
+		try {
+			root = (AnchorPane) loader.load();//initialize
+			Scene scene = new Scene(root,300,400);
+			controller = loader.<IzmijeniClanarinuController>getController();
+			controller.setPrimaryStage(noviStage);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			ClanarinaDTO clanarina = tableClanarine.getSelectionModel().getSelectedItem();
+			controller.setListaClanova(listaClanova);
+			controller.setComboBoxClan(listaClanova,clanarina.getClanId());
+			controller.setTxtIznos(new String(clanarina.getIznos().getValue().toString()));
+			controller.setTxtOpis(clanarina.getOpis().get());
+			controller.setSpinnerGodina(clanarina.getGodina().intValue());
+			controller.setSpinnerMjesec(clanarina.getMjesec().intValue());
+			controller.setDatePicker(clanarina.getDatum());
+			controller.setClanarina(clanarina);
+			controller.setEvidentiranjeController(this);
+			noviStage.showAndWait();
+			//postaviKolone();
+			//tableClanarine.setItems(listaClanarina);
+			tableClanarine.refresh();
+			postaviKolone();
+			//popuniTabelu();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	public ObservableList<ClanarinaDTO> getListaClanarina() {
+		return listaClanarina;
+	}
+
+	public void setListaClanarina(ObservableList<ClanarinaDTO> listaClanarina) {
+		this.listaClanarina = listaClanarina;
 	}
 }
 

@@ -1,6 +1,7 @@
 package application.model.dto;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.beans.property.BooleanProperty;
@@ -69,5 +70,16 @@ public class TransakcijaDTO {
 	}
 	public StringProperty tipTransakcijeProperty() {
 		return tipTransakcije;
+	}
+	
+	public StringProperty datumProperty() {
+		StringProperty sp = new SimpleStringProperty(new SimpleDateFormat("yyyy-MM-dd").format(datum));
+		return sp;
+		
+	}
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return id==((TransakcijaDTO)obj).getId();
 	}
 }
