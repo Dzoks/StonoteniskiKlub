@@ -37,6 +37,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -84,7 +85,10 @@ public class IzmjenaClanaController extends BaseController implements Initializa
     private ImageView ivSlika;
 
     @FXML
-    private ComboBox<String> cbTelefon;
+    private TextField txtTelefon;
+
+    @FXML
+    private ListView<String> lvTelefoni;
 
 
     @FXML
@@ -96,14 +100,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		cbTelefon.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if(event.getCode() == KeyCode.ENTER) {
-					sacuvajTelefon();
-				}
-			}
-		});
+		
 		
 		ToggleGroup group = new ToggleGroup();
 		rbMusko.setToggleGroup(group);
@@ -137,7 +134,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 						txtJMB.textProperty().isEmpty().or(
 								dpDatumRodjenja.valueProperty().isNull().or(
 										group.selectedToggleProperty().isNull().or(
-												cbTelefon.itemsProperty().isNull()))))));
+												lvTelefoni.itemsProperty().isNull()))))));
 	}
 	
 	private ClanDTO clan;
@@ -241,27 +238,19 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 	}
 	
 	public void obrisiTelefon() {
-		int id = cbTelefon.getSelectionModel().getSelectedIndex();
-		if(id != -1) {
-			listaTelefona.remove(id);
-			cbTelefon.setValue("");
-			cbTelefon.getSelectionModel().select(-1);
-			return;
-		}
+		int index = lvTelefoni.getSelectionModel().getSelectedIndex();
+		listaTelefona.remove(index);
 	}
 	
 	public void sacuvajTelefon() {
-		String noviTelefon = cbTelefon.getValue();
-		int id = cbTelefon.getSelectionModel().getSelectedIndex();
-		if(id != -1) {
-			listaTelefona.set(id, noviTelefon);
-			cbTelefon.setValue("");
-			cbTelefon.getSelectionModel().select(-1);
-			return;
+		String noviTelefon = txtTelefon.getText();
+		if(noviTelefon.matches("[0-9][0-9][0-9]/[0-9][0-9][0-9]-[0-9][0-9][0-9]")) {
+			listaTelefona.add(noviTelefon);
+			txtTelefon.clear();
 		}
-		listaTelefona.add(noviTelefon);
-		cbTelefon.setValue("");
-		cbTelefon.getSelectionModel().select(-1);
+		else {
+			new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK).show();
+		}
 	}
 	
 	public void popuniPolja() {
@@ -274,7 +263,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 		else
 			rbZensko.setSelected(true);
 		listaTelefona = FXCollections.observableArrayList(clan.getTelefoni());
-		cbTelefon.setItems(listaTelefona);
+		lvTelefoni.setItems(listaTelefona);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		formatter = formatter.withLocale( Locale.US );  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
 		LocalDate date = null;
