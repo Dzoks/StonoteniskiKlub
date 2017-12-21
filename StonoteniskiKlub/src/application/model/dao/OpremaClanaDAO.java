@@ -1,26 +1,29 @@
 package application.model.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
-import application.model.dto.OpremaClanaDTO;
+import application.model.dto.Clan;
+import application.model.dto.OpremaClana;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class OpremaClanaDAO {
 
-	private static final String SQL_SELECT_ALL = "SELECT * FROM prikaz_opreme_clana";
-	private static final String SQL_SELECT_JMB_CLAN = "SELECT JMB FROM prikaz_clana WHERE Id=?";
-	private static final String SQL_SELECT_IME_CLAN = "SELECT ime FROM prikaz_clana WHERE Id=?";
-	private static final String SQL_SELECT_PREZIME_CLAN = "SELECT prezime FROM prikaz_clana WHERE Id=?";
-	private static final String SQL_SELECT_AKTIVAN_CLAN = "SELECT Aktivan FROM prikaz_clana WHERE Id=?";
+	private static final String SQL_SELECT_ALL = "SELECT * FROM prikaz_opreme_clana WHERE Obrisan=false";
+	private static final String SQL_SELECT_AKTIVNE = "SELECT * FROM prikaz_clana WHERE Aktivan=true";
+	private static final String SQL_SELECT_BY = "SELECT  * FROM prikaz_opreme_clana WHERE Obrisan=false AND LOCATE(?, ";
+	private static final String SQL_INSERT = "{call dodaj_opremu_clana(?,?,?,?,?,?)}";
+	private final static String SQL_UPDATE = "UPDATE oprema_clan SET CLAN_Id=? WHERE OPREMA_Id=?";
 	
-	public static ObservableList<OpremaClanaDTO> SELECT_ALL() {
-		ObservableList<OpremaClanaDTO> listaOpreme = FXCollections.observableArrayList();
+	public static ObservableList<OpremaClana> SELECT_ALL() {
+		ObservableList<OpremaClana> listaOpreme = FXCollections.observableArrayList();
 		Connection c = null;
 		Statement s = null;
 		ResultSet rs = null;
@@ -31,7 +34,7 @@ public class OpremaClanaDAO {
 			rs = s.executeQuery(SQL_SELECT_ALL);
 			
 			while(rs.next()) {
-				listaOpreme.add(new OpremaClanaDTO(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getInt("CLAN_Id")));
+				listaOpreme.add(new OpremaClana(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getInt("CLAN_Id")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,43 +46,47 @@ public class OpremaClanaDAO {
 		return listaOpreme;
 	}
 	
-	public static String SELECT_JMB_CLAN(Integer id) {
+	public static ObservableList<Clan> SELECT_AKTIVNE(){
+		ObservableList<Clan> listClanova = FXCollections.observableArrayList();
 		Connection c = null;
-		PreparedStatement ps = null;
+		Statement s = null;
 		ResultSet rs = null;
-		String rezultat = "";
 		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
-			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_JMB_CLAN, false, id);
-			rs = ps.executeQuery();
+			s = c.createStatement();
+			rs = s.executeQuery(SQL_SELECT_AKTIVNE);
 			
 			while(rs.next()) {
-				rezultat = rs.getString("JMB");
+				listClanova.add(new Clan(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"), rs.getString("ImeRoditelja"), 
+						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"), rs.getBlob("Fotografija"), null,
+						rs.getBoolean("Aktivan"), rs.getBoolean("Registrovan")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
-			ConnectionPool.close(rs, ps);
+			ConnectionPool.close(rs, s);
 		}
 		
-		return rezultat;
+		return listClanova;
 	}
 	
-	public static String SELECT_IME_CLAN(Integer id) {
+	public static ObservableList<OpremaClana> SELECT_BY(String tipPretrage, String rijec) {
+		ObservableList<OpremaClana> listaOpreme = FXCollections.observableArrayList();
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String rezultat = "";
+		String upit = "";
 		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
-			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_IME_CLAN, false, id);
+			upit = SQL_SELECT_BY + tipPretrage + ")>0";
+			ps = ConnectionPool.prepareStatement(c, upit, false, rijec);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				rezultat = rs.getString("ime");
+				listaOpreme.add(new OpremaClana(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getInt("CLAN_Id")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -88,54 +95,56 @@ public class OpremaClanaDAO {
 			ConnectionPool.close(rs, ps);
 		}
 		
-		return rezultat;
+		return listaOpreme;
 	}
 	
-	public static String SELECT_PREZIME_CLAN(Integer id) {
+	public static void INSERT(OpremaClana oprema) {
 		Connection c = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String rezultat = "";
+		CallableStatement cs = null;
 		
-		try {
+		try{
 			c = ConnectionPool.getInstance().checkOut();
-			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_PREZIME_CLAN, false, id);
-			rs = ps.executeQuery();
+			cs = c.prepareCall(SQL_INSERT);
+			cs.setBoolean("inDonirana", oprema.getDonirana());
+			cs.setInt("inOpremaTipId", oprema.getIdTipaOpreme());
 			
-			while(rs.next()) {
-				rezultat = rs.getString("prezime");
+			if(oprema.getIdNarudzbe() == null) {
+				cs.setNull("inNarudzbaId", Types.INTEGER);
 			}
-		} catch (SQLException e) {
+			else {
+				cs.setInt("inNarudzbaId", oprema.getIdNarudzbe());
+			}
+			if(oprema.getIdDonacije() == null) {
+				cs.setNull("inDonacijaId", Types.INTEGER);
+			}
+			else {
+				cs.setInt("inDonacijaId", oprema.getIdDonacije());
+			}
+			
+			cs.setString("inVelicina", oprema.getVelicina());
+			cs.setInt("inClanId", oprema.getIdClana());
+			cs.executeQuery();
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
-			ConnectionPool.close(rs, ps);
+			ConnectionPool.close(cs);
 		}
-		
-		return rezultat;
 	}
 	
-	public static Boolean SELECT_AKTIVAN_CLAN(Integer id) {
+	public static void UPDATE(OpremaClana oprema, Integer idClana) {
 		Connection c = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
-		Boolean rezultat = null;
 		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
-			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_AKTIVAN_CLAN, false, id);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				rezultat = rs.getBoolean("Aktivan");
-			}
+			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE, false, idClana, oprema.getId());
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
-			ConnectionPool.close(rs, ps);
+			ConnectionPool.close(ps);
 		}
-		
-		return rezultat;
 	}
 }

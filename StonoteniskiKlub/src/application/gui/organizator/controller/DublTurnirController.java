@@ -3,27 +3,42 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
+import application.model.dao.KategorijaTurniraDAO;
+import application.model.dao.TurnirDAO;
+import application.model.dao.UcesnikPrijavaDAO;
+import application.model.dto.TurnirDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 
 public class DublTurnirController extends BaseController{
 	@FXML
+	private Label lblNaziv;
+	@FXML
+	private Label lblDatum;
+	@FXML
 	private Label lblKategorija;
 	@FXML
 	private TableView tblEkipe;
 	@FXML
-	private TableColumn clnRedniBroj;
+	private TableColumn clnIgrac1;
+	@FXML
+	private TableColumn clnIme1;
 	@FXML
 	private TableColumn clnPrezime1;
 	@FXML
 	private TableColumn clnJMBG1;
+	@FXML
+	private TableColumn clnIgrac2;
+	@FXML
+	private TableColumn clnIme2;
 	@FXML
 	private TableColumn clnPrezime2;
 	@FXML
@@ -36,6 +51,9 @@ public class DublTurnirController extends BaseController{
 	private Button btnZrijeb;
 	@FXML
 	private Button btnNazad;
+
+	private Integer id;
+	private Integer idKategorije;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -43,9 +61,23 @@ public class DublTurnirController extends BaseController{
 		
 	}
 	
-	public void inicijalizuj(Integer id){
+	public void inicijalizuj(Integer id,Integer idKategorije){
+		this.id=id;
+		this.idKategorije=idKategorije;
 		primaryStage.setTitle("Dubl turnir");
-		lblKategorija.setText("Ženski dubl");
+		TurnirDTO turnir=TurnirDAO.getById(id);
+		lblNaziv.setText(turnir.getNaziv());
+		lblDatum.setText(TurniriController.konvertujIzSQLDate(turnir.getDatum()));
+		lblKategorija.setText(KategorijaTurniraDAO.getById(idKategorije).toString());	
+		btnIzmjeni.disableProperty().bind(tblEkipe.getSelectionModel().selectedItemProperty().isNull());
+		popuniTabelu();
+	}
+	//REALIZOVATI
+	public void popuniTabelu(){
+		clnIme1.setCellValueFactory(new PropertyValueFactory<>("ime"));
+		clnPrezime1.setCellValueFactory(new PropertyValueFactory<>("prezime"));
+		clnJMBG1.setCellValueFactory(new PropertyValueFactory<>("jmb"));
+		tblEkipe.setItems(UcesnikPrijavaDAO.getAll(id,idKategorije));
 	}
 	
 	public void prijaviEkipu(){
@@ -103,8 +135,8 @@ public class DublTurnirController extends BaseController{
 	
 	public void vratiNazad(){
 		try {
-			changeScene("/application/gui/organizator/view/UrediTurnirView.fxml", primaryStage);
-			primaryStage.setTitle("Pregled turnira");
+			changeScene("/application/gui/organizator/view/TurniriView.fxml", primaryStage);
+			primaryStage.setTitle("Turniri");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

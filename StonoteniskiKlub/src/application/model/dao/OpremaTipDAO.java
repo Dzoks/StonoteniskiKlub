@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import application.model.dto.OpremaTipDTO;
+import application.model.dto.OpremaTip;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,10 +17,11 @@ public class OpremaTipDAO {
 	private static final String SQL_SELECT_TIP = "SELECT Tip FROM oprema_tip WHERE Id=?";
 	private static final String SQL_SELECT_PROIZVODJAC = "SELECT Proizvodjac FROM oprema_tip WHERE Id=?";
 	private static final String SQL_SELECT_MODEL = "SELECT Model FROM oprema_tip WHERE Id=?";
-	private static final String SQL_INSERT = "INSERT INTO oprema_tip VALUES (null, ?, ?, ?)";
+	private static final String SQL_SELECT_IMA_LI_VELICINU = "SELECT ImaVelicinu FROM oprema_tip WHERE Id=?";
+	private static final String SQL_INSERT = "INSERT INTO oprema_tip VALUES (null, ?, ?, ?, ?)";
 	
-	public static ObservableList<OpremaTipDTO> SELECT_ALL() {
-		ObservableList<OpremaTipDTO> listaTipovaOprema = FXCollections.observableArrayList();
+	public static ObservableList<OpremaTip> SELECT_ALL() {
+		ObservableList<OpremaTip> listaTipovaOprema = FXCollections.observableArrayList();
 		Connection c = null;
 		Statement s = null;
 		ResultSet rs = null;
@@ -31,7 +32,7 @@ public class OpremaTipDAO {
 			rs = s.executeQuery(SQL_SELECT_ALL);
 			
 			while(rs.next()) {
-				listaTipovaOprema.add(new OpremaTipDTO(rs.getInt("Id"), rs.getString("Tip"), rs.getString("Proizvodjac"), rs.getString("Model")));
+				listaTipovaOprema.add(new OpremaTip(rs.getInt("Id"), rs.getString("Tip"), rs.getString("Proizvodjac"), rs.getString("Model"), rs.getBoolean("ImaVelicinu")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,13 +44,13 @@ public class OpremaTipDAO {
 		return listaTipovaOprema;
 	}
 	
-	public static void INSERT(OpremaTipDTO opremaTip) {
+	public static void INSERT(OpremaTip opremaTip) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
-			ps = ConnectionPool.prepareStatement(c, SQL_INSERT, false, opremaTip.getTip() , opremaTip.getProizvodjac(), opremaTip.getModel());
+			ps = ConnectionPool.prepareStatement(c, SQL_INSERT, false, opremaTip.getTip() , opremaTip.getProizvodjac(), opremaTip.getModel(), opremaTip.getImaVelicinu());
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,6 +121,30 @@ public class OpremaTipDAO {
 			
 			while(rs.next()) {
 				rezultat = rs.getString("Model");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.getInstance().checkIn(c);
+			ConnectionPool.close(rs, ps);
+		}
+		
+		return rezultat;
+	}
+	
+	public static Boolean SELECT_IMA_LI_VELICINU(Integer id) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Boolean rezultat = null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_IMA_LI_VELICINU, false, id);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				rezultat = rs.getBoolean("ImaVelicinu");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
