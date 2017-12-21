@@ -12,6 +12,7 @@ public class Main extends Application {
 		//BaseController.changeScene("/application/test/drugi.fxml", primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Turniri");
+		primaryStage.centerOnScreen();
 		primaryStage.show();
 	}
 
