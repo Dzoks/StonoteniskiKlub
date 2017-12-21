@@ -1,20 +1,13 @@
 package application.model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
-import application.model.dto.OpremaTipDTO;
 import application.util.ConnectionPool;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

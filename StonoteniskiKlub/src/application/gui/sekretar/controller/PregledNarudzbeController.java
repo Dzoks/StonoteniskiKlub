@@ -11,12 +11,10 @@ import application.model.dto.NarudzbaStavka;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.Label;
-
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TableColumn;
 
 public class PregledNarudzbeController extends BaseController implements Initializable{
 	@FXML

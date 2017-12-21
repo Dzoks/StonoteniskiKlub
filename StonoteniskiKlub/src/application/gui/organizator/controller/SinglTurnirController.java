@@ -2,6 +2,7 @@ package application.gui.organizator.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import application.gui.controller.BaseController;
 import application.model.dao.KategorijaTurniraDAO;
 import application.model.dao.TurnirDAO;
@@ -12,11 +13,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.scene.control.TableColumn;
 
 public class SinglTurnirController extends BaseController{
 	@FXML
@@ -116,7 +117,7 @@ public class SinglTurnirController extends BaseController{
 			Scene scene = new Scene(root);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Žrijeb");
+			noviStage.setTitle("ï¿½rijeb");
 			noviStage.show();
 			BaseController controller=loader.<BaseController>getController();
 			controller.setPrimaryStage(noviStage);

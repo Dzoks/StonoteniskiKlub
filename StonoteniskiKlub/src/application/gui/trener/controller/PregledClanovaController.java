@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
-import application.model.dao.OsobaDAO;
 import application.model.dto.ClanDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

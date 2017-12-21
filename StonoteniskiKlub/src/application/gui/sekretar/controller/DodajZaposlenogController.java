@@ -6,21 +6,14 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.ZaposleniTipDAO;
 import application.model.dto.ZaposleniTipDTO;
-import application.model.dto.ZaposlenjeDTO;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-
-import javafx.scene.control.ToggleGroup;
-
 import javafx.scene.control.ComboBox;
-
-import javafx.scene.control.RadioButton;
-
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 
 public class DodajZaposlenogController extends BaseController{
 	@FXML

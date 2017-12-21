@@ -9,41 +9,31 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.gui.trener.controller.DodajTipOpremeProzorController;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanarinaDAO;
-import application.model.dao.OpremaKlubaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
-import application.model.dto.OpremaKlubaDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Label;
-
-import javafx.scene.control.ComboBox;
-
-import javafx.scene.control.TextArea;
-
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.RadioButton;
-
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableView;
-
-import javafx.scene.control.DatePicker;
-
-import javafx.scene.control.TableColumn;
 
 public class EvidentiranjeClanarinaController extends BaseController{
 	@FXML

@@ -1,9 +1,5 @@
 package application.gui.trener.controller;
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -11,7 +7,9 @@ import application.gui.controller.BaseController;
 import application.model.dao.OpremaKlubaDAO;
 import application.model.dto.OpremaKluba;
 import javafx.event.ActionEvent;
-
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
 public class IzmjenaOpisaOpremeController extends BaseController implements Initializable{

@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import application.model.dto.ZaposleniDTO;
-import application.model.dto.ZaposleniTipDTO;
-import application.model.dto.ZaposlenjeDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

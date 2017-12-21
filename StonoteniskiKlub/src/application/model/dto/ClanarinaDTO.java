@@ -1,7 +1,7 @@
 package application.model.dto;
 
 import java.util.Date;
-import javafx.beans.property.DoubleProperty;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

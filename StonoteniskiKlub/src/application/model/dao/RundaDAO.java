@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import application.model.dto.RundaDTO;
-import application.model.dto.ZrijebDTO;
 import application.util.ConnectionPool;
 
 public class RundaDAO {

@@ -10,7 +10,7 @@ import javafx.beans.property.StringProperty;
 public class OpremaClana extends Oprema{
 
 	private IntegerProperty idClana;
-	private Clan clan;
+	private ClanDTO clan;
 	private StringProperty jmbClana;
 	private StringProperty imeClana;
 	private StringProperty prezimeClana;
@@ -41,11 +41,11 @@ public class OpremaClana extends Oprema{
 		this.idClana.set(idClana);
 	}
 
-	public Clan getClan() {
+	public ClanDTO getClan() {
 		return clan;
 	}
 
-	public void setClan(Clan clan) {
+	public void setClan(ClanDTO clan) {
 		this.clan = clan;
 	}
 
