@@ -1,13 +1,20 @@
 package application.model.dao;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Observable;
 
 import application.model.dto.ClanDTO;
+import application.model.dto.ClanarinaDTO;
 import application.util.ConnectionPool;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ClanDAO {
@@ -16,7 +23,33 @@ public class ClanDAO {
 	private final static String SQL_UPDATE_AKTIVAN = "UPDATE CLAN SET Aktivan=? WHERE OSOBA_Id=?";
 	private final static String SQL_INSERT = "INSERT INTO CLAN VALUES (?, ?, ?)";
 	
-	
+	public static ObservableList<ClanDTO> SELECT_ALL(){//Helena dodala
+		String select = "select * from clan c inner join osoba o where o.id=c.osoba_id";
+		ObservableList<ClanDTO> listaClanova = FXCollections.observableArrayList();
+		Connection c = null;
+		Statement s = null;
+		ResultSet rs = null;
+		/*
+		 * int id, String ime, String prezime, String imeRoditelja, String jmb, Character pol,
+			Date datumRodjenja, Blob slika, List<String> telefoni, boolean aktivan, boolean registrovan
+		 */
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			s = c.createStatement();
+			rs = s.executeQuery(select);
+			while(rs.next()) {
+				listaClanova.add(new ClanDTO(rs.getInt("id"), rs.getString("ime"), rs.getString("prezime"), rs.getString("imeRoditelja"),rs.getString("jmb"),rs.getString("Pol").charAt(0),rs.getDate("DatumRodjenja"), rs.getBlob("Fotografija"), null,
+						rs.getBoolean("Aktivan"), rs.getBoolean("Registrovan")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.getInstance().checkIn(c);
+			ConnectionPool.close(rs, s);
+		}
+		
+		return listaClanova;
+	}
 	public static ClanDTO getById(int id) {
 		ClanDTO clan = null;
 		Connection c = null;

@@ -1,7 +1,6 @@
 package application.model.dto;
 
 import java.util.Date;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -13,28 +12,41 @@ public class ClanarinaDTO extends TransakcijaDTO{
 	private IntegerProperty godina;
 	private StringProperty imeClana;
 	private StringProperty prezimeClana;
+	private Integer clanId;
+
+
+	public Integer getClanId() {
+		return clanId;
+	}
+
+	public void setClanId(Integer clanId) {
+		this.clanId = clanId;
+	}
+
 	public ClanarinaDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ClanarinaDTO(Integer id, String datum, Double iznos, String opis,
+	public ClanarinaDTO(Integer id, Date datum, Double iznos, String opis,
 			String tipTransakcije,Integer mjesec, Integer godina, String imeClana,
-			String prezimeClana) {
+			String prezimeClana,Integer clanId) {
 		super(id, datum, iznos, opis, tipTransakcije);
 		// TODO Auto-generated constructor stub
 		this.mjesec = mjesec==null ? null : new SimpleIntegerProperty(mjesec);
 		this.godina = godina==null ? null : new SimpleIntegerProperty(godina);
 		this.imeClana = imeClana==null ? null : new SimpleStringProperty(imeClana);
 		this.prezimeClana = prezimeClana==null ? null : new SimpleStringProperty(prezimeClana);
+		this.clanId = clanId;
 	}
 	
 	public ClanarinaDTO(IntegerProperty mjesec, IntegerProperty godina, StringProperty imeClana,
-			StringProperty prezimeClana) {
+			StringProperty prezimeClana, Integer clanId) {
 		this.mjesec = mjesec;
 		this.godina = godina;
 		this.imeClana = imeClana;
 		this.prezimeClana = prezimeClana;
+		this.clanId = clanId;
 	}
 
 

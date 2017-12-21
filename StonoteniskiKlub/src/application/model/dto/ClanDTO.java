@@ -57,6 +57,10 @@ public class ClanDTO extends OsobaDTO{
 		this.registrovanProperty().set(registrovan);
 	}
 	
-	
+	@Override
+	public String toString() {//dodala Helena
+		// TODO Auto-generated method stub
+		return this.imeProperty().get() +" "+this.prezimeProperty().get();
+	}
 	
 }

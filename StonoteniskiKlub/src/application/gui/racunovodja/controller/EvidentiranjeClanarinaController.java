@@ -1,20 +1,27 @@
 package application.gui.racunovodja.controller;
 
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
+import application.model.dao.ClanDAO;
 import application.model.dao.ClanarinaDAO;
 import application.model.dao.OpremaKlubaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import application.model.dto.OpremaKlubaDTO;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Label;
 
@@ -27,7 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.RadioButton;
 
 import javafx.scene.control.Spinner;
-
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableView;
 
 import javafx.scene.control.DatePicker;
@@ -103,10 +110,19 @@ public class EvidentiranjeClanarinaController extends BaseController{
 	private Label lblOpis;
 	@FXML
 	private TextArea txtOpis;
-
+	
+	private ObservableList<ClanarinaDTO> listaClanarina;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		ToggleGroup group = new ToggleGroup();
+		radiobtnClan.setToggleGroup(group);
+		radiobtnMjesec.setToggleGroup(group);
+		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, 1);
+		SpinnerValueFactory<Integer> valueFactory1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(2010, 2018, 2014);
+		spinnerMjesecDodaj.setValueFactory(valueFactory);
+		  spinnerMjesecPrikazi.setValueFactory(valueFactory);
+		  spinnerGodinaDodaj.setValueFactory(valueFactory1);
+		  spinnerGodina.setValueFactory(valueFactory1);
 		this.popuniTabelu();
 		this.popuniComboBox();
 	}
@@ -119,16 +135,69 @@ public class EvidentiranjeClanarinaController extends BaseController{
 		tableColumnIznos.setCellValueFactory(new PropertyValueFactory<ClanarinaDTO, Double>("iznos"));
 		tableColumnDatumUplate.setCellValueFactory(new PropertyValueFactory<ClanarinaDTO,String>("datum"));
 		
-		ObservableList<ClanarinaDTO> listaClanarina = ClanarinaDAO.SELECT_ALL();
+		listaClanarina = ClanarinaDAO.SELECT_ALL();
 		tableClanarine.setItems(listaClanarina);
 	}
 	
 	private void popuniComboBox() {
-		//ObservableList<ClanaDTO> listaClanarina = ClanDAO.SELECT_ALL();
+		ObservableList<ClanDTO> listaClanarina = ClanDAO.SELECT_ALL();
+		comboBoxClanDodaj.setItems(listaClanarina);
+		comboBoxClanDodaj.getSelectionModel().selectFirst();
+		comboBoxClanPrikazi.setItems(listaClanarina);
+		comboBoxClanPrikazi.getSelectionModel().selectFirst();
+	}
+	
+	public void dodaj() {
+		System.out.println("dodaj");
+		//pokupi podatke sa polja i posalji to u proceduru koja ce napraviti transakciju i clanarinu
+		Double iznos = Double.parseDouble(txtIznos.getText());
+		Integer mjesec = spinnerMjesecDodaj.getValue();
+		Integer godina = spinnerGodinaDodaj.getValue();
+		ClanDTO clan = comboBoxClanDodaj.getValue();
+		String opis = txtOpis.getText();
+		LocalDate localDate = datePicker.getValue();
+		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+		Date datum = Date.from(instant);
+		String tipTransakcije = "clanarina"; //hardcode, popraviti hashmap...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		ClanarinaDTO clanarina = new ClanarinaDTO(null, datum, iznos, opis, tipTransakcije, mjesec, godina, clan.getIme(), clan.getPrezime(),clan.getId());
+		ClanarinaDAO.INSERT(clanarina, clan);
+		listaClanarina.add(clanarina);
+	}
+	public void obrisi() {
+		ClanarinaDTO clanarina = tableClanarine.getSelectionModel().getSelectedItem();
+		
+	}
+	
+	public void prikazi() {
+		System.out.println("prikazi");
+		ObservableList<ClanarinaDTO> lista = FXCollections.observableArrayList();
+		if(radiobtnClan.isSelected()) {
+			ClanDTO clan = comboBoxClanPrikazi.getValue();
+			for(ClanarinaDTO cl : listaClanarina) {
+				if(cl.getClanId() == clan.getId()) {
+					lista.add(cl);
+				}
+			}
+			tableClanarine.setItems(lista);
+		}else if(radiobtnMjesec.isSelected()) {
+			System.out.println("mjesec");
+			int mjesec = spinnerMjesecPrikazi.getValue();
+			int godina = spinnerGodina.getValue();
+			for(ClanarinaDTO cl : listaClanarina) {
+				if(cl.getMjesec().get()==mjesec && cl.getGodina().get()==godina) {
+					lista.add(cl);
+				}
+			}
+			tableClanarine.setItems(lista);
+		}
 	}
 }
 
-/*public static void INSERT(OpremaClana oprema) {
+/*
+ * 
+ private static final String SQL_INSERT = "{call dodaj_opremu_clana(?,?,?,?,?,?)}";
+ * public static void INSERT(OpremaClana oprema) {
+ 
 	Connection c = null;
 	CallableStatement cs = null;
 	
