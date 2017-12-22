@@ -15,13 +15,13 @@
 
 <AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tableUplateZaTurnir" layoutX="17.0" layoutY="197.0" prefHeight="198.0" prefWidth="465.0">
+      <TableView fx:id="tableTroskoviOprema" layoutX="17.0" layoutY="197.0" prefHeight="198.0" prefWidth="465.0">
         <columns>
-            <TableColumn fx:id="tableColumnNazivTurnira" prefWidth="104.0" text="Narudzba" />
-            <TableColumn prefWidth="76.0" text="Distributer" />
+            <TableColumn fx:id="tableColumnNarudzba" prefWidth="104.0" text="Narudzba" />
+            <TableColumn fx:id="tableColumnDistributer" prefWidth="76.0" text="Distributer" />
             <TableColumn fx:id="tableColumnDatumUplate" prefWidth="87.0" text="Datum uplate" />
             <TableColumn fx:id="tableColumnIznos" prefWidth="75.0" text="Iznos" />
-            <TableColumn prefWidth="122.0" text="Opis" />
+            <TableColumn fx:id="tableColumnOpis" prefWidth="122.0" text="Opis" />
         </columns>
       </TableView>
       <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
@@ -35,11 +35,11 @@
       <Label fx:id="lblKM" layoutX="585.0" layoutY="51.0" text="KM" />
       <Label fx:id="lblDatum" layoutX="20.0" layoutY="91.0" text="Datum:" />
       <DatePicker fx:id="datePicker" layoutX="88.0" layoutY="87.0" />
-      <Button fx:id="btnPrikazi" layoutX="553.0" layoutY="332.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Prikazi" />
-      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="430.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Obrisi" />
-      <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="430.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Izmijeni" />
+      <Button fx:id="btnPrikazi" layoutX="553.0" layoutY="332.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Prikazi" />
+      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="430.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrisi" />
+      <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="430.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijeni" />
       <Label fx:id="lblNarudzbaDodaj" layoutX="22.0" layoutY="51.0" text="Narudzba:" />
-      <ComboBox fx:id="comboBoxTurnir" layoutX="88.0" layoutY="47.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboBoxNarudzba" layoutX="88.0" layoutY="47.0" prefWidth="150.0" />
       <Label fx:id="lblDistributer" layoutX="487.0" layoutY="288.0" text="Distributer:" />
       <ComboBox fx:id="comboBoxDistributer" layoutX="549.0" layoutY="284.0" prefWidth="150.0" />
       <Label fx:id="lblOpis" layoutX="339.0" layoutY="104.0" text="Opis:" />

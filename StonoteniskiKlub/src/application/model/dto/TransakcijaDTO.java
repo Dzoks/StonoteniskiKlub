@@ -2,6 +2,7 @@ package application.model.dto;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javafx.beans.property.BooleanProperty;

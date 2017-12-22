@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
-import application.model.dto.OpremaTipDTO;
+
 import application.util.ConnectionPool;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -19,11 +19,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ClanarinaDAO {
-	
+	private static final String SQL_SELECT_IDENTITY = "SELECT @outId";
 	private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 	private static final String SQL_DELETE = "{call obrisi_clanarinu(?)}";
 	private static final String SQL_INSERT = "{call dodaj_clanarinu(?,?,?,?,?,?)}";
-	private static final String SQL_UPDATE = "{call update_clanarinu(?,?,?,?,?,?)}";
+	private static final String SQL_UPDATE = "{call update_clanarinu(?,?,?,?,?,?,?)}";
 	public static ObservableList<ClanarinaDTO> SELECT_ALL() {
 		ObservableList<ClanarinaDTO> listaClanarina = FXCollections.observableArrayList();
 		Connection c = null;
@@ -55,6 +55,7 @@ public class ClanarinaDAO {
 		try{
 			c = ConnectionPool.getInstance().checkOut();
 			cs = c.prepareCall(SQL_INSERT);
+			
 			cs.setDate("inDatum", new java.sql.Date(clanarina.getDatum().getTime()));
 			cs.setDouble("inIznos", clanarina.getIznos().doubleValue());
 			cs.setString("inOpis",clanarina.getOpis().getValue());
@@ -62,6 +63,17 @@ public class ClanarinaDAO {
 			cs.setInt("inGodina",clanarina.getGodina().intValue());
 			cs.setInt("inClanId", clan.getId());
 			cs.executeQuery();
+			Object temp[] = {};
+
+			PreparedStatement ps = ConnectionPool.prepareStatement(c,SQL_SELECT_IDENTITY, false, temp);
+			ps.executeUpdate();
+			Object tem[] = {};
+			
+			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_IDENTITY, false, tem);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+				clanarina.setId(rs.getInt("@outId"));
+			//System.out.println("Id clanarine je "+id);
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -77,12 +89,16 @@ public class ClanarinaDAO {
 			c = ConnectionPool.getInstance().checkOut();
 			cs = c.prepareCall(SQL_UPDATE);
 			System.out.println(clanarina.getId());
-			cs.setInt("inId", clanarina.getId());
+			if(clanarina.getId()==null)
+				cs.setNull("inId", Integer.MAX_VALUE);
+			else
+				cs.setInt("inId", clanarina.getId());
 			cs.setDate("inDatum", new java.sql.Date(clanarina.getDatum().getTime()));
 			cs.setDouble("inIznos", clanarina.getIznos().doubleValue());
 			cs.setString("inOpis",clanarina.getOpis().getValue());
 			cs.setInt("inMjesec", clanarina.getMjesec().intValue());
 			cs.setInt("inGodina",clanarina.getGodina().intValue());
+			cs.setInt("inOsobaId", clan.getId());
 			cs.executeQuery();
 		}catch (SQLException e) {
 			e.printStackTrace();

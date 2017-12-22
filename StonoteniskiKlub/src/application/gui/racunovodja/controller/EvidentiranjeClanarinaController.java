@@ -9,13 +9,11 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.gui.trener.controller.DodajTipOpremeProzorController;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanarinaDAO;
 import application.model.dao.OpremaKlubaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
-import application.model.dto.OpremaKlubaDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

@@ -137,6 +137,7 @@ public class IzmijeniClanarinuController extends BaseController{
 		LocalDate localDate = datePicker.getValue();
 		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
 		Date datum = Date.from(instant);
+		System.out.println(clanarina.getId());
 		String tipTransakcije = "clanarina"; //hardcode, popraviti hashmap...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		ClanarinaDTO clanarina1 = new ClanarinaDTO(clanarina.getId(), datum, iznos, opis, tipTransakcije, mjesec, godina, clan.getIme(), clan.getPrezime(),clan.getId());
 		evidentiranjeController.getListaClanarina().remove(clanarina1);
