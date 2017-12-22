@@ -14,8 +14,8 @@
       <Label layoutX="27.0" layoutY="14.0" text="Pretraga po:" />
       <Label layoutX="27.0" layoutY="55.0" text="Godina:" />
       <Label layoutX="27.0" layoutY="98.0" text="Mjesec:" />
-      <TextField fx:id="txtGodina" layoutX="114.0" layoutY="51.0" onInputMethodTextChanged="#filterList" prefHeight="25.0" prefWidth="65.0" />
-      <TextField fx:id="txtMjesec" layoutX="114.0" layoutY="94.0" onInputMethodTextChanged="#filterList" prefHeight="25.0" prefWidth="65.0" />
+      <TextField fx:id="txtGodina" layoutX="114.0" layoutY="51.0" onKeyReleased="#filterList" prefHeight="25.0" prefWidth="65.0" />
+      <TextField fx:id="txtMjesec" layoutX="114.0" layoutY="94.0" onKeyReleased="#filterList" prefHeight="25.0" prefWidth="65.0" />
       <ListView fx:id="listTrening" layoutX="27.0" layoutY="134.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="274.0" layoutY="14.0" text="Datum treninga:">
          <font>
