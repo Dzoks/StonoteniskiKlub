@@ -166,7 +166,7 @@ public class OsobaDAO {
 			ps.executeUpdate();
 
 			Object temp[] = {};
-
+			ps.close();//OVO JE DODANO JER DOLAZI DO CURENJA, DZOKS
 			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_IDENTITY, false, temp);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())

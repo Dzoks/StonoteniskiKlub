@@ -5,10 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import application.model.dto.ClanDTO;
 import application.model.dto.TreningDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
