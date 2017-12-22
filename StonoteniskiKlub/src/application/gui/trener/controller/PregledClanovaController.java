@@ -15,6 +15,7 @@ import application.model.dao.ClanDAO;
 import application.model.dto.ClanDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -88,6 +89,8 @@ public class PregledClanovaController extends BaseController implements Initiali
     @FXML
     private Label lblDatumRodjenja;
     
+    @FXML
+    private MenuItem miTreninzi;
     
 
 	@Override
@@ -230,7 +233,20 @@ public class PregledClanovaController extends BaseController implements Initiali
 		twTabela.setItems(listaClanova);
 		return;
 	}
-	
+	 @FXML
+	    void otvoriTreninge(ActionEvent event) {
+		 Stage trening=new Stage();
+		 TreningController controller=null;
+		 try {
+			controller=(TreningController) BaseController.changeScene("/application/gui/trener/view/TreningView.fxml", trening);
+			controller.setClan(twTabela.getSelectionModel().getSelectedItem().getId());
+			trening.setResizable(false);
+			trening.show();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+	    }
 	public void prikaziDetaljeOClanu() {
 		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
 		
