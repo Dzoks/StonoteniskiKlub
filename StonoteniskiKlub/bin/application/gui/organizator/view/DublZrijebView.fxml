@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.DublZrijebController">
+   <children>
+      <Label layoutX="80.0" layoutY="12.0" text="1. runda">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="281.0" layoutY="74.0" text="1/4 finala">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="490.0" layoutY="147.0" text="1/2 finala">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="711.0" layoutY="205.0" text="Finale">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="694.0" layoutY="48.0" text="Pobjednici">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblRunda1" layoutX="14.0" layoutY="39.0" prefHeight="550.0" prefWidth="198.0">
+         <columns>
+            <TableColumn fx:id="clnMec1" prefWidth="135.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat1" prefWidth="62.0" text="Rezultat" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tblRunda4" layoutX="635.0" layoutY="232.0" prefHeight="176.0" prefWidth="198.0">
+         <columns>
+            <TableColumn fx:id="clnMec4" prefWidth="135.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat4" prefWidth="62.0" text="Rezultat" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tblRunda3" layoutX="428.0" layoutY="176.0" prefHeight="277.0" prefWidth="198.0">
+         <columns>
+            <TableColumn fx:id="clnMec3" prefWidth="135.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat3" prefWidth="62.0" text="Rezultat" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tblRunda2" layoutX="219.0" layoutY="101.0" prefHeight="438.0" prefWidth="198.0">
+         <columns>
+            <TableColumn fx:id="clnMec2" prefWidth="135.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat2" prefWidth="62.0" text="Rezultat" />
+         </columns>
+      </TableView>
+      <TextField fx:id="txtPobjednici" layoutX="636.0" layoutY="76.0" prefHeight="25.0" prefWidth="198.0" />
+      <Button fx:id="btnOk" layoutX="686.0" layoutY="539.0" mnemonicParsing="false" onAction="#ok" prefHeight="40.0" prefWidth="100.0" text="OK">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
