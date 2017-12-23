@@ -31,7 +31,8 @@ public class ListUpdater extends Task<Void> {
 				List<RegistracijaDTO> updatedRegistrations = Parser.nabaviRezultate(xlsFile, indexes, tournaments,
 						registrationList);
 				Files.delete(xlsFile.toPath());
-				// update ALL
+				for (RegistracijaDTO registration:updatedRegistrations)
+					RegistracijaDAO.update(registration);
 			}
 		}
 		folder.delete();
