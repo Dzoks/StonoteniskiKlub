@@ -19,10 +19,10 @@ public class KategorijaDAO {
 		ResultSet rs = null;
 		try {
 			c = ConnectionPool.getInstance().checkOut();
-			ps=c.prepareStatement("select * from KATEGORIJA;");
-			rs=ps.executeQuery();
+			ps = c.prepareStatement("select * from KATEGORIJA;");
+			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new KategorijaDTO(rs.getInt("Id"),rs.getString("Naziv")));
+				list.add(new KategorijaDTO(rs.getInt("Id"), rs.getString("Naziv")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -33,4 +33,5 @@ public class KategorijaDAO {
 		}
 		return list;
 	}
+
 }
