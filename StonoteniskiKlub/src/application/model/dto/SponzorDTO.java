@@ -97,13 +97,6 @@ public class SponzorDTO {
 
 	@Override
 	public String toString() {
-		String result = naziv + ", " + adresa + ", " + email;
-		if (ugovori != null) {
-			for (Iterator<UgovorDTO> it = ugovori.iterator(); it.hasNext();) {
-				result += System.getProperty("line.separator");
-				result += " " + it.next();
-			}
-		}
-		return result;
+		return naziv + ", " + adresa + ", " + email;
 	}
 }

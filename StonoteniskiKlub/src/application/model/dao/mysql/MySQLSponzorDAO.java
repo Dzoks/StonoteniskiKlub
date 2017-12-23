@@ -3,6 +3,7 @@ package application.model.dao.mysql;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,12 +16,12 @@ import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.ConnectionPool;
 
-public class MySQLSponzorDAO implements SponzorDAO{
+public class MySQLSponzorDAO implements SponzorDAO {
 
 	private static final String SQL_SELECT_ALL = "select * from SPONZOR";
 	private static final String SQL_INSERT = "{call dodaj_sponozra(?,?,?,?,?,?,?)}";
-	
-	
+	private static final String SQL_GET_BY_ID = "select * from SPONZOR where Id=?";
+
 	@Override
 	public List<SponzorDTO> selectAll() {
 		List<SponzorDTO> result = new ArrayList<SponzorDTO>();
@@ -31,16 +32,36 @@ public class MySQLSponzorDAO implements SponzorDAO{
 			connection = ConnectionPool.getInstance().checkOut();
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(SQL_SELECT_ALL);
-			while(resultSet.next()){
-				result.add(new SponzorDTO(resultSet.getInt("Id"),
-										  resultSet.getString("Naziv"),
-										  resultSet.getString("Adresa"),
-										  resultSet.getString("Mail"),
-										  null));
+			while (resultSet.next()) {
+				result.add(new SponzorDTO(resultSet.getInt("Id"), resultSet.getString("Naziv"),
+						resultSet.getString("Adresa"), resultSet.getString("Mail"), null));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally{
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(resultSet, statement);
+		}
+		return result;
+	}
+
+	@Override
+	public SponzorDTO getById(Integer id) {
+		SponzorDTO result = null;
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_GET_BY_ID, false, id);
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				result = new SponzorDTO(resultSet.getInt("Id"), resultSet.getString("Naziv"),
+						resultSet.getString("Adresa"), resultSet.getString("Mail"), null);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
 		}
@@ -59,9 +80,9 @@ public class MySQLSponzorDAO implements SponzorDAO{
 			statement.setString("pAdresa", sponzor.getAdresa());
 			statement.setString("pMail", sponzor.getEmail());
 			statement.setDate("pDatumOd", new Date(ugovor.getDatumOd().getTime()));
-			if(ugovor.getDatumDo() == null){
+			if (ugovor.getDatumDo() == null) {
 				statement.setNull("pDatumDo", Types.DATE);
-			} else{
+			} else {
 				statement.setDate("pDatumDo", new Date(ugovor.getDatumDo().getTime()));
 			}
 			statement.setString("pOpis", ugovor.getOpis());
@@ -70,6 +91,9 @@ public class MySQLSponzorDAO implements SponzorDAO{
 			result = statement.getBoolean("pUspjesno");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(statement);
 		}
 		return result;
 	}

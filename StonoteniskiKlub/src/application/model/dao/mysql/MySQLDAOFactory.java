@@ -30,8 +30,7 @@ public class MySQLDAOFactory extends DAOFactory{
 
 	@Override
 	public DonacijaDAO getDonacijaDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new MySQLDonacijaDAO();
 	}
 	
 }

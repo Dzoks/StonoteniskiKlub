@@ -7,5 +7,6 @@ import application.model.dto.UgovorDTO;
 
 public interface SponzorDAO {
 	List<SponzorDTO> selectAll();
+	SponzorDTO getById(Integer id);
 	boolean insert(SponzorDTO sponzor, UgovorDTO ugovor);
 }
