@@ -1,8 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1">
-	<!-- TODO Add Nodes -->
+<AnchorPane prefHeight="532.0" prefWidth="726.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeNovcanihSredstavaController">
+   <children>
+      <TableView fx:id="tableView" layoutX="25.0" layoutY="252.0" prefHeight="200.0" prefWidth="455.0">
+        <columns>
+            <TableColumn fx:id="tableColumnTipTransakcije" prefWidth="114.0" text="Tip transakcije" />
+          <TableColumn fx:id="tableColumnIznos" prefWidth="75.0" text="Iznos" />
+            <TableColumn fx:id="tableColumnDatum" prefWidth="75.0" text="Datum" />
+            <TableColumn fx:id="tableColumnOpis" prefWidth="114.0" text="Opis" />
+            <TableColumn fx:id="tableColumnVrsta" prefWidth="75.0" text="Vrsta" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="comboBoxTipTransakcije" layoutX="133.0" layoutY="39.0" prefWidth="150.0" />
+      <Label layoutX="35.0" layoutY="43.0" text="Tip transakcije:" />
+      <Button fx:id="btnDodajTipTransakcije" layoutX="291.0" layoutY="39.0" mnemonicParsing="false" onAction="#dodajTipTransakcije" text="+" />
+      <Label fx:id="lblIznos" layoutX="35.0" layoutY="96.0" text="Iznos:" />
+      <TextField fx:id="txtIznos" layoutX="134.0" layoutY="92.0" />
+      <ScrollPane layoutX="463.0" layoutY="27.0" prefHeight="66.0" prefWidth="200.0">
+         <content>
+            <TextArea fx:id="txtOpis" prefHeight="69.0" prefWidth="202.0" />
+         </content>
+      </ScrollPane>
+      <Label fx:id="lblOpis" layoutX="384.0" layoutY="43.0" text="Opis:" />
+      <Label fx:id="lblDatum" layoutX="35.0" layoutY="156.0" text="Datum:" />
+      <DatePicker fx:id="datePicker" layoutX="127.0" layoutY="152.0" />
+      <Label fx:id="lblVrsta" layoutX="384.0" layoutY="125.0" text="Vrsta:" />
+      <ComboBox fx:id="comboBoxVrsta" layoutX="463.0" layoutY="121.0" prefWidth="150.0" />
+      <Button fx:id="btnDodaj" layoutX="31.0" layoutY="195.0" mnemonicParsing="false" onAction="#dodaj" text="Dodaj" />
+      <Button layoutX="174.0" layoutY="472.0" mnemonicParsing="false" onAction="#obrisi" text="Obrisi" />
+      <Button layoutX="255.0" layoutY="472.0" mnemonicParsing="false" onAction="#izmijeni" text="Izmijeni" />
+      <Label layoutX="501.0" layoutY="258.0" text="Prikazi:" />
+      <RadioButton fx:id="radioBtnPrihodi" layoutX="570.0" layoutY="258.0" mnemonicParsing="false" text="Prihode" />
+      <RadioButton fx:id="radioBtnRashodi" layoutX="570.0" layoutY="297.0" mnemonicParsing="false" text="Rashode" />
+      <Button fx:id="btnPrikazi" layoutX="578.0" layoutY="371.0" mnemonicParsing="false" onAction="#prikazi" text="Prikazi" />
+      <RadioButton fx:id="radioBtnSve" layoutX="570.0" layoutY="335.0" mnemonicParsing="false" text="Sve" />
+   </children>
 </AnchorPane>
