@@ -47,5 +47,6 @@ public class Test {
 		for(DonacijaDTO donacija : donacijaDAO.neobradjene(false)){
 			System.out.println(donacija);
 		}
+		System.out.println("Kraj");
 	}
 }
