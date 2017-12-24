@@ -5,6 +5,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+
+import com.mysql.jdbc.CallableStatement;
 
 import application.model.dto.OsobaDTO;
 import application.model.dto.UcesnikPrijavaDTO;
@@ -15,11 +18,14 @@ import javafx.collections.ObservableList;
 public class UcesnikPrijavaDAO {
 	private final static String SQL_GET_BY_ID_OSOBE = "select * from UCESNIK_PRIJAVA u left join OSOBA o on u.OSOBA_Id=o.Id where u.OSOBA_Id=?";
 	private final static String SQL_GET_BY_ID = "select * from UCESNIK_PRIJAVA u left join OSOBA o on u.OSOBA_Id=o.Id where u.Id=?";
-	private final static String SQL_INSERT = "insert into UCESNIK_PRIJAVA (TURNIR_Id,TURNIR_KATEGORIJA_Id,OSOBA_Id,Datum) values (?,?,?,?)";
-	private final static String SQL_SELECT_ALL = "select * from UCESNIK_PRIJAVA u inner join OSOBA o on u.OSOBA_Id = o.Id where u.TURNIR_Id=? and u.TURNIR_KATEGORIJA_Id=?";
+	private final static String SQL_INSERT = "{call prijaviUcesnika(?,?,?,?,?,?,?,?,?)}";
+	private final static String SQL_SELECT_ALL = "select * from UCESNIK_PRIJAVA u inner join OSOBA o on u.OSOBA_Id = o.Id "
+			+ "where u.TURNIR_Id=? and u.TURNIR_KATEGORIJA_Id=?";
+	public static final String SQL_UPDATE="update UCESNIK_PRIJAVA u inner join OSOBA o on u.OSOBA_Id = o.Id set o.Ime=?,"
+			+ "o.Prezime=?,o.DatumRodjenja=? where o.Id=?";
 	
-	public static ObservableList<OsobaDTO> getAll(Integer idTurnira,Integer idKategorije) {
-		ObservableList<OsobaDTO> retVal = FXCollections.observableArrayList();
+	public static ObservableList<UcesnikPrijavaDTO> getAll(Integer idTurnira,Integer idKategorije) {
+		ObservableList<UcesnikPrijavaDTO> retVal = FXCollections.observableArrayList();
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -32,8 +38,10 @@ public class UcesnikPrijavaDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false,pom);
 			rs = ps.executeQuery();
 			while (rs.next())
-				retVal.add(new OsobaDTO(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"), 
-						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja")));
+				retVal.add(new UcesnikPrijavaDTO(rs.getInt("OSOBA_Id"), rs.getString("Ime"), rs.getString("Prezime"), 
+						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"),
+						rs.getInt("Id"),rs.getInt("TURNIR_Id"),rs.getInt("TURNIR_KATEGORIJA_Id"),
+						rs.getDate("Datum")));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -102,17 +110,51 @@ public class UcesnikPrijavaDAO {
 		return retVal;
 	}
 	
-	public static boolean insert(Integer idTurnira,Integer idKategorije,Integer idOsobe,Date datum) {
+	public static Integer insert(String jmb,String ime,String prezime,Character pol,
+			Date datumRodjenja,Integer idTurnira,Integer idKategorije,Date datum) {
+		Integer retVal=0;
 		Connection c = null;
-		PreparedStatement ps = null;
+		java.sql.CallableStatement cst=null;
 		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT;
-			Object pom[] = { idTurnira,idKategorije,idOsobe,datum };
-			
-			ps = ConnectionPool.prepareStatement(c, query, false, pom);
-			return ps.executeUpdate()==1?true:false;
+			cst=c.prepareCall(query);
+			cst.setString(1, jmb);
+			cst.setString(2, ime);
+			cst.setString(3, prezime);
+			cst.setString(4, pol.toString());
+			cst.setDate(5, datumRodjenja);
+			cst.setInt(6, idTurnira);
+			cst.setInt(7, idKategorije);
+			cst.setDate(8, datum);
+			cst.registerOutParameter(9, Types.INTEGER);
+			cst.execute();
+			retVal=cst.getInt(9);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(cst);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+		return retVal;
+	}
+	
+	public static boolean izmjeniUcesnika(Integer idPrijave,String ime,String prezime,Date datum){
+		boolean retVal=false;
+		Connection c = null;
+		PreparedStatement ps=null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_UPDATE;
+			ps=c.prepareStatement(query);
+			ps.setString(1, ime);
+			ps.setString(2, prezime);
+			ps.setDate(3, datum);
+			ps.setInt(4, idPrijave);
+			retVal=ps.executeUpdate()==1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,7 +162,6 @@ public class UcesnikPrijavaDAO {
 			ConnectionPool.close(ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
-		return false;
+		return retVal;
 	}
-	
 }

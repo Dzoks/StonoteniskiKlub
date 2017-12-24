@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.KategorijaTurniraDAO;
+import application.model.dao.TimDAO;
 import application.model.dao.TurnirDAO;
 import application.model.dao.UcesnikPrijavaDAO;
 import application.model.dto.TurnirDTO;
@@ -15,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 
@@ -74,29 +76,35 @@ public class DublTurnirController extends BaseController{
 	}
 	//REALIZOVATI
 	public void popuniTabelu(){
+//		clnIgrac1.setCellValueFactory(new PropertyValueFactory<>("idPrvogUcesnika"));
+//		clnIgrac2.setCellValueFactory(new PropertyValueFactory<>("idDrugogUcesnika"));
 		clnIme1.setCellValueFactory(new PropertyValueFactory<>("ime"));
 		clnPrezime1.setCellValueFactory(new PropertyValueFactory<>("prezime"));
 		clnJMBG1.setCellValueFactory(new PropertyValueFactory<>("jmb"));
-		tblEkipe.setItems(UcesnikPrijavaDAO.getAll(id,idKategorije));
+		clnIme2.setCellValueFactory(new PropertyValueFactory<>("ime"));
+		clnPrezime2.setCellValueFactory(new PropertyValueFactory<>("prezime"));
+		clnJMBG2.setCellValueFactory(new PropertyValueFactory<>("jmb"));
+		tblEkipe.setItems(TimDAO.getDouble(id,idKategorije));
 	}
 	
 	public void prijaviEkipu(){
 		Stage noviStage=new Stage();
 		try {
-			//if(checkBox==Single)
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/organizator/view/DublPrijavaView.fxml"));
-//			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/organizator/view/DublZrijebView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			Scene scene = new Scene(root);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
 			noviStage.setTitle("Dubl prijava");
-			noviStage.show();
-			BaseController controller=loader.<BaseController>getController();
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			DublPrijavaController controller=loader.<DublPrijavaController>getController();
 			controller.setPrimaryStage(noviStage);
+			controller.inicijalizuj(id,idKategorije);
+			noviStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		popuniTabelu();
 	}
 	
 	public void izmjeniEkipu(){

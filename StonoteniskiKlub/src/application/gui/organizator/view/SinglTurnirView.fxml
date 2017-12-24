@@ -56,5 +56,20 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <Label fx:id="lblBroj" layoutX="546.0" layoutY="284.0" text="b">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="564.0" layoutY="284.0" text="/32">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="521.0" layoutY="257.0" text="Prijavljeno:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

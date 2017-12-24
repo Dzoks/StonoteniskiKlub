@@ -31,6 +31,11 @@ public class UcesnikPrijavaDTO extends OsobaDTO{
 		this.idKategorije = idKategorije==null ? null : new SimpleIntegerProperty(idKategorije);
 		this.datum = datum;
 	}
+	
+	public UcesnikPrijavaDTO(Integer idOsobe, String ime, String prezime, String jmb, Character pol,
+			Date datumRodjenja){
+		super(idOsobe,ime,prezime,jmb,pol,datumRodjenja);
+	}
 
 	public final IntegerProperty idTurniraProperty() {
 		return this.idTurnira;

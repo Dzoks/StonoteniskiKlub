@@ -39,8 +39,9 @@ public class DublZrijebController extends BaseController{
 	@FXML
 	private Button btnOk;
 	
-	private Integer id;
+	private Integer idTurnira;
 	private Integer idKategorije;
+	private Integer brojTimova;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -48,10 +49,18 @@ public class DublZrijebController extends BaseController{
 		
 	}
 	
-	public void inicijalizuj(Integer id,Integer idKategorije){
-		this.id=id;
+	public void inicijalizuj(Integer idTurnira,Integer idKategorije){
+		this.idTurnira=idTurnira;
 		this.idKategorije=idKategorije;
 		primaryStage.setTitle("Žrijeb");
+	}	
+	
+	public void inicijalizujPrvi(Integer idTurnira,Integer idKategorije,Integer brojTimova){
+		this.idTurnira=idTurnira;
+		this.idKategorije=idKategorije;
+		this.brojTimova=brojTimova;
+		primaryStage.setTitle("Žrijeb");
+		
 	}	
 	
 	public void ok(){
