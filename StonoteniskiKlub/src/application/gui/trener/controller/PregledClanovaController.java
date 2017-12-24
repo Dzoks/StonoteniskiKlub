@@ -7,14 +7,20 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
+import application.model.dao.RegistracijaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.RegistracijaDTO;
 import application.model.helper.Rezultat;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -147,6 +153,34 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 		// registracija
 		setVidljivostZaIgraca(false);
+		cbxSezona.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<RegistracijaDTO>() {
+
+			@Override
+			public void changed(ObservableValue<? extends RegistracijaDTO> observable, RegistracijaDTO oldValue,
+					RegistracijaDTO newValue) {
+				if (newValue==null) {
+					lblBodovi.setText("0");
+					lblPozicija.setText("Nepoznato");
+					tblTurniri.setItems(FXCollections.observableArrayList());
+				}else {
+					ObservableList<Rezultat> list=FXCollections.observableArrayList();
+					HashMap<String,Integer> rezultati=newValue.getRezultati();
+					Set<Entry<String,Integer>> set=rezultati.entrySet();
+					Integer plasman=rezultati.get("Plasman");
+					Integer ukupno=rezultati.get("Ukupno");
+					if (plasman!=null)
+						lblPozicija.setText(plasman.toString());
+					if (ukupno!=null)
+						lblBodovi.setText(ukupno.toString());
+					for (Entry<String,Integer> entry:set) {
+						if (!entry.getKey().equals("Plasman")&&!entry.getKey().equals("Ukupno")&&entry.getValue()!=null)
+							list.add(new Rezultat(entry.getKey(), entry.getValue()));
+					}
+					tblTurniri.setItems(list);
+				}
+				
+			}
+		});
 	}
 
 	private void setVidljivostZaIgraca(boolean uslov) {
@@ -302,11 +336,13 @@ public class PregledClanovaController extends BaseController implements Initiali
 		if (clan == null)
 			return;
 		// Provjera da li je igrac
-		if (clan.isRegistrovan())
+		if (clan.isRegistrovan()) {
+			cbxSezona.setItems(RegistracijaDAO.getAllByMember(clan));
 			setVidljivostZaIgraca(true);
-		else
+		}else {
 			setVidljivostZaIgraca(false);
-
+			cbxSezona.setItems(FXCollections.observableArrayList());
+		}
 		lblIme.setText(clan.getIme());
 		lblPrezime.setText(clan.getPrezime());
 		lblImeRoditelja.setText(clan.getImeRoditelja().equals("") ? "---" : clan.getImeRoditelja());
