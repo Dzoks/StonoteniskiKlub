@@ -12,6 +12,10 @@ public class TipTransakcijeDTO {
 		this.id = id;
 		this.tip = tip;
 	}
+	public TipTransakcijeDTO(String tip) {
+		super();
+		this.tip = tip;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -24,5 +28,9 @@ public class TipTransakcijeDTO {
 	public void setTip(String tip) {
 		this.tip = tip;
 	}
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return tip;
+	}
 }
