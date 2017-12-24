@@ -21,7 +21,7 @@ public class ListUpdater extends Task<Void> {
 		String season = bundle.getString("Sezona");
 		File folder = new File("rangListe");
 		folder.mkdir();
-		List<KategorijaDTO> categoryList = KategorijaDAO.getAll();
+		List<KategorijaDTO> categoryList = KategorijaDAO.getAll(true);
 		for (KategorijaDTO category : categoryList) {
 			List<RegistracijaDTO> registrationList = RegistracijaDAO.getAllBySeason(season, category);
 			if (!registrationList.isEmpty()) {

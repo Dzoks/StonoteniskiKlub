@@ -22,7 +22,6 @@ public class RegistracijaDAO {
 	private static final String SQL_GETALL_SEASON = "select * from REGISTRACIJA where Sezona=? and KATEGORIJA_Id=?;";
 	private static final String SQL_UPDATE= "update REGISTRACIJA set"
 			+ "Datum=?,"
-			+ "KATEGORIJA_Id=?,"
 			+ "Plasman=?,"
 			+ "A=?,"
 			+ "A1=?,"
@@ -40,7 +39,7 @@ public class RegistracijaDAO {
 			+ "Pr.Liga=?,"
 			+ "Play-Off=?,"
 			+ "Ukupno=?"
-			+ "where Sezona=? and CLAN_Id=?";
+			+ "where Sezona=? and CLAN_Id=? and KATEGORIJA_Id=?";
 	public static ObservableList<RegistracijaDTO> getAllByMember(ClanDTO member) {
 		ObservableList<RegistracijaDTO> list = FXCollections.observableArrayList();
 		Connection c = null;
@@ -105,9 +104,9 @@ public class RegistracijaDAO {
 			c = ConnectionPool.getInstance().checkOut();
 			ps = c.prepareStatement(SQL_UPDATE);
 			ps.setDate(1, Date.valueOf(trening.getDatum()));
-			ps.setInt(2, trening.getKATEGORIJA_Id());
-			ps.setString(20, trening.getSezona());
-			ps.setInt(21, trening.getCLAN_Id());
+			ps.setInt(21, trening.getKATEGORIJA_Id());
+			ps.setString(19, trening.getSezona());
+			ps.setInt(20, trening.getCLAN_Id());
 			for (int i=0,j=3;i<tournaments.length;i++,j++) {
 				Integer point=trening.getRezultati().get(tournaments[i]);
 				if (point!=null)

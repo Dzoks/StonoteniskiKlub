@@ -12,7 +12,26 @@ import javafx.collections.ObservableList;
 
 public class KategorijaDAO {
 
-	public static ObservableList<KategorijaDTO> getAll() {
+	private static ObservableList<KategorijaDTO> list;
+	
+	public static ObservableList<KategorijaDTO> getAll(boolean explicitQuery){
+		if (list==null || explicitQuery)
+			list=getAllMySQL();
+		return list;
+	}
+	
+	public static KategorijaDTO getById(Integer Id) {
+		getAll(false);
+		KategorijaDTO retValue=null;
+		for (KategorijaDTO category:list)
+			if (category.getId()==Id) {
+				retValue=category;
+				break;
+			}
+		return retValue;
+	}
+	
+	public static ObservableList<KategorijaDTO> getAllMySQL() {
 		ObservableList<KategorijaDTO> list = FXCollections.observableArrayList();
 		Connection c = null;
 		PreparedStatement ps = null;
