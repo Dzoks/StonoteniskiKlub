@@ -19,6 +19,7 @@ import application.model.dao.RegistracijaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.RegistracijaDTO;
 import application.model.helper.Rezultat;
+import application.util.ListUpdater;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -153,6 +154,8 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 		// registracija
 		setVidljivostZaIgraca(false);
+		clnTurnir.setCellValueFactory(new PropertyValueFactory<>("turnir"));
+		clnBodovi.setCellValueFactory(new PropertyValueFactory<>("bodovi"));
 		cbxSezona.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<RegistracijaDTO>() {
 
 			@Override
@@ -168,12 +171,12 @@ public class PregledClanovaController extends BaseController implements Initiali
 					Set<Entry<String,Integer>> set=rezultati.entrySet();
 					Integer plasman=rezultati.get("Plasman");
 					Integer ukupno=rezultati.get("Ukupno");
-					if (plasman!=null)
+					if (plasman!=0)
 						lblPozicija.setText(plasman.toString());
-					if (ukupno!=null)
+					if (ukupno!=0)
 						lblBodovi.setText(ukupno.toString());
 					for (Entry<String,Integer> entry:set) {
-						if (!entry.getKey().equals("Plasman")&&!entry.getKey().equals("Ukupno")&&entry.getValue()!=null)
+						if (!entry.getKey().equals("Plasman")&&!entry.getKey().equals("Ukupno")&&entry.getValue()!=0)
 							list.add(new Rezultat(entry.getKey(), entry.getValue()));
 					}
 					tblTurniri.setItems(list);
@@ -375,5 +378,8 @@ public class PregledClanovaController extends BaseController implements Initiali
 		}
 	}
 
+	public void preuzmiRezultate() {
+		new Thread(new ListUpdater()).start();
+	}
 	private ObservableList<ClanDTO> listaClanova;
 }

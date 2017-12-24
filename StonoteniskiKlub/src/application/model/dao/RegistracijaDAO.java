@@ -17,11 +17,10 @@ import javafx.collections.ObservableList;
 
 public class RegistracijaDAO {
 
-	public static final String[] tournaments= {"Plasman","A","A1","B","B1","C","C1","D","D1","E","E1","F","F1","Kup","Pr.Liga","Play-off","Ukupno"};
+	public static final String[] tournaments= {"Plasman","A","A1","B","B1","C","C1","D","D1","E","E1","F","F1","Kup","PrLiga","PlayOff","Ukupno"};
 	private static final String SQL_GETALL_MEMBER = "select * from REGISTRACIJA where CLAN_Id=?;";
 	private static final String SQL_GETALL_SEASON = "select * from REGISTRACIJA where Sezona=? and KATEGORIJA_Id=?;";
-	private static final String SQL_UPDATE= "update REGISTRACIJA set"
-			+ "Datum=?,"
+	private static final String SQL_UPDATE= "update REGISTRACIJA set Datum=?,"
 			+ "Plasman=?,"
 			+ "A=?,"
 			+ "A1=?,"
@@ -36,10 +35,9 @@ public class RegistracijaDAO {
 			+ "F=?,"
 			+ "F1=?,"
 			+ "Kup=?,"
-			+ "Pr.Liga=?,"
-			+ "Play-Off=?,"
-			+ "Ukupno=?"
-			+ "where Sezona=? and CLAN_Id=? and KATEGORIJA_Id=?";
+			+ "`Pr.Liga`=?,"
+			+ "`Play-off`=?,"
+			+ "Ukupno=? where Sezona=? and CLAN_Id=? and KATEGORIJA_Id=?;";
 	public static ObservableList<RegistracijaDTO> getAllByMember(ClanDTO member) {
 		ObservableList<RegistracijaDTO> list = FXCollections.observableArrayList();
 		Connection c = null;
@@ -107,7 +105,7 @@ public class RegistracijaDAO {
 			ps.setInt(21, trening.getKATEGORIJA_Id());
 			ps.setString(19, trening.getSezona());
 			ps.setInt(20, trening.getCLAN_Id());
-			for (int i=0,j=3;i<tournaments.length;i++,j++) {
+			for (int i=0,j=2;i<tournaments.length;i++,j++) {
 				Integer point=trening.getRezultati().get(tournaments[i]);
 				if (point!=null)
 					ps.setInt(j, point);
