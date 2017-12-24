@@ -2,6 +2,7 @@ package application.model.dto;
 
 import java.sql.Date;
 
+import application.model.dao.TurnirDAO;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -75,4 +76,10 @@ public class UcesnikPrijavaDTO extends OsobaDTO{
 		this.idPrijaveProperty().set(idPrijave);
 	}
 	
+	@Override
+	public String toString() { //dodala Helena
+		// TODO Auto-generated method stub
+		TurnirDTO turnir = TurnirDAO.getById(this.getIdTurnira());
+		return super.toString() + " -"+turnir;
+	}
 }

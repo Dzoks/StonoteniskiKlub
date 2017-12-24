@@ -123,4 +123,34 @@ public class PocetniProzorRacunovodjaController extends BaseController implement
 			e.printStackTrace();
 		}
 	}
+	public void idiNaTroskoviOprema() {
+		Stage noviStage = new Stage();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/EvidentiranjeSredstavaZaOpremu.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root,761,484);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			noviStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void idiNaTroskoviTurnir() {
+		Stage noviStage = new Stage();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/EvidentiranjeSredstavaZaTurnire.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root,761,484);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			noviStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

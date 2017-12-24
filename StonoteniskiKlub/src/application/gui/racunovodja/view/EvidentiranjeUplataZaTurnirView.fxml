@@ -13,7 +13,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeUplataZaTurnirController">
    <children>
       <TableView fx:id="tableUplateZaTurnir" layoutX="17.0" layoutY="197.0" prefHeight="198.0" prefWidth="448.0">
         <columns>
@@ -31,19 +31,17 @@
       <Label fx:id="lblUcesnik" layoutX="486.0" layoutY="287.0" text="Ucesnik:" />
       <ComboBox fx:id="comboBoxUcesnikPrikazi" layoutX="549.0" layoutY="283.0" prefWidth="150.0" />
       <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplacenom ucescu na turniru:" />
-      <Button fx:id="btnDodaj" layoutX="22.0" layoutY="129.0" mnemonicParsing="false" text="Dodaj" />
-      <Label fx:id="lblUcesnikDodaj" layoutX="26.0" layoutY="91.0" text="Ucesnik:" />
-      <ComboBox fx:id="comboBoxClanUcesnik" layoutX="100.0" layoutY="87.0" prefWidth="150.0" />
+      <Button fx:id="btnDodaj" layoutX="22.0" layoutY="129.0" mnemonicParsing="false" onAction="#dodaj" text="Dodaj" />
+      <Label fx:id="lblUcesnikDodaj" layoutX="24.0" layoutY="51.0" text="Ucesnik na turniru:" />
+      <ComboBox fx:id="comboBoxClanUcesnik" layoutX="137.0" layoutY="47.0" prefWidth="150.0" />
       <Label fx:id="lblIznos" layoutX="337.0" layoutY="51.0" text="Iznos:" />
       <TextField fx:id="txtIznos" layoutX="429.0" layoutY="47.0" />
       <Label fx:id="lblKM" layoutX="585.0" layoutY="51.0" text="KM" />
       <Label fx:id="lblDatumUplate" layoutX="337.0" layoutY="91.0" text="Datum uplate:" />
       <DatePicker fx:id="datePicker" layoutX="429.0" layoutY="87.0" />
-      <Button fx:id="btnPrikazi" layoutX="553.0" layoutY="405.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Prikazi" />
+      <Button fx:id="btnPrikazi" layoutX="553.0" layoutY="405.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Prikazi" />
       <Button fx:id="btnObrisi" layoutX="129.0" layoutY="430.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Obrisi" />
-      <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="430.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Izmijeni" />
-      <Label fx:id="lblTurnirDodaj" layoutX="22.0" layoutY="51.0" text="Turnir:" />
-      <ComboBox fx:id="comboBoxTurnir" layoutX="100.0" layoutY="47.0" prefWidth="150.0" />
+      <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="430.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijeni" />
       <Label fx:id="lblTurnirPrikazi" layoutX="490.0" layoutY="331.0" text="Turnir:" />
       <ComboBox fx:id="comboBoxTurnirPrikazi" layoutX="549.0" layoutY="327.0" prefWidth="150.0" />
       <Label fx:id="lblOpis" layoutX="115.0" layoutY="133.0" text="Opis:" />

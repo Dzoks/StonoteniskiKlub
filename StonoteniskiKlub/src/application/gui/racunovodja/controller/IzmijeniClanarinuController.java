@@ -72,7 +72,7 @@ public class IzmijeniClanarinuController extends BaseController{
 	public void setClanarina(ClanarinaDTO clanarina) {
 		this.clanarina = clanarina;
 	}
-	public void setComboBoxClan(ObservableList<ClanDTO> lista, int clan) {
+	public void setComboBoxClan(ObservableList<ClanDTO> lista, int clan) { //poslati Clana tu, promijeniti
 		this.comboBoxClan.setItems(lista);
 		for(ClanDTO cl : listaClanova) {
 			if(cl.getId()==clan) {

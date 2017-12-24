@@ -13,7 +13,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeSredstavaZaOpremuController">
    <children>
       <TableView fx:id="tableTroskoviOprema" layoutX="17.0" layoutY="197.0" prefHeight="198.0" prefWidth="465.0">
         <columns>
@@ -29,7 +29,7 @@
       <RadioButton fx:id="radiobtnSve" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" text="Sve" />
       <RadioButton fx:id="radiobtnDistributer" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" text="Po distributeru" />
       <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o troskovima za opremu kluba:" />
-      <Button fx:id="btnDodaj" layoutX="22.0" layoutY="129.0" mnemonicParsing="false" text="Dodaj" />
+      <Button fx:id="btnDodaj" layoutX="22.0" layoutY="129.0" mnemonicParsing="false" onAction="#dodaj" text="Dodaj" />
       <Label fx:id="lblIznos" layoutX="337.0" layoutY="51.0" text="Iznos:" />
       <TextField fx:id="txtIznos" layoutX="429.0" layoutY="47.0" />
       <Label fx:id="lblKM" layoutX="585.0" layoutY="51.0" text="KM" />
