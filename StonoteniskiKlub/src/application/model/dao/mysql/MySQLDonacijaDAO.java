@@ -11,7 +11,7 @@ import application.model.dao.DonacijaDAO;
 import application.model.dao.OpremaTipDAO;
 import application.model.dao.SponzorDAO;
 import application.model.dto.DonacijaDTO;
-import application.model.dto.OpremaTipDTO;
+import application.model.dto.OpremaTip;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.ConnectionPool;
@@ -44,8 +44,9 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 							resultSet.getBigDecimal("NovcaniIznos"), resultSet.getBoolean("NovcanaDonacija"),
 							resultSet.getBoolean("Obradjeno"), null);
 					if (!d.getNovcanaDonacija()) {
-						d.setTipOpreme(new OpremaTipDTO(resultSet.getInt("OPREMA_TIP_Id"), resultSet.getString("Tip"),
-								resultSet.getString("Proizvodjac"), resultSet.getString("Model")));
+						d.setTipOpreme(new OpremaTip(resultSet.getInt("OPREMA_TIP_Id"), resultSet.getString("Tip"),
+								resultSet.getString("Proizvodjac"), resultSet.getString("Model"),
+								resultSet.getBoolean("ImaVelicinu")));
 					}
 					result.add(d);
 				} while (resultSet.next());
@@ -81,8 +82,9 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 						resultSet.getBigDecimal("NovcaniIznos"), resultSet.getBoolean("NovcanaDonacija"),
 						resultSet.getBoolean("Obradjeno"), null);
 				if (!d.getNovcanaDonacija()) {
-					d.setTipOpreme(new OpremaTipDTO(resultSet.getInt("OPREMA_TIP_Id"), resultSet.getString("Tip"),
-							resultSet.getString("Proizvodjac"), resultSet.getString("Model")));
+					d.setTipOpreme(new OpremaTip(resultSet.getInt("OPREMA_TIP_Id"), resultSet.getString("Tip"),
+							resultSet.getString("Proizvodjac"), resultSet.getString("Model"),
+							resultSet.getBoolean("ImaVelicinu")));
 				}
 				result.add(d);
 			}

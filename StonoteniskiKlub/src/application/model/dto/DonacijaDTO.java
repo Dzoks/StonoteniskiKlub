@@ -11,13 +11,13 @@ public class DonacijaDTO {
 	private BigDecimal novcaniIznos;
 	private Boolean novcanaDonacija;
 	private Boolean obradjeno;
-	private OpremaTipDTO tipOpreme;
+	private OpremaTip tipOpreme;
 
 	public DonacijaDTO() {
 	}
 
 	public DonacijaDTO(SponzorDTO sponzor, UgovorDTO ugovor, Integer redniBroj, String opis, BigDecimal kolicina,
-			BigDecimal novcaniIznos, Boolean novcanaDonacija, Boolean obradjeno, OpremaTipDTO tipOpreme) {
+			BigDecimal novcaniIznos, Boolean novcanaDonacija, Boolean obradjeno, OpremaTip tipOpreme) {
 		this.sponzor = sponzor;
 		this.ugovor = ugovor;
 		this.redniBroj = redniBroj;
@@ -93,11 +93,11 @@ public class DonacijaDTO {
 		this.obradjeno = obradjeno;
 	}
 
-	public OpremaTipDTO getTipOpreme() {
+	public OpremaTip getTipOpreme() {
 		return tipOpreme;
 	}
 
-	public void setTipOpreme(OpremaTipDTO tipOpreme) {
+	public void setTipOpreme(OpremaTip tipOpreme) {
 		this.tipOpreme = tipOpreme;
 	}
 	
