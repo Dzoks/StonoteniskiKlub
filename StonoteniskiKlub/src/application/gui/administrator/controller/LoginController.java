@@ -34,17 +34,13 @@ public class LoginController extends BaseController {
 		if (!txtLozinka.getText().isEmpty() && !txtLozinka.getText().isEmpty()) {
 			if (txtLozinka.getText().equals("admin") && txtKorisnickoIme.getText().equals("admin")) {
 				//ovo izmijeniti nakon merge-a
-				Stage noviStage = new Stage();
-				
+				Stage stage=new Stage();
+				stage.initModality(Modality.WINDOW_MODAL);
 				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/administrator/view/AdministratorView.fxml"));
-					AnchorPane root = (AnchorPane) loader.load();
-					Scene scene = new Scene(root,761,484);
-					noviStage.setScene(scene);
-					noviStage.setResizable(false);
-					noviStage.setTitle("Stonoteniski klub");
-					noviStage.show();
+					BaseController.changeScene("/application/gui/administrator/view/AdministratorView.fxml", stage);
+					stage.show();
 				} catch (IOException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

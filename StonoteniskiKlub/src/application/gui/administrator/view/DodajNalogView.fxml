@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="337.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.administrator.controller.DodajNalogController">
+   <children>
+      <TableView layoutY="1.0" prefHeight="339.0" prefWidth="418.0">
+        <columns>
+          <TableColumn fx:id="kolonaJmbg" prefWidth="173.0" text="JMBG" />
+          <TableColumn fx:id="kolonaIme" prefWidth="122.0" text="Ime" />
+            <TableColumn fx:id="kolonaPrezime" prefWidth="125.0" text="Prezime" />
+        </columns>
+      </TableView>
+      <Button layoutX="447.0" layoutY="258.0" mnemonicParsing="false" onAction="#dodajteNalogKlik" prefHeight="25.0" prefWidth="149.0" text="Dodajte nalog" />
+      <ChoiceBox fx:id="ulogaChoiceBox" layoutX="447.0" layoutY="171.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="korisnickoIme" layoutX="447.0" layoutY="87.0" prefHeight="25.0" prefWidth="149.0" promptText="Korisničko ime" />
+   </children>
+</AnchorPane>
