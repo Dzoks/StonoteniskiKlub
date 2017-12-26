@@ -5,9 +5,9 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class SinglPrijavaController extends BaseController{
 	@FXML
@@ -28,5 +28,12 @@ public class SinglPrijavaController extends BaseController{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void inicijalizuj(Integer id){
+		primaryStage.setTitle("Singl prijava");
+	}
 
+	public void sacuvaj(){
+		primaryStage.close();
+	}
 }

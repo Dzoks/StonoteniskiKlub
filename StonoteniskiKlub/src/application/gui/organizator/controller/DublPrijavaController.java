@@ -1,12 +1,13 @@
 package application.gui.organizator.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import application.gui.controller.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class DublPrijavaController extends BaseController{
 	@FXML
@@ -35,5 +36,12 @@ public class DublPrijavaController extends BaseController{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public void inicijalizuj(Integer id){
+		primaryStage.setTitle("Dubl prijava");
+	}
+	
+	public void sacuvaj(){
+		primaryStage.close();
+	}
 }

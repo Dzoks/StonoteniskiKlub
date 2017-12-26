@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import application.model.dto.DistributerOpremeDTO;
+import application.model.dto.DistributerOpreme;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,8 +17,8 @@ public class DistributerOpremeDAO {
 	private static final String SQL_SELECT_BY_ID = "SELECT * FROM distributer_opreme WHERE Id=?";
 	private static final String SQL_INSERT = "INSERT INTO distributer_opreme VALUES (null, ?, ?, ?, ?)";
 	
-	public static ObservableList<DistributerOpremeDTO> SELECT_ALL() {
-		ObservableList<DistributerOpremeDTO> listaDistributera = FXCollections.observableArrayList();
+	public static ObservableList<DistributerOpreme> SELECT_ALL() {
+		ObservableList<DistributerOpreme> listaDistributera = FXCollections.observableArrayList();
 		Connection c = null;
 		Statement s = null;
 		ResultSet rs = null;
@@ -29,7 +29,7 @@ public class DistributerOpremeDAO {
 			rs = s.executeQuery(SQL_SELECT_ALL);
 			
 			while(rs.next()) {
-				listaDistributera.add(new DistributerOpremeDTO(rs.getInt("Id"), rs.getString("Naziv"), rs.getString("Telefon"), rs.getString("Adresa"), rs.getString("Mail")));
+				listaDistributera.add(new DistributerOpreme(rs.getInt("Id"), rs.getString("Naziv"), rs.getString("Telefon"), rs.getString("Adresa"), rs.getString("Mail")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class DistributerOpremeDAO {
 		return rezultat;
 	}
 	
-	public static void INSERT(DistributerOpremeDTO distributerOpreme) {
+	public static void INSERT(DistributerOpreme distributerOpreme) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		

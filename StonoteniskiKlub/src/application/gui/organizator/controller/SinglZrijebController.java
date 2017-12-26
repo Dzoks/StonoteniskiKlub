@@ -5,9 +5,9 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 public class SinglZrijebController extends BaseController{
 	@FXML
@@ -44,11 +44,24 @@ public class SinglZrijebController extends BaseController{
 	private TextField txtPobjednik;
 	@FXML
 	private Button btnOk;
+
+	private Integer id;
+	private Integer idKategorije;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void inicijalizuj(Integer id,Integer idKategorije){
+		this.id=id;
+		this.idKategorije=idKategorije;
+		primaryStage.setTitle("�rijeb");
+		
+	}
 
+	public void ok(){
+		primaryStage.close();
+	}
 }

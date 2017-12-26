@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="386.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblZaposleni" layoutX="23.0" layoutY="37.0" text="Zaposleni:" />
+      <Label fx:id="lblDatumUplate" layoutX="24.0" layoutY="89.0" text="Datum uplate:" />
+      <ComboBox fx:id="comboBoxZaposleni" layoutX="124.0" layoutY="33.0" prefWidth="150.0" />
+      <DatePicker fx:id="datePicker" layoutX="124.0" layoutY="85.0" />
+      <Button fx:id="btnIzmijeni" layoutX="137.0" layoutY="288.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Izmijeni" />
+      <Button fx:id="btnOtkazi" layoutX="131.0" layoutY="324.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Otkazi" />
+      <Label fx:id="lblIznos" layoutX="27.0" layoutY="138.0" prefHeight="17.0" prefWidth="46.0" text="Iznos:" />
+      <TextField fx:id="txtIznos" layoutX="125.0" layoutY="134.0" />
+      <Label fx:id="lblKM" layoutX="289.0" layoutY="138.0" text="KM" />
+      <Label fx:id="lblOpis" layoutX="27.0" layoutY="193.0" text="Opis:" />
+      <ScrollPane fx:id="scrollPane" layoutX="124.0" layoutY="188.0" prefHeight="74.0" prefWidth="174.0">
+         <content>
+            <TextArea fx:id="txtOpis" prefHeight="75.0" prefWidth="173.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

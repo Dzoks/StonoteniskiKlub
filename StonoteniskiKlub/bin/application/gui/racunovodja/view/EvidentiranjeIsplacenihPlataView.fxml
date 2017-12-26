@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tablePlate" layoutX="17.0" layoutY="196.0" prefHeight="198.0" prefWidth="448.0">
+        <columns>
+          <TableColumn fx:id="tableColumnIme" prefWidth="61.0" text="Ime" />
+          <TableColumn fx:id="tableColumnPrezime" prefWidth="72.0" text="Prezime" />
+            <TableColumn fx:id="tableColumnRadnoMjesto" prefWidth="91.0" text="Radno mjesto" />
+            <TableColumn fx:id="tableColumnDatumIsplate" prefWidth="93.0" text="Datum isplate" />
+            <TableColumn fx:id="tableColumnIznos" prefWidth="96.0" text="Iznos" />
+        </columns>
+      </TableView>
+      <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
+      <Label fx:id="lblPrikazPo" layoutX="486.0" layoutY="202.0" text="Prikaz po:" />
+      <RadioButton fx:id="radiobtnZaposleni" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" text="Zaposlenom" />
+      <RadioButton fx:id="radiobtnMjesec" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" text="Mjesecu" />
+      <Label fx:id="lblMjesec" layoutX="484.0" layoutY="286.0" text="Mjesec:" />
+      <Spinner fx:id="spinnerMjesecPrikazi" layoutX="546.0" layoutY="282.0" />
+      <Label fx:id="lblZaposleni" layoutX="484.0" layoutY="371.0" text="Zaposleni:" />
+      <ComboBox fx:id="comboBoxZaposleniPrikazi" layoutX="548.0" layoutY="367.0" prefWidth="150.0" />
+      <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o isplacenoj plati:" />
+      <Button fx:id="btnDodaj" layoutX="425.0" layoutY="96.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="176.0" text="Dodaj" />
+      <Label fx:id="lblZaposleniDodaj" layoutX="26.0" layoutY="51.0" text="Zaposleni:" />
+      <ComboBox fx:id="comboBoxZaposleniDodaj" layoutX="107.0" layoutY="47.0" prefWidth="150.0" />
+      <Label fx:id="lblIznos" layoutX="31.0" layoutY="91.0" text="Iznos:" />
+      <TextField fx:id="txtIznos" layoutX="108.0" layoutY="96.0" />
+      <Label fx:id="lblKM" layoutX="274.0" layoutY="100.0" text="KM" />
+      <Label fx:id="lblDatumUplate" layoutX="332.0" layoutY="52.0" text="Datum uplate:" />
+      <DatePicker fx:id="datePicker" layoutX="424.0" layoutY="48.0" />
+      <Button fx:id="btnPrikazi" layoutX="553.0" layoutY="405.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Prikazi" />
+      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="430.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Obrisi" />
+      <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="430.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Izmijeni" />
+      <Label fx:id="lblGodina" layoutX="484.0" layoutY="325.0" text="Godina:" />
+      <Spinner fx:id="spinnerGodina" layoutX="548.0" layoutY="321.0" />
+      <Label fx:id="lblOpis" layoutX="33.0" layoutY="140.0" text="Opis:" />
+      <TextArea fx:id="txtOpis" layoutX="107.0" layoutY="130.0" prefHeight="37.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
