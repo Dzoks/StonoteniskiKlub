@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class OsobaDAO {
 	private static final String SQL_GET_ID_BY_TELEFON = "SELECT OSOBA_ID FROM TELEFON WHERE BROJTELEFONA=?";
 	private static final String SQL_DELETE_TELEFON = "DELETE FROM TELEFON WHERE OSOBA_ID=?";
 	private static final String SQL_UPDATE = "UPDATE OSOBA SET IME=?, PREZIME=?, IMERODITELJA=?, POL=?, JMB=?, DATUMRODJENJA=?, FOTOGRAFIJA=? WHERE ID=?";
+	private final static String SQL_DOES_EXIST="{call postojiJmb(?,?,?,?)}";
 
 	public static OsobaDTO getByJmb(String jmb) {
 		OsobaDTO osoba = null;
@@ -197,5 +199,29 @@ public class OsobaDAO {
 		}
 	}
 	
+	public static boolean doesExist(String jmb,Integer idTurnira,Integer idKategorije) {
+		boolean retVal=false;
+		Connection c = null;
+		java.sql.CallableStatement cst=null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_DOES_EXIST;
+			cst=c.prepareCall(query);
+			cst.setString(1, jmb);
+			cst.setInt(2, idTurnira);
+			cst.setInt(3, idKategorije);
+			cst.registerOutParameter(4, Types.BOOLEAN);
+			cst.execute();
+			retVal=cst.getBoolean(4);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(cst);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+		return retVal;
+	}
 	
 }

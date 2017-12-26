@@ -15,8 +15,8 @@ public class KategorijaTurniraDTO {
 	
 	public KategorijaTurniraDTO(Integer id, String kategorija) {
 		super();
-		this.id = id==null ? null : new SimpleIntegerProperty(id);
-		this.kategorija = kategorija==null ? null : new SimpleStringProperty(kategorija);
+		this.id = new SimpleIntegerProperty(id);
+		this.kategorija = new SimpleStringProperty(kategorija);
 	}
 
 	@Override

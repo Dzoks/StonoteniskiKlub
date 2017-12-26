@@ -12,7 +12,7 @@ import application.util.ConnectionPool;
 
 public class ZrijebDAO {
 	private final static String SQL_GET_BY_ID="select * from ZRIJEB where Id=?";
-	private final static String SQL_INSERT="insert into ZRIJEB (TURNIR_Id,TURNIR_KATEGORIJA_Id,BrojTimova) values (?,?,?)";
+	private final static String SQL_INSERT="{call kreirajSinglZrijeb(?,?,?,?)}";
 	private final static String SQL_GET_ZRIJEB="select * from ZRIJEB where TURNIR_Id=? and TURNIR_KATEGORIJA_Id=?";
 	private final static String SQL_DOES_EXIST="{call postojiZrijeb(?,?,?)}";
 	
@@ -44,24 +44,28 @@ public class ZrijebDAO {
 	}
 	
 	public static boolean insert(Integer idTurnira,Integer idKategorije,Integer brojTimova) {
+		boolean retVal=false;
 		Connection c = null;
-		PreparedStatement ps = null;
+		java.sql.CallableStatement cst=null;
 		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT;
-			Object pom[] = { idTurnira,idKategorije,brojTimova };
-			
-			ps = ConnectionPool.prepareStatement(c, query, false, pom);
-			return ps.executeUpdate()==1?true:false;
+			cst=c.prepareCall(query);
+			cst.setInt(1, idTurnira);
+			cst.setInt(2, idKategorije);
+			cst.setInt(3, brojTimova);
+			cst.registerOutParameter(4, Types.BOOLEAN);
+			cst.execute();
+			retVal=cst.getBoolean(4);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			ConnectionPool.close(ps);
+			ConnectionPool.close(cst);
 			ConnectionPool.getInstance().checkIn(c);
 		}
-		return false;
+		return retVal;
 	}
 	
 	public static ZrijebDTO getZrijeb(Integer idTurnira,Integer idKategorije){

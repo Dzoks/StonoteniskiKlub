@@ -38,6 +38,14 @@ public class DublZrijebController extends BaseController{
 	private TextField txtPobjednici;
 	@FXML
 	private Button btnOk;
+	@FXML
+	private Button btnRunda1;
+	@FXML
+	private Button btnRunda2;
+	@FXML
+	private Button btnRunda3;
+	@FXML
+	private Button btnRunda4;
 	
 	private Integer idTurnira;
 	private Integer idKategorije;
@@ -62,6 +70,22 @@ public class DublZrijebController extends BaseController{
 		primaryStage.setTitle("Žrijeb");
 		
 	}	
+	
+	public void refresujRundu1(){
+		
+	}
+	
+	public void refresujRundu2(){
+		
+	}
+
+	public void refresujRundu3(){
+		
+	}
+	
+	public void refresujRundu4(){
+		
+	}
 	
 	public void ok(){
 		primaryStage.close();

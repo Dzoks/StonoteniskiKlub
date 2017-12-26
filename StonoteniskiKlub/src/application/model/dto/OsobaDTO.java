@@ -1,6 +1,8 @@
 package application.model.dto;
 
 import java.sql.Blob;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class OsobaDTO {
 		this.prezime = new SimpleStringProperty(prezime);
 		this.jmb = new SimpleStringProperty(jmb);
 		this.pol = pol;
-		this.datumRodjenja = datumRodjenja;
+		this.datumRodjenja=datumRodjenja;
 	}
 
 	public List<String> getTelefoni() {
@@ -61,9 +63,9 @@ public class OsobaDTO {
 		this.imeRoditelja = new SimpleStringProperty(imeRoditelja);
 		this.jmb = new SimpleStringProperty(jmb);
 		this.pol = pol;
-		this.datumRodjenja = datumRodjenja;
 		this.slika = slika;
 		this.telefoni = telefoni;
+		this.datumRodjenja=datumRodjenja;
 	}
 
 

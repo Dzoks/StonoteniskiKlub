@@ -13,8 +13,8 @@ public class RundaDTO {
 
 	public RundaDTO(Integer idZrijeba, Integer brojRunde) {
 		super();
-		this.idZrijeba = idZrijeba==null ? null : new SimpleIntegerProperty(idZrijeba);
-		this.brojRunde = brojRunde==null ? null : new SimpleIntegerProperty(brojRunde);
+		this.idZrijeba = new SimpleIntegerProperty(idZrijeba);
+		this.brojRunde = new SimpleIntegerProperty(brojRunde);
 	}
 
 	public final IntegerProperty idZrijebaProperty() {

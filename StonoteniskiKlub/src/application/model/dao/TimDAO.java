@@ -16,14 +16,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class TimDAO {
+	private final static String SQL_GET_SINGLE_LIST="select * from TIM t inner join UCESNIK_PRIJAVA u on t.UCESNIK1_PRIJAVA_Id=u.Id"
+			+ " where u.TURNIR_Id=? and u.TURNIR_KATEGORIJA_Id=? and isnull(t.UCESNIK2_PRIJAVA_Id)";
+	private final static String SQL_GET_DOUBLE_LIST="select * from TIM t inner join UCESNIK_PRIJAVA u1 on t.UCESNIK1_PRIJAVA_Id=u1.Id"
+			+ "inner join UCESNIK_PRIJAVA u2 on t.UCESNIK2_PRIJAVA_Id=u2.Id where u1.TURNIR_Id=? and u1.TURNIR_KATEGORIJA_Id=?";
 	private final static String SQL_GET_SINGLE="select * from TIM t inner join UCESNIK_PRIJAVA u on t.UCESNIK1_PRIJAVA_Id=u.Id"
-			+ " inner join OSOBA o on u.Id=o.Id where u.TURNIR_Id=? and u.TURNIR_KATEGORIJA_Id=? and isnull(t.UCESNIK2_PRIJAVA_Id)";
+			+ " inner join OSOBA o on u.OSOBA_Id=o.Id where u.TURNIR_Id=? and u.TURNIR_KATEGORIJA_Id=? and isnull(t.UCESNIK2_PRIJAVA_Id)";
 	private final static String SQL_GET_DOUBLE="select o1.Id,o1.Ime,o1.Prezime,o1.JMB,o1.Pol,o1.DatumRodjenja,"
 			+ "o2.Id,o2.Ime,o2.Prezime,o2.JMB,o2.Pol,o2.DatumRodjenja,u1.Id,u2.Id,u1.Datum,u2.Datum from TIM t "
 			+ "inner join UCESNIK_PRIJAVA u1 on t.UCESNIK1_PRIJAVA_Id=u1.Id inner join OSOBA o1 on u1.OSOBA_Id=o1.Id"
 			+ " inner join UCESNIK_PRIJAVA u2 on t.UCESNIK2_PRIJAVA_Id=u2.Id"
 			+ " inner join OSOBA o2 on u2.OSOBA_Id=o2.Id where u1.TURNIR_Id=? and u1.TURNIR_KATEGORIJA_Id=?";
-	private final static String SQL_GET_BY_ID="select * from TIM where Id=?";
+	private final static String SQL_GET_SINGLE_BY_ID="select o.Ime,o.Prezime from TIM t inner join UCESNIK_PRIJAVA u on t.UCESNIK1_PRIJAVA_Id=u.Id"
+			+ " inner join OSOBA o on u.OSOBA_Id=o.Id where t.Id=? and isnull(t.UCESNIK2_PRIJAVA_Id)";
+	private final static String SQL_GET_DOUBLE_BY_ID="select o1.Ime,o1.Prezime,o2.Ime,o2.Prezime from TIM t "
+			+ "inner join UCESNIK_PRIJAVA u1 on t.UCESNIK1_PRIJAVA_Id=u1.Id inner join OSOBA o1 on u1.OSOBA_Id=o1.Id"
+			+ " inner join UCESNIK_PRIJAVA u2 on t.UCESNIK2_PRIJAVA_Id=u2.Id"
+			+ " inner join OSOBA o2 on u2.OSOBA_Id=o2.Id where t.Id=?";
 	private final static String SQL_INSERT_SINGLE="{call prijaviSinglTim(?,?)}";
 	private final static String SQL_INSERT_DOUBLE="{call prijaviDublTim(?,?,?)}";
 	
@@ -52,6 +61,30 @@ public class TimDAO {
 			ConnectionPool.getInstance().checkIn(c);
 		}
 
+		return retVal;
+	}
+	
+	public static ArrayList<TimDTO> getSingleList(Integer idTurnira,Integer idKategorije) {
+		ArrayList<TimDTO> retVal=new ArrayList<>();
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_GET_SINGLE_LIST;
+			Object pom[] = { idTurnira,idKategorije };
+			
+			ps = ConnectionPool.prepareStatement(c, query, false,pom);
+			rs = ps.executeQuery();
+			while (rs.next())
+				retVal.add(new TimDTO(rs.getInt("Id"), rs.getInt("UCESNIK1_PRIJAVA_ID"), rs.getInt("UCESNIK2_PRIJAVA_ID")));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(rs, ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
 		return retVal;
 	}
 	
@@ -86,23 +119,79 @@ public class TimDAO {
 		return retVal;
 	}
 	
-	public static TimDTO getById(int id){
-		TimDTO retVal=new TimDTO();
+	public static ArrayList<TimDTO> getDoubleList(Integer idTurnira,Integer idKategorije) {
+		ArrayList<TimDTO> retVal=new ArrayList<>();
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_GET_DOUBLE_LIST;
+			Object pom[] = { idTurnira,idKategorije };
+			
+			ps = ConnectionPool.prepareStatement(c, query, false,pom);
+			rs = ps.executeQuery();
+			while (rs.next()){
+				retVal.add(new TimDTO(rs.getInt("Id"), rs.getInt("UCESNIK1_PRIJAVA_ID"), rs.getInt("UCESNIK2_PRIJAVA_ID")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(rs, ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+		return retVal;
+	}
+	
+	public static String getSingleById(int id){
+		String retVal=new String();
 		Connection c=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		
 		try {
 			c=ConnectionPool.getInstance().checkOut();
-			String query=SQL_GET_BY_ID;
+			String query=SQL_GET_SINGLE_BY_ID;
 			Object pom[] = { id };
 			
 			ps=ConnectionPool.prepareStatement(c, query, false, pom);
 			rs=ps.executeQuery();
 			if(rs.next()){
-				retVal=new TimDTO(id, rs.getInt("UCESNIK1_PRIJAVA_Id"), rs.getInt("UCESNIK2_PRIJAVA_Id"));
+				retVal=rs.getString("Ime")+" "+rs.getString("Prezime");
 			}
+			else{
+				retVal="nema";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.close(rs, ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+		
+		return retVal;
+	}
+	
+	public static String getDoubleById(int id){
+		String retVal=new String();
+		Connection c=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		try {
+			c=ConnectionPool.getInstance().checkOut();
+			String query=SQL_GET_DOUBLE_BY_ID;
+			Object pom[] = { id };
 			
+			ps=ConnectionPool.prepareStatement(c, query, false, pom);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				retVal=rs.getString(1)+" "+rs.getString(2)+"/"+rs.getString(3)+" "+rs.getString(4);
+			}
+			else{
+				retVal="nema";
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

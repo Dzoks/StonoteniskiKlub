@@ -122,16 +122,6 @@ public class TurniriController extends BaseController{
 		}
 		else{
 			try {
-//				if(cbKategorija.getSelectionModel().getSelectedItem().getId()<=2){
-//					SinglTurnirController noviStage=(SinglTurnirController)changeScene("/application/gui/organizator/view/SinglTurnirView.fxml",primaryStage);
-//					noviStage.inicijalizuj(tblTurniri.getSelectionModel().getSelectedItem().getId(),
-//							cbKategorija.getSelectionModel().getSelectedItem().getId());
-//				}
-//				else{
-//					DublTurnirController noviStage=(DublTurnirController)changeScene("/application/gui/organizator/view/DublTurnirView.fxml",primaryStage);
-//					noviStage.inicijalizuj(tblTurniri.getSelectionModel().getSelectedItem().getId(),
-//							cbKategorija.getSelectionModel().getSelectedItem().getId());
-//				}
 				SinglTurnirController noviStage=(SinglTurnirController)changeScene("/application/gui/organizator/view/SinglTurnirView.fxml",primaryStage);
 				noviStage.inicijalizuj(tblTurniri.getSelectionModel().getSelectedItem().getId(),
 						cbKategorija.getSelectionModel().getSelectedItem().getId());

@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.KategorijaTurniraDAO;
+import application.model.dao.OsobaDAO;
 import application.model.dao.TimDAO;
 import application.model.dao.UcesnikPrijavaDAO;
 import application.model.dto.UcesnikPrijavaDTO;
@@ -86,17 +87,32 @@ public class SinglPrijavaController extends BaseController{
 			alert.show();
 		}
 		else{
-			if(TimDAO.insertSingle(UcesnikPrijavaDAO.insert(txtJmbg.getText(), txtIme.getText(), txtPrezime.getText(),
-					idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja.getValue()), 
-							idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
-				primaryStage.close();
+			if(OsobaDAO.doesExist(txtJmbg.getText(), idTurnira, idKategorije)){
+				if(TimDAO.insertSingle(UcesnikPrijavaDAO.addNew(idTurnira,
+						idKategorije, OsobaDAO.getByJmb(txtJmbg.getText()).getId(), Date.valueOf(LocalDate.now())))){
+					primaryStage.close();
+				}
+				else{
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Greška");
+					alert.setHeaderText("Nešto nije uredu!");
+					alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+					alert.show();
+				}
 			}
 			else{
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Greška");
-				alert.setHeaderText("Nešto nije uredu!");
-				alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
-				alert.show();
+				if(TimDAO.insertSingle(UcesnikPrijavaDAO.insert(txtJmbg.getText(), txtIme.getText(), txtPrezime.getText(),
+						idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja.getValue()), 
+								idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
+					primaryStage.close();
+				}
+				else{
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Greška");
+					alert.setHeaderText("Nešto nije uredu!");
+					alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+					alert.show();
+				}
 			}
 		}
 	}
