@@ -3,54 +3,84 @@ package application.model.dto;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class SponzorDTO {
-	private Integer id;
-	private String naziv;
-	private String adresa;
-	private String email;
+	private IntegerProperty id;
+	private StringProperty naziv;
+	private StringProperty adresa;
+	private StringProperty email;
 	private List<UgovorDTO> ugovori;
 
 	public SponzorDTO() {
 	}
 
 	public SponzorDTO(Integer id, String naziv, String adresa, String email, List<UgovorDTO> ugovori) {
-		this.id = id;
-		this.naziv = naziv;
-		this.adresa = adresa;
-		this.email = email;
+		this.id = id == null ? null : new SimpleIntegerProperty(id);
+		this.naziv = naziv == null ? null : new SimpleStringProperty(naziv);
+		this.adresa = adresa == null ? null : new SimpleStringProperty(adresa);
+		this.email = email == null ? null : new SimpleStringProperty(email);
 		this.ugovori = ugovori;
 	}
 
-	public Integer getId() {
+	// Property metode
+	public IntegerProperty idProperty() {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNaziv() {
+	public StringProperty nazivProperty() {
 		return naziv;
 	}
 
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
-	}
-
-	public String getAdresa() {
+	public StringProperty adresaProperty() {
 		return adresa;
 	}
 
-	public void setAdresa(String adresa) {
-		this.adresa = adresa;
+	public StringProperty emailProperty() {
+		return email;
+	}
+	public StringProperty aktivanProperty(){
+		return new SimpleStringProperty(this.daLiJeAktivan() ? "Da" : "Ne");
+	}
+	public StringProperty telefonProperty(){
+		return new SimpleStringProperty("065/111-222");
+	}
+	
+	// Obicni getteri
+	public Integer getId() {
+		return id.get();
+	}
+
+	public String getNaziv() {
+		return naziv.get();
+	}
+
+	public String getAdresa() {
+		return adresa.get();
 	}
 
 	public String getEmail() {
-		return email;
+		return email.get();
+	}
+
+	// Obicni setteri
+	public void setId(Integer id) {
+		this.id.set(id);
+	}
+
+	public void setNaziv(String naziv) {
+		this.naziv.set(naziv);
+	}
+
+	public void setAdresa(String adresa) {
+		this.adresa.set(adresa);
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email.set(email);
 	}
 
 	public List<UgovorDTO> getUgovori() {
@@ -97,6 +127,6 @@ public class SponzorDTO {
 
 	@Override
 	public String toString() {
-		return naziv + ", " + adresa + ", " + email;
+		return naziv.get() + ", " + adresa.get() + ", " + email.get();
 	}
 }

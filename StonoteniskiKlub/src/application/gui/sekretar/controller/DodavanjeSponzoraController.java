@@ -1,6 +1,7 @@
 package application.gui.sekretar.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dao.SponzorDAO;
+import application.model.dao.UgovorDAO;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
@@ -68,8 +70,8 @@ public class DodavanjeSponzoraController extends BaseController {
 	// Event Listener on Button[#btnDodajSponzora].onAction
 	@FXML
 	public void sacuvaj(ActionEvent event) {
-		if (InputValidator.allEntered(txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(),
-				dpDatumOd.getValue(), taOpis.getText())) {
+		if (InputValidator.allEntered(txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(), dpDatumOd.getValue(),
+				taOpis.getText())) {
 			DAOFactory factory = DAOFactory.getDAOFactory();
 			SponzorDAO sponzorDAO = factory.getSponzorDAO();
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -77,23 +79,30 @@ public class DodavanjeSponzoraController extends BaseController {
 			Date datumDo = null;
 			try {
 				datumOd = formatter.parse(dpDatumOd.getValue().toString());
-				if(dpDatumDo.getValue() != null){
+				if (dpDatumDo.getValue() != null) {
 					datumDo = formatter.parse(dpDatumDo.getValue().toString());
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 			System.out.println(datumOd + " - " + datumDo);
-			if(sponzorDAO.insert(new SponzorDTO(null, txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(), null),
-					new UgovorDTO(null, datumOd, datumDo, taOpis.getText(), null))){
+			SponzorDTO sponzor = new SponzorDTO(null, txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(), null);
+			UgovorDTO ugovor = new UgovorDTO(null, datumOd, datumDo, taOpis.getText(), null);
+			if (sponzorDAO.insert(sponzor, ugovor)) {
+				sponzor.setUgovori(new ArrayList<UgovorDTO>());
+				sponzor.getUgovori().add(ugovor);
+				parent.dodajSponzora(sponzor);
 				AlertDisplay.showInformation("Uspjesno", "", "Sponzor uspjesno dodan.");
-			} else{
+			} else {
 				AlertDisplay.showInformation("Greska", "", "Dodavanje nije uspjelo.");
 			}
 		} else {
 			AlertDisplay.showInformation("Greska", "", "Niste unijeli sve podatke.");
 		}
 	}
-
+	public void setParentController(RadSaSponzorimaController parent){
+		this.parent = parent;
+	}
 	private List<String> telefoni;
+	private RadSaSponzorimaController parent;
 }

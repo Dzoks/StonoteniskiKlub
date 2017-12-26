@@ -15,6 +15,8 @@ import application.model.dao.SponzorDAO;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.ConnectionPool;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class MySQLSponzorDAO implements SponzorDAO {
 
@@ -23,8 +25,8 @@ public class MySQLSponzorDAO implements SponzorDAO {
 	private static final String SQL_GET_BY_ID = "select * from SPONZOR where Id=?";
 
 	@Override
-	public List<SponzorDTO> selectAll() {
-		List<SponzorDTO> result = new ArrayList<SponzorDTO>();
+	public ObservableList<SponzorDTO> selectAll() {
+		ObservableList<SponzorDTO> result = FXCollections.observableArrayList();
 		Connection connection = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
