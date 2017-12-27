@@ -8,69 +8,69 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.DublZrijebController">
+<AnchorPane prefHeight="550.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.DublZrijebController">
    <children>
-      <Label layoutX="73.0" layoutY="42.0" text="1. runda">
+      <Label layoutX="105.0" layoutY="44.0" text="1. runda">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="278.0" layoutY="131.0" text="1/4 finala">
+      <Label layoutX="360.0" layoutY="120.0" text="1/4 finala">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="487.0" layoutY="179.0" text="1/2 finala">
+      <Label layoutX="615.0" layoutY="165.0" text="1/2 finala">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="715.0" layoutY="205.0" text="Finale">
+      <Label layoutX="891.0" layoutY="200.0" text="Finale">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="tblRunda1" layoutX="5.0" layoutY="76.0" prefHeight="450.0" prefWidth="200.0">
+      <TableView fx:id="tblRunda1" layoutX="5.0" layoutY="76.0" prefHeight="355.0" prefWidth="260.0">
          <columns>
-            <TableColumn fx:id="clnMec1" prefWidth="135.0" text="Mec" />
-            <TableColumn fx:id="clnRezultat1" prefWidth="62.0" text="Rezultat" />
+            <TableColumn fx:id="clnMec1" prefWidth="200.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat1" prefWidth="55.0" text="Rezultat" />
          </columns>
       </TableView>
-      <TableView fx:id="tblRunda4" layoutX="635.0" layoutY="233.0" prefHeight="100.0" prefWidth="200.0">
+      <TableView fx:id="tblRunda4" layoutX="785.0" layoutY="225.0" prefHeight="70.0" prefWidth="260.0">
          <columns>
-            <TableColumn fx:id="clnMec4" prefWidth="135.0" text="Mec" />
-            <TableColumn fx:id="clnRezultat4" prefWidth="62.0" text="Rezultat" />
+            <TableColumn fx:id="clnMec4" prefWidth="200.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat4" prefWidth="55.0" text="Rezultat" />
          </columns>
       </TableView>
-      <TableView fx:id="tblRunda3" layoutX="425.0" layoutY="207.0" prefHeight="150.0" prefWidth="200.0">
+      <TableView fx:id="tblRunda3" layoutX="525.0" layoutY="195.0" prefHeight="120.0" prefWidth="260.0">
          <columns>
-            <TableColumn fx:id="clnMec3" prefWidth="135.0" text="Mec" />
-            <TableColumn fx:id="clnRezultat3" prefWidth="62.0" text="Rezultat" />
+            <TableColumn fx:id="clnMec3" prefWidth="200.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat3" prefWidth="55.0" text="Rezultat" />
          </columns>
       </TableView>
-      <TableView fx:id="tblRunda2" layoutX="215.0" layoutY="158.0" prefHeight="250.0" prefWidth="200.0">
+      <TableView fx:id="tblRunda2" layoutX="265.0" layoutY="151.0" prefHeight="195.0" prefWidth="260.0">
          <columns>
-            <TableColumn fx:id="clnMec2" prefWidth="135.0" text="Mec" />
-            <TableColumn fx:id="clnRezultat2" prefWidth="62.0" text="Rezultat" />
+            <TableColumn fx:id="clnMec2" prefWidth="200.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat2" prefWidth="55.0" text="Rezultat" />
          </columns>
       </TableView>
-      <Button fx:id="btnOk" layoutX="700.0" layoutY="530.0" mnemonicParsing="false" onAction="#ok" prefHeight="40.0" prefWidth="100.0" text="OK">
+      <Button fx:id="btnOk" layoutX="870.0" layoutY="470.0" mnemonicParsing="false" onAction="#ok" prefHeight="40.0" prefWidth="100.0" text="OK">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnRunda1" layoutX="175.0" layoutY="43.0" mnemonicParsing="false" onAction="#refresujRundu1" text="-&gt;" />
-      <Button fx:id="btnRunda2" layoutX="385.0" layoutY="132.0" mnemonicParsing="false" onAction="#refresujRundu2" text="-&gt;" />
-      <Button fx:id="btnRunda3" layoutX="595.0" layoutY="180.0" mnemonicParsing="false" onAction="#refresujRundu3" text="-&gt;" />
-      <Button fx:id="btnRunda4" layoutX="800.0" layoutY="206.0" mnemonicParsing="false" onAction="#refresujRundu4" text="-&gt;" />
-      <Label layoutX="694.0" layoutY="56.0" text="Pobjednici">
+      <Button fx:id="btnRunda1" layoutX="232.0" layoutY="45.0" mnemonicParsing="false" onAction="#refresujRundu1" text="-&gt;" />
+      <Button fx:id="btnRunda2" layoutX="492.0" layoutY="121.0" mnemonicParsing="false" onAction="#refresujRundu2" text="-&gt;" />
+      <Button fx:id="btnRunda3" layoutX="749.0" layoutY="165.0" mnemonicParsing="false" onAction="#refresujRundu3" text="-&gt;" />
+      <Button fx:id="btnRunda4" layoutX="1008.0" layoutY="200.0" mnemonicParsing="false" onAction="#refresujRundu4" text="-&gt;" />
+      <Label fx:id="lblPobjednici" layoutX="872.0" layoutY="56.0" text="Pobjednici">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPobjednik" alignment="CENTER" layoutX="636.0" layoutY="92.0" prefHeight="40.0" prefWidth="200.0">
+      <TextField fx:id="txtPobjednici" alignment="CENTER" layoutX="790.0" layoutY="100.0" prefHeight="40.0" prefWidth="250.0">
          <font>
-            <Font size="18.0" />
+            <Font size="16.0" />
          </font>
       </TextField>
    </children>

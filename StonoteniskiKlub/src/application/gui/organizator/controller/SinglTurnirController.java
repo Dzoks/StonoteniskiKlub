@@ -47,7 +47,7 @@ public class SinglTurnirController extends BaseController{
 	@FXML
 	private TableColumn<UcesnikPrijavaDTO,String> clnJMBG;
 	@FXML
-	private TableColumn<UcesnikPrijavaDTO,LocalDate> clnDatumRodjenja;
+	private TableColumn<UcesnikPrijavaDTO,String> clnDatumRodjenja;
 	@FXML
 	private Button btnPrijavi;
 	@FXML
@@ -70,7 +70,7 @@ public class SinglTurnirController extends BaseController{
 		this.idKategorije=idKategorije;
 		TurnirDTO turnir=TurnirDAO.getById(idTurnira);
 		lblNaziv.setText(turnir.getNaziv());
-		lblDatum.setText(TurniriController.konvertujIzSQLDate(turnir.getDatum()));
+		lblDatum.setText(TurniriController.konvertujIzSQLDate(turnir.getDatum().toString()));
 		primaryStage.setTitle(idKategorije<3?"Singl turnir":"Dubl turnir");
 		lblKategorija.setText(KategorijaTurniraDAO.getById(idKategorije).toString());
 		btnIzmjeni.disableProperty().bind(tblIgraci.getSelectionModel().selectedItemProperty().isNull());
@@ -81,7 +81,7 @@ public class SinglTurnirController extends BaseController{
 		clnIme.setCellValueFactory(new PropertyValueFactory<>("ime"));
 		clnPrezime.setCellValueFactory(new PropertyValueFactory<>("prezime"));
 		clnJMBG.setCellValueFactory(new PropertyValueFactory<>("jmb"));
-		clnDatumRodjenja.setCellValueFactory(new PropertyValueFactory<>("datumRodjenja"));
+		clnDatumRodjenja.setCellValueFactory(new PropertyValueFactory<>("konvertovanDatumRodjenja"));
 		tblIgraci.setItems(idKategorije<3?TimDAO.getSingle(idTurnira,idKategorije):TimDAO.getDouble(idTurnira, idKategorije));
 		lblBroj.setText(String.valueOf(tblIgraci.getItems().size()));
 	}

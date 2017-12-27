@@ -20,7 +20,6 @@ public class KategorijaTurniraDAO {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_GET_ALL;
@@ -35,7 +34,6 @@ public class KategorijaTurniraDAO {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
-
 		return retVal;
 	}
 	
@@ -43,8 +41,7 @@ public class KategorijaTurniraDAO {
 		KategorijaTurniraDTO retVal=new KategorijaTurniraDTO();
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;		
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_GET_BY_ID;
@@ -60,8 +57,7 @@ public class KategorijaTurniraDAO {
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}		
 		return retVal;
 	}
 	
@@ -69,8 +65,7 @@ public class KategorijaTurniraDAO {
 		KategorijaTurniraDTO retVal=new KategorijaTurniraDTO();
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;		
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_GET_BY_ID;
@@ -84,8 +79,7 @@ public class KategorijaTurniraDAO {
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}	
 		return retVal;
 	}
 }

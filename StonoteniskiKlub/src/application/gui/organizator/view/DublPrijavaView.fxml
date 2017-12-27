@@ -15,12 +15,12 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label id="lblKategorija" fx:id="lblKategorija" layoutX="139.0" layoutY="254.0" text="Muski/Zenski">
+      <Label id="lblKategorija" fx:id="lblKategorija" layoutX="119.0" layoutY="254.0" text="Muski/Zenski">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button id="btnSacuvaj" fx:id="btnSacuvaj" layoutX="578.0" layoutY="248.0" mnemonicParsing="false" onAction="#sacuvaj" text="Sačuvaj">
+      <Button id="btnSacuvaj" fx:id="btnSacuvaj" layoutX="563.0" layoutY="248.0" mnemonicParsing="false" onAction="#sacuvaj" text="Sačuvajte">
          <font>
             <Font size="18.0" />
          </font>
@@ -28,24 +28,24 @@
       <Pane layoutX="24.0" layoutY="57.0" prefHeight="173.0" prefWidth="295.0" style="-fx-border-color: black;">
          <children>
             <TextField id="txtIme1" fx:id="txtIme1" layoutX="85.0" layoutY="16.0" prefHeight="25.0" prefWidth="185.0" />
-            <Label layoutX="14.0" layoutY="15.0" text="Ime">
+            <Label layoutX="14.0" layoutY="15.0" text="Ime:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="12.0" layoutY="50.0" text="Prezime">
+            <Label layoutX="12.0" layoutY="50.0" text="Prezime:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <TextField id="txtPrezime1" fx:id="txtPrezime1" layoutX="85.0" layoutY="51.0" prefHeight="25.0" prefWidth="185.0" />
-            <Label layoutX="21.0" layoutY="87.0" text="JMBG">
+            <Label layoutX="21.0" layoutY="87.0" text="JMBG:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <TextField id="txtJmbg1" fx:id="txtJmbg1" layoutX="85.0" layoutY="88.0" prefHeight="25.0" prefWidth="185.0" />
-            <Label layoutX="15.0" layoutY="128.0" text="Datum rođenja">
+            <Label layoutX="15.0" layoutY="128.0" text="Datum rođenja:">
                <font>
                   <Font size="18.0" />
                </font>
@@ -56,24 +56,24 @@
       <Pane layoutX="367.0" layoutY="57.0" prefHeight="173.0" prefWidth="295.0" style="-fx-border-color: black;">
          <children>
             <TextField id="txtIme2" fx:id="txtIme2" layoutX="85.0" layoutY="16.0" prefHeight="25.0" prefWidth="185.0" />
-            <Label layoutX="14.0" layoutY="15.0" text="Ime">
+            <Label layoutX="14.0" layoutY="15.0" text="Ime:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="12.0" layoutY="50.0" text="Prezime">
+            <Label layoutX="12.0" layoutY="50.0" text="Prezime:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <TextField id="txtPrezime2" fx:id="txtPrezime2" layoutX="85.0" layoutY="51.0" prefHeight="25.0" prefWidth="185.0" />
-            <Label layoutX="21.0" layoutY="87.0" text="JMBG">
+            <Label layoutX="21.0" layoutY="87.0" text="JMBG:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <TextField id="txtJmbg2" fx:id="txtJmbg2" layoutX="85.0" layoutY="88.0" prefHeight="25.0" prefWidth="185.0" />
-            <Label layoutX="15.0" layoutY="128.0" text="Datum rođenja">
+            <Label layoutX="15.0" layoutY="128.0" text="Datum rođenja:">
                <font>
                   <Font size="18.0" />
                </font>

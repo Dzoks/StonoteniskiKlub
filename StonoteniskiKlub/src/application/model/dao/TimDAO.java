@@ -19,7 +19,7 @@ public class TimDAO {
 	private final static String SQL_GET_SINGLE_LIST="select * from TIM t inner join UCESNIK_PRIJAVA u on t.UCESNIK1_PRIJAVA_Id=u.Id"
 			+ " where u.TURNIR_Id=? and u.TURNIR_KATEGORIJA_Id=? and isnull(t.UCESNIK2_PRIJAVA_Id)";
 	private final static String SQL_GET_DOUBLE_LIST="select * from TIM t inner join UCESNIK_PRIJAVA u1 on t.UCESNIK1_PRIJAVA_Id=u1.Id"
-			+ "inner join UCESNIK_PRIJAVA u2 on t.UCESNIK2_PRIJAVA_Id=u2.Id where u1.TURNIR_Id=? and u1.TURNIR_KATEGORIJA_Id=?";
+			+ " inner join UCESNIK_PRIJAVA u2 on t.UCESNIK2_PRIJAVA_Id=u2.Id where u1.TURNIR_Id=? and u1.TURNIR_KATEGORIJA_Id=?";
 	private final static String SQL_GET_SINGLE="select * from TIM t inner join UCESNIK_PRIJAVA u on t.UCESNIK1_PRIJAVA_Id=u.Id"
 			+ " inner join OSOBA o on u.OSOBA_Id=o.Id where u.TURNIR_Id=? and u.TURNIR_KATEGORIJA_Id=? and isnull(t.UCESNIK2_PRIJAVA_Id)";
 	private final static String SQL_GET_DOUBLE="select o1.Id,o1.Ime,o1.Prezime,o1.JMB,o1.Pol,o1.DatumRodjenja,"
@@ -41,7 +41,6 @@ public class TimDAO {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_GET_SINGLE;
@@ -60,7 +59,6 @@ public class TimDAO {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
-
 		return retVal;
 	}
 	
@@ -69,7 +67,6 @@ public class TimDAO {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_GET_SINGLE_LIST;
@@ -93,7 +90,6 @@ public class TimDAO {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_GET_DOUBLE;
@@ -115,7 +111,6 @@ public class TimDAO {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
-
 		return retVal;
 	}
 	
@@ -124,7 +119,6 @@ public class TimDAO {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_GET_DOUBLE_LIST;
@@ -133,7 +127,7 @@ public class TimDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false,pom);
 			rs = ps.executeQuery();
 			while (rs.next()){
-				retVal.add(new TimDTO(rs.getInt("Id"), rs.getInt("UCESNIK1_PRIJAVA_ID"), rs.getInt("UCESNIK2_PRIJAVA_ID")));
+				retVal.add(new TimDTO(rs.getInt("Id"), rs.getInt("UCESNIK1_PRIJAVA_Id"), rs.getInt("UCESNIK2_PRIJAVA_Id")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -148,8 +142,7 @@ public class TimDAO {
 		String retVal=new String();
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;	
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_GET_SINGLE_BY_ID;
@@ -168,8 +161,7 @@ public class TimDAO {
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}	
 		return retVal;
 	}
 	
@@ -177,8 +169,7 @@ public class TimDAO {
 		String retVal=new String();
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;	
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_GET_DOUBLE_BY_ID;
@@ -197,16 +188,14 @@ public class TimDAO {
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}		
 		return retVal;
 	}
 	
 	public static boolean insertSingle(Integer idPrvogUcesnika) {
 		boolean retVal=false;
 		Connection c = null;
-		java.sql.CallableStatement cst=null;
-		
+		java.sql.CallableStatement cst=null;	
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT_SINGLE;
@@ -228,8 +217,7 @@ public class TimDAO {
 	public static boolean insertDouble(Integer idPrvogUcesnika,Integer idDrugogUcesnika) {
 		boolean retVal=false;
 		Connection c = null;
-		java.sql.CallableStatement cst=null;
-		
+		java.sql.CallableStatement cst=null;	
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT_DOUBLE;
@@ -248,5 +236,4 @@ public class TimDAO {
 		}
 		return retVal;
 	}
-	
 }

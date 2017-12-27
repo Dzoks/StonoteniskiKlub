@@ -18,8 +18,7 @@ public class RundaDAO {
 		RundaDTO retVal=new RundaDTO();
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;		
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_GET_BY_BROJ;
@@ -29,22 +28,19 @@ public class RundaDAO {
 			rs=ps.executeQuery();
 			if(rs.next()){
 				retVal=new RundaDTO(idZrijeba, brojRunde);
-			}
-			
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}		
 		return retVal;
 	}	
 	
 	public static boolean insert(Integer idZrijeba,Integer brojRunde) {
 		Connection c = null;
-		PreparedStatement ps = null;
-		
+		PreparedStatement ps = null;	
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT;
@@ -66,8 +62,7 @@ public class RundaDAO {
 		Integer retVal=0;
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;		
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_NUM_COMPLETED;
@@ -77,15 +72,13 @@ public class RundaDAO {
 			rs=ps.executeQuery();
 			if(rs.next()){
 				retVal=rs.getInt(1);
-			}
-			
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}		
 		return retVal;
 	}
 }

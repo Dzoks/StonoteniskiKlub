@@ -13,6 +13,7 @@ import application.util.ConnectionPool;
 public class ZrijebDAO {
 	private final static String SQL_GET_BY_ID="select * from ZRIJEB where Id=?";
 	private final static String SQL_INSERT="{call kreirajSinglZrijeb(?,?,?,?)}";
+	private final static String SQL_INSERT_DOUBLE="{call kreirajDublZrijeb(?,?,?,?)}";
 	private final static String SQL_GET_ZRIJEB="select * from ZRIJEB where TURNIR_Id=? and TURNIR_KATEGORIJA_Id=?";
 	private final static String SQL_DOES_EXIST="{call postojiZrijeb(?,?,?)}";
 	
@@ -20,8 +21,7 @@ public class ZrijebDAO {
 		ZrijebDTO retVal=new ZrijebDTO();
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;		
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_GET_BY_ID;
@@ -31,26 +31,27 @@ public class ZrijebDAO {
 			rs=ps.executeQuery();
 			if(rs.next()){
 				retVal=new ZrijebDTO(id, rs.getInt("TURNIR_Id"), rs.getInt("TURNIR_KATEGORIJA_Id"), rs.getInt("BrojTimova"));
-			}
-			
+			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}		
 		return retVal;
 	}
 	
 	public static boolean insert(Integer idTurnira,Integer idKategorije,Integer brojTimova) {
 		boolean retVal=false;
 		Connection c = null;
-		java.sql.CallableStatement cst=null;
-		
+		java.sql.CallableStatement cst=null;		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
-			String query = SQL_INSERT;
+			String query = new String();
+			if(idKategorije<3)
+				query = SQL_INSERT;
+			else
+				query = SQL_INSERT_DOUBLE;
 			cst=c.prepareCall(query);
 			cst.setInt(1, idTurnira);
 			cst.setInt(2, idKategorije);
@@ -72,8 +73,7 @@ public class ZrijebDAO {
 		ZrijebDTO retVal=new ZrijebDTO();
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;		
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_GET_ZRIJEB;
@@ -83,23 +83,20 @@ public class ZrijebDAO {
 			rs=ps.executeQuery();
 			if(rs.next()){
 				retVal=new ZrijebDTO(rs.getInt("Id"), rs.getInt("TURNIR_Id"), rs.getInt("TURNIR_KATEGORIJA_Id"), rs.getInt("BrojTimova"));
-			}
-			
+			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}		
 		return retVal;
 	}
 	
 	public static boolean doesExist(Integer idTurnira,Integer idKategorije) {
 		boolean retVal=false;
 		Connection c = null;
-		java.sql.CallableStatement cst=null;
-		
+		java.sql.CallableStatement cst=null;	
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_DOES_EXIST;
@@ -117,6 +114,5 @@ public class ZrijebDAO {
 			ConnectionPool.getInstance().checkIn(c);
 		}
 		return retVal;
-	}
-	
+	}	
 }

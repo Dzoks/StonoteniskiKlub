@@ -28,31 +28,23 @@ public class KategorijaTurniraDTO {
 		return this.id;
 	}
 	
-
 	public final int getId() {
 		return this.idProperty().get();
 	}
 	
-
 	public final void setId(final int id) {
 		this.idProperty().set(id);
 	}
 	
-
 	public final StringProperty kategorijaProperty() {
 		return this.kategorija;
 	}
 	
-
 	public final String getKategorija() {
 		return this.kategorijaProperty().get();
 	}
 	
-
 	public final void setKategorija(final String kategorija) {
 		this.kategorijaProperty().set(kategorija);
 	}
-	
-	
-	
 }

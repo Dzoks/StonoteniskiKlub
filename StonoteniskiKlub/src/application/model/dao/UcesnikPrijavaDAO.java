@@ -23,7 +23,7 @@ public class UcesnikPrijavaDAO {
 	private final static String SQL_SELECT_ALL = "select * from UCESNIK_PRIJAVA u inner join OSOBA o on u.OSOBA_Id = o.Id "
 			+ "where u.TURNIR_Id=? and u.TURNIR_KATEGORIJA_Id=?";
 	public static final String SQL_UPDATE="update UCESNIK_PRIJAVA u inner join OSOBA o on u.OSOBA_Id = o.Id set o.Ime=?,"
-			+ "o.Prezime=?,o.DatumRodjenja=? where o.Id=?";
+			+ "o.Prezime=?,o.DatumRodjenja=? where u.Id=?";
 	private final static String SQL_ADD_NEW = "{call dodajPrijavu(?,?,?,?,?)}";
 	
 	public static ObservableList<UcesnikPrijavaDTO> getAll(Integer idTurnira,Integer idKategorije) {
@@ -31,7 +31,6 @@ public class UcesnikPrijavaDAO {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_SELECT_ALL;
@@ -50,7 +49,6 @@ public class UcesnikPrijavaDAO {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
-
 		return retVal;
 	}
 	
@@ -58,8 +56,7 @@ public class UcesnikPrijavaDAO {
 		UcesnikPrijavaDTO retVal=new UcesnikPrijavaDTO();
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;	
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_GET_BY_ID;
@@ -71,15 +68,13 @@ public class UcesnikPrijavaDAO {
 				retVal=new UcesnikPrijavaDTO(rs.getInt("OSOBA_Id"), rs.getString("Ime"), rs.getString("Prezime"), 
 						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"), 
 						id, rs.getInt("TURNIR_Id"), rs.getInt("TURNIR_KATEGORIJA_Id"),rs.getDate("Datum"));
-			}
-			
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}		
 		return retVal;
 	}
 	
@@ -87,8 +82,7 @@ public class UcesnikPrijavaDAO {
 		UcesnikPrijavaDTO retVal=new UcesnikPrijavaDTO();
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;		
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_GET_BY_JMB;
@@ -99,15 +93,13 @@ public class UcesnikPrijavaDAO {
 			if(rs.next()){
 				retVal=new UcesnikPrijavaDTO(rs.getInt("Id"), rs.getInt("TURNIR_Id"),
 						rs.getInt("TURNIR_KATEGORIJA_Id"),rs.getDate("Datum"));
-			}
-			
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}		
 		return retVal;
 	}
 	
@@ -115,8 +107,7 @@ public class UcesnikPrijavaDAO {
 			Date datumRodjenja,Integer idTurnira,Integer idKategorije,Date datum) {
 		Integer retVal=0;
 		Connection c = null;
-		java.sql.CallableStatement cst=null;
-		
+		java.sql.CallableStatement cst=null;		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT;
@@ -145,8 +136,7 @@ public class UcesnikPrijavaDAO {
 	public static boolean izmjeniUcesnika(Integer idPrijave,String ime,String prezime,Date datum){
 		boolean retVal=false;
 		Connection c = null;
-		PreparedStatement ps=null;
-		
+		PreparedStatement ps=null;		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_UPDATE;
@@ -169,8 +159,7 @@ public class UcesnikPrijavaDAO {
 	public static Integer addNew(Integer idTurnira,Integer idKategorije,Integer idOsobe,Date datum) {
 		Integer retVal=0;
 		Connection c = null;
-		java.sql.CallableStatement cst=null;
-		
+		java.sql.CallableStatement cst=null;		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_ADD_NEW;

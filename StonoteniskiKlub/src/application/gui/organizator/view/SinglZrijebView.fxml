@@ -75,7 +75,7 @@
       <Button fx:id="btnRunda3" layoutX="634.0" layoutY="206.0" mnemonicParsing="false" onAction="#refresujRundu3" text="-&gt;" />
       <Button fx:id="btnRunda4" layoutX="840.0" layoutY="258.0" mnemonicParsing="false" onAction="#refresujRundu4" text="-&gt;" />
       <Button fx:id="btnRunda5" layoutX="1049.0" layoutY="287.0" mnemonicParsing="false" onAction="#refresujRundu5" text="-&gt;" />
-      <Label layoutX="899.0" layoutY="90.0" style="-fx-font-size: 18px;" text="Pobjednik">
+      <Label fx:id="lblPobjednik" layoutX="899.0" layoutY="90.0" style="-fx-font-size: 18px;" text="Pobjednik">
          <font>
             <Font size="18.0" />
          </font>

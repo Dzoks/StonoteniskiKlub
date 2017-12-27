@@ -15,44 +15,44 @@
    <children>
       <TableView fx:id="tblTurniri" layoutX="14.0" layoutY="14.0" onMousePressed="#selektovan" prefHeight="300.0" prefWidth="500.0">
         <columns>
-          <TableColumn fx:id="clnNaziv" prefWidth="226.0" sortType="DESCENDING" text="Naziv" />
-            <TableColumn fx:id="clnDatum" prefWidth="182.0" sortType="DESCENDING" text="Datum" />
-            <TableColumn fx:id="clnZatvoren" prefWidth="91.0" text="Zatvoren" />
+          <TableColumn fx:id="clnNaziv" prefWidth="230.0" sortType="DESCENDING" text="Naziv" />
+            <TableColumn fx:id="clnDatum" prefWidth="180.0" sortType="DESCENDING" text="Datum" />
+            <TableColumn fx:id="clnZatvoren" prefWidth="85.0" text="Zatvoren" />
         </columns>
       </TableView>
-      <Button fx:id="btnUredi" layoutX="562.0" layoutY="186.0" mnemonicParsing="false" onAction="#urediTurnir" prefHeight="39.0" prefWidth="99.0" text="Uredi">
+      <Button fx:id="btnUredi" layoutX="550.0" layoutY="175.0" mnemonicParsing="false" onAction="#urediTurnir" prefHeight="40.0" prefWidth="115.0" text="Uredite">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnPregledaj" layoutX="562.0" layoutY="235.0" mnemonicParsing="false" onAction="#pregledajTurnir" text="Pregledaj">
+      <Button fx:id="btnPregledaj" layoutX="550.0" layoutY="225.0" mnemonicParsing="false" onAction="#pregledajTurnir" prefHeight="40.0" prefWidth="115.0" text="Pregledajte">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnZatvori" layoutX="562.0" layoutY="281.0" mnemonicParsing="false" onAction="#zatvoriTurnir" prefHeight="39.0" prefWidth="99.0" text="Zatvori">
+      <Button fx:id="btnZatvori" layoutX="550.0" layoutY="275.0" mnemonicParsing="false" onAction="#zatvoriTurnir" prefHeight="40.0" prefWidth="115.0" text="Zatvorite">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnOdjaviSe" layoutX="563.0" layoutY="390.0" mnemonicParsing="false" onAction="#odjaviSe" text="Odjavi se">
+      <Button fx:id="btnOdjaviSe" layoutX="548.0" layoutY="389.0" mnemonicParsing="false" onAction="#odjaviSe" prefHeight="40.0" prefWidth="115.0" text="Odjavite se">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
       <Pane layoutX="14.0" layoutY="345.0" prefHeight="90.0" prefWidth="500.0" style="-fx-border-color: #5a87ce;">
          <children>
-            <Label layoutX="14.0" layoutY="14.0" text="Naziv">
+            <Label layoutX="14.0" layoutY="14.0" text="Naziv:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="49.0" text="Datum">
+            <Label layoutX="14.0" layoutY="49.0" text="Datum:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button id="btnDodaj" fx:id="btnDodaj" layoutX="363.0" layoutY="43.0" mnemonicParsing="false" onAction="#dodajTurnir" prefHeight="39.0" prefWidth="100.0" text="Dodaj">
+            <Button id="btnDodaj" fx:id="btnDodaj" layoutX="363.0" layoutY="43.0" mnemonicParsing="false" onAction="#dodajTurnir" prefHeight="39.0" prefWidth="100.0" text="Dodajte">
                <font>
                   <Font size="18.0" />
                </font>
@@ -66,7 +66,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="530.0" layoutY="14.0" text="Kategorija">
+      <Label layoutX="530.0" layoutY="14.0" text="Kategorija:">
          <font>
             <Font size="18.0" />
          </font>

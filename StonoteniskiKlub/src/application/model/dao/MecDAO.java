@@ -25,7 +25,6 @@ public class MecDAO {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_GET_ALL;
@@ -55,7 +54,6 @@ public class MecDAO {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_GET_ALL;
@@ -81,7 +79,6 @@ public class MecDAO {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_GET_ALL;
@@ -109,8 +106,7 @@ public class MecDAO {
 	public static boolean insertRezultat(MecDTO mec){
 		boolean retVal=false;
 		Connection c = null;
-		PreparedStatement ps=null;
-		
+		PreparedStatement ps=null;	
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT_REZULTAT;
@@ -133,8 +129,7 @@ public class MecDAO {
 	public static boolean insertSingle(Integer idTim1,Integer idZrijeba,Integer brojRunde,Integer redniBroj){
 		boolean retVal=false;
 		Connection c = null;
-		PreparedStatement ps=null;
-		
+		PreparedStatement ps=null;	
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT_SINGLE;
@@ -157,8 +152,7 @@ public class MecDAO {
 	public static boolean insert(Integer idTim1,Integer idTim2,Integer idZrijeba,Integer brojRunde,Integer redniBroj){
 		boolean retVal=false;
 		Connection c = null;
-		PreparedStatement ps=null;
-		
+		PreparedStatement ps=null;	
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT;
@@ -177,6 +171,5 @@ public class MecDAO {
 			ConnectionPool.getInstance().checkIn(c);
 		}
 		return retVal;
-	}
-	
+	}	
 }

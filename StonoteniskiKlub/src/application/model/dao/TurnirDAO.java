@@ -25,7 +25,6 @@ public class TurnirDAO {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_GET_ALL;
@@ -40,7 +39,6 @@ public class TurnirDAO {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
-
 		return retVal;
 	}
 	
@@ -48,8 +46,7 @@ public class TurnirDAO {
 		TurnirDTO retVal=new TurnirDTO();
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;		
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_GET_BY_ID;
@@ -59,15 +56,13 @@ public class TurnirDAO {
 			rs=ps.executeQuery();
 			if(rs.next()){
 				retVal=new TurnirDTO(id, rs.getString("Naziv"), rs.getDate("Datum"));
-			}
-			
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}		
 		return retVal;
 	}
 	
@@ -75,8 +70,7 @@ public class TurnirDAO {
 		TurnirDTO retVal=new TurnirDTO();
 		Connection c=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
+		ResultSet rs=null;		
 		try {
 			c=ConnectionPool.getInstance().checkOut();
 			String query=SQL_GET_BY_ID;
@@ -86,22 +80,19 @@ public class TurnirDAO {
 			rs=ps.executeQuery();
 			if(rs.next()){
 				retVal=new TurnirDTO(rs.getInt("Id"), rs.getString("Naziv"), rs.getDate("Datum"));
-			}
-			
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
-		}
-		
+		}		
 		return retVal;
 	}
 	
 	public static boolean insert(String naziv,Date datum) {
 		Connection c = null;
-		PreparedStatement ps = null;
-		
+		PreparedStatement ps = null;		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT;
@@ -121,8 +112,7 @@ public class TurnirDAO {
 	
 	public static boolean zatvori(int id){
 		Connection c = null;
-		PreparedStatement ps = null;
-		
+		PreparedStatement ps = null;		
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_ZATVORI_TURNIR;
