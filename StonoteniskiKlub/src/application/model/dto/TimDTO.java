@@ -14,9 +14,9 @@ public class TimDTO {
 
 	public TimDTO(Integer id, Integer idPrvogUcesnika, Integer idDrugogUcesnika) {
 		super();
-		this.id = id==null ? null : new SimpleIntegerProperty(id);
-		this.idPrvogUcesnika = idPrvogUcesnika==null ? null : new SimpleIntegerProperty(idPrvogUcesnika);
-		this.idDrugogUcesnika = idDrugogUcesnika==null ? null : new SimpleIntegerProperty(idDrugogUcesnika);
+		this.id = new SimpleIntegerProperty(id);
+		this.idPrvogUcesnika = new SimpleIntegerProperty(idPrvogUcesnika);
+		this.idDrugogUcesnika = new SimpleIntegerProperty(idDrugogUcesnika);
 	}
 
 	public final IntegerProperty idProperty() {

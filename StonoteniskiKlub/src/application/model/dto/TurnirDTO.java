@@ -23,22 +23,22 @@ public class TurnirDTO {
 
 	public TurnirDTO(Integer id, String naziv, Date datum) {
 		super();
-		this.id = id==null ? null : new SimpleIntegerProperty(id);
-		this.naziv = naziv==null ? null : new SimpleStringProperty(naziv);
-		this.datum = datum==null ? null : new SimpleObjectProperty<Date>(datum);
-		this.zatvoren=new SimpleStringProperty("Ne");
+		this.id = new SimpleIntegerProperty(id);
+		this.naziv = new SimpleStringProperty(naziv);
+		this.datum = new SimpleObjectProperty<Date>(datum);
+		this.zatvoren= new SimpleStringProperty("Ne");
 		
-		konvertovanDatum=TurniriController.konvertujIzSQLDate(datum);
+		konvertovanDatum=TurniriController.konvertujIzSQLDate(datum.toString());
 	}
 	
 	public TurnirDTO(Integer id, String naziv, Date datum,Boolean zavrsen) {
 		super();
-		this.id = id==null ? null : new SimpleIntegerProperty(id);
-		this.naziv = naziv==null ? null : new SimpleStringProperty(naziv);
-		this.datum = datum==null ? null : new SimpleObjectProperty<Date>(datum);
+		this.id = new SimpleIntegerProperty(id);
+		this.naziv = new SimpleStringProperty(naziv);
+		this.datum = new SimpleObjectProperty<Date>(datum);
 		this.zatvoren = zavrsen==true ? new SimpleStringProperty("Da") : new SimpleStringProperty("Ne");
 
-		konvertovanDatum=TurniriController.konvertujIzSQLDate(datum);
+		konvertovanDatum=TurniriController.konvertujIzSQLDate(datum.toString());
 	}
 
 	@Override
@@ -50,12 +50,10 @@ public class TurnirDTO {
 		return this.datum;
 	}
 	
-
 	public final Date getDatum() {
 		return this.datumProperty().get();
 	}
 	
-
 	public final void setDatum(final Date datum) {
 		this.datumProperty().set(datum);
 	}
@@ -64,27 +62,22 @@ public class TurnirDTO {
 		return this.id;
 	}
 	
-
 	public final int getId() {
 		return this.idProperty().get();
 	}
 	
-
 	public final void setId(final int id) {
 		this.idProperty().set(id);
 	}
 	
-
 	public final StringProperty nazivProperty() {
 		return this.naziv;
 	}
 	
-
 	public final String getNaziv() {
 		return this.nazivProperty().get();
 	}
 	
-
 	public final void setNaziv(final String naziv) {
 		this.nazivProperty().set(naziv);
 	}
@@ -93,12 +86,10 @@ public class TurnirDTO {
 		return this.zatvoren;
 	}
 	
-
 	public final String getZatvoren() {
 		return this.zatvorenProperty().get();
 	}
 	
-
 	public final void setZatvoren(final String zatvoren) {
 		this.zatvorenProperty().set(zatvoren);
 	}

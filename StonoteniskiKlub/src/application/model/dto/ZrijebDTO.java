@@ -16,10 +16,10 @@ public class ZrijebDTO {
 	public ZrijebDTO(Integer id, Integer idTurnira, Integer idKategorije,
 			Integer brojTimova) {
 		super();
-		this.id = id==null ? null : new SimpleIntegerProperty(id);
-		this.idTurnira = idTurnira==null ? null : new SimpleIntegerProperty(idTurnira);
-		this.idKategorije = idKategorije==null ? null : new SimpleIntegerProperty(idKategorije);
-		this.brojTimova = brojTimova==null ? null : new SimpleIntegerProperty(brojTimova);
+		this.id = new SimpleIntegerProperty(id);
+		this.idTurnira = new SimpleIntegerProperty(idTurnira);
+		this.idKategorije = new SimpleIntegerProperty(idKategorije);
+		this.brojTimova = new SimpleIntegerProperty(brojTimova);
 	}
 
 	public final IntegerProperty idProperty() {

@@ -1,5 +1,6 @@
 package application.model.dto;
 
+import application.model.dao.TimDAO;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,20 +13,33 @@ public class MecDTO {
 	private StringProperty rezultat;
 	private IntegerProperty idPrvogTima;
 	private IntegerProperty idDrugogTima;
+	private StringProperty prikazMeca;
 	
 	public MecDTO() {
 		super();
+	}
+	
+	public MecDTO(Integer idZrijeba, Integer brojRunde, Integer redniBroj,Integer tim1, Integer tim2) {
+		super();
+		this.idZrijeba = new SimpleIntegerProperty(idZrijeba);
+		this.brojRunde = new SimpleIntegerProperty(brojRunde);
+		this.redniBroj = new SimpleIntegerProperty(redniBroj);
+		this.rezultat = new SimpleStringProperty();
+		this.idPrvogTima = new SimpleIntegerProperty(tim1);
+		this.idDrugogTima = new SimpleIntegerProperty(tim2);
+		this.prikazMeca= new SimpleStringProperty();
 	}
 
 	public MecDTO(Integer idZrijeba, Integer brojRunde, Integer redniBroj,
 			String rezultat, Integer tim1, Integer tim2) {
 		super();
-		this.idZrijeba = idZrijeba==null ? null : new SimpleIntegerProperty(idZrijeba);
-		this.brojRunde = brojRunde==null ? null : new SimpleIntegerProperty(brojRunde);
-		this.redniBroj = redniBroj==null ? null : new SimpleIntegerProperty(redniBroj);
-		this.rezultat = rezultat==null ? null : new SimpleStringProperty(rezultat);
-		this.idPrvogTima = tim1==null ? null : new SimpleIntegerProperty(tim1);
-		this.idDrugogTima = tim2==null ? null : new SimpleIntegerProperty(tim2);
+		this.idZrijeba = new SimpleIntegerProperty(idZrijeba);
+		this.brojRunde = new SimpleIntegerProperty(brojRunde);
+		this.redniBroj = new SimpleIntegerProperty(redniBroj);
+		this.rezultat = new SimpleStringProperty(rezultat);
+		this.idPrvogTima = new SimpleIntegerProperty(tim1);
+		this.idDrugogTima = new SimpleIntegerProperty(tim2);
+		this.prikazMeca= new SimpleStringProperty();
 	}
 
 	public final IntegerProperty idZrijebaProperty() {
@@ -108,7 +122,7 @@ public class MecDTO {
 	}
 	
 
-	public final int getIdDrugogTima() {
+	public Integer getIdDrugogTima() {
 		return this.idDrugogTimaProperty().get();
 	}
 	
@@ -116,4 +130,20 @@ public class MecDTO {
 	public final void setIdDrugogTima(final int idDrugogTima) {
 		this.idDrugogTimaProperty().set(idDrugogTima);
 	}
+
+	public final StringProperty prikazMecaProperty() {
+		return this.prikazMeca;
+	}
+	
+
+	public final String getPrikazMeca() {
+		return this.prikazMecaProperty().get();
+	}
+	
+
+	public final void setPrikazMeca(final String prikazMeca) {
+		this.prikazMecaProperty().set(prikazMeca);
+	}
+	
+	
 }

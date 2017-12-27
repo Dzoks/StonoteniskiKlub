@@ -4,66 +4,78 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.DublZrijebController">
+<AnchorPane prefHeight="550.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.DublZrijebController">
    <children>
-      <Label layoutX="80.0" layoutY="12.0" text="1. runda">
+      <Label layoutX="105.0" layoutY="44.0" text="1. runda">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="281.0" layoutY="74.0" text="1/4 finala">
+      <Label layoutX="360.0" layoutY="120.0" text="1/4 finala">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="490.0" layoutY="147.0" text="1/2 finala">
+      <Label layoutX="615.0" layoutY="165.0" text="1/2 finala">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="711.0" layoutY="205.0" text="Finale">
+      <Label layoutX="891.0" layoutY="200.0" text="Finale">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="694.0" layoutY="48.0" text="Pobjednici">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TableView fx:id="tblRunda1" layoutX="14.0" layoutY="39.0" prefHeight="550.0" prefWidth="198.0">
+      <TableView fx:id="tblRunda1" layoutX="5.0" layoutY="76.0" prefHeight="355.0" prefWidth="260.0">
          <columns>
-            <TableColumn fx:id="clnMec1" prefWidth="135.0" text="Mec" />
-            <TableColumn fx:id="clnRezultat1" prefWidth="62.0" text="Rezultat" />
+            <TableColumn fx:id="clnMec1" prefWidth="200.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat1" prefWidth="55.0" text="Rezultat" />
          </columns>
       </TableView>
-      <TableView fx:id="tblRunda4" layoutX="635.0" layoutY="232.0" prefHeight="176.0" prefWidth="198.0">
+      <TableView fx:id="tblRunda4" layoutX="785.0" layoutY="225.0" prefHeight="70.0" prefWidth="260.0">
          <columns>
-            <TableColumn fx:id="clnMec4" prefWidth="135.0" text="Mec" />
-            <TableColumn fx:id="clnRezultat4" prefWidth="62.0" text="Rezultat" />
+            <TableColumn fx:id="clnMec4" prefWidth="200.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat4" prefWidth="55.0" text="Rezultat" />
          </columns>
       </TableView>
-      <TableView fx:id="tblRunda3" layoutX="428.0" layoutY="176.0" prefHeight="277.0" prefWidth="198.0">
+      <TableView fx:id="tblRunda3" layoutX="525.0" layoutY="195.0" prefHeight="120.0" prefWidth="260.0">
          <columns>
-            <TableColumn fx:id="clnMec3" prefWidth="135.0" text="Mec" />
-            <TableColumn fx:id="clnRezultat3" prefWidth="62.0" text="Rezultat" />
+            <TableColumn fx:id="clnMec3" prefWidth="200.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat3" prefWidth="55.0" text="Rezultat" />
          </columns>
       </TableView>
-      <TableView fx:id="tblRunda2" layoutX="219.0" layoutY="101.0" prefHeight="438.0" prefWidth="198.0">
+      <TableView fx:id="tblRunda2" layoutX="265.0" layoutY="151.0" prefHeight="195.0" prefWidth="260.0">
          <columns>
-            <TableColumn fx:id="clnMec2" prefWidth="135.0" text="Mec" />
-            <TableColumn fx:id="clnRezultat2" prefWidth="62.0" text="Rezultat" />
+            <TableColumn fx:id="clnMec2" prefWidth="200.0" text="Mec" />
+            <TableColumn fx:id="clnRezultat2" prefWidth="55.0" text="Rezultat" />
          </columns>
       </TableView>
-      <TextField fx:id="txtPobjednici" layoutX="636.0" layoutY="76.0" prefHeight="25.0" prefWidth="198.0" />
-      <Button fx:id="btnOk" layoutX="686.0" layoutY="539.0" mnemonicParsing="false" onAction="#ok" prefHeight="40.0" prefWidth="100.0" text="OK">
+      <Button fx:id="btnOk" layoutX="900.0" layoutY="470.0" mnemonicParsing="false" onAction="#ok" prefHeight="40.0" prefWidth="100.0" text="OK">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
+      <Button fx:id="btnRunda1" layoutX="232.0" layoutY="45.0" mnemonicParsing="false" onAction="#refresujRundu1" text="-&gt;" />
+      <Button fx:id="btnRunda2" layoutX="492.0" layoutY="121.0" mnemonicParsing="false" onAction="#refresujRundu2" text="-&gt;" />
+      <Button fx:id="btnRunda3" layoutX="749.0" layoutY="165.0" mnemonicParsing="false" onAction="#refresujRundu3" text="-&gt;" />
+      <Button fx:id="btnRunda4" layoutX="1008.0" layoutY="200.0" mnemonicParsing="false" onAction="#refresujRundu4" text="-&gt;" />
+      <Label fx:id="lblPobjednici" layoutX="674.0" layoutY="58.0" text="Pobjednici:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblPobjedniciIme" layoutX="674.0" layoutY="85.0" text="Ime Prezime">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblUpozorenje" layoutX="262.0" layoutY="470.0" text="Tekst upozorenja" textFill="RED">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

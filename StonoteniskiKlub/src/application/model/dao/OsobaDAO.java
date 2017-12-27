@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +31,7 @@ public class OsobaDAO {
 	public static void insertPotvrda(int idClana, int idTipa, Date datum, Blob tekst) {
 		PreparedStatement ps = null;
 		Connection c = null;
+	private final static String SQL_DOES_EXIST="{call postojiJmb(?,?,?,?)}";
 
 		try {
 			c = ConnectionPool.getInstance().checkOut();
@@ -249,5 +251,29 @@ public class OsobaDAO {
 		}
 	}
 	
+	public static boolean doesExist(String jmb,Integer idTurnira,Integer idKategorije) {
+		boolean retVal=false;
+		Connection c = null;
+		java.sql.CallableStatement cst=null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_DOES_EXIST;
+			cst=c.prepareCall(query);
+			cst.setString(1, jmb);
+			cst.setInt(2, idTurnira);
+			cst.setInt(3, idKategorije);
+			cst.registerOutParameter(4, Types.BOOLEAN);
+			cst.execute();
+			retVal=cst.getBoolean(4);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(cst);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+		return retVal;
+	}
 	
 }
