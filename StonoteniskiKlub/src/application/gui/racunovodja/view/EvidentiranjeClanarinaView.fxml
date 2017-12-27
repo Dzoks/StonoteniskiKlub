@@ -27,8 +27,8 @@
       </TableView>
       <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
       <Label fx:id="lblPrikazPo" layoutX="486.0" layoutY="202.0" text="Prikaz po:" />
-      <RadioButton fx:id="radiobtnClan" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" text="Clanu" />
-      <RadioButton fx:id="radiobtnMjesec" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" text="Mjesecu" />
+      <RadioButton fx:id="radiobtnClan" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" onAction="#radioClan" text="Clanu" />
+      <RadioButton fx:id="radiobtnMjesec" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" onAction="#radioMjesec" text="Mjesecu" />
       <Label fx:id="lblMjesec" layoutX="484.0" layoutY="286.0" text="Mjesec:" />
       <Spinner fx:id="spinnerMjesecPrikazi" layoutX="546.0" layoutY="282.0" />
       <Label fx:id="lblClan" layoutX="484.0" layoutY="371.0" text="Clan:" />
@@ -52,5 +52,6 @@
       <Spinner fx:id="spinnerGodinaDodaj" layoutX="430.0" layoutY="129.0" />
       <Label fx:id="lblOpis" layoutX="115.0" layoutY="142.0" text="Opis:" />
       <TextArea fx:id="txtOpis" layoutX="157.0" layoutY="132.0" prefHeight="17.0" prefWidth="110.0" />
+      <RadioButton fx:id="radiobtnSve" layoutX="624.0" layoutY="202.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" />
    </children>
 </AnchorPane>

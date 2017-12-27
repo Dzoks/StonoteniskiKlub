@@ -26,8 +26,8 @@
       </TableView>
       <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
       <Label fx:id="lblPrikazPo" layoutX="486.0" layoutY="202.0" text="Prikazi:" />
-      <RadioButton fx:id="radiobtnSve" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" text="Sve" />
-      <RadioButton fx:id="radiobtnDistributer" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" text="Po distributeru" />
+      <RadioButton fx:id="radiobtnSve" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" />
+      <RadioButton fx:id="radiobtnDistributer" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" onAction="#radioDistributer" text="Po distributeru" />
       <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o troskovima za opremu kluba:" />
       <Button fx:id="btnDodaj" layoutX="22.0" layoutY="129.0" mnemonicParsing="false" onAction="#dodaj" text="Dodaj" />
       <Label fx:id="lblIznos" layoutX="337.0" layoutY="51.0" text="Iznos:" />

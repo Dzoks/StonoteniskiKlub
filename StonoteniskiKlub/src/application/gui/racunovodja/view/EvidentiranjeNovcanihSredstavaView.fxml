@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="532.0" prefWidth="726.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeNovcanihSredstavaController">
+<AnchorPane prefHeight="532.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeNovcanihSredstavaController">
    <children>
       <TableView fx:id="tableView" layoutX="25.0" layoutY="252.0" prefHeight="200.0" prefWidth="455.0">
         <columns>
@@ -41,10 +40,22 @@
       <Button fx:id="btnDodaj" layoutX="31.0" layoutY="195.0" mnemonicParsing="false" onAction="#dodaj" text="Dodaj" />
       <Button layoutX="174.0" layoutY="472.0" mnemonicParsing="false" onAction="#obrisi" text="Obrisi" />
       <Button layoutX="255.0" layoutY="472.0" mnemonicParsing="false" onAction="#izmijeni" text="Izmijeni" />
-      <Label layoutX="501.0" layoutY="258.0" text="Prikazi:" />
-      <RadioButton fx:id="radioBtnPrihodi" layoutX="570.0" layoutY="258.0" mnemonicParsing="false" text="Prihode" />
-      <RadioButton fx:id="radioBtnRashodi" layoutX="570.0" layoutY="297.0" mnemonicParsing="false" text="Rashode" />
-      <Button fx:id="btnPrikazi" layoutX="578.0" layoutY="371.0" mnemonicParsing="false" onAction="#prikazi" text="Prikazi" />
-      <RadioButton fx:id="radioBtnSve" layoutX="570.0" layoutY="335.0" mnemonicParsing="false" text="Sve" />
+      <Label layoutX="510.0" layoutY="258.0" text="Sezona:" />
+      <Label layoutX="510.0" layoutY="310.0" text="Usvojeni budzet:" />
+      <Label fx:id="lblUsvojeniBudzet" layoutX="613.0" layoutY="310.0" text="vrijednostUsvojeniBudzet" textFill="RED" />
+      <Label layoutX="510.0" layoutY="344.0" text="Priodi:" />
+      <Label layoutX="510.0" layoutY="377.0" text="Rashodi:" />
+      <Label layoutX="510.0" layoutY="408.0" text="Trenutna novcana sredstva:" />
+      <Label fx:id="lblPrihodi" layoutX="613.0" layoutY="344.0" text="vrijednostPrihodi" textFill="RED" />
+      <Label fx:id="lblRashodi" layoutX="613.0" layoutY="377.0" text="vrijednostRashodi" textFill="RED" />
+      <Label fx:id="lblNovcanaSredstva" layoutX="666.0" layoutY="408.0" text="vrijednostNS" textFill="RED" />
+      <Button fx:id="btnPrikazi" layoutX="674.0" layoutY="254.0" mnemonicParsing="false" onAction="#prikazi" text="Prikazi" />
+      <ComboBox fx:id="comboBoxSezona" layoutX="563.0" layoutY="254.0" prefHeight="25.0" prefWidth="88.0" />
+      <Label layoutX="385.0" layoutY="169.0" text="Dodaj usvojeni budzet:" />
+      <Label layoutX="530.0" layoutY="169.0" text="Sezona:" />
+      <Label layoutX="530.0" layoutY="199.0" text="Iznos:" />
+      <TextField fx:id="txtSezona" layoutX="589.0" layoutY="165.0" />
+      <TextField fx:id="txtIznosBudzet" layoutX="589.0" layoutY="195.0" />
+      <Button fx:id="btnDodajBudzet" layoutX="764.0" layoutY="165.0" mnemonicParsing="false" onAction="#dodajBudzet" text="Dodaj" />
    </children>
 </AnchorPane>

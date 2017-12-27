@@ -26,8 +26,8 @@
       </TableView>
       <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
       <Label fx:id="lblPrikazPo" layoutX="486.0" layoutY="202.0" text="Prikaz po:" />
-      <RadioButton fx:id="radiobtnZaposleni" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" text="Zaposlenom" />
-      <RadioButton fx:id="radiobtnMjesec" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" text="Mjesecu" />
+      <RadioButton fx:id="radiobtnZaposleni" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" onAction="#radioZaposleni" text="Zaposlenom" />
+      <RadioButton fx:id="radiobtnMjesec" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" onAction="#radioMjesec" text="Mjesecu" />
       <Label fx:id="lblMjesec" layoutX="484.0" layoutY="286.0" text="Mjesec:" />
       <Spinner fx:id="spinnerMjesecPrikazi" layoutX="546.0" layoutY="282.0" />
       <Label fx:id="lblZaposleni" layoutX="484.0" layoutY="371.0" text="Zaposleni:" />
@@ -48,5 +48,6 @@
       <Spinner fx:id="spinnerGodina" layoutX="548.0" layoutY="321.0" />
       <Label fx:id="lblOpis" layoutX="33.0" layoutY="140.0" text="Opis:" />
       <TextArea fx:id="txtOpis" layoutX="107.0" layoutY="130.0" prefHeight="37.0" prefWidth="150.0" />
+      <RadioButton fx:id="radiobtnSve" layoutX="470.0" layoutY="239.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" />
    </children>
 </AnchorPane>

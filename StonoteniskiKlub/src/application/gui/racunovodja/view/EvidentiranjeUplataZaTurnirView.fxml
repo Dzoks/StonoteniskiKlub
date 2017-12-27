@@ -26,8 +26,8 @@
       </TableView>
       <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
       <Label fx:id="lblPrikazPo" layoutX="486.0" layoutY="202.0" text="Prikaz po:" />
-      <RadioButton fx:id="radiobtnUcesnik" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" text="Ucesniku" />
-      <RadioButton fx:id="radiobtnTurnir" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" text="Turniru" />
+      <RadioButton fx:id="radiobtnUcesnik" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" onAction="#radioUcesnik" text="Ucesniku" />
+      <RadioButton fx:id="radiobtnTurnir" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" onAction="#radioTurnir" text="Turniru" />
       <Label fx:id="lblUcesnik" layoutX="486.0" layoutY="287.0" text="Ucesnik:" />
       <ComboBox fx:id="comboBoxUcesnikPrikazi" layoutX="549.0" layoutY="283.0" prefWidth="150.0" />
       <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplacenom ucescu na turniru:" />
@@ -50,5 +50,6 @@
             <TextArea fx:id="txtOpis" prefHeight="200.0" prefWidth="200.0" />
          </content>
       </ScrollPane>
+      <RadioButton fx:id="radiobtnSve" layoutX="473.0" layoutY="239.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" />
    </children>
 </AnchorPane>

@@ -10,15 +10,16 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanarinaDAO;
+import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
-
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 
 import javafx.scene.control.ScrollPane;
@@ -129,7 +130,16 @@ public class IzmijeniClanarinuController extends BaseController{
 	
 	public void izmijeni() {
 		
-		Double iznos = Double.parseDouble(txtIznos.getText());
+		Double iznos = null;
+		try {
+			iznos = Double.parseDouble(txtIznos.getText());
+			if(iznos<0)
+				throw new NumberFormatException();
+		}catch(NumberFormatException ex) {
+			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
+			alert.showAndWait();
+			return;
+		}
 		Integer mjesec = spinnerMjesec.getValue();
 		Integer godina = spinnerGodina.getValue();
 		ClanDTO clan = comboBoxClan.getValue();
@@ -143,6 +153,7 @@ public class IzmijeniClanarinuController extends BaseController{
 		evidentiranjeController.getListaClanarina().remove(clanarina1);
 		evidentiranjeController.getListaClanarina().add(clanarina1);
 		ClanarinaDAO.UPDATE(clanarina1,clan);
+		NovcanaSredstvaDAO.dodajPrihode(clanarina1.getIznos().get()-clanarina.getIznos().get());
 		this.getPrimaryStage().close();
 	}
 	public void otkazi() {
