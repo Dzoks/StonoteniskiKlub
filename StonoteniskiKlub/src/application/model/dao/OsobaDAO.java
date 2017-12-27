@@ -25,13 +25,13 @@ public class OsobaDAO {
 	private static final String SQL_UPDATE = "UPDATE OSOBA SET IME=?, PREZIME=?, IMERODITELJA=?, POL=?, JMB=?, DATUMRODJENJA=?, FOTOGRAFIJA=? WHERE ID=?";
 	private static final String SQL_SELECT_ALL_TIPOVI_POTVRDE = "SELECT * FROM POTVRDA_TIP";
 	private static final String SQL_INSERT_POTVRDA = "INSERT INTO potvrda VALUES (?, ?, ?, ?, ?)";
-	
+	private final static String SQL_DOES_EXIST="{call postojiJmb(?,?,?,?)}";
 	
 	
 	public static void insertPotvrda(int idClana, int idTipa, Date datum, Blob tekst) {
 		PreparedStatement ps = null;
 		Connection c = null;
-	private final static String SQL_DOES_EXIST="{call postojiJmb(?,?,?,?)}";
+	
 
 		try {
 			c = ConnectionPool.getInstance().checkOut();
