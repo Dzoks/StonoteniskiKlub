@@ -103,8 +103,12 @@ public class DonacijaDTO {
 	
 	@Override
 	public String toString() {
-		String result = sponzor.toString() + " - " + ugovor.toString() + " - ";
-		result += opis + "; " + (novcanaDonacija ? "Novcani iznos: " + novcaniIznos : "Tip opreme: " + tipOpreme + ", kolicina: " + kolicina);
+		String result = "";
+		if(novcanaDonacija){
+			result = "Novcana, iznos: " + novcaniIznos.toString() + " KM";
+		}else{
+			result = tipOpreme + ", komada: " + kolicina.toString();
+		}
 		return result;
 	}
 }

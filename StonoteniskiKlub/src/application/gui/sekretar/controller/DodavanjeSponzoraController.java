@@ -24,6 +24,8 @@ import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
 import application.util.InputValidator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.TextArea;
@@ -70,39 +72,68 @@ public class DodavanjeSponzoraController extends BaseController {
 	// Event Listener on Button[#btnDodajSponzora].onAction
 	@FXML
 	public void sacuvaj(ActionEvent event) {
-		if (InputValidator.allEntered(txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(), dpDatumOd.getValue(),
-				taOpis.getText())) {
-			DAOFactory factory = DAOFactory.getDAOFactory();
-			SponzorDAO sponzorDAO = factory.getSponzorDAO();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			Date datumOd = null;
-			Date datumDo = null;
-			try {
-				datumOd = formatter.parse(dpDatumOd.getValue().toString());
-				if (dpDatumDo.getValue() != null) {
-					datumDo = formatter.parse(dpDatumDo.getValue().toString());
+		if (trenutniSponzor == null) {
+			if (InputValidator.allEntered(txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(),
+					dpDatumOd.getValue(), taOpis.getText())) {
+				DAOFactory factory = DAOFactory.getDAOFactory();
+				SponzorDAO sponzorDAO = factory.getSponzorDAO();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				Date datumOd = null;
+				Date datumDo = null;
+				try {
+					datumOd = formatter.parse(dpDatumOd.getValue().toString());
+					if (dpDatumDo.getValue() != null) {
+						datumDo = formatter.parse(dpDatumDo.getValue().toString());
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			System.out.println(datumOd + " - " + datumDo);
-			SponzorDTO sponzor = new SponzorDTO(null, txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(), null);
-			UgovorDTO ugovor = new UgovorDTO(null, datumOd, datumDo, taOpis.getText(), null);
-			if (sponzorDAO.insert(sponzor, ugovor)) {
-				sponzor.setUgovori(new ArrayList<UgovorDTO>());
-				sponzor.getUgovori().add(ugovor);
-				parent.dodajSponzora(sponzor);
-				AlertDisplay.showInformation("Uspjesno", "", "Sponzor uspjesno dodan.");
+				SponzorDTO sponzor = new SponzorDTO(null, txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(),
+						null);
+				UgovorDTO ugovor = new UgovorDTO(null, datumOd, datumDo, taOpis.getText(), null);
+				if (sponzorDAO.insert(sponzor, ugovor)) {
+					ObservableList<UgovorDTO> list = FXCollections.observableArrayList();
+					sponzor.setUgovori(list);
+					sponzor.getUgovori().add(ugovor);
+					parent.dodajSponzora(sponzor);
+					AlertDisplay.showInformation("Uspjesno", "", "Sponzor uspjesno dodan.");
+				} else {
+					AlertDisplay.showInformation("Greska", "", "Dodavanje nije uspjelo.");
+				}
 			} else {
-				AlertDisplay.showInformation("Greska", "", "Dodavanje nije uspjelo.");
+				AlertDisplay.showInformation("Greska", "", "Niste unijeli sve podatke.");
 			}
-		} else {
-			AlertDisplay.showInformation("Greska", "", "Niste unijeli sve podatke.");
+		}else{
+			if(InputValidator.allEntered(txtAdresa.getText(), txtNaziv.getText(), txtMail.getText())){
+				trenutniSponzor.setNaziv(txtNaziv.getText());
+				trenutniSponzor.setAdresa(txtAdresa.getText());
+				trenutniSponzor.setEmail(txtMail.getText());
+				DAOFactory.getDAOFactory().getSponzorDAO().update(trenutniSponzor);
+				parent.zamijeni(trenutniSponzor);
+				AlertDisplay.showInformation("Uspjesno", "", "Sponzor uspjesno azuriran.");
+			}else {
+				AlertDisplay.showInformation("Greska", "", "Niste unijeli sve podatke.");
+			}
 		}
 	}
-	public void setParentController(RadSaSponzorimaController parent){
+
+	public void setParentController(RadSaSponzorimaController parent) {
 		this.parent = parent;
 	}
+
+	public void setTrenutniSponzor(SponzorDTO trenutniSponzor) {
+		this.trenutniSponzor = trenutniSponzor;
+		if (this.trenutniSponzor != null) {
+			txtNaziv.setText(trenutniSponzor.getNaziv());
+			txtAdresa.setText(trenutniSponzor.getAdresa());
+			txtMail.setText(trenutniSponzor.getEmail());
+			dpDatumOd.setDisable(true);
+			dpDatumDo.setDisable(true);
+			taOpis.setDisable(true);
+		}
+	}
+
 	private List<String> telefoni;
 	private RadSaSponzorimaController parent;
+	private SponzorDTO trenutniSponzor;
 }

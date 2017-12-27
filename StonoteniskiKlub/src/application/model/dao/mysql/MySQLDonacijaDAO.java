@@ -1,9 +1,12 @@
 package application.model.dao.mysql;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 
 	public static final String SQL_SELECT_ALL_BY_ID = "select * from donacija_detaljno where SponzorId=? and UgovorRb=?";
 	public static final String SQL_NEOBRADJENE = "select * from donacija_detaljno where Obradjeno=false and NovcanaDonacija=?";
-
+	public static final String SQL_INSERT = "{call dodaj_donaciju(?,?,?,?,?,?,?,?)}";
 	@Override
 	public List<DonacijaDTO> selectAllById(Integer idSponzora, Integer rbUgovora) {
 		List<DonacijaDTO> result = new ArrayList<DonacijaDTO>();
@@ -93,6 +96,45 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
+		}
+		return result;
+	}
+
+	@Override
+	public boolean insert(SponzorDTO sponzor, UgovorDTO ugovor, DonacijaDTO donacija) {
+		boolean result = false;
+		Connection connection = null;
+		CallableStatement statement = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = connection.prepareCall(SQL_INSERT);
+			statement.setInt("pSponzorId", sponzor.getId());
+			statement.setInt("pRedniBrojUgovor", ugovor.getRedniBroj());
+			statement.setString("pOpis", donacija.getOpis());
+			if(donacija.getKolicina() == null){
+				statement.setNull("pKolicina", Types.DECIMAL);
+			} else{
+				statement.setBigDecimal("pKolicina", donacija.getKolicina());
+			}
+			if(donacija.getNovcaniIznos() == null){
+				statement.setNull("pNovcaniIznos", Types.DECIMAL);
+			} else{
+				statement.setBigDecimal("pNovcaniIznos", donacija.getNovcaniIznos());
+			}
+			statement.setBoolean("pNovcanaDonacija", donacija.getNovcanaDonacija());
+			if (donacija.getTipOpreme() == null) {
+				statement.setNull("pOpremaTipId", Types.INTEGER);
+			} else {
+				statement.setInt("pOpremaTipId", donacija.getTipOpreme().getId());
+			}
+			statement.registerOutParameter("pUspjesno", Types.BOOLEAN);
+			statement.execute();
+			result = statement.getBoolean("pUspjesno");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(statement);
 		}
 		return result;
 	}

@@ -23,7 +23,9 @@ public class MySQLSponzorDAO implements SponzorDAO {
 	private static final String SQL_SELECT_ALL = "select * from SPONZOR";
 	private static final String SQL_INSERT = "{call dodaj_sponozra(?,?,?,?,?,?,?)}";
 	private static final String SQL_GET_BY_ID = "select * from SPONZOR where Id=?";
-
+	private static final String SQL_UPDATE = "update SPONZOR set Naziv=?, Adresa=?, Mail=? where Id=?";
+	private static final String SQL_GET_BY_NAME = "select * from SPONZOR where Naziv like ?";
+	
 	@Override
 	public ObservableList<SponzorDTO> selectAll() {
 		ObservableList<SponzorDTO> result = FXCollections.observableArrayList();
@@ -96,6 +98,46 @@ public class MySQLSponzorDAO implements SponzorDAO {
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);
+		}
+		return result;
+	}
+
+	@Override
+	public void update(SponzorDTO sponzor) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_UPDATE, false, sponzor.getNaziv(),
+					sponzor.getAdresa(), sponzor.getEmail(), sponzor.getId());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(statement);
+		}
+	}
+
+	@Override
+	public ObservableList<SponzorDTO> getByNaziv(String naziv) {
+		ObservableList<SponzorDTO> result = FXCollections.observableArrayList();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_GET_BY_NAME, false, "%" + naziv + "%");
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				result.add(new SponzorDTO(resultSet.getInt("Id"), resultSet.getString("Naziv"),
+						resultSet.getString("Adresa"), resultSet.getString("Mail"), null));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(resultSet, statement);
 		}
 		return result;
 	}
