@@ -24,31 +24,31 @@ import javafx.scene.control.TableColumn;
 
 public class DublZrijebController extends BaseController{
 	@FXML
-	private TableView tblRunda1;
+	private TableView<MecDTO>  tblRunda1;
 	@FXML
-	private TableColumn clnMec1;
+	private TableColumn<MecDTO,String> clnMec1;
 	@FXML
-	private TableColumn clnRezultat1;
+	private TableColumn<MecDTO,String> clnRezultat1;
 	@FXML
-	private TableView tblRunda4;
+	private TableView<MecDTO>  tblRunda4;
 	@FXML
-	private TableColumn clnMec4;
+	private TableColumn<MecDTO,String> clnMec4;
 	@FXML
-	private TableColumn clnRezultat4;
+	private TableColumn<MecDTO,String> clnRezultat4;
 	@FXML
-	private TableView tblRunda3;
+	private TableView<MecDTO>  tblRunda3;
 	@FXML
-	private TableColumn clnMec3;
+	private TableColumn<MecDTO,String> clnMec3;
 	@FXML
-	private TableColumn clnRezultat3;
+	private TableColumn<MecDTO,String> clnRezultat3;
 	@FXML
-	private TableView tblRunda2;
+	private TableView<MecDTO>  tblRunda2;
 	@FXML
-	private TableColumn clnMec2;
+	private TableColumn<MecDTO,String> clnMec2;
 	@FXML
-	private TableColumn clnRezultat2;
+	private TableColumn<MecDTO,String> clnRezultat2;
 	@FXML
-	private TextField txtPobjednici;
+	private Label lblPobjedniciIme;
 	@FXML
 	private Button btnOk;
 	@FXML
@@ -61,6 +61,8 @@ public class DublZrijebController extends BaseController{
 	private Button btnRunda4;
 	@FXML
 	private Label lblPobjednici;
+	@FXML
+	private Label lblUpozorenje;
 	
 	private Integer idTurnira;
 	private Integer idKategorije;
@@ -76,10 +78,12 @@ public class DublZrijebController extends BaseController{
 		this.idTurnira=idTurnira;
 		this.idKategorije=idKategorije;
 		this.idZrijeba=ZrijebDAO.getZrijeb(idTurnira, idKategorije).getId();
-		primaryStage.setTitle("�rijeb");
-		txtPobjednici.setEditable(false);
-		txtPobjednici.setVisible(false);
+		primaryStage.setTitle("Žrijeb");
+		lblPobjedniciIme.setVisible(false);
 		lblPobjednici.setVisible(false);
+		lblUpozorenje.setText("*Napomena: Svi uneseni rezultati moraju biti oblika A-B, pri čemu su A i B brojevi od 0 do 4.\n"
+				+ "Potrebno je da isključivo jedan od brojeva A i B bude 4.");
+		lblUpozorenje.setVisible(false);
 		btnRunda1.setVisible(false);
 		btnRunda2.setVisible(false);
 		btnRunda3.setVisible(false);
@@ -91,10 +95,12 @@ public class DublZrijebController extends BaseController{
 		this.idTurnira=idTurnira;
 		this.idKategorije=idKategorije;
 		this.brojTimova=brojTimova;
-		primaryStage.setTitle("�rijeb");
-		txtPobjednici.setEditable(false);
-		txtPobjednici.setVisible(false);
+		primaryStage.setTitle("Žrijeb");
+		lblPobjedniciIme.setVisible(false);
 		lblPobjednici.setVisible(false);
+		lblUpozorenje.setText("*Napomena: Svi uneseni rezultati moraju biti oblika A-B, pri čemu su A i B brojevi od 0 do 4.\n"
+				+ "Potrebno je da isključivo jedan od brojeva A i B bude 4.");
+		lblUpozorenje.setVisible(false);
 		btnRunda1.setVisible(false);
 		btnRunda2.setVisible(false);
 		btnRunda3.setVisible(false);
@@ -138,10 +144,15 @@ public class DublZrijebController extends BaseController{
 			clnRezultat1.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MecDTO,String>>() {
 				@Override
 				public void handle(CellEditEvent<MecDTO, String> event) {
-					event.getRowValue().setRezultat(event.getNewValue());
-					MecDAO.insertRezultat(event.getRowValue());
-					if(RundaDAO.numCompleted(idZrijeba, 1)==8)
-						btnRunda1.setVisible(true);
+					if(validanRezultat(event.getNewValue())){
+						event.getRowValue().setRezultat(event.getNewValue());
+						MecDAO.insertRezultat(event.getRowValue());
+						if(RundaDAO.numCompleted(idZrijeba, 1)==8)
+							btnRunda1.setVisible(true);
+					}
+					else{
+						lblUpozorenje.setVisible(true);
+					}
 				}
 			});
 		}
@@ -157,56 +168,79 @@ public class DublZrijebController extends BaseController{
 					clnRezultat2.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MecDTO,String>>() {
 						@Override
 						public void handle(CellEditEvent<MecDTO, String> event) {
-							event.getRowValue().setRezultat(event.getNewValue());
-							MecDAO.insertRezultat(event.getRowValue());
-							if(RundaDAO.numCompleted(idZrijeba, 2)==4)
-								btnRunda2.setVisible(true);
+							if(validanRezultat(event.getNewValue())){
+								event.getRowValue().setRezultat(event.getNewValue());
+								MecDAO.insertRezultat(event.getRowValue());
+								if(RundaDAO.numCompleted(idZrijeba, 2)==4)
+									btnRunda2.setVisible(true);								
+							}
+							else{
+								lblUpozorenje.setVisible(true);
+							}
 						}
 					});
 				}
 				else{
-					tblRunda3.setItems(MecDAO.getAllDouble(idZrijeba, 3));
-					if(RundaDAO.numCompleted(idZrijeba, 3)<2){
-						tblRunda3.setEditable(true);
-						clnRezultat3.setEditable(true);
-						clnRezultat3.setCellFactory(TextFieldTableCell.forTableColumn());
-						clnRezultat3.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MecDTO,String>>() {
-							@Override
-							public void handle(CellEditEvent<MecDTO, String> event) {
-								event.getRowValue().setRezultat(event.getNewValue());
-								MecDAO.insertRezultat(event.getRowValue());
-								if(RundaDAO.numCompleted(idZrijeba, 3)==2)
-									btnRunda3.setVisible(true);
-							}
-						});
-					}
+					if(RundaDAO.numCompleted(idZrijeba, 3)==0)
+						btnRunda2.setVisible(true);
 					else{
-						tblRunda4.setItems(MecDAO.getAllDouble(idZrijeba, 4));
-						if(RundaDAO.numCompleted(idZrijeba, 4)<1){
-							tblRunda4.setEditable(true);
-							clnRezultat4.setEditable(true);
-							clnRezultat4.setCellFactory(TextFieldTableCell.forTableColumn());
-							clnRezultat4.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MecDTO,String>>() {
+						tblRunda3.setItems(MecDAO.getAllDouble(idZrijeba, 3));
+						if(RundaDAO.numCompleted(idZrijeba, 3)<2){
+							tblRunda3.setEditable(true);
+							clnRezultat3.setEditable(true);
+							clnRezultat3.setCellFactory(TextFieldTableCell.forTableColumn());
+							clnRezultat3.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MecDTO,String>>() {
 								@Override
 								public void handle(CellEditEvent<MecDTO, String> event) {
-									event.getRowValue().setRezultat(event.getNewValue());
-									MecDAO.insertRezultat(event.getRowValue());
-									if(RundaDAO.numCompleted(idZrijeba, 4)==1)
-										btnRunda4.setVisible(true);
+									if(validanRezultat(event.getNewValue())){
+										event.getRowValue().setRezultat(event.getNewValue());
+										MecDAO.insertRezultat(event.getRowValue());
+										if(RundaDAO.numCompleted(idZrijeba, 3)==2)
+											btnRunda3.setVisible(true);									
+									}
+									else{
+										lblUpozorenje.setVisible(true);
+									}
 								}
 							});
 						}
 						else{
-							ArrayList<MecDTO> lista=MecDAO.getAllList(idZrijeba, 4);
-							Integer idTim;
-							MecDTO mec=lista.get(0);
-							if(Integer.valueOf(mec.getRezultat().charAt(0))>Integer.valueOf(mec.getRezultat().charAt(2)))
-								idTim=mec.getIdPrvogTima();
-							else
-								idTim=mec.getIdDrugogTima();
-							txtPobjednici.setText(TimDAO.getDoubleById(idTim));
-							txtPobjednici.setVisible(true);
-							lblPobjednici.setVisible(true);
+							if(RundaDAO.numCompleted(idZrijeba, 4)==0)
+								btnRunda3.setVisible(true);
+							else{
+								tblRunda4.setItems(MecDAO.getAllDouble(idZrijeba, 4));
+								if(RundaDAO.numCompleted(idZrijeba, 4)<1){
+									tblRunda4.setEditable(true);
+									clnRezultat4.setEditable(true);
+									clnRezultat4.setCellFactory(TextFieldTableCell.forTableColumn());
+									clnRezultat4.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MecDTO,String>>() {
+										@Override
+										public void handle(CellEditEvent<MecDTO, String> event) {
+											if(validanRezultat(event.getNewValue())){
+												event.getRowValue().setRezultat(event.getNewValue());
+												MecDAO.insertRezultat(event.getRowValue());
+												if(RundaDAO.numCompleted(idZrijeba, 4)==1)
+													btnRunda4.setVisible(true);
+											}
+											else{
+												lblUpozorenje.setVisible(true);
+											}
+										}
+									});
+								}
+								else{
+									ArrayList<MecDTO> lista=MecDAO.getAllList(idZrijeba, 4);
+									Integer idTim;
+									MecDTO mec=lista.get(0);
+									if(Integer.valueOf(mec.getRezultat().charAt(0))>Integer.valueOf(mec.getRezultat().charAt(2)))
+										idTim=mec.getIdPrvogTima();
+									else
+										idTim=mec.getIdDrugogTima();
+									lblPobjedniciIme.setText(TimDAO.getDoubleById(idTim));
+									lblPobjedniciIme.setVisible(true);
+									lblPobjednici.setVisible(true);
+								}
+							}
 						}
 					}
 				}
@@ -240,10 +274,15 @@ public class DublZrijebController extends BaseController{
 		clnRezultat2.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MecDTO,String>>() {
 			@Override
 			public void handle(CellEditEvent<MecDTO, String> event) {
-				event.getRowValue().setRezultat(event.getNewValue());
-				MecDAO.insertRezultat(event.getRowValue());
-				if(RundaDAO.numCompleted(idZrijeba, 2)==4)
-					btnRunda2.setVisible(true);
+				if(validanRezultat(event.getNewValue())){
+					event.getRowValue().setRezultat(event.getNewValue());
+					MecDAO.insertRezultat(event.getRowValue());
+					if(RundaDAO.numCompleted(idZrijeba, 2)==4)
+						btnRunda2.setVisible(true);
+				}
+				else{
+					lblUpozorenje.setVisible(true);
+				}
 			}
 		});
 	}
@@ -275,10 +314,15 @@ public class DublZrijebController extends BaseController{
 		clnRezultat3.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MecDTO,String>>() {
 			@Override
 			public void handle(CellEditEvent<MecDTO, String> event) {
-				event.getRowValue().setRezultat(event.getNewValue());
-				MecDAO.insertRezultat(event.getRowValue());
-				if(RundaDAO.numCompleted(idZrijeba, 3)==2)
-					btnRunda3.setVisible(true);
+				if(validanRezultat(event.getNewValue())){
+					event.getRowValue().setRezultat(event.getNewValue());
+					MecDAO.insertRezultat(event.getRowValue());
+					if(RundaDAO.numCompleted(idZrijeba, 3)==2)
+						btnRunda3.setVisible(true);
+				}
+				else{
+					lblUpozorenje.setVisible(true);
+				}
 			}
 		});
 	}
@@ -310,9 +354,14 @@ public class DublZrijebController extends BaseController{
 		clnRezultat4.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MecDTO,String>>() {
 			@Override
 			public void handle(CellEditEvent<MecDTO, String> event) {
-				event.getRowValue().setRezultat(event.getNewValue());
-				MecDAO.insertRezultat(event.getRowValue());
-				btnRunda4.setVisible(true);
+				if(validanRezultat(event.getNewValue())){
+					event.getRowValue().setRezultat(event.getNewValue());
+					MecDAO.insertRezultat(event.getRowValue());
+					btnRunda4.setVisible(true);
+				}
+				else{
+					lblUpozorenje.setVisible(true);
+				}
 			}
 		});
 	}
@@ -328,8 +377,8 @@ public class DublZrijebController extends BaseController{
 			idTim=mec.getIdPrvogTima();
 		else
 			idTim=mec.getIdDrugogTima();	
-		txtPobjednici.setText(TimDAO.getDoubleById(idTim));
-		txtPobjednici.setVisible(true);
+		lblPobjedniciIme.setText(TimDAO.getDoubleById(idTim));
+		lblPobjedniciIme.setVisible(true);
 		lblPobjednici.setVisible(true);
 	}
 	
@@ -340,14 +389,19 @@ public class DublZrijebController extends BaseController{
 	public boolean validanRezultat(String rezultat){
 		if(rezultat.length()!=3)
 			return false;
-		if(rezultat.charAt(0)<0 || rezultat.charAt(2)>4)
+		if(Integer.valueOf(rezultat.charAt(0))<Integer.valueOf('0') || Integer.valueOf(rezultat.charAt(0))>Integer.valueOf('9'))
 			return false;
-		if(rezultat.charAt(0)!=4 && rezultat.charAt(2)!=4)
+		if(Integer.valueOf(rezultat.charAt(2))<Integer.valueOf('0') || Integer.valueOf(rezultat.charAt(2))>Integer.valueOf('9'))
 			return false;
-		if(rezultat.charAt(0)==rezultat.charAt(2))
+		if(Integer.valueOf(rezultat.charAt(0)+"")<0 || Integer.valueOf(rezultat.charAt(2)+"")>4)
+			return false;
+		if(Integer.valueOf(rezultat.charAt(0)+"")!=4 && Integer.valueOf(rezultat.charAt(2)+"")!=4)
+			return false;
+		if(Integer.valueOf(rezultat.charAt(0)+"")==Integer.valueOf(rezultat.charAt(2)+""))
 			return false;
 		if(rezultat.charAt(1)!='-')
 			return false;
+		lblUpozorenje.setVisible(false);
 		return true;
 	}
 }

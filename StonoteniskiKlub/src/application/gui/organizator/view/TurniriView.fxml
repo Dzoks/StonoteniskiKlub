@@ -15,8 +15,8 @@
    <children>
       <TableView fx:id="tblTurniri" layoutX="14.0" layoutY="14.0" onMousePressed="#selektovan" prefHeight="300.0" prefWidth="500.0">
         <columns>
-          <TableColumn fx:id="clnNaziv" prefWidth="230.0" sortType="DESCENDING" text="Naziv" />
-            <TableColumn fx:id="clnDatum" prefWidth="180.0" sortType="DESCENDING" text="Datum" />
+          <TableColumn fx:id="clnNaziv" prefWidth="280.0" sortType="DESCENDING" text="Naziv" />
+            <TableColumn fx:id="clnDatum" prefWidth="130.0" sortType="DESCENDING" text="Datum" />
             <TableColumn fx:id="clnZatvoren" prefWidth="85.0" text="Zatvoren" />
         </columns>
       </TableView>

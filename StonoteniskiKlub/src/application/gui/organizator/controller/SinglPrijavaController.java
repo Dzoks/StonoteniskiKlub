@@ -79,63 +79,99 @@ public class SinglPrijavaController extends BaseController{
 	}
 
 	public void sacuvaj(){
-		if(txtJmbg.getText().length()!=13){
+		if(txtIme.getText().length()>45 || txtPrezime.getText().length()>45){
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Greška");
-			alert.setHeaderText("Pogrešan JMBG!");
-			alert.setContentText("Potrebno je unijeti JMBG dužine od 13 brojeva.");
+			alert.setHeaderText("Nepravilan unos!");
+			alert.setContentText("Nije moguće prijaviti učesnika sa imenom ili prezimenom dužim od 45 karaktera.");
 			alert.show();
 		}
 		else{
-			if(OsobaDAO.doesExist(txtJmbg.getText(), idTurnira, idKategorije)){
-				if(TimDAO.insertSingle(UcesnikPrijavaDAO.addNew(idTurnira,
-						idKategorije, OsobaDAO.getByJmb(txtJmbg.getText()).getId(), Date.valueOf(LocalDate.now())))){
-					primaryStage.close();
-				}
-				else{
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Greška");
-					alert.setHeaderText("Nešto nije uredu!");
-					alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
-					alert.show();
-				}
+			if(txtJmbg.getText().length()!=13 || !txtJmbg.getText().matches("[0-9]*")){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Greška");
+				alert.setHeaderText("Pogrešan JMBG!");
+				alert.setContentText("Potrebno je unijeti JMBG dužine od 13 brojeva.");
+				alert.show();
 			}
 			else{
-				if(TimDAO.insertSingle(UcesnikPrijavaDAO.insert(txtJmbg.getText(), txtIme.getText(), txtPrezime.getText(),
-						idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja.getValue()), 
-								idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
-					primaryStage.close();
-				}
-				else{
+				if(dpDatumRodjenja.getValue().isAfter(LocalDate.now())){
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Greška");
-					alert.setHeaderText("Nešto nije uredu!");
-					alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+					alert.setHeaderText("Nepravilan unos!");
+					alert.setContentText("Nije moguće prijaviti učesnika čiji je datum rođenja poslije današnjeg.");
 					alert.show();
+				}
+				else{
+					if(OsobaDAO.doesExist(txtJmbg.getText(), idTurnira, idKategorije)){
+						if(TimDAO.insertSingle(UcesnikPrijavaDAO.addNew(idTurnira,
+								idKategorije, OsobaDAO.getByJmb(txtJmbg.getText()).getId(), Date.valueOf(LocalDate.now())))){
+							primaryStage.close();
+						}
+						else{
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Greška");
+							alert.setHeaderText("Nešto nije uredu!");
+							alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+							alert.show();
+						}
+					}
+					else{
+						if(TimDAO.insertSingle(UcesnikPrijavaDAO.insert(txtJmbg.getText(), txtIme.getText(), txtPrezime.getText(),
+								idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja.getValue()), 
+										idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
+							primaryStage.close();
+						}
+						else{
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Greška");
+							alert.setHeaderText("Nešto nije uredu!");
+							alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+							alert.show();
+						}
+					}
 				}
 			}
 		}
 	}
 	
 	public void sacuvajIzmjene(){
-		if(txtJmbg.getText().length()!=13){
+		if(txtIme.getText().length()>45 || txtPrezime.getText().length()>45){
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Greška");
-			alert.setHeaderText("Pogrešan JMBG!");
-			alert.setContentText("Potrebno je unijeti JMBG dužine od 13 brojeva.");
+			alert.setHeaderText("Nepravilan unos!");
+			alert.setContentText("Nije moguće prijaviti učesnike sa imenom ili prezimenom dužim od 45 karaktera.");
 			alert.show();
 		}
 		else{
-			if(UcesnikPrijavaDAO.izmjeniUcesnika(idPrijave, txtIme.getText(),
-					txtPrezime.getText(),Date.valueOf(dpDatumRodjenja.getValue()))){
-				primaryStage.close();
-			}
-			else{
+			if(txtJmbg.getText().length()!=13 || !txtJmbg.getText().matches("[0-9]*")){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Greška");
-				alert.setHeaderText("Nešto nije uredu!");
-				alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+				alert.setHeaderText("Pogrešan JMBG!");
+				alert.setContentText("Potrebno je unijeti JMBG dužine od 13 brojeva.");
 				alert.show();
+			}
+			else{
+				if(dpDatumRodjenja.getValue().isAfter(LocalDate.now())){
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Greška");
+					alert.setHeaderText("Nepravilan unos!");
+					alert.setContentText("Nije moguće prijaviti učesnika čiji je datum rođenja poslije današnjeg.");
+					alert.show();
+				}
+				else{
+					if(UcesnikPrijavaDAO.izmjeniUcesnika(idPrijave, txtIme.getText(),
+							txtPrezime.getText(),Date.valueOf(dpDatumRodjenja.getValue()))){
+						primaryStage.close();
+					}
+					else{
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Greška");
+						alert.setHeaderText("Nešto nije uredu!");
+						alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+						alert.show();
+					}
+				}
 			}
 		}
 	}

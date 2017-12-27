@@ -1,17 +1,13 @@
 package application.gui.organizator.controller;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.KategorijaTurniraDAO;
 import application.model.dao.TimDAO;
 import application.model.dao.TurnirDAO;
-import application.model.dao.UcesnikPrijavaDAO;
 import application.model.dao.ZrijebDAO;
-import application.model.dto.OsobaDTO;
 import application.model.dto.TurnirDTO;
 import application.model.dto.UcesnikPrijavaDTO;
 import javafx.fxml.FXML;
@@ -140,23 +136,32 @@ public class SinglTurnirController extends BaseController{
 	}
 	
 	public void izmjeniIgraca(){
-		Stage noviStage=new Stage();
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/organizator/view/SinglPrijavaView.fxml"));
-			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root);
-			noviStage.setScene(scene);
-			noviStage.setResizable(false);
-			noviStage.setTitle("Izmjena prijava");
-			noviStage.initModality(Modality.APPLICATION_MODAL);
-			SinglPrijavaController controller=loader.<SinglPrijavaController>getController();
-			controller.setPrimaryStage(noviStage);
-			controller.inicijalizujIzmjene(idTurnira,idKategorije,tblIgraci.getSelectionModel().getSelectedItem());
-			noviStage.showAndWait();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(ZrijebDAO.doesExist(idTurnira, idKategorije)){
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Greška");
+			alert.setHeaderText("Nije dozvoljena izmjena!");
+			alert.setContentText("Nije moguće mijenjati podatke o igračima nakon izvršenog žrijebanja za dati turnir.");
+			alert.show();
 		}
-		popuniTabelu();
+		else{
+			Stage noviStage=new Stage();
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/organizator/view/SinglPrijavaView.fxml"));
+				AnchorPane root = (AnchorPane) loader.load();
+				Scene scene = new Scene(root);
+				noviStage.setScene(scene);
+				noviStage.setResizable(false);
+				noviStage.setTitle("Izmjena prijava");
+				noviStage.initModality(Modality.APPLICATION_MODAL);
+				SinglPrijavaController controller=loader.<SinglPrijavaController>getController();
+				controller.setPrimaryStage(noviStage);
+				controller.inicijalizujIzmjene(idTurnira,idKategorije,tblIgraci.getSelectionModel().getSelectedItem());
+				noviStage.showAndWait();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			popuniTabelu();
+		}
 	}
 	
 	public void prikaziZrijeb(){
@@ -198,7 +203,7 @@ public class SinglTurnirController extends BaseController{
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Greška");
 				alert.setHeaderText("Nije moguće izvršiti žrijebanje!");
-				alert.setContentText("Minimalan potreban broj prijavljenih igrača na turniru iznosi 16. "
+				alert.setContentText("Minimalan potreban broj prijavljenih igrača na turniru je 16. "
 						+ "Nije moguće kreiranje žrijeba za turnir na koji je prijavleno manje igrača.");
 				alert.show();
 			}

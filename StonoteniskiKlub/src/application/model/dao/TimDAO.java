@@ -1,14 +1,12 @@
 package application.model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 
-import application.model.dto.OsobaDTO;
 import application.model.dto.TimDTO;
 import application.model.dto.UcesnikPrijavaDTO;
 import application.util.ConnectionPool;
@@ -75,7 +73,7 @@ public class TimDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false,pom);
 			rs = ps.executeQuery();
 			while (rs.next())
-				retVal.add(new TimDTO(rs.getInt("Id"), rs.getInt("UCESNIK1_PRIJAVA_ID"), rs.getInt("UCESNIK2_PRIJAVA_ID")));
+				retVal.add(new TimDTO(rs.getInt("Id"), rs.getInt("UCESNIK1_PRIJAVA_Id"), rs.getInt("UCESNIK2_PRIJAVA_Id")));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -154,7 +152,7 @@ public class TimDAO {
 				retVal=rs.getString("Ime")+" "+rs.getString("Prezime");
 			}
 			else{
-				retVal="nema";
+				retVal="nema protivnika";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -181,7 +179,7 @@ public class TimDAO {
 				retVal=rs.getString(1)+" "+rs.getString(2)+"/"+rs.getString(3)+" "+rs.getString(4);
 			}
 			else{
-				retVal="nema";
+				retVal="nema protivnika";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -117,7 +117,7 @@ public class TurniriController extends BaseController{
 		if(cbKategorija.getSelectionModel().isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Greška");
-			alert.setHeaderText("Potrebno je izabrati kategoirju!");
+			alert.setHeaderText("Potrebno je izabrati kategoriju!");
 			alert.setContentText("Nije moguće pristupiti turniru, dok niste prethodno izabrali kategoriju turnira sa kojom"
 					+ " želite da radite.");
 			alert.show();
@@ -137,7 +137,7 @@ public class TurniriController extends BaseController{
 		if(cbKategorija.getSelectionModel().isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Greška");
-			alert.setHeaderText("Potrebno je izabrati kategoirju!");
+			alert.setHeaderText("Potrebno je izabrati kategoriju!");
 			alert.setContentText("Nije moguće pristupiti turniru, dok niste prethodno izabrali kategoriju turnira sa kojom"
 					+ " želite da radite.");
 			alert.show();
@@ -174,7 +174,6 @@ public class TurniriController extends BaseController{
 								cbKategorija.getSelectionModel().getSelectedItem().getId());
 						noviStage.show();
 					}
-					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

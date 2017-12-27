@@ -1,21 +1,18 @@
 package application.model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import application.model.dto.MecDTO;
-import application.model.dto.UcesnikPrijavaDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class MecDAO {
 	private final static String SQL_GET_ALL="select * from MEC where RUNDA_ZRIJEB_Id=? and RUNDA_Broj=?";
-	private final static String SQL_GET_BY_ID="select * from MEC where Id=?";
 	private final static String SQL_INSERT_SINGLE="update MEC set TIM1_Id=?,Rezultat='4-0' where RUNDA_ZRIJEB_Id=? and RUNDA_Broj=? and RedniBroj=?";
 	private final static String SQL_INSERT="update MEC set TIM1_Id=?,TIM2_Id=? where RUNDA_ZRIJEB_Id=? and RUNDA_Broj=? and RedniBroj=?";
 	private final static String SQL_INSERT_REZULTAT="update MEC set Rezultat=? where RUNDA_ZRIJEB_Id=? and RUNDA_Broj=? and RedniBroj=?";
@@ -35,10 +32,7 @@ public class MecDAO {
 			while (rs.next()){
 				MecDTO mec=new MecDTO(idZrijeba, brojRunde, rs.getInt("RedniBroj"),rs.getString("Rezultat"), rs.getInt("TIM1_Id"), rs.getInt("TIM2_Id"));
 				retVal.add(mec);
-				if(mec.getIdDrugogTima()==null)
-					mec.setPrikazMeca(TimDAO.getSingleById(mec.getIdPrvogTima())+" SLOBODAN");
-				else
-					mec.setPrikazMeca(TimDAO.getSingleById(mec.getIdPrvogTima())+"\n"+TimDAO.getSingleById(mec.getIdDrugogTima()));
+				mec.setPrikazMeca(TimDAO.getSingleById(mec.getIdPrvogTima())+"\n"+TimDAO.getSingleById(mec.getIdDrugogTima()));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,10 +83,7 @@ public class MecDAO {
 			while (rs.next()){
 				MecDTO mec=new MecDTO(idZrijeba, brojRunde, rs.getInt("RedniBroj"),rs.getString("Rezultat"), rs.getInt("TIM1_Id"), rs.getInt("TIM2_Id"));
 				retVal.add(mec);
-				if(Integer.valueOf(mec.getIdDrugogTima()).equals(null))
-					mec.setPrikazMeca(TimDAO.getDoubleById(mec.getIdPrvogTima())+"\nBYE");
-				else
-					mec.setPrikazMeca(TimDAO.getDoubleById(mec.getIdPrvogTima())+"\n"+TimDAO.getDoubleById(mec.getIdDrugogTima()));
+				mec.setPrikazMeca(TimDAO.getDoubleById(mec.getIdPrvogTima())+"\n"+TimDAO.getDoubleById(mec.getIdDrugogTima()));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

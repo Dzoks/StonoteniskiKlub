@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -54,7 +53,7 @@
             <TableColumn fx:id="clnRezultat2" prefWidth="55.0" text="Rezultat" />
          </columns>
       </TableView>
-      <Button fx:id="btnOk" layoutX="870.0" layoutY="470.0" mnemonicParsing="false" onAction="#ok" prefHeight="40.0" prefWidth="100.0" text="OK">
+      <Button fx:id="btnOk" layoutX="900.0" layoutY="470.0" mnemonicParsing="false" onAction="#ok" prefHeight="40.0" prefWidth="100.0" text="OK">
          <font>
             <Font size="18.0" />
          </font>
@@ -63,15 +62,20 @@
       <Button fx:id="btnRunda2" layoutX="492.0" layoutY="121.0" mnemonicParsing="false" onAction="#refresujRundu2" text="-&gt;" />
       <Button fx:id="btnRunda3" layoutX="749.0" layoutY="165.0" mnemonicParsing="false" onAction="#refresujRundu3" text="-&gt;" />
       <Button fx:id="btnRunda4" layoutX="1008.0" layoutY="200.0" mnemonicParsing="false" onAction="#refresujRundu4" text="-&gt;" />
-      <Label fx:id="lblPobjednici" layoutX="872.0" layoutY="56.0" text="Pobjednici">
+      <Label fx:id="lblPobjednici" layoutX="674.0" layoutY="58.0" text="Pobjednici:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPobjednici" alignment="CENTER" layoutX="790.0" layoutY="100.0" prefHeight="40.0" prefWidth="250.0">
+      <Label fx:id="lblPobjedniciIme" layoutX="674.0" layoutY="85.0" text="Ime Prezime">
          <font>
-            <Font size="16.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
-      </TextField>
+      </Label>
+      <Label fx:id="lblUpozorenje" layoutX="262.0" layoutY="470.0" text="Tekst upozorenja" textFill="RED">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
