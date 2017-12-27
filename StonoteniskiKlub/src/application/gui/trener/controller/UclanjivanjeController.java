@@ -23,7 +23,9 @@ import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanstvoDAO;
 import application.model.dao.OsobaDAO;
+import application.model.dto.Clan;
 import application.model.dto.ClanDTO;
+import application.model.dto.Osoba;
 import application.model.dto.OsobaDTO;
 import application.util.ConnectionPool;
 import javafx.beans.property.Property;
@@ -203,8 +205,8 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			telefoni.add(niz[i]);
 		}
 		
-		OsobaDTO osoba = OsobaDAO.getByJmb(jmb);
-		ClanDTO clan = null;
+		Osoba osoba = OsobaDAO.getByJmb(jmb);
+		Clan clan = null;
 		if(osoba != null) {
 			clan = ClanDAO.getById(osoba.getId());
 			if(clan != null) {
@@ -224,7 +226,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			
 //			Ako postoji u osobi a ne postoji u clanu, dodati novi zapis u CLAN, kao i u CLANSTVO
 //			Setovati aktivan na TRUE, registrovan na FALSE
-			clan = new ClanDTO(true, false);
+			clan = new Clan(true, false);
 			clan.setId(osoba.getId());
 			ClanDAO.insert(clan);
 			ClanstvoDAO.insert(clan.getId());
@@ -238,7 +240,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 //		dodati zapise u TELEFON
 //		RASPITATI SE DA LI DA SE CUVA AVATAR U BAZI ILI NA SISTEMU
 		try {
-			clan = new ClanDTO(0, ime, prezime, imeRoditelja, jmb, pol, datumRodjenja, convertImageToBlob(), telefoni, true, false);
+			clan = new Clan(0, ime, prezime, imeRoditelja, jmb, pol, datumRodjenja, convertImageToBlob(), telefoni, true, false);
 			ClanDAO.insertAll(clan);
 			ClanstvoDAO.insert(clan.getId());
 		} catch (IOException e) {
