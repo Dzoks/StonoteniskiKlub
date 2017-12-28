@@ -14,12 +14,12 @@ public class OpremaKluba extends Oprema{
 		super();
 	}
 	
-	public OpremaKluba(Integer id, Integer idNarudzbe, Integer idTipaOpreme, Integer idDonacije, Boolean donirana, String velicina) {
-		super(id, idNarudzbe, idTipaOpreme, idDonacije, donirana, velicina);
+	public OpremaKluba(Integer id, Integer idNarudzbe, Integer idTipaOpreme, Integer idSponzora, Integer idUgovora, Integer idDonacije, Boolean donirana, String velicina) {
+		super(id, idNarudzbe, idTipaOpreme, idSponzora, idUgovora, idDonacije, donirana, velicina);
 	}
 	
-	public OpremaKluba(Integer id, Integer idNarudzbe, Integer idTipaOpreme, Integer idDonacije, Boolean donirana, String velicina, String opis, Boolean aktivan) {
-		super(id, idNarudzbe, idTipaOpreme, idDonacije, donirana, velicina);
+	public OpremaKluba(Integer id, Integer idNarudzbe, Integer idTipaOpreme, Integer idSponzora, Integer idUgovora, Integer idDonacije, Boolean donirana, String velicina, String opis, Boolean aktivan) {
+		super(id, idNarudzbe, idTipaOpreme, idSponzora, idUgovora, idDonacije, donirana, velicina);
 		this.opis = opis==null ? null : new SimpleStringProperty(opis);
 		this.aktivan = aktivan==null ? null : new SimpleBooleanProperty(aktivan);
 	}

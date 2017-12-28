@@ -19,7 +19,7 @@ public class OpremaClanaDAO {
 	private static final String SQL_SELECT_ALL = "SELECT * FROM prikaz_opreme_clana WHERE Obrisan=false";
 	private static final String SQL_SELECT_AKTIVNE = "SELECT * FROM prikaz_clana WHERE Aktivan=true";
 	private static final String SQL_SELECT_BY = "SELECT  * FROM prikaz_opreme_clana WHERE Obrisan=false AND LOCATE(?, ";
-	private static final String SQL_INSERT = "{call dodaj_opremu_clana(?,?,?,?,?,?)}";
+	private static final String SQL_INSERT = "{call dodaj_opremu_clana(?,?,?,?,?,?,?,?)}";
 	private final static String SQL_UPDATE = "UPDATE oprema_clan SET CLAN_Id=? WHERE OPREMA_Id=?";
 	
 	public static ObservableList<OpremaClana> SELECT_ALL() {
@@ -34,7 +34,7 @@ public class OpremaClanaDAO {
 			rs = s.executeQuery(SQL_SELECT_ALL);
 			
 			while(rs.next()) {
-				listaOpreme.add(new OpremaClana(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getInt("CLAN_Id")));
+				listaOpreme.add(new OpremaClana(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_SPONZOR_Id"), rs.getInt("DONACIJA_UGOVOR_RedniBroj"), rs.getInt("DONACIJA_RedniBroj"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getInt("CLAN_Id")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -86,7 +86,7 @@ public class OpremaClanaDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				listaOpreme.add(new OpremaClana(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_Id"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getInt("CLAN_Id")));
+				listaOpreme.add(new OpremaClana(rs.getInt("Id"), rs.getInt("NARUDZBA_Id"), rs.getInt("OPREMA_TIP_Id"), rs.getInt("DONACIJA_SPONZOR_Id"), rs.getInt("DONACIJA_UGOVOR_RedniBroj"), rs.getInt("DONACIJA_RedniBroj"), rs.getBoolean("Donirana"), rs.getString("Velicina"), rs.getInt("CLAN_Id")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -119,6 +119,18 @@ public class OpremaClanaDAO {
 			}
 			else {
 				cs.setInt("inDonacijaId", oprema.getIdDonacije());
+			}
+			if(oprema.getIdSponzora() == null) {
+				cs.setNull("inDonacijaSponzor", Types.INTEGER);
+			}
+			else {
+				cs.setInt("inDonacijaSponzor", oprema.getIdSponzora());
+			}
+			if(oprema.getIdUgovora() == null) {
+				cs.setNull("inDonacijaUgovor", Types.INTEGER);
+			}
+			else {
+				cs.setInt("inDonacijaUgovor", oprema.getIdUgovora());
 			}
 			
 			cs.setString("inVelicina", oprema.getVelicina());

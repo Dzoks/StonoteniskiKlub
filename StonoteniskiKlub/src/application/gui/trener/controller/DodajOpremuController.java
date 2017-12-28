@@ -266,6 +266,8 @@ public class DodajOpremuController extends BaseController implements Initializab
 				if(checkBoxDonirana.isSelected()) {
 					controller.setDonirana();
 					//controller.setIdDonacije(idDonacije);
+					//controller.setIdSponzora(idSponzora);
+					//controller.setIdUgovora(idUgovora);
 				}
 				
 				controller.setStavkaNarudzbe(tblNarudzbe.getSelectionModel().selectedItemProperty().get());

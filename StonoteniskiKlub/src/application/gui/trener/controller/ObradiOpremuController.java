@@ -36,6 +36,8 @@ public class ObradiOpremuController extends BaseController implements Initializa
 	private NarudzbaStavka stavkaNarudzbe = null;
 	private Boolean donirana = false;
 	private Integer idDonacije = null;
+	private Integer idSponzora = null;
+	private Integer idUgovora = null;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -67,7 +69,7 @@ public class ObradiOpremuController extends BaseController implements Initializa
 	
 	public Boolean ubaciUBazu() {
 		if(opremaKluba) {
-			OpremaKluba opremaKluba = new OpremaKluba(null, stavkaNarudzbe.getIdNarudzbe(), stavkaNarudzbe.getIdTipaOpreme(), idDonacije, donirana, stavkaNarudzbe.getVelicina(), "Nova oprema.", true);
+			OpremaKluba opremaKluba = new OpremaKluba(null, stavkaNarudzbe.getIdNarudzbe(), stavkaNarudzbe.getIdTipaOpreme(), idSponzora, idUgovora, idDonacije, donirana, stavkaNarudzbe.getVelicina(), "Nova oprema.", true);
 			OpremaKlubaDAO.INSERT(opremaKluba, spinnerPristiglo.getValue());
 		}
 		else {
@@ -77,7 +79,7 @@ public class ObradiOpremuController extends BaseController implements Initializa
 			}
 			ObservableList<Clan> listaClanova = listClanovi.getSelectionModel().getSelectedItems();
 			for(Clan clan : listaClanova) {
-				OpremaClana opremaClana = new OpremaClana(null, stavkaNarudzbe.getIdNarudzbe(), stavkaNarudzbe.getIdTipaOpreme(), idDonacije, donirana, stavkaNarudzbe.getVelicina(), clan.getId());
+				OpremaClana opremaClana = new OpremaClana(null, stavkaNarudzbe.getIdNarudzbe(), stavkaNarudzbe.getIdTipaOpreme(), idSponzora, idUgovora, idDonacije, donirana, stavkaNarudzbe.getVelicina(), clan.getId());
 				OpremaClanaDAO.INSERT(opremaClana);
 			}
 		}
@@ -108,4 +110,13 @@ public class ObradiOpremuController extends BaseController implements Initializa
 	public void setIdDonacije(Integer idDonacije) {
 		this.idDonacije = idDonacije;
 	}
+
+	public void setIdSponzora(Integer idSponzora) {
+		this.idSponzora = idSponzora;
+	}
+
+	public void setIdUgovora(Integer idUgovora) {
+		this.idUgovora = idUgovora;
+	}
+	
 }

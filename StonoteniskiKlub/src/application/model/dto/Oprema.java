@@ -17,6 +17,8 @@ public class Oprema {
 	protected StringProperty tipProizvodjac;
 	protected StringProperty tipModel;
 	protected BooleanProperty tipImaVelicinu;
+	protected IntegerProperty idSponzora;
+	protected IntegerProperty idUgovora;
 	protected IntegerProperty idDonacije;
 	protected BooleanProperty donirana;
 	protected StringProperty status;
@@ -26,7 +28,7 @@ public class Oprema {
 		super();
 	}
 
-	public Oprema(Integer id, Integer idNarudzbe, Integer idTipaOpreme, Integer idDonacije, Boolean donirana, String velicina) {
+	public Oprema(Integer id, Integer idNarudzbe, Integer idTipaOpreme, Integer idSponzora, Integer idUgovora, Integer idDonacije, Boolean donirana, String velicina) {
 		super();
 		this.id = id==null ? null : new SimpleIntegerProperty(id);
 		this.idNarudzbe = idNarudzbe==null ? null : new SimpleIntegerProperty(idNarudzbe);
@@ -35,6 +37,8 @@ public class Oprema {
 		this.tipProizvodjac = idTipaOpreme==null ? null : new SimpleStringProperty(OpremaTipDAO.SELECT_PROIZVODJAC(idTipaOpreme));
 		this.tipModel = idTipaOpreme==null ? null : new SimpleStringProperty(OpremaTipDAO.SELECT_MODEL(idTipaOpreme));
 		this.tipImaVelicinu = idTipaOpreme==null ? null : new SimpleBooleanProperty(OpremaTipDAO.SELECT_IMA_LI_VELICINU(idTipaOpreme));
+		this.idSponzora = idSponzora==null ? null : new SimpleIntegerProperty(idSponzora);
+		this.idUgovora = idUgovora==null ? null : new SimpleIntegerProperty(idUgovora);
 		this.idDonacije = idDonacije==null ? null : new SimpleIntegerProperty(idDonacije);
 		this.donirana = donirana==null ? null : new SimpleBooleanProperty(donirana);
 		this.velicina = velicina==null ? null : new SimpleStringProperty(velicina);
@@ -134,5 +138,31 @@ public class Oprema {
 
 	public void setStatus(String status) {
 		this.status.set(status);
+	}
+
+	public Integer getIdSponzora() {
+		if(idSponzora == null) {
+			return null;
+		}
+		else {
+			return idSponzora.get();
+		}
+	}
+
+	public void setIdSponzora(Integer idSponzora) {
+		this.idSponzora.set(idSponzora);
+	}
+
+	public Integer getIdUgovora() {
+		if(idUgovora == null) {
+			return null;
+		}
+		else {
+			return idUgovora.get();
+		}
+	}
+
+	public void setIdUgovora(Integer idUgovora) {
+		this.idUgovora.set(idUgovora);
 	}
 }
