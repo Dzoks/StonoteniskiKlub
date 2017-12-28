@@ -30,7 +30,7 @@
       <DatePicker fx:id="dpDatumDo" layoutX="498.0" layoutY="10.0" prefHeight="25.0" prefWidth="108.0" />
       <Button fx:id="btnPretrazi" layoutX="628.0" layoutY="10.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretrazite" />
       <Label layoutX="495.0" layoutY="55.0" text="Opis:" />
-      <TextArea fx:id="taOpis" layoutX="495.0" layoutY="80.0" prefHeight="225.0" prefWidth="200.0" />
+      <TextArea fx:id="taOpis" layoutX="495.0" layoutY="80.0" prefHeight="225.0" prefWidth="200.0" wrapText="true" />
       <Button fx:id="btnPregledajDonacije" layoutX="572.0" layoutY="315.0" mnemonicParsing="false" onAction="#pregledajDonacije" text="Pregledajte donacije" />
    </children>
 </AnchorPane>

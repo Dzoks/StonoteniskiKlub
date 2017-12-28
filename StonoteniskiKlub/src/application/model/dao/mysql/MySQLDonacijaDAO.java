@@ -18,6 +18,8 @@ import application.model.dto.OpremaTip;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.ConnectionPool;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class MySQLDonacijaDAO implements DonacijaDAO {
 
@@ -25,8 +27,8 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 	public static final String SQL_NEOBRADJENE = "select * from donacija_detaljno where Obradjeno=false and NovcanaDonacija=?";
 	public static final String SQL_INSERT = "{call dodaj_donaciju(?,?,?,?,?,?,?,?)}";
 	@Override
-	public List<DonacijaDTO> selectAllById(Integer idSponzora, Integer rbUgovora) {
-		List<DonacijaDTO> result = new ArrayList<DonacijaDTO>();
+	public ObservableList<DonacijaDTO> selectAllById(Integer idSponzora, Integer rbUgovora) {
+		ObservableList<DonacijaDTO> result = FXCollections.observableArrayList();
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -64,8 +66,8 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 	}
 
 	@Override
-	public List<DonacijaDTO> neobradjene(boolean novcane) {
-		List<DonacijaDTO> result = new ArrayList<DonacijaDTO>();
+	public ObservableList<DonacijaDTO> neobradjene(boolean novcane) {
+		ObservableList<DonacijaDTO> result = FXCollections.observableArrayList();
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;

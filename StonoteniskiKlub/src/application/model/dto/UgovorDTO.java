@@ -1,11 +1,12 @@
 package application.model.dto;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -52,7 +53,12 @@ public class UgovorDTO {
 	public StringProperty opisProperty() {
 		return opis;
 	}
-
+	
+	public boolean imaDonaciju(){
+		return this.donacije == null ? false
+				: this.donacije.size() > 0 ? true : false;
+	}
+	
 	// Obicni getteri
 	public Integer getRedniBroj() {
 		return redniBroj.get();
@@ -77,7 +83,6 @@ public class UgovorDTO {
 	// Obicni setteri
 	public void setRedniBroj(Integer redniBroj) {
 		this.redniBroj.set(redniBroj);
-		;
 	}
 
 	public void setDatumOd(Date datumOd) {

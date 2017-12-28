@@ -21,7 +21,9 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dao.SponzorDAO;
 import application.model.dao.UgovorDAO;
+import application.model.dto.DonacijaDTO;
 import application.model.dto.SponzorDTO;
+import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
 import application.util.InputValidator;
 import javafx.beans.property.IntegerProperty;
@@ -90,6 +92,14 @@ public class RadSaSponzorimaController extends BaseController {
 		listaSponzora = sponzorDAO.selectAll();
 		for (SponzorDTO sponzor : listaSponzora) {
 			sponzor.setUgovori(ugovorDAO.selectAllById(sponzor.getId()));
+			for(UgovorDTO ugovor : sponzor.getUgovori()){
+				ObservableList<DonacijaDTO> donacije = DAOFactory.getDAOFactory().getDonacijaDAO().selectAllById(sponzor.getId(), ugovor.getRedniBroj());
+				for(DonacijaDTO donacija : donacije){
+					donacija.setSponzor(sponzor);
+					donacija.setUgovor(ugovor);
+				}
+				ugovor.setDonacije(donacije);
+			}
 		}
 		// Setovanje tabele
 		tblSponzori.setItems(listaSponzora);

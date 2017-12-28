@@ -56,5 +56,6 @@
 		<Button fx:id="btnUkloniDonaciju" layoutX="472.0" layoutY="568.0" mnemonicParsing="false" onAction="#ukloniDonaciju" prefHeight="25.0" prefWidth="110.0" text="Ukloni donaciju" />
 		<Button fx:id="btnSacuvaj" layoutX="472.0" layoutY="611.0" mnemonicParsing="false" onAction="#sacuvaj" prefHeight="25.0" prefWidth="110.0" text="Sacuvajte" />
 		<Button fx:id="btnDodajDonaciju" layoutX="240.0" layoutY="568.0" mnemonicParsing="false" onAction="#dodajDonaciju" prefHeight="25.0" prefWidth="110.0" text="Dodaj donaciju" />
+      <Button fx:id="btnAzurirajDonaciju" layoutX="118.0" layoutY="568.0" mnemonicParsing="false" onAction="#azurirajDonaciju" prefHeight="25.0" prefWidth="110.0" text="Azuriraj donaciju" />
 	</children>
 </AnchorPane>

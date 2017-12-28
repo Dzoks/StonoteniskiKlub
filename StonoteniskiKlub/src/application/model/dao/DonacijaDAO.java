@@ -5,9 +5,10 @@ import java.util.List;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
+import javafx.collections.ObservableList;
 
 public interface DonacijaDAO {
-	List<DonacijaDTO> selectAllById(Integer idSponzora, Integer rbUgovora);
-	List<DonacijaDTO> neobradjene(boolean novcane);
+	ObservableList<DonacijaDTO> selectAllById(Integer idSponzora, Integer rbUgovora);
+	ObservableList<DonacijaDTO> neobradjene(boolean novcane);
 	boolean insert(SponzorDTO sponzor, UgovorDTO ugovor, DonacijaDTO donacija);
 }
