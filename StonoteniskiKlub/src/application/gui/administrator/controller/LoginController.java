@@ -33,18 +33,14 @@ public class LoginController extends BaseController {
 
 		if (!txtLozinka.getText().isEmpty() && !txtLozinka.getText().isEmpty()) {
 			if (txtLozinka.getText().equals("admin") && txtKorisnickoIme.getText().equals("admin")) {
-				//ovo izmijeniti nakon merge-a
-				Stage stage=new Stage();
-				stage.initModality(Modality.WINDOW_MODAL);
+				// ovo izmijeniti nakon merge-a
 				try {
-					BaseController.changeScene("/application/gui/administrator/view/AdministratorView.fxml", stage);
-					stage.show();
+					BaseController.changeScene("/application/gui/administrator/view/AdministratorView.fxml", primaryStage);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-			else{
+			} else {
 				new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK).show();
 			}
 
