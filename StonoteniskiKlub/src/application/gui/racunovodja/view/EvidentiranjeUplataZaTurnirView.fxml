@@ -40,7 +40,7 @@
       <Label fx:id="lblDatumUplate" layoutX="337.0" layoutY="91.0" text="Datum uplate:" />
       <DatePicker fx:id="datePicker" layoutX="429.0" layoutY="87.0" />
       <Button fx:id="btnPrikazi" layoutX="553.0" layoutY="405.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Prikazi" />
-      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="430.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Obrisi" />
+      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="430.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrisi" />
       <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="430.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijeni" />
       <Label fx:id="lblTurnirPrikazi" layoutX="490.0" layoutY="331.0" text="Turnir:" />
       <ComboBox fx:id="comboBoxTurnirPrikazi" layoutX="549.0" layoutY="327.0" prefWidth="150.0" />

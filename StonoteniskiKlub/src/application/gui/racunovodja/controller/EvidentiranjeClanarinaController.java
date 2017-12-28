@@ -11,9 +11,11 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanarinaDAO;
+import application.model.dao.DAOFactoryTransakcije;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.OpremaKlubaDAO;
 import application.model.dao.TipTransakcijeDAO;
+import application.model.dao.TransakcijaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import application.model.dto.NovcanaSredstvaDTO;
@@ -178,7 +180,8 @@ public class EvidentiranjeClanarinaController extends BaseController{
 	private void popuniTabelu() {
 		
 		postaviKolone();
-		listaClanarina = ClanarinaDAO.SELECT_ALL();
+		
+		listaClanarina = DAOFactoryTransakcije.getDAOFactory().getClanarinaDAO().SELECT_ALL();
 		tableClanarine.setItems(listaClanarina);
 		tableClanarine.getSelectionModel().select(0);
 		
@@ -229,14 +232,14 @@ public class EvidentiranjeClanarinaController extends BaseController{
 			datum = Date.from(instant);
 		}
 		
-		String tipTransakcije = TipTransakcijeDAO.getById(1).getTip();
+		String tipTransakcije = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().getById(1).getTip();
 		System.out.println(tipTransakcije);
 		ClanarinaDTO clanarina = new ClanarinaDTO(null, datum, iznos, opis, tipTransakcije, mjesec, godina, clan.getIme(), clan.getPrezime(),clan.getId());
-		boolean ok = ClanarinaDAO.INSERT(clanarina, clan);
+		boolean ok = DAOFactoryTransakcije.getDAOFactory().getClanarinaDAO().INSERT(clanarina, clan);
 		if(ok) {
 			listaClanarina.add(clanarina);
 			//dodati u prihode trenutne sezone
-			NovcanaSredstvaDAO.dodajPrihode(clanarina.getIznos().get());
+			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(clanarina.getIznos().get());
 			Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje!");
 			alert.showAndWait();
 			this.obrisiPolja();
@@ -313,6 +316,11 @@ public class EvidentiranjeClanarinaController extends BaseController{
 
 	public void setListaClanarina(ObservableList<ClanarinaDTO> listaClanarina) {
 		this.listaClanarina = listaClanarina;
+	}
+	public void obrisi() {
+		DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().delete(tableClanarine.getSelectionModel().getSelectedItem().getId());
+		listaClanarina.remove(tableClanarine.getSelectionModel().getSelectedItem());
+		tableClanarine.refresh();
 	}
 }
 

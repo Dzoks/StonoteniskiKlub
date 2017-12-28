@@ -42,7 +42,7 @@
       <Label fx:id="lblDatumUplate" layoutX="332.0" layoutY="52.0" text="Datum uplate:" />
       <DatePicker fx:id="datePicker" layoutX="424.0" layoutY="48.0" />
       <Button fx:id="btnPrikazi" layoutX="553.0" layoutY="405.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Prikazi" />
-      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="430.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Obrisi" />
+      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="430.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrisi" />
       <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="430.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijeni" />
       <Label fx:id="lblGodina" layoutX="484.0" layoutY="325.0" text="Godina:" />
       <Spinner fx:id="spinnerGodina" layoutX="548.0" layoutY="321.0" />
