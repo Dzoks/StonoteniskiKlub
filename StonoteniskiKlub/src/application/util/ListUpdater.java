@@ -28,7 +28,7 @@ public class ListUpdater extends Task<Void> {
 			for (KategorijaDTO category : categoryList) {
 				List<RegistracijaDTO> registrationList = RegistracijaDAO.getAllBySeason(season, category);
 				if (!registrationList.isEmpty()) {
-					File xlsFile = Downloader.preuzmiListu(bundle.getString(category.getNaziv()), category.getNaziv());
+					File xlsFile = Downloader.preuzmiListu(category.getLink(), category.getNaziv());
 					Integer[] indexes = Parser.pocetniIndeksiTabele(xlsFile);
 					Object[][] tournaments = Parser.dobaviTurnire(xlsFile, indexes);
 					List<RegistracijaDTO> updatedRegistrations = Parser.nabaviRezultate(xlsFile, indexes, tournaments,

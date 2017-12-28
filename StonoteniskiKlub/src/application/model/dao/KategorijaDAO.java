@@ -41,7 +41,7 @@ public class KategorijaDAO {
 			ps = c.prepareStatement("select * from KATEGORIJA;");
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new KategorijaDTO(rs.getInt("Id"), rs.getString("Naziv")));
+				list.add(new KategorijaDTO(rs.getInt("Id"), rs.getString("Naziv"),rs.getString("Link")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
