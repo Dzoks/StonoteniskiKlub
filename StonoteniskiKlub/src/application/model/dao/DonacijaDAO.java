@@ -11,4 +11,5 @@ public interface DonacijaDAO {
 	ObservableList<DonacijaDTO> selectAllById(Integer idSponzora, Integer rbUgovora);
 	ObservableList<DonacijaDTO> neobradjene(boolean novcane);
 	boolean insert(SponzorDTO sponzor, UgovorDTO ugovor, DonacijaDTO donacija);
+	void setObradjeno(DonacijaDTO donacija);
 }

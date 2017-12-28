@@ -26,6 +26,8 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 	public static final String SQL_SELECT_ALL_BY_ID = "select * from donacija_detaljno where SponzorId=? and UgovorRb=?";
 	public static final String SQL_NEOBRADJENE = "select * from donacija_detaljno where Obradjeno=false and NovcanaDonacija=?";
 	public static final String SQL_INSERT = "{call dodaj_donaciju(?,?,?,?,?,?,?,?)}";
+	public static final String SQL_UPDATE_OBRADJENA = "update DONACIJA set Obradjeno=true where SPONZOR_Id=? and UGOVOR_RedniBroj=? and RedniBroj=?";
+
 	@Override
 	public ObservableList<DonacijaDTO> selectAllById(Integer idSponzora, Integer rbUgovora) {
 		ObservableList<DonacijaDTO> result = FXCollections.observableArrayList();
@@ -113,14 +115,14 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			statement.setInt("pSponzorId", sponzor.getId());
 			statement.setInt("pRedniBrojUgovor", ugovor.getRedniBroj());
 			statement.setString("pOpis", donacija.getOpis());
-			if(donacija.getKolicina() == null){
+			if (donacija.getKolicina() == null) {
 				statement.setNull("pKolicina", Types.DECIMAL);
-			} else{
+			} else {
 				statement.setBigDecimal("pKolicina", donacija.getKolicina());
 			}
-			if(donacija.getNovcaniIznos() == null){
+			if (donacija.getNovcaniIznos() == null) {
 				statement.setNull("pNovcaniIznos", Types.DECIMAL);
-			} else{
+			} else {
 				statement.setBigDecimal("pNovcaniIznos", donacija.getNovcaniIznos());
 			}
 			statement.setBoolean("pNovcanaDonacija", donacija.getNovcanaDonacija());
@@ -139,6 +141,23 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			ConnectionPool.close(statement);
 		}
 		return result;
+	}
+
+	@Override
+	public void setObradjeno(DonacijaDTO donacija) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_UPDATE_OBRADJENA, false,
+					donacija.getSponzor().getId(), donacija.getUgovor().getRedniBroj(), donacija.getRedniBroj());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(statement);
+		}
 	}
 
 }
