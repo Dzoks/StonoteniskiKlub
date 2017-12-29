@@ -12,6 +12,7 @@ public class Main extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Rad sa sponzorima");
 		primaryStage.show();
+		System.out.println("Test");
 	}
 
 	public static void main(String[] args) {
