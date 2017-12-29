@@ -3,6 +3,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
+import application.model.dao.ZrijebDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -44,11 +45,34 @@ public class SinglZrijebController extends BaseController{
 	private TextField txtPobjednik;
 	@FXML
 	private Button btnOk;
+
+	private Integer idTurnira;
+	private Integer idKategorije;
+	private Integer brojTimova;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void inicijalizuj(Integer idTurnira,Integer idKategorije){
+		this.idTurnira=idTurnira;
+		this.idKategorije=idKategorije;
+		primaryStage.setTitle("Žrijeb");
+		
+	}
+	
+	public void inicijalizujPrvi(Integer idTurnira,Integer idKategorije,Integer brojTimova){
+		this.idTurnira=idTurnira;
+		this.idKategorije=idKategorije;
+		this.brojTimova=brojTimova;
+		primaryStage.setTitle("Žrijeb");
+		ZrijebDAO.insert(idTurnira, idKategorije, brojTimova);
+		
+	}
 
+	public void ok(){
+		primaryStage.close();
+	}
 }

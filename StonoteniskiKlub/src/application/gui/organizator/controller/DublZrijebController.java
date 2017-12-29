@@ -39,10 +39,31 @@ public class DublZrijebController extends BaseController{
 	@FXML
 	private Button btnOk;
 	
+	private Integer idTurnira;
+	private Integer idKategorije;
+	private Integer brojTimova;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public void inicijalizuj(Integer idTurnira,Integer idKategorije){
+		this.idTurnira=idTurnira;
+		this.idKategorije=idKategorije;
+		primaryStage.setTitle("Žrijeb");
+	}	
+	
+	public void inicijalizujPrvi(Integer idTurnira,Integer idKategorije,Integer brojTimova){
+		this.idTurnira=idTurnira;
+		this.idKategorije=idKategorije;
+		this.brojTimova=brojTimova;
+		primaryStage.setTitle("Žrijeb");
+		
+	}	
+	
+	public void ok(){
+		primaryStage.close();
+	}
 }
