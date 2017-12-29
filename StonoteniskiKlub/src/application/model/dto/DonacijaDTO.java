@@ -22,6 +22,14 @@ public class DonacijaDTO {
 	private Boolean novcanaDonacija;
 	private Boolean obradjeno;
 	private OpremaTip tipOpreme;
+	private TransakcijaDTO transakcija; //Helena dodala
+	public TransakcijaDTO getTransakcija() {
+		return transakcija;
+	}
+
+	public void setTransakcija(TransakcijaDTO transakcija) {
+		this.transakcija = transakcija;
+	}
 
 	public DonacijaDTO() {
 	}
@@ -147,5 +155,18 @@ public class DonacijaDTO {
 			result = tipOpreme + ", komada: " + kolicina.toString();
 		}
 		return result;
+	}
+	public StringProperty nazivSponzoraProperty() {//Helena dodala
+		return sponzor.nazivProperty();
+	}
+	public StringProperty datumUplateProperty() {
+		if(transakcija==null)
+			return new SimpleStringProperty("");
+		return transakcija.datumProperty();
+	}
+	public StringProperty opisTransakcijeProperty() {
+		if(transakcija==null)
+			return new SimpleStringProperty("");
+		return transakcija.opisProperty();
 	}
 }

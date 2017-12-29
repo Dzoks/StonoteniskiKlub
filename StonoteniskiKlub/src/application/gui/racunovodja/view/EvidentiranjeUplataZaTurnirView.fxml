@@ -12,8 +12,9 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeUplataZaTurnirController">
+<AnchorPane fx:id="pane" prefHeight="475.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeUplataZaTurnirController">
    <children>
       <TableView fx:id="tableUplateZaTurnir" layoutX="17.0" layoutY="197.0" prefHeight="198.0" prefWidth="448.0">
         <columns>
@@ -25,13 +26,16 @@
         </columns>
       </TableView>
       <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
-      <Label fx:id="lblPrikazPo" layoutX="486.0" layoutY="202.0" text="Prikaz po:" />
-      <RadioButton fx:id="radiobtnUcesnik" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" onAction="#radioUcesnik" text="Ucesniku" />
-      <RadioButton fx:id="radiobtnTurnir" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" onAction="#radioTurnir" text="Turniru" />
-      <Label fx:id="lblUcesnik" layoutX="486.0" layoutY="287.0" text="Ucesnik:" />
-      <ComboBox fx:id="comboBoxUcesnikPrikazi" layoutX="549.0" layoutY="283.0" prefWidth="150.0" />
-      <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplacenom ucescu na turniru:" />
-      <Button fx:id="btnDodaj" layoutX="22.0" layoutY="129.0" mnemonicParsing="false" onAction="#dodaj" text="Dodaj" />
+      <Label fx:id="lblPrikazPo" layoutX="482.0" layoutY="219.0" text="Prikaz po:" />
+      <RadioButton fx:id="radiobtnUcesnik" layoutX="665.0" layoutY="219.0" mnemonicParsing="false" onAction="#radioUcesnik" text="Ucesniku" />
+      <RadioButton fx:id="radiobtnTurnir" layoutX="595.0" layoutY="219.0" mnemonicParsing="false" onAction="#radioTurnir" text="Turniru" />
+      <Label fx:id="lblUcesnik" layoutX="482.0" layoutY="266.0" text="Ucesnik:" />
+      <ComboBox fx:id="comboBoxUcesnikPrikazi" layoutX="549.0" layoutY="262.0" prefWidth="150.0" />
+      <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplacenom ucescu na turniru:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <Button fx:id="btnDodaj" layoutX="429.0" layoutY="126.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="149.0" text="Dodajte" />
       <Label fx:id="lblUcesnikDodaj" layoutX="24.0" layoutY="51.0" text="Ucesnik na turniru:" />
       <ComboBox fx:id="comboBoxClanUcesnik" layoutX="137.0" layoutY="47.0" prefWidth="150.0" />
       <Label fx:id="lblIznos" layoutX="337.0" layoutY="51.0" text="Iznos:" />
@@ -39,17 +43,17 @@
       <Label fx:id="lblKM" layoutX="585.0" layoutY="51.0" text="KM" />
       <Label fx:id="lblDatumUplate" layoutX="337.0" layoutY="91.0" text="Datum uplate:" />
       <DatePicker fx:id="datePicker" layoutX="429.0" layoutY="87.0" />
-      <Button fx:id="btnPrikazi" layoutX="553.0" layoutY="405.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Prikazi" />
-      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="430.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrisi" />
-      <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="430.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijeni" />
-      <Label fx:id="lblTurnirPrikazi" layoutX="490.0" layoutY="331.0" text="Turnir:" />
-      <ComboBox fx:id="comboBoxTurnirPrikazi" layoutX="549.0" layoutY="327.0" prefWidth="150.0" />
-      <Label fx:id="lblOpis" layoutX="115.0" layoutY="133.0" text="Opis:" />
-      <ScrollPane fx:id="scrollPane" layoutX="153.0" layoutY="129.0" prefHeight="25.0" prefWidth="100.0">
+      <Button fx:id="btnPrikazi" layoutX="549.0" layoutY="350.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Pretraga" />
+      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="405.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrisite" />
+      <Button fx:id="btnIzmijeni" layoutX="235.0" layoutY="405.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijenite" />
+      <Label fx:id="lblTurnirPrikazi" layoutX="482.0" layoutY="302.0" text="Turnir:" />
+      <ComboBox fx:id="comboBoxTurnirPrikazi" layoutX="549.0" layoutY="307.0" prefWidth="150.0" />
+      <Label fx:id="lblOpis" layoutX="26.0" layoutY="83.0" text="Opis:" />
+      <ScrollPane fx:id="scrollPane" layoutX="137.0" layoutY="90.0" prefHeight="36.0" prefWidth="150.0">
          <content>
             <TextArea fx:id="txtOpis" prefHeight="200.0" prefWidth="200.0" />
          </content>
       </ScrollPane>
-      <RadioButton fx:id="radiobtnSve" layoutX="473.0" layoutY="239.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" />
+      <RadioButton fx:id="radiobtnSve" layoutX="549.0" layoutY="219.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" />
    </children>
 </AnchorPane>
