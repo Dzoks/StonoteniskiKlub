@@ -4,7 +4,6 @@ import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
