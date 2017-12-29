@@ -16,7 +16,7 @@ public class ClanDAO {
 	private final static String SQL_UPDATE_AKTIVAN = "UPDATE CLAN SET Aktivan=? WHERE OSOBA_Id=?";
 	private final static String SQL_INSERT = "INSERT INTO CLAN VALUES (?, ?, ?)";
 	private final static String SQL_SELECT_ALL = "SELECT * FROM CLAN c INNER JOIN OSOBA o ON c.OSOBA_ID = o.ID";
-	
+	private final static String SQL_UPDATE_REGISTROVAN = "update CLAN set Registrovan=? where OSOBA_Id=?";
 	
 	public static List<ClanDTO> selectAllByImePrezime(String ime, String prezime) {
 		ArrayList<ClanDTO> list = new ArrayList<>();
@@ -157,5 +157,24 @@ public class ClanDAO {
 	public static void insertAll(ClanDTO clan) {
 		OsobaDAO.insertSaTelefonom(clan);
 		insert(clan);
+	}
+	public static void setRegistrovan(boolean flag, int clanId) {
+		PreparedStatement ps = null;
+		Connection c = null;
+		
+		try {
+			c= ConnectionPool.getInstance().checkOut();
+			String query = SQL_UPDATE_REGISTROVAN;
+			Object pom[] = { flag, clanId };
+			
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
 	}
 }
