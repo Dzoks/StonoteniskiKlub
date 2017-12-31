@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import application.gui.controller.BaseController;
 import application.gui.trener.controller.NoviTelefonController;
+import application.model.dao.KorisnickiNalogDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,14 +33,24 @@ public class LoginController extends BaseController {
 	void prijaviteSe(ActionEvent event) {
 
 		if (!txtLozinka.getText().isEmpty() && !txtLozinka.getText().isEmpty()) {
-			if (txtLozinka.getText().equals("admin") && txtKorisnickoIme.getText().equals("admin")) {
-				// ovo izmijeniti nakon merge-a
+			if(!KorisnickiNalogDAO.daLiPostoji(txtKorisnickoIme.getText())){
+			if(!KorisnickiNalogDAO.daLiPostojiLozinka(txtKorisnickoIme.getText())) {
+				//ako ne postoji napravi je
+				try {
+					BaseController.changeScene("/application/gui/administrator/view/PromjenaLozinkeView.fxml", primaryStage);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+				
 				try {
 					BaseController.changeScene("/application/gui/administrator/view/AdministratorView.fxml", primaryStage);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
 			} else {
 				new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK).show();
 			}

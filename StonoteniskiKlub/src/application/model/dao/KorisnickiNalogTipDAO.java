@@ -58,14 +58,15 @@ public class KorisnickiNalogTipDAO {
 	
 	public static Integer selectId(String naziv) {
 		Connection c = null;
-		PreparedStatement ps = null;
+		Statement s = null;
 		ResultSet rs = null;
 		Integer rezultat=0;
 		
 		try {
+			
 			c = ConnectionPool.getInstance().checkOut();
-			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_ID, false, naziv);
-			rs = ps.executeQuery();
+			s = c.createStatement();
+			rs = s.executeQuery(SQL_SELECT_ID);
 			
 			while(rs.next()) {
 				rezultat = rs.getInt("Id");
@@ -74,7 +75,7 @@ public class KorisnickiNalogTipDAO {
 			e.printStackTrace();
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
-			ConnectionPool.close(rs, ps);
+			ConnectionPool.close(rs, s);
 		}
 		
 		return rezultat;
