@@ -22,10 +22,7 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.gui.trener.controller.DodajTipOpremeController;
-import application.model.dao.DistributerOpremeDAO;
-import application.model.dao.NarudzbaDAO;
-import application.model.dao.NarudzbaStavkaDAO;
-import application.model.dao.OpremaTipDAO;
+import application.model.dao.DAOFactory;
 import application.model.dto.DistributerOpreme;
 import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
@@ -88,7 +85,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 	@FXML
 	private Button btnDodajDistributera;
 	
-	private Narudzba naroudzba; 
+	private Narudzba narudzba; 
 	private ObservableList<NarudzbaStavka> listaStavkiNarudzbe = FXCollections.observableArrayList();
 	
 	@Override
@@ -112,22 +109,23 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 	}
 	
 	public void azurirajUBazi() {
-		naroudzba.setIdDistributeraOpreme(comboBoxDistributer.getSelectionModel().getSelectedItem().getId());
+		narudzba.setIdDistributeraOpreme(comboBoxDistributer.getSelectionModel().getSelectedItem().getId());
 		if("Oprema kluba".equals(comboBoxVrsta.getSelectionModel().getSelectedItem())) {
-			NarudzbaDAO.UPDATE(naroudzba, true);
+			DAOFactory.getDAOFactory().getNarudzbaDAO().UPDATE(narudzba, true);
 		}
 		else {
-			NarudzbaDAO.UPDATE(naroudzba, false);
+			DAOFactory.getDAOFactory().getNarudzbaDAO().UPDATE(narudzba, false);
 		}
 		
-		if(!naroudzba.getListaStavki().isEmpty()) {
-			for(NarudzbaStavka narudzbaStavka : naroudzba.getListaStavki()) {
-				NarudzbaStavkaDAO.DELETE(narudzbaStavka);
+		if(!narudzba.getListaStavki().isEmpty()) {
+			for(NarudzbaStavka narudzbaStavka : narudzba.getListaStavki()) {
+				DAOFactory.getDAOFactory().getNarudzbaStavkaDAO().DELETE(narudzbaStavka);
 			}
 		}
+		
 		if(!listaStavkiNarudzbe.isEmpty()) {
 			for(NarudzbaStavka narudzbaStavka : listaStavkiNarudzbe) {
-				NarudzbaStavkaDAO.INSERT(narudzbaStavka);
+				DAOFactory.getDAOFactory().getNarudzbaStavkaDAO().INSERT(narudzbaStavka);
 			}
 		}
 	}
@@ -136,17 +134,20 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 		ContextMenu cm = new ContextMenu();
 	    MenuItem obrisiStavku = new MenuItem("Obrisi stavku");
 	    obrisiStavku.setOnAction(new EventHandler<ActionEvent>() {
+	    	
 	        @Override
 	        public void handle(ActionEvent t) {
 	        	NarudzbaStavka selektovanaNarudzba = null;
 	        	if(!listaStavkiNarudzbe.isEmpty()) {
 	        		selektovanaNarudzba = listaStavkiNarudzbe.get(tblNarudzbe.getSelectionModel().getSelectedIndex());	        		
 	        	}
+	        	
 	            if (selektovanaNarudzba != null){ 
 	            	listaStavkiNarudzbe.remove(tblNarudzbe.getSelectionModel().getSelectedIndex());
-	            	NarudzbaStavkaDAO.DELETE(selektovanaNarudzba);
+	            	DAOFactory.getDAOFactory().getNarudzbaStavkaDAO().DELETE(selektovanaNarudzba);
 	            }
 	        }
+	        
 	    });
 	    cm.getItems().add(obrisiStavku);
 
@@ -159,6 +160,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 	            	cm.show(tblNarudzbe , t.getScreenX() , t.getScreenY());
 	            }
 	        }
+	        
 	    });
 	}
 	
@@ -172,11 +174,12 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 	}
 	
 	public void ucitajComboBoxeve() {
-		ObservableList<DistributerOpreme> listaDistributera = DistributerOpremeDAO.SELECT_ALL();
+		ObservableList<DistributerOpreme> listaDistributera = DAOFactory.getDAOFactory().getDistributerOpremeDAO().SELECT_ALL();
 		comboBoxDistributer.setItems(listaDistributera);
+		
 		int brojac = 0;
 		for(DistributerOpreme distributerOpreme : listaDistributera) {
-			if(distributerOpreme.getId().equals(naroudzba.getIdDistributeraOpreme())) {
+			if(distributerOpreme.getId().equals(narudzba.getIdDistributeraOpreme())) {
 				break;
 			}
 			brojac++;
@@ -187,9 +190,9 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 		listaVrsta.add("Oprema kluba");
 		listaVrsta.add("Oprema clana");
 		comboBoxVrsta.setItems(listaVrsta);
-		comboBoxVrsta.getSelectionModel().select(naroudzba.getVrsta());
+		comboBoxVrsta.getSelectionModel().select(narudzba.getVrsta());
 		
-		ObservableList<OpremaTip> listaTipovaOpreme = OpremaTipDAO.SELECT_ALL();
+		ObservableList<OpremaTip> listaTipovaOpreme = DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_ALL();
 		comboBoxTip.setItems(listaTipovaOpreme);
 		
 		comboBoxTip.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<OpremaTip>() {
@@ -206,6 +209,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 					disableDugme();
 				}
 			}
+			
 		});
 		
 		comboBoxTip.getSelectionModel().selectFirst();
@@ -216,15 +220,18 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 			Double.valueOf(txtCijena.getText());
 			Integer idTipaOpreme = comboBoxTip.getSelectionModel().getSelectedItem().getId();
 			String velicina = "";
+			
 			if("Oprema kluba".equals(comboBoxVrsta.getSelectionModel().getSelectedItem())) {
 				velicina = "-";
 			}
 			else {
 				velicina = txtVelicina.getText();
 			}
+			
 			Integer kolicina = spinnerKolicina.getValue();
 			Double cijena = Double.valueOf(txtCijena.getText());
-			NarudzbaStavka narudzbaStavka = new NarudzbaStavka(naroudzba.getId(), idTipaOpreme, velicina, kolicina, cijena, false);
+			NarudzbaStavka narudzbaStavka = new NarudzbaStavka(narudzba.getId(), idTipaOpreme, velicina, kolicina, cijena, false);
+			
 			if(listaStavkiNarudzbe.isEmpty()) {
 				listaStavkiNarudzbe.add(narudzbaStavka);
 			}
@@ -268,9 +275,10 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
+			
 			if("YES".equals(controller.getPovratnaVrijednost())) {
 				OpremaTip noviTipOpreme = controller.vratiTipOpreme();
-				OpremaTipDAO.INSERT(noviTipOpreme);
+				DAOFactory.getDAOFactory().getOpremaTipDAO().INSERT(noviTipOpreme);
 				ucitajComboBoxeve();
 				comboBoxTip.getSelectionModel().selectLast();
 			}
@@ -295,7 +303,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 			noviStage.showAndWait();
 			if("YES".equals(controller.getPovratnaVrijednost())) {
 				DistributerOpreme noviDistributer = controller.vratiDistributeraOpreme();
-				DistributerOpremeDAO.INSERT(noviDistributer);
+				DAOFactory.getDAOFactory().getDistributerOpremeDAO().INSERT(noviDistributer);
 				ucitajComboBoxeve();
 				comboBoxDistributer.getSelectionModel().selectLast();
 			}
@@ -314,7 +322,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 	}
 
 	public void setNaroudzba(Narudzba naroudzba) {
-		this.naroudzba = naroudzba;
+		this.narudzba = naroudzba;
 	}
 
 	public void setListaStavkiNarudzbe(ObservableList<NarudzbaStavka> listaStavkiNarudzbe) {

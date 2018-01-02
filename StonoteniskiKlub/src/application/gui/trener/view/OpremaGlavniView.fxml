@@ -57,14 +57,13 @@
                         <TableView fx:id="tblOpremaClana" layoutX="14.0" layoutY="14.0" prefHeight="277.0" prefWidth="732.0">
                           <columns>
                             <TableColumn fx:id="idClan" prefWidth="57.0" text="ID" />
-                            <TableColumn fx:id="tipClan" prefWidth="84.0" text="Tip" />
-                              <TableColumn fx:id="proizvodjacClan" prefWidth="99.0" text="Proizvođač" />
-                              <TableColumn fx:id="modelClan" prefWidth="93.0" text="Model" />
-                              <TableColumn fx:id="velicinaClan" prefWidth="75.0" text="Veličina" />
-                              <TableColumn fx:id="jmbClan" prefWidth="99.0" text="JMB" />
-                              <TableColumn fx:id="imeClan" prefWidth="75.0" text="Ime " />
-                              <TableColumn fx:id="prezimeClan" prefWidth="75.0" text="Prezime" />
-                              <TableColumn fx:id="doniranaClan" minWidth="1.0" prefWidth="74.0" text="Donirana" />
+                            <TableColumn fx:id="tipClan" prefWidth="90.0" text="Tip" />
+                              <TableColumn fx:id="proizvodjacClan" prefWidth="101.0" text="Proizvođač" />
+                              <TableColumn fx:id="modelClan" prefWidth="90.0" text="Model" />
+                              <TableColumn fx:id="velicinaClan" prefWidth="92.0" text="Veličina" />
+                              <TableColumn fx:id="jmbClan" prefWidth="93.0" text="JMB" />
+                              <TableColumn fx:id="imeClan" prefWidth="100.0" text="Ime " />
+                              <TableColumn fx:id="prezimeClan" prefWidth="108.0" text="Prezime" />
                           </columns>
                         </TableView>
                         <Button fx:id="btnDodajOpremaClanova" layoutX="532.0" layoutY="440.0" mnemonicParsing="false" onAction="#idiNaDodajOpremuClana" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />

@@ -5,9 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.OpremaClanaDAO;
-import application.model.dao.OpremaDAO;
-import application.model.dao.OpremaTipDAO;
+import application.model.dao.DAOFactory;
 import application.model.dto.Clan;
 import application.model.dto.Oprema;
 import application.model.dto.OpremaClana;
@@ -45,7 +43,6 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
 	}
 	
 	public void disable() {
@@ -76,11 +73,11 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 		}
 		
 		if(opremaKluba) {
-			OpremaDAO.UPDATE(oprema, velicina, comboBoxTip.getSelectionModel().getSelectedItem().getId());
+			DAOFactory.getDAOFactory().getOpremaDAO().UPDATE(oprema, velicina, comboBoxTip.getSelectionModel().getSelectedItem().getId());
 		}
 		else {
-			OpremaClanaDAO.UPDATE((OpremaClana)oprema, comboBoxClan.getSelectionModel().getSelectedItem().getId());
-			OpremaDAO.UPDATE((OpremaClana)oprema, velicina, comboBoxTip.getSelectionModel().getSelectedItem().getId());
+			DAOFactory.getDAOFactory().getOpremaClanaDAO().UPDATE((OpremaClana)oprema, comboBoxClan.getSelectionModel().getSelectedItem().getId());
+			DAOFactory.getDAOFactory().getOpremaDAO().UPDATE((OpremaClana)oprema, velicina, comboBoxTip.getSelectionModel().getSelectedItem().getId());
 		}
 	}
 	
@@ -91,8 +88,9 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 	
 	public void ucitajComboBoxeve() {
 		if(!opremaKluba) {
-			ObservableList<Clan> listaClanova = OpremaClanaDAO.SELECT_AKTIVNE();
+			ObservableList<Clan> listaClanova = DAOFactory.getDAOFactory().getOpremaClanaDAO().SELECT_AKTIVNE();
 			comboBoxClan.setItems(listaClanova);
+			
 			int brojac=0;
 			for(Clan clan : listaClanova) {
 				if(clan.getId() == ((OpremaClana)oprema).getIdClana()) {
@@ -100,10 +98,11 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 				}
 				brojac++;
 			}
+			
 			comboBoxClan.getSelectionModel().select(brojac);
 		}
 		
-		ObservableList<OpremaTip> listaTipaOpreme = OpremaTipDAO.SELECT_ALL();
+		ObservableList<OpremaTip> listaTipaOpreme = DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_ALL();
 		comboBoxTip.setItems(listaTipaOpreme);
 		int brojac = 0;
 		for(OpremaTip opremaTip : listaTipaOpreme) {
@@ -128,6 +127,7 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 					provjeriParametre();
 				}
 			}
+			
 		});
 		
 		if(comboBoxTip.getSelectionModel().getSelectedItem().getImaVelicinu()) {
@@ -149,9 +149,10 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
+			
 			if("YES".equals(controller.getPovratnaVrijednost())) {
 				OpremaTip noviTipOpreme = controller.vratiTipOpreme();
-				OpremaTipDAO.INSERT(noviTipOpreme);
+				DAOFactory.getDAOFactory().getOpremaTipDAO().INSERT(noviTipOpreme);
 				ucitajComboBoxeve();
 				comboBoxTip.getSelectionModel().selectLast();
 			}

@@ -1,63 +1,95 @@
 package application.model.dto;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
+
 public class SponzorDTO {
-	private Integer id;
-	private String naziv;
-	private String adresa;
-	private String email;
-	private List<UgovorDTO> ugovori;
+	private IntegerProperty id;
+	private StringProperty naziv;
+	private StringProperty adresa;
+	private StringProperty email;
+	private ObservableList<UgovorDTO> ugovori;
 
 	public SponzorDTO() {
 	}
 
-	public SponzorDTO(Integer id, String naziv, String adresa, String email, List<UgovorDTO> ugovori) {
-		this.id = id;
-		this.naziv = naziv;
-		this.adresa = adresa;
-		this.email = email;
+	public SponzorDTO(Integer id, String naziv, String adresa, String email, ObservableList<UgovorDTO> ugovori) {
+		this.id = id == null ? null : new SimpleIntegerProperty(id);
+		this.naziv = naziv == null ? null : new SimpleStringProperty(naziv);
+		this.adresa = adresa == null ? null : new SimpleStringProperty(adresa);
+		this.email = email == null ? null : new SimpleStringProperty(email);
 		this.ugovori = ugovori;
 	}
 
-	public Integer getId() {
+	// Property metode
+	public IntegerProperty idProperty() {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNaziv() {
+	public StringProperty nazivProperty() {
 		return naziv;
 	}
 
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
-	}
-
-	public String getAdresa() {
+	public StringProperty adresaProperty() {
 		return adresa;
 	}
 
-	public void setAdresa(String adresa) {
-		this.adresa = adresa;
+	public StringProperty emailProperty() {
+		return email;
+	}
+	public StringProperty aktivanProperty(){
+		return new SimpleStringProperty(this.daLiJeAktivan() ? "Da" : "Ne");
+	}
+	public StringProperty telefonProperty(){
+		return new SimpleStringProperty("065/111-222");
+	}
+	
+	// Obicni getteri
+	public Integer getId() {
+		return id.get();
+	}
+
+	public String getNaziv() {
+		return naziv.get();
+	}
+
+	public String getAdresa() {
+		return adresa.get();
 	}
 
 	public String getEmail() {
-		return email;
+		return email.get();
+	}
+
+	// Obicni setteri
+	public void setId(Integer id) {
+		this.id.set(id);
+	}
+
+	public void setNaziv(String naziv) {
+		this.naziv.set(naziv);
+	}
+
+	public void setAdresa(String adresa) {
+		this.adresa.set(adresa);
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email.set(email);
 	}
 
-	public List<UgovorDTO> getUgovori() {
+	public ObservableList<UgovorDTO> getUgovori() {
 		return ugovori;
 	}
 
-	public void setUgovori(List<UgovorDTO> ugovori) {
+	public void setUgovori(ObservableList<UgovorDTO> ugovori) {
 		this.ugovori = ugovori;
 	}
 
@@ -65,7 +97,7 @@ public class SponzorDTO {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((this.getId() == null) ? 0 : getId().hashCode());
 		return result;
 	}
 
@@ -81,7 +113,7 @@ public class SponzorDTO {
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!this.getId().equals(other.getId()))
 			return false;
 		return true;
 	}
@@ -97,6 +129,16 @@ public class SponzorDTO {
 
 	@Override
 	public String toString() {
-		return naziv + ", " + adresa + ", " + email;
+		return naziv.get() + ", " + adresa.get();
+	}
+	
+	public Integer getMaxUgovorId(){
+		Integer max = 0;
+		for(UgovorDTO ug : ugovori){
+			if(ug.getRedniBroj().compareTo(max) > 0){
+				max = ug.getRedniBroj();
+			}
+		}
+		return max;
 	}
 }

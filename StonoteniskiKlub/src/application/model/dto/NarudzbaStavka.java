@@ -1,6 +1,6 @@
 package application.model.dto;
 
-import application.model.dao.OpremaTipDAO;
+import application.model.dao.DAOFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -31,13 +31,14 @@ public class NarudzbaStavka {
 		super();
 		this.idNarudzbe = new SimpleIntegerProperty(idNarudzbe);
 		this.idTipaOpreme = new SimpleIntegerProperty(idTipaOpreme);
-		this.tipOpreme = new SimpleStringProperty(OpremaTipDAO.SELECT_TIP(idTipaOpreme));
-		this.tipProizvodjac = new SimpleStringProperty(OpremaTipDAO.SELECT_PROIZVODJAC(idTipaOpreme));
-		this.tipModel = new SimpleStringProperty(OpremaTipDAO.SELECT_MODEL(idTipaOpreme));
+		this.tipOpreme = new SimpleStringProperty(DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_TIP(idTipaOpreme));
+		this.tipProizvodjac = new SimpleStringProperty(DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_PROIZVODJAC(idTipaOpreme));
+		this.tipModel = new SimpleStringProperty(DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_MODEL(idTipaOpreme));
 		this.velicina = new SimpleStringProperty(velicina);
 		this.kolicina = new SimpleIntegerProperty(kolicina);
 		this.cijena = new SimpleDoubleProperty(cijena);
 		this.obradjeno = new SimpleBooleanProperty(obradjeno);
+		
 		if(obradjeno) {
 			this.status = new SimpleStringProperty("DA");
 		}
@@ -88,6 +89,10 @@ public class NarudzbaStavka {
 
 	public Boolean getObradjeno() {
 		return obradjeno.get();
+	}
+	
+	public BooleanProperty getObradjenoProperty() {
+		return obradjeno;
 	}
 
 	public void setObradjeno(Boolean obradjeno) {

@@ -6,9 +6,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.OpremaClanaDAO;
-import application.model.dao.OpremaDAO;
-import application.model.dao.OpremaKlubaDAO;
+import application.model.dao.DAOFactory;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaKluba;
 import javafx.beans.value.ChangeListener;
@@ -87,8 +85,6 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	@FXML
 	private TableColumn<OpremaClana, String> prezimeClan;
 	@FXML
-	private TableColumn<OpremaClana, String> doniranaClan;
-	@FXML
 	private RadioButton rdbtnTipClan;
 	@FXML
 	private RadioButton rdbtnProizvodjacClan;
@@ -151,20 +147,24 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	    MenuItem postaviUNeaktivno = new MenuItem("Postavi u neaktivno");
 	    MenuItem postaviUAktivno = new MenuItem("Postavi u aktivno");
 	    MenuItem pogledajOpis = new MenuItem("Pogledaj opis");
+	    MenuItem pogledajOpisDonacije = new MenuItem("Pogledaj opis donacije");
 	    MenuItem izmjeniOpis = new MenuItem("Izmjeni opis");
 	    MenuItem obrisiOpremuKluba = new MenuItem("Obrisi opremu");
 	    MenuItem obrisiOpremuClana = new MenuItem("Obrisi opremu");
 	    
 	    obrisiOpremuKluba.setOnAction(new EventHandler<ActionEvent>() {
+	    	
 	        @Override
 	        public void handle(ActionEvent t) {
 	        	OpremaKluba selektovanaOprema = null;
 	        	ObservableList<OpremaKluba> listaOpreme = tblOpremaKluba.getItems();
+	        	
 	        	if(!listaOpreme.isEmpty()) {
 	        		selektovanaOprema = listaOpreme.get(tblOpremaKluba.getSelectionModel().getSelectedIndex());	        		
 	        	}
+	        	
 	            if (selektovanaOprema != null){ 
-	            	OpremaDAO.UPDATE_OBRISAN(selektovanaOprema);
+	            	DAOFactory.getDAOFactory().getOpremaDAO().UPDATE_OBRISAN(selektovanaOprema);
 	            	popuniTabele();
 	            	grupaKlubTip.selectToggle(null);
 	            	grupaKlubVrsta.selectToggle(null);
@@ -176,18 +176,22 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	            	txtModelKlub.setDisable(true);
 	            }
 	        }
+	        
 	    });
 	    
 	    obrisiOpremuClana.setOnAction(new EventHandler<ActionEvent>() {
+	    	
 	        @Override
 	        public void handle(ActionEvent t) {
 	        	OpremaClana selektovanaOprema = null;
 	        	ObservableList<OpremaClana> listaOpreme = tblOpremaClana.getItems();
+	        	
 	        	if(!listaOpreme.isEmpty()) {
 	        		selektovanaOprema = listaOpreme.get(tblOpremaClana.getSelectionModel().getSelectedIndex());	        		
 	        	}
+	        	
 	            if (selektovanaOprema != null){ 
-	            	OpremaDAO.UPDATE_OBRISAN(selektovanaOprema);
+	            	DAOFactory.getDAOFactory().getOpremaDAO().UPDATE_OBRISAN(selektovanaOprema);
 	            	popuniTabele();
 	            	grupaClan.selectToggle(null);
 	            	txtTipClan.clear();
@@ -204,18 +208,22 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	            	txtPrezime.setDisable(true);
 	            }
 	        }
+	        
 	    });
 	    
 	    postaviUNeaktivno.setOnAction(new EventHandler<ActionEvent>() {
+	    	
 	        @Override
 	        public void handle(ActionEvent t) {
 	        	OpremaKluba selektovanaOprema = null;
 	        	ObservableList<OpremaKluba> listaOpreme = tblOpremaKluba.getItems();
+	        	
 	        	if(!listaOpreme.isEmpty()) {
 	        		selektovanaOprema = listaOpreme.get(tblOpremaKluba.getSelectionModel().getSelectedIndex());	        		
 	        	}
+	        	
 	            if (selektovanaOprema != null){ 
-	            	OpremaKlubaDAO.UPDATE_AKTIVNOST(selektovanaOprema, false);
+	            	DAOFactory.getDAOFactory().getOpremaKlubaDAO().UPDATE_AKTIVNOST(selektovanaOprema, false);
 	            	popuniTabele();
 	            	grupaKlubTip.selectToggle(null);
 	            	grupaKlubVrsta.selectToggle(null);
@@ -227,6 +235,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	            	txtModelKlub.setDisable(true);
 	            }
 	        }
+	        
 	    });
 	    
 	    postaviUAktivno.setOnAction(new EventHandler<ActionEvent>() {
@@ -234,11 +243,13 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	        public void handle(ActionEvent t) {
 	        	OpremaKluba selektovanaOprema = null;
 	        	ObservableList<OpremaKluba> listaOpreme = tblOpremaKluba.getItems();
+	        	
 	        	if(!listaOpreme.isEmpty()) {
 	        		selektovanaOprema = listaOpreme.get(tblOpremaKluba.getSelectionModel().getSelectedIndex());	        		
 	        	}
+	        	
 	            if (selektovanaOprema != null){ 
-	            	OpremaKlubaDAO.UPDATE_AKTIVNOST(selektovanaOprema, true);
+	            	DAOFactory.getDAOFactory().getOpremaKlubaDAO().UPDATE_AKTIVNOST(selektovanaOprema, true);
 	            	popuniTabele();
 	            	grupaKlubTip.selectToggle(null);
 	            	grupaKlubVrsta.selectToggle(null);
@@ -250,23 +261,47 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	            	txtModelKlub.setDisable(true);
 	            }
 	        }
+	        
 	    });
 	    
 	    pogledajOpis.setOnAction(new EventHandler<ActionEvent>() {
+	    	
 	        @Override
 	        public void handle(ActionEvent t) {
 	        	OpremaKluba selektovanaOprema = null;
 	        	ObservableList<OpremaKluba> listaOpreme = tblOpremaKluba.getItems();
+	        	
 	        	if(!listaOpreme.isEmpty()) {
 	        		selektovanaOprema = listaOpreme.get(tblOpremaKluba.getSelectionModel().getSelectedIndex());	        		
 	        	}
+	        	
 	            if (selektovanaOprema != null){ 
 	            	new Alert(AlertType.INFORMATION, selektovanaOprema.getOpis() , ButtonType.OK).show();
 	            }
 	        }
+	        
+	    });
+	    
+	    pogledajOpisDonacije.setOnAction(new EventHandler<ActionEvent>() {
+	    	
+	        @Override
+	        public void handle(ActionEvent t) {
+	        	OpremaKluba selektovanaOprema = null;
+	        	ObservableList<OpremaKluba> listaOpreme = tblOpremaKluba.getItems();
+	        	
+	        	if(!listaOpreme.isEmpty()) {
+	        		selektovanaOprema = listaOpreme.get(tblOpremaKluba.getSelectionModel().getSelectedIndex());	        		
+	        	}
+	        	
+	            if (selektovanaOprema != null){ 
+	            	new Alert(AlertType.INFORMATION, "Sponzor - " + DAOFactory.getDAOFactory().getSponzorDAO().getById(selektovanaOprema.getIdSponzora()).getNaziv(), ButtonType.OK).show();
+	            }
+	        }
+	        
 	    });
 	    
 	    izmjeniOpis.setOnAction(new EventHandler<ActionEvent>() {
+	    	
 	        @Override
 	        public void handle(ActionEvent t) {
 	        	OpremaKluba selektovanaOprema = null;
@@ -278,6 +313,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	            	idiNaIzmjeniOpisOpreme(selektovanaOprema);
 	            }
 	        }
+	        
 	    });
 	    
 	    tblOpremaKluba.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -286,6 +322,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	        public void handle(MouseEvent t) {
 	        	cm.getItems().clear();
 	        	OpremaKluba selektovanaOprema = tblOpremaKluba.getSelectionModel().getSelectedItem();
+	        	
 	        	if(selektovanaOprema != null) {
 	        		if(selektovanaOprema.getAktivan()) {
 		    	    	cm.getItems().add(postaviUNeaktivno);
@@ -294,11 +331,19 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		    	    	cm.getItems().add(postaviUAktivno);
 		    	    }
 		    	    cm.getItems().add(pogledajOpis);
+		    	    
+		    	    if(selektovanaOprema.getDonirana()) {
+		    	    	cm.getItems().add(pogledajOpisDonacije);
+		    	    }
 		    	    cm.getItems().add(izmjeniOpis);
 		    	    cm.getItems().add(obrisiOpremuKluba);
+		    	    
 		            if(t.getButton() == MouseButton.SECONDARY)
 		            {
 		            	cm.show(tblOpremaKluba , t.getScreenX() , t.getScreenY());
+		            }
+		            else {
+		            	cm.hide();
 		            }
 	        	}
 	        }
@@ -310,20 +355,26 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	        public void handle(MouseEvent t) {
 	        	cm.getItems().clear();
 	        	OpremaClana selektovanaOprema = tblOpremaClana.getSelectionModel().getSelectedItem();
+	        	
 	        	if(selektovanaOprema != null) {
 		    	    cm.getItems().add(obrisiOpremuClana);
 		            if(t.getButton() == MouseButton.SECONDARY)
 		            {
 		            	cm.show(tblOpremaClana , t.getScreenX() , t.getScreenY());
 		            }
+		            else {
+		            	cm.hide();
+		            }
 	        	}
 	        }
+	        
 	    });
 	}
 	
 	public void podesavanjaZaTekstPolja() {
 		txtTipKlub.setOnKeyPressed(new EventHandler<KeyEvent>()
 	    {
+			
 	        @Override
 	        public void handle(KeyEvent ke)
 	        {
@@ -332,10 +383,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	                pretragaKlub();
 	            }
 	        }
+	        
 	    });
 		
 		txtProizvodjacKlub.setOnKeyPressed(new EventHandler<KeyEvent>()
 	    {
+			
 	        @Override
 	        public void handle(KeyEvent ke)
 	        {
@@ -344,10 +397,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	                pretragaKlub();
 	            }
 	        }
+	        
 	    });
 		
 		txtModelKlub.setOnKeyPressed(new EventHandler<KeyEvent>()
 	    {
+			
 	        @Override
 	        public void handle(KeyEvent ke)
 	        {
@@ -356,10 +411,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	                pretragaKlub();
 	            }
 	        }
+	        
 	    });
 		
 		txtTipClan.setOnKeyPressed(new EventHandler<KeyEvent>()
 	    {
+			
 	        @Override
 	        public void handle(KeyEvent ke)
 	        {
@@ -368,10 +425,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	                pretragaClan();
 	            }
 	        }
+	        
 	    });
 		
 		txtProizvodjacClan.setOnKeyPressed(new EventHandler<KeyEvent>()
 	    {
+			
 	        @Override
 	        public void handle(KeyEvent ke)
 	        {
@@ -380,10 +439,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	                pretragaClan();
 	            }
 	        }
+	        
 	    });
 		
 		txtModelClan.setOnKeyPressed(new EventHandler<KeyEvent>()
 	    {
+			
 	        @Override
 	        public void handle(KeyEvent ke)
 	        {
@@ -392,10 +453,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	                pretragaClan();
 	            }
 	        }
+	        
 	    });
 		
 		txtJmb.setOnKeyPressed(new EventHandler<KeyEvent>()
 	    {
+			
 	        @Override
 	        public void handle(KeyEvent ke)
 	        {
@@ -404,10 +467,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	                pretragaClan();
 	            }
 	        }
+	        
 	    });
 		
 		txtIme.setOnKeyPressed(new EventHandler<KeyEvent>()
 	    {
+			
 	        @Override
 	        public void handle(KeyEvent ke)
 	        {
@@ -416,10 +481,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	                pretragaClan();
 	            }
 	        }
+	        
 	    });
 		
 		txtPrezime.setOnKeyPressed(new EventHandler<KeyEvent>()
 	    {
+			
 	        @Override
 	        public void handle(KeyEvent ke)
 	        {
@@ -428,6 +495,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	                pretragaClan();
 	            }
 	        }
+	        
 	    });
 	}
 	
@@ -444,36 +512,43 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		rdbtnModelKlub.setToggleGroup(grupaKlubTip);
 		
 		rdbtnAktivna.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
-		        	ObservableList<OpremaKluba> listaOpreme = OpremaKlubaDAO.SELECT_AKTIVNOST(true);
+		        	ObservableList<OpremaKluba> listaOpreme = DAOFactory.getDAOFactory().getOpremaKlubaDAO().SELECT_AKTIVNOST(true);
 		        	tblOpremaKluba.setItems(listaOpreme);
 		        }
 		    }
+		    
 		});
 		
 		rdbtnNeaktivna.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
-		        	ObservableList<OpremaKluba> listaOpreme = OpremaKlubaDAO.SELECT_AKTIVNOST(false);
+		        	ObservableList<OpremaKluba> listaOpreme = DAOFactory.getDAOFactory().getOpremaKlubaDAO().SELECT_AKTIVNOST(false);
 		        	tblOpremaKluba.setItems(listaOpreme);
 		        }
 		    }
+		    
 		});
 		
 		rdbtnSva.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
-		        	ObservableList<OpremaKluba> listaOpreme = OpremaKlubaDAO.SELECT_AKTIVNOST(null);
+		        	ObservableList<OpremaKluba> listaOpreme = DAOFactory.getDAOFactory().getOpremaKlubaDAO().SELECT_AKTIVNOST(null);
 		        	tblOpremaKluba.setItems(listaOpreme);
 		        }
 		    }
+		    
 		});
 		
 		rdbtnTipKlub.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
@@ -482,9 +557,11 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		        	txtModelKlub.setDisable(true);
 		        }
 		    }
+		    
 		});
 		
 		rdbtnProizvodjacKlub.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
@@ -493,9 +570,11 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		        	txtModelKlub.setDisable(true);
 		        }
 		    }
+		    
 		});
 		
 		rdbtnModelKlub.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
@@ -504,6 +583,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		        	txtModelKlub.setDisable(false);
 		        }
 		    }
+		    
 		});
 		
 		btnPretraziOpremaKluba.disableProperty().bind(grupaKlubVrsta.selectedToggleProperty().isNull().or(grupaKlubTip.selectedToggleProperty().isNull()));
@@ -525,6 +605,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		rdbtnPrezime.setToggleGroup(grupaClan);
     	
 		rdbtnTipClan.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
@@ -536,9 +617,11 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		        	txtPrezime.setDisable(true);
 		        }
 		    }
+		    
 		});
 		
 		rdbtnProizvodjacClan.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
@@ -550,9 +633,11 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		        	txtPrezime.setDisable(true);
 		        }
 		    }
+		    
 		});
 		
 		rdbtnModelClan.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
@@ -564,9 +649,11 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		        	txtPrezime.setDisable(true);
 		        }
 		    }
+		    
 		});
 		
 		rdbtnJmb.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
@@ -578,9 +665,11 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		        	txtPrezime.setDisable(true);
 		        }
 		    }
+		    
 		});
 		
 		rdbtnIme.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
@@ -592,9 +681,11 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		        	txtPrezime.setDisable(true);
 		        }
 		    }
+		    
 		});
 		
 		rdbtnPrezime.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
 		        if(isNowSelected) {
@@ -606,6 +697,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		        	txtPrezime.setDisable(false);
 		        }
 		    }
+		    
 		});
 		
 		btnPretraziOpremaClanova.disableProperty().bind(grupaClan.selectedToggleProperty().isNull());
@@ -638,7 +730,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			rijec = txtModelKlub.getText();
 		}
 		
-		ObservableList<OpremaKluba> listaOpreme = OpremaKlubaDAO.SELECT_BY(aktivan, tipPretrage, rijec);
+		ObservableList<OpremaKluba> listaOpreme = DAOFactory.getDAOFactory().getOpremaKlubaDAO().SELECT_BY(aktivan, tipPretrage, rijec);
 		tblOpremaKluba.setItems(listaOpreme);
 	}
 	
@@ -672,7 +764,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			rijec = txtPrezime.getText();
 		}
 		
-		ObservableList<OpremaClana> listaOpreme = OpremaClanaDAO.SELECT_BY(tipPretrage, rijec);
+		ObservableList<OpremaClana> listaOpreme = DAOFactory.getDAOFactory().getOpremaClanaDAO().SELECT_BY(tipPretrage, rijec);
 		tblOpremaClana.setItems(listaOpreme);
 	}
 	
@@ -684,11 +776,9 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		velicinaKlub.setCellValueFactory(new PropertyValueFactory<OpremaKluba, String>("velicina"));
 		doniranaKlub.setCellValueFactory(new PropertyValueFactory<OpremaKluba, String>("status"));
 		
-		ObservableList<OpremaKluba> listaOpremeKluba = OpremaKlubaDAO.SELECT_ALL();
+		ObservableList<OpremaKluba> listaOpremeKluba = DAOFactory.getDAOFactory().getOpremaKlubaDAO().SELECT_ALL();
 		
 		tblOpremaKluba.setItems(listaOpremeKluba);
-		
-		
 		
 		idClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, Integer>("id"));
 		tipClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, String>("tipOpreme"));
@@ -698,9 +788,8 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		jmbClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, String>("jmbClana"));
 		imeClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, String>("imeClana"));
 		prezimeClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, String>("prezimeClana"));
-		doniranaClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, String>("status"));
 		
-		ObservableList<OpremaClana> listaOpremeClana = OpremaClanaDAO.SELECT_ALL();
+		ObservableList<OpremaClana> listaOpremeClana = DAOFactory.getDAOFactory().getOpremaClanaDAO().SELECT_ALL();
 		
 		tblOpremaClana.setItems(listaOpremeClana);
 	}
@@ -727,10 +816,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			controller.disable();
 			
 			noviStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
 		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sacuvate izmjene?", ButtonType.YES, ButtonType.NO);
 		              Optional<ButtonType> rezultat = alert.showAndWait();
+		              
 		              if(ButtonType.YES.equals(rezultat.get())) {
 		            	  controller.azurirajUBazi();
 		            	  noviStage.close();
@@ -738,6 +829,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		              else if(ButtonType.NO.equals(rezultat.get())) {
 		            	  noviStage.close();
 		              }
+		              
 		          }});
 			
 			noviStage.showAndWait();
@@ -768,10 +860,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			controller.disable();
 			
 			noviStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
 		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sacuvate izmjene?", ButtonType.YES, ButtonType.NO);
 		              Optional<ButtonType> rezultat = alert.showAndWait();
+		              
 		              if(ButtonType.YES.equals(rezultat.get())) {
 		            	  controller.azurirajUBazi();
 		            	  noviStage.close();
@@ -779,6 +873,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		              else if(ButtonType.NO.equals(rezultat.get())) {
 		            	  noviStage.close();
 		              }
+		              
 		          }});
 			
 			noviStage.showAndWait();
@@ -792,17 +887,16 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		Stage noviStage = new Stage();
 		
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/DodajOpremuView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/DodajOpremuKlubaView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root,761,576);
-			DodajOpremuController controller = loader.<DodajOpremuController>getController();
+			Scene scene = new Scene(root,761,670);
+			DodajOpremuKlubaController controller = loader.<DodajOpremuKlubaController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
 			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			
-			controller.setOpremaKluba();
 			controller.ucitajComboBoxeve();
 			controller.checkBoxNijeSelektovan();
 			controller.disableDodajDugme();
@@ -830,10 +924,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			controller.setOprema(oprema);
 			
 			noviStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
 		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sacuvate izmjene?", ButtonType.YES, ButtonType.NO);
 		              Optional<ButtonType> rezultat = alert.showAndWait();
+		              
 		              if(ButtonType.YES.equals(rezultat.get())) {
 		            	  controller.azurirajUBazi();
 		            	  noviStage.close();
@@ -841,6 +937,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		              else if(ButtonType.NO.equals(rezultat.get())) {
 		            	  noviStage.close();
 		              }
+		              
 		          }});
 			noviStage.showAndWait(); 
 			popuniTabele();
@@ -853,10 +950,10 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		Stage noviStage = new Stage();
 		
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/DodajOpremuView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/trener/view/DodajOpremuClanaView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root,761,576);
-			DodajOpremuController controller = loader.<DodajOpremuController>getController();
+			Scene scene = new Scene(root,761,280);
+			DodajOpremuClanaController controller = loader.<DodajOpremuClanaController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
@@ -864,8 +961,6 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			
 			controller.ucitajComboBoxeve();
-			controller.checkBoxNijeSelektovan();
-			controller.disableDodajDugme();
 			
 			noviStage.showAndWait();
 			popuniTabele();

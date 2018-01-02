@@ -20,12 +20,12 @@ public class OpremaClana extends Oprema{
 		super();
 	}
 	
-	public OpremaClana(Integer id, Integer idNarudzbe, Integer idTipaOpreme, Integer idSponzora, Integer idUgovora, Integer idDonacije, Boolean donirana, String velicina) {
-		super(id, idNarudzbe, idTipaOpreme, idSponzora, idUgovora, idDonacije, donirana, velicina);
+	public OpremaClana(Integer id, Integer idNarudzbe, Integer idTipaOpreme, String velicina) {
+		super(id, idNarudzbe, idTipaOpreme, velicina);
 	}
 
-	public OpremaClana(Integer id, Integer idNarudzbe, Integer idTipaOpreme, Integer idSponzora, Integer idUgovora, Integer idDonacije, Boolean donirana, String velicina, Integer idClana) {
-		super(id, idNarudzbe, idTipaOpreme, idSponzora, idUgovora, idDonacije, donirana, velicina);
+	public OpremaClana(Integer id, Integer idNarudzbe, Integer idTipaOpreme, String velicina, Integer idClana) {
+		super(id, idNarudzbe, idTipaOpreme, velicina);
 		this.idClana = idClana==null ? null : new SimpleIntegerProperty(idClana);
 		this.clan = idClana==null ? null : ClanDAO.getById(idClana);
 		this.jmbClana = idClana==null ? null : new SimpleStringProperty(clan.getJmb());

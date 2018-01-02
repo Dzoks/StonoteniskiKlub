@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.OpremaKlubaDAO;
+import application.model.dao.DAOFactory;
 import application.model.dto.OpremaKluba;
 import javafx.event.ActionEvent;
 
@@ -27,7 +27,7 @@ public class IzmjenaOpisaOpremeController extends BaseController implements Init
 	}
 	
 	public void azurirajUBazi() {
-		OpremaKlubaDAO.UPDATE_OPIS(oprema, txtOpis.getText());
+		DAOFactory.getDAOFactory().getOpremaKlubaDAO().UPDATE_OPIS(oprema, txtOpis.getText());
 	}
 	
 	public void sacuvajIzmjene(ActionEvent event) {

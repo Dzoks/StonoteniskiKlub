@@ -53,7 +53,6 @@ public class ClanDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			ConnectionPool.close(ps);
@@ -73,7 +72,6 @@ public class ClanDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			ConnectionPool.close(ps);
