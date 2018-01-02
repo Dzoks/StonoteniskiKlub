@@ -7,10 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import application.model.dto.OsobaDTO;
 import application.model.dto.UcesnikPrijavaDTO;
 import application.util.ConnectionPool;
-//import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class UcesnikPrijavaDAO {
 	private final static String SQL_GET_BY_ID_OSOBE = "select * from UCESNIK_PRIJAVA u left join OSOBA o on u.OSOBA_Id=o.Id where u.OSOBA_Id=?";
