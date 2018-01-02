@@ -38,7 +38,7 @@ public class PocetniProzorRacunovodjaController extends BaseController implement
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/EvidentiranjeNovcanihSredstavaView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root,761,484);
+			Scene scene = new Scene(root,800,550);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
 			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
@@ -53,7 +53,7 @@ public class PocetniProzorRacunovodjaController extends BaseController implement
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/ObracunavanjePlateView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root,761,484);
+			Scene scene = new Scene(root,800,700);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
 			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
@@ -112,6 +112,36 @@ public class PocetniProzorRacunovodjaController extends BaseController implement
 		Stage noviStage = new Stage();
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/EvidentiranjeIsplacenihPlataView.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root,761,484);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			noviStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void idiNaTroskoviOprema() {
+		Stage noviStage = new Stage();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/EvidentiranjeSredstavaZaOpremu.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root,761,484);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			noviStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void idiNaTroskoviTurnir() {
+		Stage noviStage = new Stage();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/EvidentiranjeSredstavaZaTurnire.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			Scene scene = new Scene(root,761,484);
 			noviStage.setScene(scene);

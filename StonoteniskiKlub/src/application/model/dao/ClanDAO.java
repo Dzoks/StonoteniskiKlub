@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 import application.model.dto.ClanDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;

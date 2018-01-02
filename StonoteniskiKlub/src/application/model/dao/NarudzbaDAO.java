@@ -21,6 +21,10 @@ public class NarudzbaDAO {
 	private static final String SQL_UPDATE = "UPDATE narudzba SET OpremaKluba=?, DISTRIBUTER_OPREME_Id=? WHERE Id=?";
 	private final static String SQL_UPDATE_OBRADJENO = "UPDATE narudzba SET Obradjeno=true WHERE Id=?";
 	private final static String SQL_UPDATE_OBRISAN = "UPDATE narudzba SET Obrisan=true WHERE Id=?";
+	private static final String SQL_SELECT_OPREMA_KLUBA = "SELECT * FROM narudzba WHERE Obrisan=false AND OpremaKluba=true";
+	
+	
+	
 	
 	public static ObservableList<Narudzba> SELECT_ALL() {
 		ObservableList<Narudzba> listaNarudzbi = FXCollections.observableArrayList();
@@ -45,7 +49,29 @@ public class NarudzbaDAO {
 		
 		return listaNarudzbi;
 	}
-	
+	public static ObservableList<Narudzba> SELECT_OPREMA_KLUBA() {//dodala Helena
+		ObservableList<Narudzba> listaNarudzbi = FXCollections.observableArrayList();
+		Connection c = null;
+		Statement s = null;
+		ResultSet rs = null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			s = c.createStatement();
+			rs = s.executeQuery(SQL_SELECT_OPREMA_KLUBA);
+			
+			while(rs.next()) {
+				listaNarudzbi.add(new Narudzba(rs.getInt("Id"), rs.getDate("Datum"), rs.getBoolean("OpremaKluba"), rs.getBoolean("Obradjeno"), rs.getInt("DISTRIBUTER_OPREME_Id"), NarudzbaStavkaDAO.SELECT_BY_IDNARUDZBE(rs.getInt("Id"))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.getInstance().checkIn(c);
+			ConnectionPool.close(rs, s);
+		}
+		
+		return listaNarudzbi;
+	}
 	public static ObservableList<Narudzba> SELECT_NEOBRADJENE(Boolean opremaKluba) {
 		ObservableList<Narudzba> listaNarudzbi = FXCollections.observableArrayList();
 		Connection c = null;
