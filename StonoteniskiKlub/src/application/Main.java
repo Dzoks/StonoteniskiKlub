@@ -21,6 +21,7 @@ public class Main extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Registracija");
 		primaryStage.show();
+		
 	}
 
 	public static void main(String[] args) {
