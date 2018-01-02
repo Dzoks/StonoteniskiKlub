@@ -8,8 +8,14 @@ public abstract class DAOFactory {
 	public abstract UgovorDAO getUgovorDAO();
 
 	public abstract DonacijaDAO getDonacijaDAO();
-	
-	public static DAOFactory getDAOFactory(){
+
+	public abstract ZaposleniTipDAO getZaposleniTipDAO();
+
+	public abstract ZaposlenjeDAO getZaposlenjeDAO();
+
+	public abstract ZaposleniDAO getZaposleniDAO();
+
+	public static DAOFactory getDAOFactory() {
 		return MySQLDAOFactory.getInstance();
 	}
 }

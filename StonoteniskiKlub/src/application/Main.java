@@ -17,7 +17,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		BaseController.changeScene("/application/gui/trener/view/RegistracijaView.fxml", primaryStage);
+		BaseController.changeScene("/application/gui/sekretar/view/DodavanjeZaposlenogView.fxml", primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Registracija");
 		primaryStage.show();

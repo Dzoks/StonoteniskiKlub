@@ -51,10 +51,10 @@ public class OsobaDTO {
 	}
 
 
-	public OsobaDTO(int id, String ime, String prezime, String imeRoditelja,
+	public OsobaDTO(Integer id, String ime, String prezime, String imeRoditelja,
 			String jmb, Character pol, Date datumRodjenja, Blob slika, List<String> telefoni) {
 		super();
-		this.id = new SimpleIntegerProperty(id);
+		this.id = id == null ? null : new SimpleIntegerProperty(id);
 		this.ime = new SimpleStringProperty(ime);
 		this.prezime = new SimpleStringProperty(prezime);
 		this.imeRoditelja = new SimpleStringProperty(imeRoditelja);

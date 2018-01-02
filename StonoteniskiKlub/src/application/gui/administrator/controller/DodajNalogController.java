@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
+import application.model.dao.DAOFactory;
 import application.model.dao.KorisnickiNalogDAO;
 import application.model.dao.KorisnickiNalogTipDAO;
 import application.model.dao.OpremaTipDAO;
@@ -50,14 +51,14 @@ public class DodajNalogController extends BaseController {
 		if (!korisnickoIme.getText().isEmpty()
 				&& !tabelaZaposleni.getSelectionModel().isEmpty()) {
 				if(dodajNalog())
-					new Alert(AlertType.INFORMATION, "Korisnički nalog je uspješno dodan.").show();
+					new Alert(AlertType.INFORMATION, "KorisniÄ�ki nalog je uspjeÅ¡no dodan.").show();
 				else {
-					new Alert(AlertType.INFORMATION, "Korisničko ime već postoji.").show();
+					new Alert(AlertType.INFORMATION, "KorisniÄ�ko ime veÄ‡ postoji.").show();
 				}
 				korisnickoIme.clear();
 		} else {
 			if (korisnickoIme.getText().isEmpty())
-				new Alert(AlertType.ERROR, "Unesite korisničko ime.").show();
+				new Alert(AlertType.ERROR, "Unesite korisniÄ�ko ime.").show();
 			if (ulogaChoiceBox.getSelectionModel().getSelectedItem().getNaziv().isEmpty())
 				new Alert(AlertType.ERROR, "Odaberite zaposlenog.").show();
 		}
@@ -96,7 +97,7 @@ public class DodajNalogController extends BaseController {
 		kolonaIme.setCellValueFactory(new PropertyValueFactory<ZaposleniDTO, String>("ime"));
 		kolonaPrezime.setCellValueFactory(new PropertyValueFactory<ZaposleniDTO, String>("prezime"));
 
-		ObservableList<ZaposleniDTO> listaZaposlenih =ZaposleniDAO.selectAll();
+		ObservableList<ZaposleniDTO> listaZaposlenih = DAOFactory.getDAOFactory().getZaposleniDAO().selectAll();
 
 		tabelaZaposleni.setItems(listaZaposlenih);		
 	}

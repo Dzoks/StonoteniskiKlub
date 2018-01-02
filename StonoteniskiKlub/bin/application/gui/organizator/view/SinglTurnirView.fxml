@@ -7,45 +7,69 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.SinglTurnirController">
+<AnchorPane prefHeight="450.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.SinglTurnirController">
    <children>
-      <Label layoutX="31.0" layoutY="22.0" text="Kategorija:">
+      <Label layoutX="21.0" layoutY="55.0" text="Kategorija:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label id="lblKategorija" fx:id="lblKategorija" layoutX="175.0" layoutY="22.0" text="Muski/Zenski">
+      <Label id="lblKategorija" fx:id="lblKategorija" layoutX="165.0" layoutY="55.0" text="Muski/Zenski">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="tblIgraci" layoutX="31.0" layoutY="62.0" prefHeight="350.0" prefWidth="450.0">
+      <TableView fx:id="tblIgraci" layoutX="21.0" layoutY="82.0" prefHeight="350.0" prefWidth="480.0">
         <columns>
-          <TableColumn fx:id="clnRedniBroj" prefWidth="75.0" text="Redni br." />
-          <TableColumn fx:id="clnIme" prefWidth="101.0" text="Ime" />
-            <TableColumn fx:id="clnPrezime" prefWidth="133.0" text="Prezime" />
-            <TableColumn fx:id="clnJMBG" prefWidth="145.0" text="JMBG" />
+          <TableColumn fx:id="clnIme" prefWidth="160.0" text="Ime" />
+            <TableColumn fx:id="clnPrezime" prefWidth="160.0" text="Prezime" />
+            <TableColumn fx:id="clnJMBG" prefWidth="179.0" text="JMBG" />
         </columns>
       </TableView>
-      <Button id="btnPrijavi" fx:id="btnPrijavi" layoutX="498.0" layoutY="62.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Prijavi">
+      <Button id="btnPrijavi" fx:id="btnPrijavi" layoutX="525.0" layoutY="82.0" mnemonicParsing="false" onAction="#prijaviIgraca" prefHeight="39.0" prefWidth="81.0" text="Prijavi">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button id="btnIzmjeni" fx:id="btnIzmjeni" layoutX="498.0" layoutY="117.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Izmjeni">
+      <Button id="btnIzmjeni" fx:id="btnIzmjeni" layoutX="525.0" layoutY="137.0" mnemonicParsing="false" onAction="#izmjeniIgraca" prefHeight="39.0" prefWidth="81.0" text="Izmjeni">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button id="btnZrijeb" fx:id="btnZrijeb" layoutX="498.0" layoutY="172.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Žrijeb">
+      <Button id="btnZrijeb" fx:id="btnZrijeb" layoutX="525.0" layoutY="192.0" mnemonicParsing="false" onAction="#prikaziZrijeb" prefHeight="39.0" prefWidth="81.0" text="Žrijeb">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button id="btnNazad" fx:id="btnNazad" layoutX="498.0" layoutY="366.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="81.0" text="Nazad">
+      <Button id="btnNazad" fx:id="btnNazad" layoutX="525.0" layoutY="386.0" mnemonicParsing="false" onAction="#vratiNazad" prefHeight="46.0" prefWidth="81.0" text="Nazad">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
+      <Label id="lblNazivTurnira" fx:id="lblNaziv" layoutX="21.0" layoutY="14.0" text="Naziv turnira">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label id="lblDatum" fx:id="lblDatum" layoutX="397.0" layoutY="14.0" text="Datum">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblBroj" layoutX="546.0" layoutY="284.0" text="b">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="564.0" layoutY="284.0" text="/32">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="521.0" layoutY="257.0" text="Prijavljeno:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
