@@ -2,7 +2,9 @@ package application.model.dao.mysql;
 
 import application.model.dao.DAOFactory;
 import application.model.dao.DonacijaDAO;
+import application.model.dao.SkupstinaDAO;
 import application.model.dao.SponzorDAO;
+import application.model.dao.StavkaSkupstinaDAO;
 import application.model.dao.UgovorDAO;
 import application.model.dao.ZaposleniDAO;
 import application.model.dao.ZaposleniTipDAO;
@@ -47,5 +49,12 @@ public class MySQLDAOFactory extends DAOFactory{
 	public ZaposleniDAO getZaposleniDAO() {
 		return new MySQLZaposleniDAO();
 	}
-	
+	@Override
+	public StavkaSkupstinaDAO getStavkaSkupstinaDAO() {
+		return MySQLStavkaSkupstinaDAO.getInstance();
+	}
+	@Override
+	public SkupstinaDAO getSkupstinaDAO() {
+		return MySQLSkupstinaDAO.getInstance();
+	}
 }

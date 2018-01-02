@@ -10,49 +10,37 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="945.0"
-	xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="application.gui.sekretar.controller.RadSaZaposlenimaController">
+<AnchorPane prefHeight="400.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaZaposlenimaController">
 	<children>
-		<Label layoutX="456.0" layoutY="18.0" text="Filtriraj po" />
-		<ComboBox fx:id="cbFilter" layoutX="518.0" layoutY="14.0"
-			prefWidth="145.0" />
-		<TextField fx:id="txtFilter" layoutX="674.0" layoutY="14.0"
-			prefHeight="25.0" prefWidth="250.0" />
-		<TableView fx:id="tblZaposleni" layoutX="14.0" layoutY="52.0"
-			prefHeight="300.0" prefWidth="910.0">
+		<Label layoutX="443.0" layoutY="18.0" text="Pretrazite po:" />
+		<ComboBox fx:id="cbFilter" layoutX="518.0" layoutY="14.0" prefWidth="145.0" />
+		<TextField fx:id="txtFilter" layoutX="674.0" layoutY="14.0" prefHeight="25.0" prefWidth="174.0" />
+		<TableView fx:id="tblZaposleni" layoutX="14.0" layoutY="52.0" prefHeight="300.0" prefWidth="910.0">
 			<columns>
 				<TableColumn fx:id="colIme" prefWidth="100.0" text="Ime" />
-				<TableColumn fx:id="colImeRoditelja" prefWidth="100.0"
-					text="Ime roditelja" />
+				<TableColumn fx:id="colImeRoditelja" prefWidth="100.0" text="Ime roditelja" />
 				<TableColumn fx:id="colPrezime" prefWidth="100.0" text="Prezime" />
 				<TableColumn fx:id="colJMB" prefWidth="100.0" text="JMB" />
-				<TableColumn fx:id="colDatumRodjenja" prefWidth="100.0"
-					text="Datum rodjenja" />
-				<TableColumn fx:id="colRadnoMjesto" prefWidth="100.0"
-					text="Radno mjesto" />
+				<TableColumn fx:id="colDatumRodjenja" prefWidth="100.0" text="Datum rodjenja" />
+				<TableColumn fx:id="colRadnoMjesto" prefWidth="100.0" text="Radno mjesto" />
 				<TableColumn fx:id="colAktivan" prefWidth="100.0" text="Aktivan" />
-				<TableColumn fx:id="colDetaljno" prefWidth="100.0" text="Detaljno" />
 			</columns>
 			<columnResizePolicy>
 				<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 			</columnResizePolicy>
 		</TableView>
-		<Button fx:id="btnAzuriraj" layoutX="715.0" layoutY="361.0"
-			mnemonicParsing="false" text="Azuriraj" />
-		<Button fx:id="btnObrisi" layoutX="646.0" layoutY="361.0"
-			mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Obrisi" />
-		<RadioButton fx:id="rbZaposleni" layoutX="14.0" layoutY="18.0"
-			mnemonicParsing="false" selected="true" text="Zaposleni">
+		<Button fx:id="btnAzuriraj" layoutX="269.0" layoutY="361.0" mnemonicParsing="false" onAction="#azuriraj" prefHeight="25.0" prefWidth="118.0" text="Azurirajte" />
+		<Button fx:id="btnObrisi" layoutX="142.0" layoutY="361.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="118.0" text="Obrisite" />
+		<RadioButton fx:id="rbZaposleni" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#prikaziZaposlene" selected="true" text="Zaposleni">
 			<toggleGroup>
 				<ToggleGroup fx:id="grpZaposleni" />
 			</toggleGroup>
 		</RadioButton>
-		<RadioButton fx:id="rbNezaposleni" layoutX="99.0" layoutY="18.0"
-			mnemonicParsing="false" text="Nezaposleni" toggleGroup="$grpZaposleni" />
-		<RadioButton fx:id="rbSvi" layoutX="195.0" layoutY="18.0"
-			mnemonicParsing="false" text="Svi" toggleGroup="$grpZaposleni" />
-		<Button fx:id="btnDodaj" layoutX="787.0" layoutY="361.0"
-			mnemonicParsing="false" text="Dodavanje zaposlenog" />
+		<RadioButton fx:id="rbNezaposleni" layoutX="99.0" layoutY="18.0" mnemonicParsing="false" onAction="#prikaziNezaposlene" text="Nezaposleni" toggleGroup="$grpZaposleni" />
+		<RadioButton fx:id="rbSvi" layoutX="195.0" layoutY="18.0" mnemonicParsing="false" onAction="#prikaziSve" text="Svi" toggleGroup="$grpZaposleni" />
+		<Button fx:id="btnDodaj" layoutX="789.0" layoutY="361.0" mnemonicParsing="false" onAction="#dodajZaposlenog" prefHeight="25.0" prefWidth="134.0" text="Dodajte zaposlenog" />
+      <Button fx:id="btnPretraga" layoutX="856.0" layoutY="14.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretrazite" />
+      <Button fx:id="btnDodajZaposlenje" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#dodajZaposlenje" text="Dodajte zaposlenje" />
+      <Button fx:id="btnDetalji" layoutX="399.0" layoutY="361.0" mnemonicParsing="false" onAction="#prikaziDetalje" prefHeight="25.0" prefWidth="118.0" text="Detalji" />
 	</children>
 </AnchorPane>
