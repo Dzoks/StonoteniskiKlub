@@ -10,7 +10,7 @@ public class Main extends Application {
 		BaseController.changeScene("/application/gui/trener/view/PregledClanovaView.fxml", primaryStage);
 		//BaseController.changeScene("/application/test/drugi.fxml", primaryStage);
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("Turniri");
+		primaryStage.setTitle("Pregled clanova");
 		primaryStage.centerOnScreen();
 		primaryStage.show();
 	}
