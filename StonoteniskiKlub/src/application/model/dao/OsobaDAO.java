@@ -1,14 +1,14 @@
 package application.model.dao;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import java.sql.Blob;
 
 import application.model.dto.OsobaDTO;
 import application.util.ConnectionPool;
@@ -25,12 +25,13 @@ public class OsobaDAO {
 	private static final String SQL_UPDATE = "UPDATE OSOBA SET IME=?, PREZIME=?, IMERODITELJA=?, POL=?, JMB=?, DATUMRODJENJA=?, FOTOGRAFIJA=? WHERE ID=?";
 	private static final String SQL_SELECT_ALL_TIPOVI_POTVRDE = "SELECT * FROM POTVRDA_TIP";
 	private static final String SQL_INSERT_POTVRDA = "INSERT INTO potvrda VALUES (?, ?, ?, ?, ?)";
-	
+	private final static String SQL_DOES_EXIST="{call postojiJmb(?,?,?,?)}";
 	
 	
 	public static void insertPotvrda(int idClana, int idTipa, Date datum, Blob tekst) {
 		PreparedStatement ps = null;
 		Connection c = null;
+	
 
 		try {
 			c = ConnectionPool.getInstance().checkOut();
@@ -167,7 +168,7 @@ public class OsobaDAO {
 			ps.executeUpdate();
 
 			Object temp[] = {};
-
+			ps.close();//OVO JE DODANO JER DOLAZI DO CURENJA, DZOKS
 			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_IDENTITY, false, temp);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
@@ -250,5 +251,29 @@ public class OsobaDAO {
 		}
 	}
 	
+	public static boolean doesExist(String jmb,Integer idTurnira,Integer idKategorije) {
+		boolean retVal=false;
+		Connection c = null;
+		java.sql.CallableStatement cst=null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_DOES_EXIST;
+			cst=c.prepareCall(query);
+			cst.setString(1, jmb);
+			cst.setInt(2, idTurnira);
+			cst.setInt(3, idKategorije);
+			cst.registerOutParameter(4, Types.BOOLEAN);
+			cst.execute();
+			retVal=cst.getBoolean(4);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(cst);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+		return retVal;
+	}
 	
 }

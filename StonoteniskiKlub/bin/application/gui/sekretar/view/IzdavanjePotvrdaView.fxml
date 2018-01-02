@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="529.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.IzdavanjePotvrdaController">
+   <children>
+      <Button layoutX="641.0" layoutY="475.0" mnemonicParsing="false" onAction="#stampaj" text="Štampaj" />
+      <TextArea fx:id="txtSadrzaj" layoutX="67.0" layoutY="115.0" prefHeight="341.0" prefWidth="648.0" promptText="Sadrzaj" wrapText="true" />
+      <Label layoutX="67.0" layoutY="71.0" text="Odaberi tip potvrde" />
+      <ComboBox fx:id="cbVrstaPotvrde" layoutX="241.0" layoutY="66.0" onAction="#odaberiTip" prefHeight="31.0" prefWidth="220.0" />
+   </children>
+</AnchorPane>

@@ -1,10 +1,11 @@
 package application.model.dto;
 
 import java.sql.Blob;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -31,6 +32,16 @@ public class OsobaDTO {
 		this.jmb = new SimpleStringProperty();
 	}
 	
+	public OsobaDTO(Integer id, String ime, String prezime, String jmb, Character pol,
+			Date datumRodjenja) {
+		super();
+		this.id = new SimpleIntegerProperty(id);
+		this.ime = new SimpleStringProperty(ime);
+		this.prezime = new SimpleStringProperty(prezime);
+		this.jmb = new SimpleStringProperty(jmb);
+		this.pol = pol;
+		this.datumRodjenja=datumRodjenja;
+	}
 
 	public List<String> getTelefoni() {
 		return telefoni;
@@ -51,9 +62,9 @@ public class OsobaDTO {
 		this.imeRoditelja = new SimpleStringProperty(imeRoditelja);
 		this.jmb = new SimpleStringProperty(jmb);
 		this.pol = pol;
-		this.datumRodjenja = datumRodjenja;
 		this.slika = slika;
 		this.telefoni = telefoni;
+		this.datumRodjenja=datumRodjenja;
 	}
 
 
