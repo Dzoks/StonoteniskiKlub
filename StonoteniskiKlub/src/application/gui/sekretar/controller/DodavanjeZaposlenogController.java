@@ -1,7 +1,7 @@
 package application.gui.sekretar.controller;
 
 import javafx.fxml.FXML;
-
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
@@ -26,6 +26,7 @@ import org.bouncycastle.jcajce.provider.keystore.BC;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
+import application.model.dao.OsobaDAO;
 import application.model.dto.ZaposleniDTO;
 import application.model.dto.ZaposleniTipDTO;
 import application.model.dto.ZaposlenjeDTO;
@@ -45,6 +46,11 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.DatePicker;
 
 public class DodavanjeZaposlenogController extends BaseController {
+
+	public static final int DODAVANJE_ZAPOSLENOG = 1;
+	public static final int DODAVANJE_ZAPOSLENJA = 2;
+	public static final int AZURIRANJE_ZAPOSLENOG = 3;
+
 	@FXML
 	private ImageView imgFotografija;
 	@FXML
@@ -98,7 +104,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 		imgChooser.setTitle("Izaberite fotografiju");
 		imgChooser.setSelectedExtensionFilter(new ExtensionFilter("slike", ".jpg", ".jpeg", ".bmp", ".gif"));
 		File file = imgChooser.showOpenDialog(this.primaryStage);
-		if(file != null){
+		if (file != null) {
 			System.out.println(file.getAbsolutePath());
 			fotografijaLik = file;
 			try {
@@ -112,65 +118,159 @@ public class DodavanjeZaposlenogController extends BaseController {
 	// Event Listener on Button[#btnSacuvajPodatke].onAction
 	@FXML
 	public void sacuvaj(ActionEvent event) {
-		if (InputValidator.allEntered(txtIme.getText(), txtPrezime.getText(), txtImeRoditelja.getText(),
-				txtJMB.getText(), dpDatumRodjenja.getValue(), dpZaposlenOd.getValue(), txtPlata.getText())) {
-			if (InputValidator.validateJMB(txtJMB.getText())) {
-				if (InputValidator.validateDouble(txtPlata.getText())) {
-					try {
+
+		if ((tip == AZURIRANJE_ZAPOSLENOG && !InputValidator.allEntered(txtIme.getText(), txtPrezime.getText(),
+				txtImeRoditelja.getText(), txtJMB.getText(), dpDatumRodjenja.getValue()))
+				|| (tip == DODAVANJE_ZAPOSLENJA && !InputValidator.allEntered(dpZaposlenOd.getValue(),
+						dpZaposlenDo.getValue(), txtPlata.getText()))
+				|| (tip == DODAVANJE_ZAPOSLENOG && !InputValidator.allEntered(txtIme.getText(), txtPrezime.getText(),
+						txtImeRoditelja.getText(), txtJMB.getText(), dpDatumRodjenja.getValue(),
+						dpZaposlenOd.getValue(), txtPlata.getText()))) {
+			AlertDisplay.showInformation("Greska", "", "Niste unijeli sve podatke");
+		} else {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date datumRodjenja = null;
+			Date datumOd = null;
+			Date datumDo = null;
+			try {
+				if(dpDatumRodjenja.getValue() != null){
+					datumRodjenja = formatter.parse(dpDatumRodjenja.getValue().toString());
+				}
+				if(dpZaposlenOd.getValue() != null){
+					datumOd = formatter.parse(dpZaposlenOd.getValue().toString());
+				}
+				if (dpZaposlenDo.getValue() != null) {
+					datumDo = formatter.parse(dpZaposlenDo.getValue().toString());
+				}
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			if (tip == AZURIRANJE_ZAPOSLENOG) {
+				this.zaposleniZaAzurirati.setIme(txtIme.getText());
+				this.zaposleniZaAzurirati.setImeRoditelja(txtImeRoditelja.getText());
+				this.zaposleniZaAzurirati.setPrezime(txtPrezime.getText());
+				this.zaposleniZaAzurirati.setJmb(txtJMB.getText());
+				this.zaposleniZaAzurirati.setDatumRodjenja(datumRodjenja);
+				this.zaposleniZaAzurirati.setPol(rbMuskiPol.isSelected() ? 'M' : 'Z');
+				try {
+					if (fotografijaLik != null) {
+						this.zaposleniZaAzurirati.setSlika(convertImageToBlob(fotografijaLik));
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				OsobaDAO.update(zaposleniZaAzurirati);
+				parent.zamijeni(zaposleniZaAzurirati);
+				AlertDisplay.showInformation("Uspjesno", "", "Zaposleni uspjesno azuriran");
+			} else if (tip == DODAVANJE_ZAPOSLENJA) {
+				ZaposlenjeDTO zaposlenje = new ZaposlenjeDTO(
+						cmbRadnoMjesto.getSelectionModel().getSelectedItem().getId(),
+						cmbRadnoMjesto.getSelectionModel().getSelectedItem().getTip(), datumOd, datumDo,
+						Double.parseDouble(txtPlata.getText()));
+				if (DAOFactory.getDAOFactory().getZaposlenjeDAO().insert(zaposleniZaAzurirati, zaposlenje)) {
+					zaposleniZaAzurirati.getZaposljenja().add(zaposlenje);
+					AlertDisplay.showInformation("Uspjesno", "", "Zaposlenje uspjesno dodano");
+				} else {
+					AlertDisplay.showInformation("Greska", "", "Greska pri dodavanju");
+				}
+			} else {
+				if (InputValidator.validateJMB(txtJMB.getText())) {
+					if (InputValidator.validateDouble(txtPlata.getText())) {
+
 						ZaposleniTipDTO tip = cmbRadnoMjesto.getValue();
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-						Date datumOd = formatter.parse(dpZaposlenOd.getValue().toString());
-						Date datumDo = null;
-						if (dpZaposlenDo.getValue() != null) {
-							datumDo = formatter.parse(dpZaposlenDo.getValue().toString());
-						}
 						ZaposlenjeDTO zaposlenje = new ZaposlenjeDTO(tip.getId(), tip.getTip(), datumOd, datumDo,
 								Double.parseDouble(txtPlata.getText()));
 						char pol = rbMuskiPol.isSelected() ? 'M' : 'Z';
-						Date datumRodjenja = formatter.parse(dpDatumRodjenja.getValue().toString());
 						Blob slika = null;
-						if(fotografijaLik != null){
+						if (fotografijaLik != null) {
 							try {
 								slika = convertImageToBlob(fotografijaLik);
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
 						}
-						ZaposleniDTO zaposleni = new ZaposleniDTO(null, txtIme.getText(), txtPrezime.getText(), txtImeRoditelja.getText(), txtJMB.getText(), pol, datumRodjenja, slika, null, true, null);
-						if(DAOFactory.getDAOFactory().getZaposleniDAO().insert(zaposleni, zaposlenje, tip)){
+						ZaposleniDTO zaposleni = new ZaposleniDTO(null, txtIme.getText(), txtPrezime.getText(),
+								txtImeRoditelja.getText(), txtJMB.getText(), pol, datumRodjenja, slika, null, true,
+								null);
+						if (DAOFactory.getDAOFactory().getZaposleniDAO().insert(zaposleni, zaposlenje, tip)) {
 							zaposleni.setZaposljenja(FXCollections.observableArrayList());
 							zaposleni.getZaposljenja().add(zaposlenje);
 							AlertDisplay.showInformation("Uspjesno", "", "Zaposleni uspjesno dodan!");
 							parent.dodajZaposlenog(zaposleni);
-						} else{
+						} else {
 							AlertDisplay.showInformation("Greska", "", "Greska pri dodavanju");
 						}
-					} catch (ParseException e) {
-						e.printStackTrace();
+
+					} else {
+						AlertDisplay.showInformation("Greska", "", "Pogresan format podatka za platu.");
 					}
 				} else {
-					AlertDisplay.showInformation("Greska", "", "Pogresan format podatka za platu.");
+					AlertDisplay.showInformation("Greska", "", "Pogresan format JMB-a.");
 				}
-			} else {
-				AlertDisplay.showInformation("Greska", "", "Pogresan format JMB-a.");
 			}
-		} else {
-			AlertDisplay.showInformation("Greska", "", "Niste unijeli sve podatke");
 		}
 	}
+
 	private FileChooser imgChooser = new FileChooser();
-	
-	public void setParent(RadSaZaposlenimaController parent){
+
+	public void setParent(RadSaZaposlenimaController parent) {
 		this.parent = parent;
 	}
+
+	public void setTip(int tip) {
+		this.tip = tip;
+		if (tip == AZURIRANJE_ZAPOSLENOG) {
+			disableZaposlenje();
+			;
+		} else if (tip == DODAVANJE_ZAPOSLENJA) {
+			disableZaposleni();
+		}
+	}
+
+	public void setZaposleni(ZaposleniDTO zaposleniZaAzurirati) {
+		this.zaposleniZaAzurirati = zaposleniZaAzurirati;
+		txtIme.setText(zaposleniZaAzurirati.getIme());
+		txtImeRoditelja.setText(zaposleniZaAzurirati.getImeRoditelja());
+		txtPrezime.setText(zaposleniZaAzurirati.getPrezime());
+		txtJMB.setText(zaposleniZaAzurirati.getJmb());
+		dpDatumRodjenja.setValue(new java.sql.Date(zaposleniZaAzurirati.getDatumRodjenja().getTime()).toLocalDate());
+		if (zaposleniZaAzurirati.getSlika() != null) {
+			try {
+				imgFotografija.setImage(new Image(zaposleniZaAzurirati.getSlika().getBinaryStream()));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if (zaposleniZaAzurirati.getPol().equals("M")) {
+			rbMuskiPol.setSelected(true);
+		} else {
+			rbZenskiPol.setSelected(false);
+		}
+	}
+
+	public void setDisabled(Node... items) {
+		for (int i = 0; i < items.length; i++) {
+			items[i].setDisable(true);
+		}
+	}
+
+	public void disableZaposleni() {
+		setDisabled(txtIme, txtPrezime, txtImeRoditelja, txtJMB, dpDatumRodjenja, tfBrojTelefona, btnDodajBrojTelefona,
+				btnDodajFotografiju, rbMuskiPol, rbZenskiPol);
+	}
+
+	public void disableZaposlenje() {
+		setDisabled(dpZaposlenDo, dpZaposlenOd, cmbRadnoMjesto, txtPlata);
+	}
+
 	private Blob convertImageToBlob(File fotografija) throws IOException {
-		if(fotografija == null)
+		if (fotografija == null)
 			return null;
 		Connection conn;
 		try {
 			conn = ConnectionPool.getInstance().checkOut();
 			Blob blob = conn.createBlob();
-			
+
 			blob.setBytes(1, Files.readAllBytes(fotografija.toPath()));
 			return blob;
 		} catch (SQLException e) {
@@ -178,6 +278,9 @@ public class DodavanjeZaposlenogController extends BaseController {
 			return null;
 		}
 	}
+
 	private RadSaZaposlenimaController parent;
 	private File fotografijaLik = null;
+	private int tip;
+	private ZaposleniDTO zaposleniZaAzurirati;
 }

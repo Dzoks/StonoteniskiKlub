@@ -54,6 +54,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 
 	@Override
 	public boolean insert(ZaposleniDTO zaposleni, ZaposlenjeDTO zaposlenje, ZaposleniTipDTO zaposleniTip) {
+		Integer id = -1;
 		boolean result = false;
 		Connection connection = null;
 		CallableStatement statement = null;
@@ -80,9 +81,14 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 				statement.setDate("pDatum_do", new Date(zaposlenje.getDatumOd().getTime()));
 			}
 			statement.setBigDecimal("pPlata", new BigDecimal(zaposlenje.getPlata()));
-			statement.registerOutParameter("pUspjesno", Types.BOOLEAN);
+			statement.registerOutParameter("pId", Types.INTEGER);
 			statement.execute();
-			result = statement.getBoolean("pUspjesno");
+			id = statement.getInt("pId");
+			if(!id.equals(Integer.valueOf(-1))){
+				result = true;
+				zaposleni.setId(id);
+			}
+			System.out.println(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally{

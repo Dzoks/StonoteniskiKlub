@@ -76,4 +76,8 @@ public class ZaposleniDTO extends OsobaDTO {
 		}
 		return null;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
 }
