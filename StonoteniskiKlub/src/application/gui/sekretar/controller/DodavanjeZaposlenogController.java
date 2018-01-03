@@ -11,7 +11,12 @@ import javafx.scene.control.ToggleGroup;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +30,9 @@ import application.model.dto.ZaposleniDTO;
 import application.model.dto.ZaposleniTipDTO;
 import application.model.dto.ZaposlenjeDTO;
 import application.util.AlertDisplay;
+import application.util.ConnectionPool;
 import application.util.InputValidator;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.ComboBox;
@@ -93,6 +100,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 		File file = imgChooser.showOpenDialog(this.primaryStage);
 		if(file != null){
 			System.out.println(file.getAbsolutePath());
+			fotografijaLik = file;
 			try {
 				imgFotografija.setImage(new Image(new FileInputStream(file)));
 			} catch (FileNotFoundException e) {
@@ -120,9 +128,20 @@ public class DodavanjeZaposlenogController extends BaseController {
 								Double.parseDouble(txtPlata.getText()));
 						char pol = rbMuskiPol.isSelected() ? 'M' : 'Z';
 						Date datumRodjenja = formatter.parse(dpDatumRodjenja.getValue().toString());
-						ZaposleniDTO zaposleni = new ZaposleniDTO(null, txtIme.getText(), txtPrezime.getText(), txtImeRoditelja.getText(), txtJMB.getText(), pol, datumRodjenja, null, null, true, null);
+						Blob slika = null;
+						if(fotografijaLik != null){
+							try {
+								slika = convertImageToBlob(fotografijaLik);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+						ZaposleniDTO zaposleni = new ZaposleniDTO(null, txtIme.getText(), txtPrezime.getText(), txtImeRoditelja.getText(), txtJMB.getText(), pol, datumRodjenja, slika, null, true, null);
 						if(DAOFactory.getDAOFactory().getZaposleniDAO().insert(zaposleni, zaposlenje, tip)){
+							zaposleni.setZaposljenja(FXCollections.observableArrayList());
+							zaposleni.getZaposljenja().add(zaposlenje);
 							AlertDisplay.showInformation("Uspjesno", "", "Zaposleni uspjesno dodan!");
+							parent.dodajZaposlenog(zaposleni);
 						} else{
 							AlertDisplay.showInformation("Greska", "", "Greska pri dodavanju");
 						}
@@ -140,4 +159,25 @@ public class DodavanjeZaposlenogController extends BaseController {
 		}
 	}
 	private FileChooser imgChooser = new FileChooser();
+	
+	public void setParent(RadSaZaposlenimaController parent){
+		this.parent = parent;
+	}
+	private Blob convertImageToBlob(File fotografija) throws IOException {
+		if(fotografija == null)
+			return null;
+		Connection conn;
+		try {
+			conn = ConnectionPool.getInstance().checkOut();
+			Blob blob = conn.createBlob();
+			
+			blob.setBytes(1, Files.readAllBytes(fotografija.toPath()));
+			return blob;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	private RadSaZaposlenimaController parent;
+	private File fotografijaLik = null;
 }

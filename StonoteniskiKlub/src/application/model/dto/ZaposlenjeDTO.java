@@ -38,11 +38,11 @@ public class ZaposlenjeDTO {
 		return tipNaziv;
 	}
 	public StringProperty datumOdProperty() {
-		return new SimpleStringProperty(new SimpleDateFormat("dd.MM.yyyy").format(datumOd));
+		return new SimpleStringProperty(new SimpleDateFormat("yyyy-MM-dd").format(datumOd));
 	}
 	public StringProperty datumDoProperty() {
 		return datumDo == null ? new SimpleStringProperty("-")
-				: new SimpleStringProperty(new SimpleDateFormat("dd.MM.yyyy").format(datumDo));
+				: new SimpleStringProperty(new SimpleDateFormat("yyyy-MM-dd").format(datumDo));
 	}
 	public DoubleProperty plataProperty() {
 		return plata;

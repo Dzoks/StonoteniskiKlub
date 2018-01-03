@@ -7,5 +7,6 @@ import javafx.collections.ObservableList;
 
 public interface ZaposleniDAO {
 	ObservableList<ZaposleniDTO> selectAll();
+	ObservableList<ZaposleniDTO> selectAktivni();
 	boolean insert(ZaposleniDTO zaposleni, ZaposlenjeDTO zaposlenje, ZaposleniTipDTO zaposleniTip);
 }

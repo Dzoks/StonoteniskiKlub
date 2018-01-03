@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 
 public class MySQLZaposleniDAO implements ZaposleniDAO {
 	private static final String SQL_SELECT_ALL = "select * from zaposleni z inner join osoba o on z.OSOBA_Id=o.Id";
+	private static final String SQL_SELECT_ALL_AKTIVNI = "select * from AKTIVNI_ZAPOSLENI";
 	private static final String SQL_INSERT = "{call dodaj_zaposlenog(?,?,?,?,?,?,?,?,?,?,?,?)}";
 
 	@Override
@@ -87,6 +88,33 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 		} finally{
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);
+		}
+		return result;
+	}
+
+	@Override
+	public ObservableList<ZaposleniDTO> selectAktivni() {
+		ObservableList<ZaposleniDTO> result = FXCollections.observableArrayList();
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(SQL_SELECT_ALL_AKTIVNI);
+			ZaposlenjeDAO zDAO = DAOFactory.getDAOFactory().getZaposlenjeDAO();
+			while (resultSet.next()) {
+				result.add(new ZaposleniDTO(resultSet.getInt("Id"), resultSet.getString("Ime"),
+						resultSet.getString("Prezime"), resultSet.getString("ImeRoditelja"), resultSet.getString("JMB"),
+						resultSet.getString("Pol").charAt(0), resultSet.getDate("DatumRodjenja"),
+						resultSet.getBlob("Fotografija"), OsobaDAO.getTelefoni(resultSet.getInt("Id")),
+						true, zDAO.selectAllById(resultSet.getInt("Id"))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(resultSet, statement);
 		}
 		return result;
 	}
