@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="src/application/util/mysql-connector-java-5.1.35-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Maja Mihajlovic/Downloads/jfoenix.jar"/>
 	<classpathentry kind="lib" path="jfoenix.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Maja Mihajlovic/Downloads/jbcrypt-0.3m.jar/jbcrypt-0.3m.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

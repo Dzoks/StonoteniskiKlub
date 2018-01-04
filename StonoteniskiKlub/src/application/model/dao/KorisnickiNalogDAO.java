@@ -15,10 +15,10 @@ public class KorisnickiNalogDAO {
 	private final static String SQL_UPDATE_AKTIVAN = "UPDATE KORISNICKI_NALOG SET Aktivan=? WHERE Zaposleni_Id=?";
 	private final static String SQL_INSERT = "INSERT INTO KORISNICKI_NALOG VALUES (?, ?, ?, ?, ?, ?, ?)";
 	private final static String SQL_SELECT_NALOG="select * from KORISNICKI_NALOG";
-	
-	private final static String SQL_GET_LOZINKA="select LozinkaHash from korisnicki_nalog where KorisnickoIme=?";
-
-	private final static String SQL_SELECT_KORISNICKO_IME="select KorisnickoIme from korisnicki_nalog where KorisnickoIme=?";
+	private final static String SQL_GET_BY_USERNAME="select LozinkaHash from dzoksrs_db.KORISNICKI_NALOG where KorisnickoIme=?";
+	private final static String SQL_GET_LOZINKA="select LozinkaHash from KORISNICKI_NALOG where KorisnickoIme=?";
+	private final static String SQL_UPDATE_LOZINKA="UPDATE KORISNICKI_NALOG SET LozinkaHash=? WHERE KorisnickoIme=?";
+	private final static String SQL_SELECT_KORISNICKO_IME="select KorisnickoIme from KORISNICKI_NALOG where KorisnickoIme=?";
 	private final static String SQL_SELECT_ALL="SELECT * FROM KORISNICKI_NALOG k  left join  OSOBA o on ZAPOSLENI_Id=o.Id inner join KORISNICKI_NALOG_TIP t where ULOGA_Id=t.Id and Aktivan=true";
 			
 	
@@ -58,6 +58,23 @@ public class KorisnickiNalogDAO {
 			c= ConnectionPool.getInstance().checkOut();
 			String query = SQL_UPDATE_AKTIVAN;
 			Object pom[] = { flag, korisnickiNalogId };
+			
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+	}	public static void setLozinka(byte[] lozinkaHash, String korisnickoIme) {
+		PreparedStatement ps = null;
+		Connection c = null;
+		
+		try {
+			c= ConnectionPool.getInstance().checkOut();
+			String query = SQL_UPDATE_LOZINKA;
+			Object pom[] = { lozinkaHash,korisnickoIme  };
 			
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			ps.executeUpdate();
@@ -136,6 +153,33 @@ public class KorisnickiNalogDAO {
 			ConnectionPool.close(ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
+	}
+
+	public static String getHashByUsername(String username) {
+		byte[] hashBytes=null;
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_GET_BY_USERNAME;
+			Object pom[] = { username };
+			
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				rs.getInt("Id");
+				 rs.getString("KorisnickoIme");
+				 hashBytes=rs.getBytes("LozinkaHash");}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(rs, ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+
+		return hashBytes.toString();
 	}
 
 }

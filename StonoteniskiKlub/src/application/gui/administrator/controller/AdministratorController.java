@@ -33,7 +33,7 @@ public class AdministratorController extends BaseController {
 		Stage stage=new Stage();
 		stage.initModality(Modality.WINDOW_MODAL);
 		try {
-			BaseController.changeScene("/application/gui/administrator/view/dodajNalogView.fxml", stage);
+			BaseController.changeScene("/application/gui/administrator/view/DodajNalogView.fxml", stage);
 			stage.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
