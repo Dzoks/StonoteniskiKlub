@@ -5,18 +5,19 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.administrator.controller.AdministratorController">
+<AnchorPane prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.administrator.controller.AdministratorController">
    <children>
-      <TableView fx:id="tabelaNalog" layoutY="-1.0" prefHeight="315.0" prefWidth="533.0">
+      <TableView fx:id="tabelaNalog" layoutY="-1.0" prefHeight="315.0" prefWidth="520.0">
         <columns>
           <TableColumn fx:id="kolonaKorisnickoIme" prefWidth="135.0" text="KorisnickoIme" />
           <TableColumn fx:id="kolonaUloga" prefWidth="135.0" text="Uloga" />
             <TableColumn fx:id="kolonaPrezime" prefWidth="135.0" text="Prezime" />
-            <TableColumn fx:id="kolonaIme" prefWidth="135.0" text="Ime" />
+            <TableColumn fx:id="kolonaIme" prefWidth="114.0" text="Ime" />
         </columns>
       </TableView>
-      <Button layoutX="376.0" layoutY="342.0" mnemonicParsing="false" onAction="#dodajNalogKlik" prefHeight="25.0" prefWidth="112.0" text="Dodaj nalog" />
-      <Button fx:id="obrisiNalogDugme" layoutX="49.0" layoutY="342.0" mnemonicParsing="false" onAction="#obrisiNalogKlik" prefHeight="25.0" prefWidth="112.0" text="Obriši nalog" />
-      <Button layoutX="211.0" layoutY="342.0" mnemonicParsing="false" onAction="#osvjeziDugmeKlik" prefHeight="25.0" prefWidth="112.0" text="Osvježi" />
+      <Button layoutX="267.0" layoutY="342.0" mnemonicParsing="false" onAction="#dodajNalogKlik" prefHeight="25.0" prefWidth="112.0" text="Dodaj nalog" />
+      <Button fx:id="obrisiNalogDugme" layoutX="14.0" layoutY="342.0" mnemonicParsing="false" onAction="#obrisiNalogKlik" prefHeight="25.0" prefWidth="112.0" text="Obriši nalog" />
+      <Button layoutX="142.0" layoutY="342.0" mnemonicParsing="false" onAction="#osvjeziDugmeKlik" prefHeight="25.0" prefWidth="112.0" text="Osvježi" />
+      <Button layoutX="394.0" layoutY="342.0" mnemonicParsing="false" onAction="#odjaviSeKlik" prefHeight="25.0" prefWidth="112.0" text="Odjavi se" />
    </children>
 </AnchorPane>

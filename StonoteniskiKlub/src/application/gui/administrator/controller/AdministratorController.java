@@ -35,6 +35,14 @@ public class AdministratorController extends BaseController {
 	@FXML
 	private Button obrisiNalogDugme;
 
+    @FXML
+    void odjaviSeKlik(ActionEvent event) {
+    	try {
+			BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 	@FXML
 	public void dodajNalogKlik(ActionEvent event) {
 		Stage stage = new Stage();

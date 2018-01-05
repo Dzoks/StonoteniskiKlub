@@ -13,7 +13,6 @@ import javafx.collections.ObservableList;
 
 public class KorisnickiNalogTipDAO {
 	private static final String SQL_SELECT_ALL = "SELECT * FROM  KORISNICKI_NALOG_TIP";
-	private static final String SQL_SELECT_ID = "SELECT Id FROM  dzoksrs_db.KORISNICKI_NALOG_TIP WHERE Naziv=?";
 	private static final String SQL_INSERT = "INSERT INTO  dzoksrs_db.KORISNICKI_NALOG_TIP VALUES (null, ?)";
 	
 	public static ObservableList<KorisnickiNalogTipDTO> SELECT_ALL() {
@@ -54,28 +53,5 @@ public class KorisnickiNalogTipDAO {
 			ConnectionPool.getInstance().checkIn(c);
 			ConnectionPool.close(ps);
 		}
-	}
-	
-	public static Integer selectId(String naziv) {
-	Integer rezultat=0;
-	Connection c = null;
-	PreparedStatement ps = null;
-	ResultSet rs = null;
-
-	try {
-		c = ConnectionPool.getInstance().checkOut();
-		String query = SQL_SELECT_ID;
-		Object pom[] = { naziv };
-		
-		ps = ConnectionPool.prepareStatement(c, query, false, pom);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			 rezultat=rs.getInt("Id");}
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		ConnectionPool.close(rs, ps);
-		ConnectionPool.getInstance().checkIn(c);
-	}
-	return rezultat;
-}}
+	}	
+}

@@ -1,5 +1,6 @@
 package application.gui.administrator.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -39,10 +40,14 @@ public class DodajNalogController extends BaseController {
 	// Event Listener on Button.onAction
 	@FXML
 	public void dodajteNalogKlik(ActionEvent event) {
-		if (!korisnickoIme.getText().isEmpty()
-				&& !tabelaZaposleni.getSelectionModel().isEmpty()) {
+		if (!korisnickoIme.getText().isEmpty()|| !tabelaZaposleni.getSelectionModel().isEmpty()) {
 				if(dodajNalog())
-					new Alert(AlertType.INFORMATION, "Korisnički nalog je uspješno dodan.").show();
+					try {
+						new Alert(AlertType.INFORMATION, new String("Korisnički nalog je uspješno dodan.".getBytes(),"UTF-8")).show();
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				else {
 					new Alert(AlertType.INFORMATION, "Korisničko ime već postoji.").show();
 				}
@@ -56,7 +61,7 @@ public class DodajNalogController extends BaseController {
 	}
 
 	private boolean dodajNalog() {
-		Integer ulogaId=KorisnickiNalogTipDAO.selectId(ulogaChoiceBox.getSelectionModel().getSelectedItem().getNaziv());
+		Integer ulogaId=ulogaChoiceBox.getSelectionModel().getSelectedItem().getId();
 		Integer zaposleniId=tabelaZaposleni.getSelectionModel().getSelectedItem().getId();
 		String ime=korisnickoIme.getText();
 		java.sql.Date sqlDate = java.sql.Date.valueOf( LocalDate.now() );

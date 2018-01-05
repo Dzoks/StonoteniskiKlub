@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.itextpdf.text.log.SysoCounter;
+
 import application.model.dto.KorisnickiNalogDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
@@ -21,7 +23,7 @@ public class KorisnickiNalogDAO {
 	private final static String SQL_UPDATE_LOZINKA="UPDATE dzoksrs_db.KORISNICKI_NALOG SET LozinkaHash=? WHERE KorisnickoIme=?";
 	private final static String SQL_SELECT_KORISNICKO_IME="select KorisnickoIme from dzoksrs_db.KORISNICKI_NALOG where KorisnickoIme=?";
 	private final static String SQL_SELECT_ALL="SELECT * FROM dzoksrs_db.KORISNICKI_NALOG k  left join  dzoksrs_db.OSOBA o on ZAPOSLENI_Id=o.Id inner join dzoksrs_db.KORISNICKI_NALOG_TIP t where ULOGA_Id=t.Id and Aktivan=true";
-			
+	private final static String SQL_SELECT_ULOGA="SELECT Naziv FROM  dzoksrs_db.KORISNICKI_NALOG k inner join dzoksrs_db.KORISNICKI_NALOG_TIP  t on ULOGA_id=t.Id and KorisnickoIme=?";
 	
 
 	public static KorisnickiNalogDTO getById(int id) {
@@ -139,7 +141,7 @@ public class KorisnickiNalogDAO {
 	public static void insert(KorisnickiNalogDTO nalog) {
 		PreparedStatement ps = null;
 		Connection c = null;
-		
+		System.out.println(nalog.getUlogaId());
 		try {
 			c= ConnectionPool.getInstance().checkOut();
 			String query = SQL_INSERT;
@@ -210,6 +212,32 @@ public class KorisnickiNalogDAO {
 		}
 
 		return nalozi;
+	}
+
+	public static String getUloga(String text) {
+	String uloga = null;
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_SELECT_ULOGA;
+			Object pom[] = { text};
+			
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				uloga=rs.getString("Naziv");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(rs, ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+
+		return uloga;
 	}
 
 }

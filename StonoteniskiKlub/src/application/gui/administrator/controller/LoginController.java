@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.apache.poi.ddf.EscherColorRef.SysIndexSource;
 import org.mindrot.jbcrypt.BCrypt;
+
+import com.itextpdf.text.log.SysoCounter;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
@@ -29,56 +32,74 @@ public class LoginController extends BaseController {
 	void prijaviteSe(ActionEvent event) {
 
 		if (!txtKorisnickoIme.getText().isEmpty()) {
-			korisnickoIme=txtKorisnickoIme.getText();
+			korisnickoIme = txtKorisnickoIme.getText();
 			if (KorisnickiNalogDAO.daLiPostoji(txtKorisnickoIme.getText())) {
 				if (!KorisnickiNalogDAO.daLiPostojiLozinka(txtKorisnickoIme.getText())) {
-					// ako ne postoji napravi je
 					try {
 						BaseController.changeScene("/application/gui/administrator/view/PromjenaLozinkeView.fxml",
 								primaryStage);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				} else {
 					if (checkPassword(new String(txtLozinka.getText()),
 							KorisnickiNalogDAO.getHashByUsername(txtKorisnickoIme.getText()))) {
-						// provjeri poklapanje sifre i imena, ako je uredu proslijedi po ulozi
 						try {
-							BaseController.changeScene("/application/gui/administrator/view/AdministratorView.fxml",
-									primaryStage);
+							String uloga = KorisnickiNalogDAO.getUloga(txtKorisnickoIme.getText());
+							switch (uloga) {
+							case "Administrator":
+								BaseController.changeScene("/application/gui/administrator/view/AdministratorView.fxml",
+										primaryStage);
+								break;
+							case "Organizator turnira":
+								BaseController.changeScene("/application/gui/organizator/view/TurniriView.fxml",
+										primaryStage);
+								break;
+							case "Trener":
+								BaseController.changeScene("/application/gui/trener/view/OpremaGlavniView.fxml",
+										primaryStage);
+								break;
+							case "Računovođa":
+								BaseController.changeScene(
+										"/application/gui/racunovodja/view/PocetniProzorRacunovodja.fxml",
+										primaryStage);
+								break;
+							case "Sekretar":
+								BaseController.changeScene("/application/gui/sekretar/view/RadSaZaposlenimaView.fxml",
+										primaryStage);
+								break;
+							}
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+					} else {
+						new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK).show();
+						txtKorisnickoIme.clear();
+						txtLozinka.clear();
 					}
-				 else {
+				}
+			} else {
 				new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK).show();
-
-			}}
+				txtKorisnickoIme.clear();
+				txtLozinka.clear();
+			}
 		} else {
-			new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK).show();
+			new Alert(AlertType.ERROR, "Popunite sva polja.", ButtonType.OK).show();
 		}
-
-	}else
-
-	{
-		new Alert(AlertType.ERROR, "Popunite sva polja.", ButtonType.OK).show();
-	}
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-
 	}
+
 	/*
 	 * poklapanje plantext passworda sa sacuvanim u hesu
 	 */
 	public static boolean checkPassword(String password_plaintext, String stored_hash) {
 		boolean password_verified = false;
-		if(stored_hash==null) return false;
-		
+		if (stored_hash == null)
+			return false;
+
 		if (!stored_hash.startsWith("$2a$"))
 			throw new java.lang.IllegalArgumentException("Invalid hash provided for comparison");
 
