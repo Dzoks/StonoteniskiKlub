@@ -1,12 +1,5 @@
 package application.gui.sekretar.controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,10 +16,11 @@ import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
 import application.util.InputValidator;
 import javafx.event.ActionEvent;
-
-import javafx.scene.control.TextArea;
-
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class DodavanjeSponzoraController extends BaseController {
 	@FXML

@@ -2,12 +2,10 @@ package application.model.dao;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import application.model.dto.Clan;
 import application.model.dto.KorisnickiNalogDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;

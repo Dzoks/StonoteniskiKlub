@@ -1,7 +1,5 @@
 package application.gui.administrator.controller;
 
-import javafx.fxml.FXML;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,9 +9,10 @@ import org.mindrot.jbcrypt.BCrypt;
 import application.gui.controller.BaseController;
 import application.model.dao.KorisnickiNalogDAO;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 
 public class PromjenaLozinkeController extends BaseController {
 	@FXML
@@ -27,7 +26,7 @@ public class PromjenaLozinkeController extends BaseController {
 		if(!lozinkaTxt.getText().isEmpty()&& !lozinkaPonovoTxt.getText().isEmpty()) {
 			if(lozinkaPonovoTxt.getText().equals(lozinkaTxt.getText())) {
 				KorisnickiNalogDAO.setLozinka(hashPassword(lozinkaTxt.getText()).getBytes(), LoginController.korisnickoIme);
-				new Alert(AlertType.INFORMATION, "Lozinka je uspješno postavljena.").show();
+				new Alert(AlertType.INFORMATION, "Lozinka je uspjeï¿½no postavljena.").show();
 				try {
 					BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml",
 							primaryStage);
@@ -37,7 +36,7 @@ public class PromjenaLozinkeController extends BaseController {
 				}
 
 			}else {
-				new Alert(AlertType.ERROR, "Lozinke se ne podudaraju. Pokušajte ponovo.").show();
+				new Alert(AlertType.ERROR, "Lozinke se ne podudaraju. Pokuï¿½ajte ponovo.").show();
 				lozinkaPonovoTxt.clear();
 				lozinkaTxt.clear();
 
