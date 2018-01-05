@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,7 +25,10 @@
                <font>
                   <Font size="14.0" />
                </font></JFXTextField>
-            <JFXPasswordField fx:id="txtLozinka" alignment="CENTER_RIGHT" layoutX="31.0" layoutY="129.0" prefHeight="30.0" prefWidth="197.0" promptText="Lozinka" styleClass="password" />
+            <JFXPasswordField fx:id="txtLozinka" alignment="CENTER_RIGHT" layoutX="31.0" layoutY="129.0" prefHeight="30.0" prefWidth="197.0" promptText="Lozinka" styleClass="password">
+               <tooltip>
+                  <Tooltip text="Prilikom prve prijave nije potrebno unijeti lozinku." />
+               </tooltip></JFXPasswordField>
             <Text fill="#4c4b52" layoutX="68.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STK BORAC BL">
                <font>
                   <Font size="18.0" />

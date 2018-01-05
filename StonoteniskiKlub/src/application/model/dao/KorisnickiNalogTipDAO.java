@@ -12,9 +12,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class KorisnickiNalogTipDAO {
-	private static final String SQL_SELECT_ALL = "SELECT * FROM  korisnicki_nalog_tip";
-	private static final String SQL_SELECT_ID = "SELECT Id FROM  dzoksrs_db.korisnicki_nalog_tip WHERE Naziv=?";
-	private static final String SQL_INSERT = "INSERT INTO  dzoksrs_db.korisnicki_nalog_tip VALUES (null, ?)";
+	private static final String SQL_SELECT_ALL = "SELECT * FROM  KORISNICKI_NALOG_TIP";
+	private static final String SQL_SELECT_ID = "SELECT Id FROM  dzoksrs_db.KORISNICKI_NALOG_TIP WHERE Naziv=?";
+	private static final String SQL_INSERT = "INSERT INTO  dzoksrs_db.KORISNICKI_NALOG_TIP VALUES (null, ?)";
 	
 	public static ObservableList<KorisnickiNalogTipDTO> SELECT_ALL() {
 		ObservableList<KorisnickiNalogTipDTO> listaTipovaNaloga = FXCollections.observableArrayList();
@@ -57,27 +57,25 @@ public class KorisnickiNalogTipDAO {
 	}
 	
 	public static Integer selectId(String naziv) {
-		Connection c = null;
-		Statement s = null;
-		ResultSet rs = null;
-		Integer rezultat=0;
+	Integer rezultat=0;
+	Connection c = null;
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+
+	try {
+		c = ConnectionPool.getInstance().checkOut();
+		String query = SQL_SELECT_ID;
+		Object pom[] = { naziv };
 		
-		try {
-			
-			c = ConnectionPool.getInstance().checkOut();
-			s = c.createStatement();
-			rs = s.executeQuery(SQL_SELECT_ID);
-			
-			while(rs.next()) {
-				rezultat = rs.getInt("Id");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			ConnectionPool.getInstance().checkIn(c);
-			ConnectionPool.close(rs, s);
-		}
-		
-		return rezultat;
+		ps = ConnectionPool.prepareStatement(c, query, false, pom);
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			 rezultat=rs.getInt("Id");}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		ConnectionPool.close(rs, ps);
+		ConnectionPool.getInstance().checkIn(c);
 	}
-}
+	return rezultat;
+}}

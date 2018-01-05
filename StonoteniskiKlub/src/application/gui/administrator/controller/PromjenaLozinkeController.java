@@ -26,7 +26,7 @@ public class PromjenaLozinkeController extends BaseController {
 	public void dugmeOkKlik(ActionEvent event) {
 		if(!lozinkaTxt.getText().isEmpty()&& !lozinkaPonovoTxt.getText().isEmpty()) {
 			if(lozinkaPonovoTxt.getText().equals(lozinkaTxt.getText())) {
-				KorisnickiNalogDAO.setLozinka(hashPassword(lozinkaTxt.getText()).getBytes(), LoginController.txtKorisnickoIme.getText());
+				KorisnickiNalogDAO.setLozinka(hashPassword(lozinkaTxt.getText()).getBytes(), LoginController.korisnickoIme);
 				new Alert(AlertType.INFORMATION, "Lozinka je uspješno postavljena.").show();
 				try {
 					BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml",

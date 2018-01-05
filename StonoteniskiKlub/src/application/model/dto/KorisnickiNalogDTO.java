@@ -11,6 +11,28 @@ public class KorisnickiNalogDTO {
 	private Integer ulogaId;
 	private Integer zaposleniId;
 	private Integer nalogId;
+	private String nazivUloge;
+	private String ime;
+	public String getNazivUloge() {
+		return nazivUloge;
+	}
+	public void setNazivUloge(String nazivUloge) {
+		this.nazivUloge = nazivUloge;
+	}
+	public String getIme() {
+		return ime;
+	}
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
+	public String getPrezime() {
+		return prezime;
+	}
+	public void setPrezime(String prezime) {
+		this.prezime = prezime;
+	}
+
+	private String prezime;
 
 	public KorisnickiNalogDTO(String korisnickoIme, byte[] lozinkaHash, Date datumRegistracije, Boolean aktivan,
 			Integer ulogaId, Integer zaposleniId) {
@@ -21,6 +43,14 @@ public class KorisnickiNalogDTO {
 		this.aktivan = aktivan;
 		this.ulogaId = ulogaId;
 		this.zaposleniId = zaposleniId;
+		this.nalogId=nalogId;
+		this.nazivUloge=nazivUloge;
+	}
+	public KorisnickiNalogDTO(String korisnickoIme,String nazivUloge,String ime,String prezime,Integer nalogId) {
+		this.korisnickoIme=korisnickoIme;
+		this.ime=ime;
+		this.prezime=prezime;
+		this.nazivUloge=nazivUloge;
 		this.nalogId=nalogId;
 	}
 

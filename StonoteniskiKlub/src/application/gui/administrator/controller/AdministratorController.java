@@ -7,11 +7,22 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
+import application.model.dao.KorisnickiNalogDAO;
+import application.model.dao.ZaposleniDAO;
+import application.model.dto.KorisnickiNalogDTO;
+import application.model.dto.ZaposleniDTO;
+import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 
 public class AdministratorController extends BaseController {
@@ -26,29 +37,54 @@ public class AdministratorController extends BaseController {
 	@FXML
 	private TableColumn kolonaKorisnickoIme;
 
+	@FXML
+	private Button obrisiNalogDugme;
 
-	// Event Listener on Button.onAction
 	@FXML
 	public void dodajNalogKlik(ActionEvent event) {
-		Stage stage=new Stage();
+		Stage stage = new Stage();
 		stage.initModality(Modality.WINDOW_MODAL);
 		try {
 			BaseController.changeScene("/application/gui/administrator/view/DodajNalogView.fxml", stage);
 			stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
-	// Event Listener on Button.onAction
+
 	@FXML
 	public void obrisiNalogKlik(ActionEvent event) {
-		// setuje na neaktivan?
+		if (tabelaNalog.getSelectionModel().getSelectedItem() != null) {
+			KorisnickiNalogDAO.setAktivan(0,
+					((KorisnickiNalogDTO) tabelaNalog.getSelectionModel().getSelectedItem()).getNalogId());
+			new Alert(AlertType.INFORMATION, "Uspjesno ste obrisali nalog.", ButtonType.OK).show();
+
+			popuniTabelu();
+		} else {
+			new Alert(AlertType.ERROR, "Odaberite korisnički nalog koji želite obrisati.", ButtonType.OK).show();
+		}
 	}
+
+	@FXML
+	void osvjeziDugmeKlik(ActionEvent event) {
+		popuniTabelu();
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
+		popuniTabelu();
+	}
+
+	private void popuniTabelu() {
+		kolonaUloga.setCellValueFactory(new PropertyValueFactory<KorisnickiNalogDTO, String>("nazivUloge"));
+		kolonaIme.setCellValueFactory(new PropertyValueFactory<KorisnickiNalogDTO, String>("ime"));
+		kolonaPrezime.setCellValueFactory(new PropertyValueFactory<KorisnickiNalogDTO, String>("prezime"));
+		kolonaKorisnickoIme.setCellValueFactory(new PropertyValueFactory<KorisnickiNalogDTO, String>("korisnickoIme"));
+
+		ObservableList<KorisnickiNalogDTO> listaNaloga = KorisnickiNalogDAO.selectAll();
+
+		tabelaNalog.setItems(listaNaloga);
+		// obrisiNalogDugme.disableProperty().bind(Bindings.isEmpty(tabelaNalog.getSelectionModel().getSelectedItems()));
+
 	}
 }

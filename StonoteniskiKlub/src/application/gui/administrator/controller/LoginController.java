@@ -26,7 +26,8 @@ import javafx.stage.Stage;
 public class LoginController extends BaseController {
 
 	@FXML
-	public static JFXTextField txtKorisnickoIme;
+	private JFXTextField txtKorisnickoIme;
+	public static String korisnickoIme;
 
 	@FXML
 	private JFXPasswordField txtLozinka;
@@ -35,11 +36,11 @@ public class LoginController extends BaseController {
 	void prijaviteSe(ActionEvent event) {
 
 		if (!txtKorisnickoIme.getText().isEmpty()) {
-			if (!KorisnickiNalogDAO.daLiPostoji(txtKorisnickoIme.getText())) {
+			korisnickoIme=txtKorisnickoIme.getText();
+			if (KorisnickiNalogDAO.daLiPostoji(txtKorisnickoIme.getText())) {
 				if (!KorisnickiNalogDAO.daLiPostojiLozinka(txtKorisnickoIme.getText())) {
 					// ako ne postoji napravi je
 					try {
-						
 						BaseController.changeScene("/application/gui/administrator/view/PromjenaLozinkeView.fxml",
 								primaryStage);
 					} catch (IOException e) {

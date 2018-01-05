@@ -1,5 +1,6 @@
 package application.model.dao;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -9,17 +10,19 @@ import java.sql.SQLException;
 import application.model.dto.Clan;
 import application.model.dto.KorisnickiNalogDTO;
 import application.util.ConnectionPool;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class KorisnickiNalogDAO {
-	private final static String SQL_GET_BY_ID = "SELECT * FROM KORISNICKI_NALOG c left JOIN OSOBA o on c.ZAPOSLENI_Id=o.Id where c.ZAPOSLENI_Id=1";
-	private final static String SQL_UPDATE_AKTIVAN = "UPDATE KORISNICKI_NALOG SET Aktivan=? WHERE Zaposleni_Id=?";
-	private final static String SQL_INSERT = "INSERT INTO KORISNICKI_NALOG VALUES (?, ?, ?, ?, ?, ?, ?)";
-	private final static String SQL_SELECT_NALOG="select * from KORISNICKI_NALOG";
+	private final static String SQL_GET_BY_ID = "SELECT * FROM dzoksrs_db.KORISNICKI_NALOG c left JOIN OSOBA o on c.ZAPOSLENI_Id=o.Id where c.ZAPOSLENI_Id=1";
+	private final static String SQL_UPDATE_AKTIVAN = "UPDATE dzoksrs_db.KORISNICKI_NALOG SET Aktivan=? WHERE Id=?";
+	private final static String SQL_INSERT = "INSERT INTO dzoksrs_db.KORISNICKI_NALOG VALUES (?, ?, ?, ?, ?, ?, ?)";
+	private final static String SQL_SELECT_NALOG="select * from dzoksrs_db.KORISNICKI_NALOG";
 	private final static String SQL_GET_BY_USERNAME="select LozinkaHash from dzoksrs_db.KORISNICKI_NALOG where KorisnickoIme=?";
-	private final static String SQL_GET_LOZINKA="select LozinkaHash from KORISNICKI_NALOG where KorisnickoIme=?";
-	private final static String SQL_UPDATE_LOZINKA="UPDATE KORISNICKI_NALOG SET LozinkaHash=? WHERE KorisnickoIme=?";
-	private final static String SQL_SELECT_KORISNICKO_IME="select KorisnickoIme from KORISNICKI_NALOG where KorisnickoIme=?";
-	private final static String SQL_SELECT_ALL="SELECT * FROM KORISNICKI_NALOG k  left join  OSOBA o on ZAPOSLENI_Id=o.Id inner join KORISNICKI_NALOG_TIP t where ULOGA_Id=t.Id and Aktivan=true";
+	private final static String SQL_GET_LOZINKA="select LozinkaHash from dzoksrs_db.KORISNICKI_NALOG where KorisnickoIme=?";
+	private final static String SQL_UPDATE_LOZINKA="UPDATE dzoksrs_db.KORISNICKI_NALOG SET LozinkaHash=? WHERE KorisnickoIme=?";
+	private final static String SQL_SELECT_KORISNICKO_IME="select KorisnickoIme from dzoksrs_db.KORISNICKI_NALOG where KorisnickoIme=?";
+	private final static String SQL_SELECT_ALL="SELECT * FROM dzoksrs_db.KORISNICKI_NALOG k  left join  dzoksrs_db.OSOBA o on ZAPOSLENI_Id=o.Id inner join dzoksrs_db.KORISNICKI_NALOG_TIP t where ULOGA_Id=t.Id and Aktivan=true";
 			
 	
 
@@ -50,7 +53,7 @@ public class KorisnickiNalogDAO {
 		return korisnickiNalog;
 	}
 	
-	public static void setAktivan(boolean flag, int korisnickiNalogId) {
+	public static void setAktivan(int flag, int korisnickiNalogId) {
 		PreparedStatement ps = null;
 		Connection c = null;
 		
@@ -107,7 +110,6 @@ public class KorisnickiNalogDAO {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
-
 		return daLiPostoji;
 	}
 	public static boolean daLiPostojiLozinka(String korisnickoIme) {
@@ -123,7 +125,8 @@ public class KorisnickiNalogDAO {
 			
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			rs = ps.executeQuery();
-			daLiPostoji=rs.next();
+			if(rs.next()) {
+			if(rs.getBytes("LozinkaHash")!=null) daLiPostoji=true;}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -160,6 +163,7 @@ public class KorisnickiNalogDAO {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		String hash=null;
 
 		try {
 			c = ConnectionPool.getInstance().checkOut();
@@ -169,8 +173,6 @@ public class KorisnickiNalogDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				rs.getInt("Id");
-				 rs.getString("KorisnickoIme");
 				 hashBytes=rs.getBytes("LozinkaHash");}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,7 +181,37 @@ public class KorisnickiNalogDAO {
 			ConnectionPool.getInstance().checkIn(c);
 		}
 
-		return hashBytes.toString();
+		try {
+			 hash= new String(hashBytes,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return hash;
+	}
+	public static ObservableList<KorisnickiNalogDTO> selectAll() {
+		ObservableList<KorisnickiNalogDTO> nalozi = FXCollections.observableArrayList();
+	
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_SELECT_ALL;
+			
+			ps = ConnectionPool.prepareStatement(c, query, false);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				nalozi.add(new KorisnickiNalogDTO( rs.getString("KorisnickoIme"),rs.getString("Naziv"),rs.getString("Ime"),rs.getString("Prezime"),rs.getInt("Id")));}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(rs, ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+
+		return nalozi;
 	}
 
 }

@@ -70,6 +70,7 @@ public class DodajNalogController extends BaseController {
 		java.sql.Date sqlDate = java.sql.Date.valueOf( LocalDate.now() );
 		if(!KorisnickiNalogDAO.daLiPostoji(ime)) {
 		KorisnickiNalogDTO nalog=new KorisnickiNalogDTO(ime,null,sqlDate,true,ulogaId,zaposleniId);
+		KorisnickiNalogDAO.insert(nalog);
 		return true;
 		}else {
 			return false;
