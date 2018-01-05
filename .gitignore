@@ -16,3 +16,5 @@ StonoteniskiKlub/bin/application/gui/organizator/view/SinglZrijebView\.fxml
 StonoteniskiKlub/bin/application/gui/organizator/view/TurniriView\.fxml
 
 *.properties
+
+StonoteniskiKlub/tmp\.pdf
