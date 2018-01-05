@@ -5,9 +5,6 @@
     -fx-background-repeat: no-repeat;
     -fx-background-size: auto;
 }
-.boja{
-	-fx-background-color: red;
-}
 .user{
 	-fx-background-image: url("user.png");
 	   -fx-background-repeat: no-repeat;
@@ -16,3 +13,8 @@
 	-fx-background-image: url("key-icon.png");
 	   -fx-background-repeat: no-repeat;
 }
+
+.button{
+	-fx-background-color: #00527A;
+	-fx-text-fill: #f2e9e9;
+	}
