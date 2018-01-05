@@ -11,9 +11,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.DistributerOpremeDAO;
-import application.model.dao.NarudzbaDAO;
-import application.gui.sekretar.controller.DodajNarudzbuController;
 import application.model.dao.DAOFactory;
 import application.model.dto.DistributerOpreme;
 import application.model.dto.Narudzba;

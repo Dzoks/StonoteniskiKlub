@@ -11,13 +11,11 @@ import application.model.dao.TimDAO;
 import application.model.dao.UcesnikPrijavaDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
-import javafx.scene.control.DatePicker;
 
 public class DublPrijavaController extends BaseController{
 	@FXML

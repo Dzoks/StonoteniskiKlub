@@ -1,6 +1,5 @@
 package application.model.dto;
 
-import application.model.dao.TimDAO;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

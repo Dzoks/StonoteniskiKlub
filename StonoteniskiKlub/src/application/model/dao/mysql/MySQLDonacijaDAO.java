@@ -2,16 +2,12 @@ package application.model.dao.mysql;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
 
 import application.model.dao.DonacijaDAO;
-import application.model.dao.SponzorDAO;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.OpremaTip;
 import application.model.dto.SponzorDTO;

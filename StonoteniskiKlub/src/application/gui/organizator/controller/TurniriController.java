@@ -2,11 +2,14 @@ package application.gui.organizator.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.KategorijaTurniraDAO;
 import application.model.dao.TurnirDAO;
+import application.model.dao.ZrijebDAO;
 import application.model.dto.KategorijaTurniraDTO;
 import application.model.dto.TurnirDTO;
 import javafx.fxml.FXML;
@@ -24,24 +27,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import application.gui.controller.BaseController;
-import application.model.dao.KategorijaTurniraDAO;
-import application.model.dao.TurnirDAO;
-import application.model.dao.ZrijebDAO;
-import application.model.dto.KategorijaTurniraDTO;
-import application.model.dto.TurnirDTO;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
 
 public class TurniriController extends BaseController{
 	@FXML

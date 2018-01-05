@@ -1,8 +1,6 @@
 package application.model.dto;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import application.gui.organizator.controller.TurniriController;
 import javafx.beans.property.IntegerProperty;
