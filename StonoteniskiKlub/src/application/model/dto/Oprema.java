@@ -1,6 +1,6 @@
 package application.model.dto;
 
-import application.model.dao.OpremaTipDAO;
+import application.model.dao.DAOFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -17,33 +17,22 @@ public class Oprema {
 	protected StringProperty tipProizvodjac;
 	protected StringProperty tipModel;
 	protected BooleanProperty tipImaVelicinu;
-	protected IntegerProperty idDonacije;
-	protected BooleanProperty donirana;
-	protected StringProperty status;
 	protected StringProperty velicina;
 	
 	public Oprema() {
 		super();
 	}
 
-	public Oprema(Integer id, Integer idNarudzbe, Integer idTipaOpreme, Integer idDonacije, Boolean donirana, String velicina) {
+	public Oprema(Integer id, Integer idNarudzbe, Integer idTipaOpreme, String velicina) {
 		super();
 		this.id = id==null ? null : new SimpleIntegerProperty(id);
 		this.idNarudzbe = idNarudzbe==null ? null : new SimpleIntegerProperty(idNarudzbe);
 		this.idTipaOpreme = idTipaOpreme==null ? null : new SimpleIntegerProperty(idTipaOpreme);
-		this.tipOpreme = idTipaOpreme==null ? null : new SimpleStringProperty(OpremaTipDAO.SELECT_TIP(idTipaOpreme));
-		this.tipProizvodjac = idTipaOpreme==null ? null : new SimpleStringProperty(OpremaTipDAO.SELECT_PROIZVODJAC(idTipaOpreme));
-		this.tipModel = idTipaOpreme==null ? null : new SimpleStringProperty(OpremaTipDAO.SELECT_MODEL(idTipaOpreme));
-		this.tipImaVelicinu = idTipaOpreme==null ? null : new SimpleBooleanProperty(OpremaTipDAO.SELECT_IMA_LI_VELICINU(idTipaOpreme));
-		this.idDonacije = idDonacije==null ? null : new SimpleIntegerProperty(idDonacije);
-		this.donirana = donirana==null ? null : new SimpleBooleanProperty(donirana);
+		this.tipOpreme = idTipaOpreme==null ? null : new SimpleStringProperty(DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_TIP(idTipaOpreme));
+		this.tipProizvodjac = idTipaOpreme==null ? null : new SimpleStringProperty(DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_PROIZVODJAC(idTipaOpreme));
+		this.tipModel = idTipaOpreme==null ? null : new SimpleStringProperty(DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_MODEL(idTipaOpreme));
+		this.tipImaVelicinu = idTipaOpreme==null ? null : new SimpleBooleanProperty(DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_IMA_LI_VELICINU(idTipaOpreme));
 		this.velicina = velicina==null ? null : new SimpleStringProperty(velicina);
-		if(donirana) {
-			this.status = new SimpleStringProperty("DA");
-		}
-		else {
-			this.status = new SimpleStringProperty("NE");
-		}
 	}
 	
 	public String getVelicina() {
@@ -83,27 +72,6 @@ public class Oprema {
 		this.idTipaOpreme.setValue(idTipaOpreme);
 	}
 
-	public Integer getIdDonacije() {
-		if(idDonacije == null) {
-			return null;
-		}
-		else {
-			return idDonacije.get();
-		}
-	}
-
-	public void setIdDonacije(Integer idDonacije) {
-		this.idDonacije.set(idDonacije);
-	}
-
-	public Boolean getDonirana() {
-		return donirana.get();
-	}
-
-	public void setDonirana(Boolean donirana) {
-		this.donirana.set(donirana);
-	}
-
 	public String getTipOpreme() {
 		return tipOpreme.get();
 	}
@@ -126,13 +94,5 @@ public class Oprema {
 
 	public void setTipModel(String tipModel) {
 		this.tipModel.set(tipModel);
-	}
-
-	public String getStatus() {
-		return status.get();
-	}
-
-	public void setStatus(String status) {
-		this.status.set(status);
 	}
 }
