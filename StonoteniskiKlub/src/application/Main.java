@@ -7,12 +7,11 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		BaseController.changeScene("/application/gui/trener/view/PregledClanovaView.fxml", primaryStage);
-		//BaseController.changeScene("/application/test/drugi.fxml", primaryStage);
+		BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("Turniri");
-		primaryStage.centerOnScreen();
+		primaryStage.setTitle("Stonoteniski klub");
 		primaryStage.show();
+		
 	}
 
 	public static void main(String[] args) throws Exception {

@@ -11,7 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ZaposleniDAO {
-	private static final String SQL_SELECT_ALL = "select * from zaposleni z inner join osoba o on z.OSOBA_Id=o.Id";
+	private static final String SQL_SELECT_ALL = "select * from dzoksrs_db.ZAPOSLENI z inner join dzoksrs_db.OSOBA o on z.OSOBA_Id=o.Id";
 	
 	public static ObservableList<ZaposleniDTO> selectAll(){
 		ObservableList<ZaposleniDTO> result = FXCollections.observableArrayList();

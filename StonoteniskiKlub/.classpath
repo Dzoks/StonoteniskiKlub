@@ -7,5 +7,8 @@
 	<classpathentry kind="lib" path="pdfbox-app-2.0.7.jar"/>
 	<classpathentry kind="lib" path="jsoup-1.11.2.jar"/>
 	<classpathentry kind="lib" path="poi-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Maja Mihajlovic/Downloads/jfoenix.jar"/>
+	<classpathentry kind="lib" path="jfoenix.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Maja Mihajlovic/Downloads/jbcrypt-0.3m.jar/jbcrypt-0.3m.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
