@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
+import application.model.dao.DAOFactory;
 import application.model.dao.KategorijaTurniraDAO;
 import application.model.dao.OsobaDAO;
 import application.model.dao.TimDAO;
@@ -90,12 +91,12 @@ public class DublPrijavaController extends BaseController{
 					alert.show();
 				}
 				else{
-					if(OsobaDAO.doesExist(txtJmbg1.getText(), idTurnira, idKategorije) && 
-							OsobaDAO.doesExist(txtJmbg2.getText(), idTurnira, idKategorije)){
+					if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg1.getText(), idTurnira, idKategorije) && 
+							DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg2.getText(), idTurnira, idKategorije)){
 						if(TimDAO.insertDouble(UcesnikPrijavaDAO.addNew(idTurnira,idKategorije,
-								OsobaDAO.getByJmb(txtJmbg1.getText()).getId(), Date.valueOf(LocalDate.now())),
+								DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg1.getText()).getId(), Date.valueOf(LocalDate.now())),
 								UcesnikPrijavaDAO.addNew(idTurnira,idKategorije, 
-										OsobaDAO.getByJmb(txtJmbg2.getText()).getId(), Date.valueOf(LocalDate.now())))){
+										DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg2.getText()).getId(), Date.valueOf(LocalDate.now())))){
 							primaryStage.close();
 						}
 						else{
@@ -106,9 +107,9 @@ public class DublPrijavaController extends BaseController{
 							alert.show();
 						}
 					}
-					else if(OsobaDAO.doesExist(txtJmbg1.getText(), idTurnira, idKategorije)){
+					else if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg1.getText(), idTurnira, idKategorije)){
 						if(TimDAO.insertDouble(UcesnikPrijavaDAO.addNew(idTurnira,idKategorije,
-								OsobaDAO.getByJmb(txtJmbg1.getText()).getId(), Date.valueOf(LocalDate.now())),
+								DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg1.getText()).getId(), Date.valueOf(LocalDate.now())),
 								UcesnikPrijavaDAO.insert(txtJmbg2.getText(), txtIme2.getText(), txtPrezime2.getText(),
 										idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja2.getValue()),
 												idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
@@ -122,12 +123,12 @@ public class DublPrijavaController extends BaseController{
 							alert.show();
 						}
 					}
-					else if(OsobaDAO.doesExist(txtJmbg2.getText(), idTurnira, idKategorije)){
+					else if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg2.getText(), idTurnira, idKategorije)){
 						if(TimDAO.insertDouble(UcesnikPrijavaDAO.insert(txtJmbg1.getText(), txtIme1.getText(), txtPrezime1.getText(),
 								idKategorije%2==1?"M".charAt(0):"Ž".charAt(0),Date.valueOf(dpDatumRodjenja1.getValue()), 
 										idTurnira, idKategorije, Date.valueOf(LocalDate.now())),
 								UcesnikPrijavaDAO.addNew(idTurnira,idKategorije, 
-										OsobaDAO.getByJmb(txtJmbg2.getText()).getId(), Date.valueOf(LocalDate.now())))){
+										DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg2.getText()).getId(), Date.valueOf(LocalDate.now())))){
 							primaryStage.close();
 						}
 						else{

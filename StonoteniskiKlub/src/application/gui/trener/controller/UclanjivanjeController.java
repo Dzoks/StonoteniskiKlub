@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanstvoDAO;
+import application.model.dao.DAOFactory;
 import application.model.dao.OsobaDAO;
 import application.model.dto.Clan;
 import application.model.dto.ClanDTO;
@@ -209,10 +210,10 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			telefoni.add(s);
 		}
 		
-		OsobaDTO osoba = OsobaDAO.getByJmb(jmb);
+		OsobaDTO osoba = DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(jmb);
 		ClanDTO clan = null;
 		if(osoba != null) {
-			clan = ClanDAO.getById(osoba.getId());
+			clan = DAOFactory.getDAOFactory().getClanDAO().getById(osoba.getId());
 			if(clan != null) {
 //				ako postoji i aktivan je, ne mozemo ga dodati
 				if(clan.isAktivan()) {
@@ -221,8 +222,8 @@ public class UclanjivanjeController extends BaseController implements Initializa
 				}
 //				ako postoji unos u bazi, a nije aktivan, dodati novo clanstvo u tabeli CLANSTVO od danasnjeg datuma
 //				i azurirati fleg aktivan
-				ClanDAO.setAktivan(true, clan.getId());
-				ClanstvoDAO.insert(clan.getId());
+				DAOFactory.getDAOFactory().getClanDAO().setAktivan(true, clan.getId());
+				DAOFactory.getDAOFactory().getClanstvoDAO().insert(clan.getId());
 				new Alert(AlertType.INFORMATION, "Bivši član je ponovo aktivan. Neke informacije je možda potrebno izmjeniti.", ButtonType.OK).showAndWait();
 				primaryStage.close();
 				return;
@@ -235,8 +236,8 @@ public class UclanjivanjeController extends BaseController implements Initializa
 //			MOZDA TREBA OBRISATI
 			retClan = clan;
 //			MOZDA TREBA OBRISATI
-			ClanDAO.insert(clan);
-			ClanstvoDAO.insert(clan.getId());
+			DAOFactory.getDAOFactory().getClanDAO().insert(clan);
+			DAOFactory.getDAOFactory().getClanstvoDAO().insert(clan.getId());
 			new Alert(AlertType.INFORMATION, "Novi član. Neke informacije je možda potrebno izmjeniti.", ButtonType.OK).showAndWait();
 			primaryStage.close();
 			return;
@@ -248,8 +249,8 @@ public class UclanjivanjeController extends BaseController implements Initializa
 //		RASPITATI SE DA LI DA SE CUVA AVATAR U BAZI ILI NA SISTEMU
 		try {
 			clan = new ClanDTO(0, ime, prezime, imeRoditelja, jmb, pol, datumRodjenja, convertImageToBlob(), telefoni, true, false);
-			ClanDAO.insertAll(clan);
-			ClanstvoDAO.insert(clan.getId());
+			DAOFactory.getDAOFactory().getClanDAO().insertAll(clan);
+			DAOFactory.getDAOFactory().getClanstvoDAO().insert(clan.getId());
 			retClan = clan;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

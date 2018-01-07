@@ -1,5 +1,6 @@
 package application.gui.sekretar.controller;
 
+import java.awt.Desktop;
 import java.awt.print.PrinterJob;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -30,6 +31,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
+import application.model.dao.DAOFactory;
 import application.model.dao.OsobaDAO;
 import application.model.dto.ClanDTO;
 import application.util.ConnectionPool;
@@ -37,6 +39,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 
@@ -52,13 +57,19 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 	private static final String FONT = "times.ttf";
 	private static final String FONTBOLD = "timesbd.ttf";
 	private static int idTipa;
+	
+	
+	
 
 	// clan bi trebao da se preuzme nekako iz prethodne forme tako da sam ovo uzeo
 	// samo za testiranje
 	// Potreban samo radi ID
-	ClanDTO clan = ClanDAO.getById(1);
+	ClanDTO clan = DAOFactory.getDAOFactory().getClanDAO().getById(1);
+	
+	
+	
 
-	ObservableList<String> listaTipova = FXCollections.observableArrayList(OsobaDAO.getTipoviPotvrde());
+	ObservableList<String> listaTipova = FXCollections.observableArrayList(DAOFactory.getDAOFactory().getOsobaDAO().getTipoviPotvrde());
 	
 	
 	@Override
@@ -168,14 +179,28 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			PDDocument doc = PDDocument.load(new BufferedInputStream(new FileInputStream(file)));
 			PrinterJob job = PrinterJob.getPrinterJob();
 			job.setPageable(new PDFPageable(doc));
-
-			if (job.printDialog()) {
-				job.print();
-			}
-			doc.close();
-			fos.close();
 			
-			OsobaDAO.insertPotvrda(clan.getId(), idTipa, new Date(), convertFileToBlob(file));
+			if (Desktop.isDesktopSupported()) {
+			    try {
+			        Desktop.getDesktop().open(file);
+			    } catch (IOException ex) {
+			        // no application registered for PDFs
+			    }
+			}
+			
+			Alert alert = new Alert(AlertType.CONFIRMATION, "Da li ste sigurni da želite da nastavite?", ButtonType.YES, ButtonType.NO);
+			if(alert.showAndWait().equals(ButtonType.YES)) {
+				if (job.printDialog()) {
+					job.print();
+				}
+				doc.close();
+				fos.close();
+				
+				DAOFactory.getDAOFactory().getOsobaDAO().insertPotvrda(clan.getId(), idTipa, new Date(), convertFileToBlob(file));
+				
+				txtSadrzaj.clear();
+			}
+			
 			
 			file.delete();
 

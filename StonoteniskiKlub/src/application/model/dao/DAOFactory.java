@@ -9,7 +9,14 @@ public abstract class DAOFactory {
 
 	public abstract DonacijaDAO getDonacijaDAO();
 	
+	public abstract ClanDAO getClanDAO();
+	
+	public abstract ClanstvoDAO getClanstvoDAO();
+	
+	public abstract OsobaDAO getOsobaDAO();
+	
 	public static DAOFactory getDAOFactory(){
 		return MySQLDAOFactory.getInstance();
 	}
+	
 }
