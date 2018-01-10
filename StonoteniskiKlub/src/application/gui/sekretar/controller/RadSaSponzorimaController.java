@@ -169,7 +169,7 @@ public class RadSaSponzorimaController extends BaseController {
 		RadSaUgovorimaController controller = null;
 		try{
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader()
-					.getResource("application/gui/sekretar/view/DodavanjeStavkeDnevnogRedaView.fxml"));
+					.getResource("application/gui/sekretar/view/RadSaUgovorimaView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			controller = loader.<RadSaUgovorimaController>getController();
 			Scene scene = new Scene(root, 710, 355);

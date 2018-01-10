@@ -1,6 +1,8 @@
 package application.model.dao.mysql;
 
 import application.model.dao.DAOFactory;
+import application.model.dao.DogadjajDAO;
+import application.model.dao.DogadjajTipDAO;
 import application.model.dao.DonacijaDAO;
 import application.model.dao.SkupstinaDAO;
 import application.model.dao.SponzorDAO;
@@ -56,5 +58,13 @@ public class MySQLDAOFactory extends DAOFactory{
 	@Override
 	public SkupstinaDAO getSkupstinaDAO() {
 		return MySQLSkupstinaDAO.getInstance();
+	}
+	@Override
+	public DogadjajTipDAO getDogadjajTipDAO() {
+		return MySQLDogadjajTipDAO.getInstance();
+	}
+	@Override
+	public DogadjajDAO getDogadjajDAO() {
+		return MySQLDogadjajDAO.getInstance();
 	}
 }

@@ -19,6 +19,10 @@ public abstract class DAOFactory {
 	
 	public abstract SkupstinaDAO getSkupstinaDAO();
 	
+	public abstract DogadjajTipDAO getDogadjajTipDAO();
+	
+	public abstract DogadjajDAO getDogadjajDAO();
+	
 	public static DAOFactory getDAOFactory() {
 		return MySQLDAOFactory.getInstance();
 	}
