@@ -1,5 +1,6 @@
 package application.model.dto;
 
+import java.util.Collections;
 import java.util.Iterator;
 
 import javafx.beans.property.IntegerProperty;

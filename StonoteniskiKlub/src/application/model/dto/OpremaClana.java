@@ -1,6 +1,7 @@
 package application.model.dto;
 
 import application.model.dao.ClanDAO;
+import application.model.dao.DAOFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -27,7 +28,7 @@ public class OpremaClana extends Oprema{
 	public OpremaClana(Integer id, Integer idNarudzbe, Integer idTipaOpreme, String velicina, Integer idClana) {
 		super(id, idNarudzbe, idTipaOpreme, velicina);
 		this.idClana = idClana==null ? null : new SimpleIntegerProperty(idClana);
-		this.clan = idClana==null ? null : ClanDAO.getById(idClana);
+		this.clan = idClana==null ? null : DAOFactory.getDAOFactory().getClanDAO().getById(idClana);
 		this.jmbClana = idClana==null ? null : new SimpleStringProperty(clan.getJmb());
 		this.imeClana = idClana==null ? null : new SimpleStringProperty(clan.getIme());
 		this.prezimeClana = idClana==null ? null : new SimpleStringProperty(clan.getPrezime());

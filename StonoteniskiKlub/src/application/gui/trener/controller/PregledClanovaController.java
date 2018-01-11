@@ -15,6 +15,7 @@ import java.util.Set;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
+import application.model.dao.DAOFactory;
 import application.model.dao.RegistracijaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.RegistracijaDTO;
@@ -147,7 +148,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 		tcRegistrovan.setVisible(false);
 
 		listaClanova = FXCollections.observableArrayList();
-		listaClanova.addAll(ClanDAO.selectAll());
+		listaClanova.addAll(DAOFactory.getDAOFactory().getClanDAO().selectAll());
 		twTabela.setItems(listaClanova);
 
 		ivFotografija.setImage(new Image(getClass().getResourceAsStream("/resources/avatar.png")));
@@ -306,13 +307,13 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 		if ("".equals(ime) && "".equals(prezime)) {
 			listaClanova = FXCollections.observableArrayList();
-			listaClanova.addAll(ClanDAO.selectAll());
+			listaClanova.addAll(DAOFactory.getDAOFactory().getClanDAO().selectAll());
 			twTabela.setItems(listaClanova);
 			return;
 		}
 
 		listaClanova = FXCollections.observableArrayList();
-		listaClanova.addAll(ClanDAO.selectAllByImePrezime(ime, prezime));
+		listaClanova.addAll(DAOFactory.getDAOFactory().getClanDAO().selectAllByImePrezime(ime, prezime));
 		twTabela.setItems(listaClanova);
 		return;
 	}

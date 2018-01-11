@@ -3,6 +3,7 @@ package application.model.dto;
 import java.sql.Date;
 
 import application.gui.organizator.controller.TurniriController;
+import application.model.dao.TurnirDAO;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -83,12 +84,10 @@ public class UcesnikPrijavaDTO extends OsobaDTO{
 		return this.konvertovanDatumRodjenja;
 	}
 	
-	public final String getKonvertovanDatumRodjenja() {
-		return this.konvertovanDatumRodjenjaProperty().get();
+	@Override
+	public String toString() { //dodala Helena
+		// TODO Auto-generated method stub
+		TurnirDTO turnir = TurnirDAO.getById(this.getIdTurnira());
+		return super.toString() + " -"+turnir;
 	}
-	
-	public final void setKonvertovanDatumRodjenja(final String konvertovanDatumRodjenja) {
-		this.konvertovanDatumRodjenjaProperty().set(konvertovanDatumRodjenja);
-	}
-	
 }

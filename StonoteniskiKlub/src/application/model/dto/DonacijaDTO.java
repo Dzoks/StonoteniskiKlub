@@ -2,12 +2,15 @@ package application.model.dto;
 
 import java.math.BigDecimal;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class DonacijaDTO {
 	private SponzorDTO sponzor;
@@ -19,6 +22,14 @@ public class DonacijaDTO {
 	private Boolean novcanaDonacija;
 	private Boolean obradjeno;
 	private OpremaTip tipOpreme;
+	private TransakcijaDTO transakcija; //Helena dodala
+	public TransakcijaDTO getTransakcija() {
+		return transakcija;
+	}
+
+	public void setTransakcija(TransakcijaDTO transakcija) {
+		this.transakcija = transakcija;
+	}
 
 	public DonacijaDTO() {
 	}
@@ -141,8 +152,21 @@ public class DonacijaDTO {
 		if (novcanaDonacija) {
 			result = "Novcana, iznos: " + novcaniIznos.toString() + " KM";
 		} else {
-			result = tipOpreme + ", komada: " + kolicina.getValue().toString();
+			result = tipOpreme + ", komada: " + kolicina.toString();
 		}
 		return result;
+	}
+	public StringProperty nazivSponzoraProperty() {//Helena dodala
+		return sponzor.nazivProperty();
+	}
+	public StringProperty datumUplateProperty() {
+		if(transakcija==null)
+			return new SimpleStringProperty("");
+		return transakcija.datumProperty();
+	}
+	public StringProperty opisTransakcijeProperty() {
+		if(transakcija==null)
+			return new SimpleStringProperty("");
+		return transakcija.opisProperty();
 	}
 }

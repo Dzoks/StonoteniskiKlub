@@ -31,7 +31,7 @@ public class ZaposleniDAO {
 											resultSet.getString("Pol").charAt(0),
 											resultSet.getDate("DatumRodjenja"),
 											resultSet.getBlob("Fotografija"),
-											OsobaDAO.getTelefoni(resultSet.getInt("Id")),
+											DAOFactory.getDAOFactory().getOsobaDAO().getTelefoni(resultSet.getInt("Id")),
 											resultSet.getBoolean("Aktivan"), 
 											ZaposlenjeDAO.selectAllByIdZaposlenog(resultSet.getInt("Id"))));
 			}

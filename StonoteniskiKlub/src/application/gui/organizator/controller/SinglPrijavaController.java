@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
+import application.model.dao.DAOFactory;
 import application.model.dao.KategorijaTurniraDAO;
 import application.model.dao.OsobaDAO;
 import application.model.dao.TimDAO;
@@ -100,9 +101,9 @@ public class SinglPrijavaController extends BaseController{
 					alert.show();
 				}
 				else{
-					if(OsobaDAO.doesExist(txtJmbg.getText(), idTurnira, idKategorije)){
+					if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg.getText(), idTurnira, idKategorije)){
 						if(TimDAO.insertSingle(UcesnikPrijavaDAO.addNew(idTurnira,
-								idKategorije, OsobaDAO.getByJmb(txtJmbg.getText()).getId(), Date.valueOf(LocalDate.now())))){
+								idKategorije, DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg.getText()).getId(), Date.valueOf(LocalDate.now())))){
 							primaryStage.close();
 						}
 						else{

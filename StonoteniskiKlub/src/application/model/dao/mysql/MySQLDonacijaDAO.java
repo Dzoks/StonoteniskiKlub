@@ -2,10 +2,13 @@ package application.model.dao.mysql;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 import application.model.dao.DonacijaDAO;
 import application.model.dto.DonacijaDTO;
@@ -22,7 +25,9 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 	public static final String SQL_NEOBRADJENE = "select * from donacija_detaljno where Obradjeno=false and NovcanaDonacija=?";
 	public static final String SQL_INSERT = "{call dodaj_donaciju(?,?,?,?,?,?,?,?)}";
 	public static final String SQL_UPDATE_OBRADJENA = "update DONACIJA set Obradjeno=true where SPONZOR_Id=? and UGOVOR_RedniBroj=? and RedniBroj=?";
-
+	private static final String SQL_UPDATE_TRANSAKCIJA_ID = "update DONACIJA set TRANSAKCIJA_Id=? where SPONZOR_Id=? and UGOVOR_RedniBroj=? and RedniBroj=? ";
+	
+	
 	@Override
 	public ObservableList<DonacijaDTO> selectAllById(Integer idSponzora, Integer rbUgovora) {
 		ObservableList<DonacijaDTO> result = FXCollections.observableArrayList();
@@ -154,5 +159,19 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			ConnectionPool.close(statement);
 		}
 	}
-
+	public void setIdTransakcije(DonacijaDTO donacija, int id) {//Helena dodala
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_UPDATE_TRANSAKCIJA_ID, false,
+					id,donacija.getSponzor().getId(), donacija.getUgovor().getRedniBroj(), donacija.getRedniBroj());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(statement);
+		}
+	}
 }

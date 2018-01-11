@@ -155,4 +155,11 @@ public class Narudzba {
 		
 		return id.get() + " - " + datumNarudzbeString + " - " + nazivDistributeraOpreme.get();
 	}
+	
+	
+	/*@Override
+	public boolean equals(Object obj) {//Helena dodala
+		// TODO Auto-generated method stub
+		return this.id.get()==((Narudzba)obj).getId().intValue();
+	}*/
 }

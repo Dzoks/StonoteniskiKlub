@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 import com.mysql.jdbc.Blob;
 
 import application.gui.controller.BaseController;
+import application.model.dao.DAOFactory;
 import application.model.dao.OsobaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.OsobaDTO;
@@ -169,7 +170,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) nije dobro unesen.", ButtonType.OK).showAndWait();
 			return;
 		}
-		OsobaDTO osoba = OsobaDAO.getByJmb(jmb);
+		OsobaDTO osoba = DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(jmb);
 		if(osoba != null && osoba.getId() != clan.getId()) {
 			new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) već postoji u bazi podataka."
 					+ " Pokusajte ponovo.", ButtonType.OK).showAndWait();
@@ -177,7 +178,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 		}
 		
 		for(String tel : telefoni) {
-			int id = OsobaDAO.getIdByTelefon(tel);
+			int id = DAOFactory.getDAOFactory().getOsobaDAO().getIdByTelefon(tel);
 			if(id!=0 && id!=clan.getId()) {
 				new Alert(AlertType.ERROR, "Greška prilikom unosa broja telefona. "
 						+ "Broj: " + tel + " pripada nekom drugom.", ButtonType.OK).showAndWait();
@@ -190,7 +191,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			return;
 		}
 		
-		OsobaDAO.deleteTelefon(clan.getId());
+		DAOFactory.getDAOFactory().getOsobaDAO().deleteTelefon(clan.getId());
 		
 		clan.setIme(ime);
 		clan.setPrezime(prezime);
@@ -208,8 +209,8 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			}
 		}
 		
-		OsobaDAO.insertTelefon(clan);
-		OsobaDAO.update(clan);
+		DAOFactory.getDAOFactory().getOsobaDAO().insertTelefon(clan);
+		DAOFactory.getDAOFactory().getOsobaDAO().update(clan);
 		primaryStage.close();
 	}
 	
