@@ -1,5 +1,6 @@
 package application.gui.sekretar.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -14,16 +15,21 @@ import com.itextpdf.text.log.SysoCounter;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
+import application.model.dao.StavkaSkupstinaDAO;
 import application.model.dto.DogadjajDTO;
+import application.util.InputValidator;
 import application.util.TextUtility;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -31,6 +37,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 
 public class CalendarController extends BaseController {
 	@FXML
@@ -43,6 +50,32 @@ public class CalendarController extends BaseController {
 	private Label lblNaslov;
 	@FXML
 	private TextFlow taDnevniPregled;
+	@FXML
+	private Button btnDodajDogadjaj;
+
+	@FXML
+	public void dodajDogadjaj(ActionEvent event) {
+		if (selectedDate != null) {
+			Stage newStage = new Stage();
+			DodavanjeDogadjajaController controller = null;
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getClassLoader()
+						.getResource("application/gui/sekretar/view/DodavanjeDogadjajaView.fxml"));
+				AnchorPane root = (AnchorPane) loader.load();
+				controller = loader.<DodavanjeDogadjajaController>getController();
+				controller.setParentController(this);
+				controller.setParams(selectedDate, dnevniDogadjaji);
+				Scene scene = new Scene(root, 330, 377);
+				newStage.setScene(scene);
+				newStage.setResizable(false);
+				newStage.setTitle("Dodavanje dogadjaja");
+				newStage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	// Event Listener on GridPane[#calendar].onMouseClicked
 	@FXML
 	public void getDay(MouseEvent event) {
@@ -66,6 +99,9 @@ public class CalendarController extends BaseController {
 
 	@FXML
 	public void sledeci(ActionEvent event) {
+		vratiStil(selectedLabel);
+		selectedLabel = null;
+		taDnevniPregled.getChildren().clear();
 		currentYearMonth = currentYearMonth.plusMonths(1);
 		lblNaslov.setText(MJESECI[currentYearMonth.getMonthValue() - 1] + " " + currentYearMonth.getYear());
 		lblNaslov.getScene().setCursor(Cursor.WAIT);
@@ -75,6 +111,9 @@ public class CalendarController extends BaseController {
 
 	@FXML
 	public void prethodni(ActionEvent event) {
+		vratiStil(selectedLabel);
+		selectedLabel = null;
+		taDnevniPregled.getChildren().clear();
 		currentYearMonth = currentYearMonth.minusMonths(1);
 		lblNaslov.setText(MJESECI[currentYearMonth.getMonthValue() - 1] + " " + currentYearMonth.getYear());
 		lblNaslov.getScene().setCursor(Cursor.WAIT);
@@ -115,6 +154,11 @@ public class CalendarController extends BaseController {
 						public void handle(Event event) {
 							LocalDate date = LocalDate.of(currentYearMonth.getYear(), currentYearMonth.getMonth(),
 									Integer.parseInt(label.getText()));
+							selectedDate = date;
+							if(label!=selectedLabel){
+								vratiStil(selectedLabel);
+							}
+							selectedLabel = label;
 							List<DogadjajDTO> dnevniDogadjaji = new ArrayList<DogadjajDTO>();
 							for (DogadjajDTO dogadjaj : dogadjaji) {
 								if (date.equals(LocalDate.of(dogadjaj.getPocetak().getYear(),
@@ -122,25 +166,30 @@ public class CalendarController extends BaseController {
 									dnevniDogadjaji.add(dogadjaj);
 								}
 							}
+							CalendarController.this.dnevniDogadjaji = dnevniDogadjaji;
 							TextUtility.setTextF(taDnevniPregled, dnevniDogadjaji);
 						}
 					});
 					label.setOnMouseEntered(new EventHandler<Event>() {
 						@Override
 						public void handle(Event event) {
-							label.setStyle(label.getStyle() + " -fx-background-color: lightgray");
+							if (label != selectedLabel) {
+								label.setStyle(label.getStyle() + " -fx-background-color: lightgray");
+							}
 						}
 					});
 					label.setOnMouseExited(new EventHandler<Event>() {
 
 						@Override
 						public void handle(Event event) {
-							String[] styles = label.getStyle().split("[;]");
-							String s = "";
-							for (int i = 0; i < styles.length - 1; i++) {
-								s += styles[i] + ";";
+							if (label != selectedLabel) {
+								String[] styles = label.getStyle().split("[;]");
+								String s = "";
+								for (int i = 0; i < styles.length - 1; i++) {
+									s += styles[i] + ";";
+								}
+								label.setStyle(s);
 							}
-							label.setStyle(s);
 						}
 					});
 					labele[i][j].setCursor(Cursor.HAND);
@@ -167,10 +216,34 @@ public class CalendarController extends BaseController {
 		}
 	}
 
+	public void dodajDogadjajUKalendar(DogadjajDTO dogadjaj) {
+		if(dnevniDogadjaji.isEmpty()){
+			System.out.println("AAA");
+			selectedLabel.setStyle(selectedLabel.getStyle().replaceAll("green", "red")); 
+		}
+		dogadjaji.add(dogadjaj);
+		dnevniDogadjaji.add(dogadjaj);
+		TextUtility.setTextF(taDnevniPregled, dnevniDogadjaji);
+	}
+
+	private void vratiStil(Label label) {
+		if (label != null) {
+			String[] stilovi = label.getStyle().split(";");
+			String stil = "";
+			for (int i = 0; i < stilovi.length - 1; i++) {
+				stil += stilovi[i] + ";";
+			}
+			label.setStyle(stil);
+		}
+	}
+
 	private static final String BASE_STYLE = "-fx-alignment: center; -fx-font-size: 30; -fx-border-color: black; -fx-font-weight:bold;";
 	private static final String[] MJESECI = { "JANUAR", "FEBRUAR", "MART", "APRIL", "MAJ", "JUN", "JUL", "AVGUST",
 			"SEPTEMBAR", "OKTOBAR", "NOVEMBAR", "DECEMBAR" };
 	private YearMonth currentYearMonth;
 	private List<DogadjajDTO> dogadjaji;
+	private List<DogadjajDTO> dnevniDogadjaji;
 	private Label[][] labele = new Label[6][7];
+	private LocalDate selectedDate = null;
+	private Label selectedLabel;
 }

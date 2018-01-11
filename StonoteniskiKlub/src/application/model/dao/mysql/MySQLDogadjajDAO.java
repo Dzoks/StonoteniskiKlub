@@ -1,8 +1,11 @@
 package application.model.dao.mysql;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -21,7 +24,8 @@ import application.util.ConnectionPool;
 public class MySQLDogadjajDAO implements DogadjajDAO {
 
 	private static final String SELECT_ALL_FOR_MONTH = "select * from DOGADJAJ where Pocetak between ? and ?";
-
+	private static final String SQL_INSERT = "{call dodaj_dogadjaj(?,?,?,?,?,?)}";
+	
 	@Override
 	public List<DogadjajDTO> selectAll(YearMonth yearMonth) {
 		List<DogadjajDTO> result = new ArrayList<DogadjajDTO>();
@@ -66,4 +70,32 @@ public class MySQLDogadjajDAO implements DogadjajDAO {
 	}
 
 	private static MySQLDogadjajDAO INSTANCE = null;
+
+	@Override
+	public Integer insert(DogadjajDTO dogadjaj) {
+		Integer result = -1;
+		Connection connection = null;
+		CallableStatement statement = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = connection.prepareCall(SQL_INSERT);
+			statement.setString("pOpis", dogadjaj.getOpis());
+			statement.setInt("pDogadjajTipId", dogadjaj.getTipDogadjaja().getId());
+			statement.setInt("pKorisnickiNalogId", 1);				// IZMIJENITI!!!!
+			statement.setTimestamp("pPocetak", Timestamp.valueOf(dogadjaj.getPocetak()));
+			statement.setTimestamp("pKraj", Timestamp.valueOf(dogadjaj.getKraj()));
+			statement.registerOutParameter("pRezId", Types.INTEGER);
+			statement.execute();
+			result = statement.getInt("pRezId");
+			if(result>0){
+				dogadjaj.setId(result);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(statement);
+		}
+		return result;
+	}
 }

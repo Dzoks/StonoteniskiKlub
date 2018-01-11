@@ -3,6 +3,8 @@ package application.util;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.itextpdf.text.Document;
@@ -17,6 +19,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import application.model.dto.DogadjajDTO;
 import application.model.dto.StavkaSkupstinaDTO;
+import javafx.scene.Node;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -36,8 +39,17 @@ public class TextUtility {
 
 	public static void setTextF(TextFlow textFlow, List<DogadjajDTO> dogadjaji) {
 		textFlow.getChildren().clear();
-		if (dogadjaji != null) {
+		if (dogadjaji != null && dogadjaji.size() > 0) {
+			textFlow.setStyle(textFlow.getStyle().split("[;]")[0]);
+			Collections.sort(dogadjaji, new Comparator<DogadjajDTO>() {
+
+				@Override
+				public int compare(DogadjajDTO o1, DogadjajDTO o2) {
+					return o1.getPocetak().compareTo(o2.getPocetak());
+				}
+			});
 			for (DogadjajDTO dogadjaj : dogadjaji) {
+				System.out.println(dogadjaj);
 				Text naslov = new Text("[" + dogadjaj.getPocetak().format(DateTimeFormatter.ofPattern("HH:mm")) + " - "
 						+ dogadjaj.getKraj().format(DateTimeFormatter.ofPattern("HH:mm")) + "] - " + dogadjaj.getTipDogadjaja().getTip() + AlertDisplay.NL
 						+ AlertDisplay.NL);
@@ -47,6 +59,11 @@ public class TextUtility {
 						"    - KREIRAO: " + dogadjaj.getKorisnickiNalog() + AlertDisplay.NL + AlertDisplay.NL);
 				textFlow.getChildren().addAll(naslov, opis, potpis);
 			}
+		} else{
+			Text naslov = new Text("Nema dogadjaja.");
+			naslov.setStyle("-fx-font-weight: bold; -fx-font-size: 20");
+			textFlow.setStyle(textFlow.getStyle() + "; -fx-text-alignment: center");
+			textFlow.getChildren().add(naslov);
 		}
 	}
 

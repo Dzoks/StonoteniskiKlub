@@ -7,4 +7,5 @@ import application.model.dto.DogadjajDTO;
 
 public interface DogadjajDAO {
 	List<DogadjajDTO> selectAll(YearMonth yearMonth);
+	Integer insert(DogadjajDTO dogadjaj);
 }

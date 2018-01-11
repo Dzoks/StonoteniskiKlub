@@ -11,15 +11,18 @@ import java.sql.PreparedStatement;
 import application.model.dao.DogadjajTipDAO;
 import application.model.dto.DogadjajTipDTO;
 import application.util.ConnectionPool;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class MySQLDogadjajTipDAO implements DogadjajTipDAO{
 	
 	private static final String MY_SQL_SELECT_ALL = "select * from DOGADJAJ_TIP";
 	private static final String MY_SQL_SELECT_BY_ID = "select * from DOGADJAJ_TIP where Id=?";
+	private static final String MY_SQL_INSERT = "insert into DOGADJAJ_TIP values(null, ?)";
 	
 	@Override
-	public List<DogadjajTipDTO> selectAll() {
-		List<DogadjajTipDTO> result = new ArrayList<DogadjajTipDTO>();
+	public ObservableList<DogadjajTipDTO> selectAll() {
+		ObservableList<DogadjajTipDTO> result = FXCollections.observableArrayList();
 		Connection connection=null;
 		Statement statement = null;
 		ResultSet resultSet = null;
@@ -71,5 +74,29 @@ public class MySQLDogadjajTipDAO implements DogadjajTipDAO{
 	protected MySQLDogadjajTipDAO() {
 	}
 	private static MySQLDogadjajTipDAO INSTANCE = null;
+
+	@Override
+	public boolean insert(DogadjajTipDTO dogadjaj) {
+		boolean result = false;
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, MY_SQL_INSERT, true, dogadjaj.getTip());
+			statement.executeUpdate();
+			resultSet = statement.getGeneratedKeys();
+			if(resultSet.next()){
+				dogadjaj.setId(resultSet.getInt(1));
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(resultSet, statement);
+		}
+		return result;
+	}
 	
 }
