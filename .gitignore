@@ -1,3 +1,9 @@
 *.class
 /StonoteniskiKlub/bin/
 
+<<<<<<< Updated upstream
+=======
+StonoteniskiKlub/tmp\.pdf
+
+StonoteniskiKlub/bin/application/gui/trener/view/OpremaGlavniView\.fxml
+>>>>>>> Stashed changes
