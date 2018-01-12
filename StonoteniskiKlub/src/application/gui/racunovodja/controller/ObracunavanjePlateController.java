@@ -114,7 +114,6 @@ public class ObracunavanjePlateController extends BaseController{
 		Double djecijaZastita = bruto*doprinosZaDjecijuZastitu/100;
 		Double porez = bruto*porezNaPlatu/100;
 		
-		
 		lblPorez.setText(String.format("%.2f", porez));
 		lblZO.setText(String.format("%.2f", zo));
 		lblDjecijaZastita.setText(String.format("%.2f", djecijaZastita));
@@ -123,14 +122,14 @@ public class ObracunavanjePlateController extends BaseController{
 		lblPIO.setText(String.format("%.2f", pio));
 		lblNeto.setText(netoPlata.toString());
 		lblDoprinosiUkupno.setText(String.format("%.2f", new Double(pio+zo+djecijaZastita+zaposljavanje)));
-		this.stampaj(zaposleni,koeficijent,cijenaRada,bolovanjeDana,pio,zo,zaposljavanje,djecijaZastita,porez,new Double(pio+zo+djecijaZastita+zaposljavanje),0.0,bruto,netoPlata);
+		this.stampaj(zaposleni,koeficijent,cijenaRada,bolovanjeDana,pio,zo,zaposljavanje,djecijaZastita,porez,new Double(pio+zo+djecijaZastita+zaposljavanje),bruto,netoPlata);
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		comboBoxZaposleni.setItems(ZaposleniDAO.selectAll());
 		comboBoxZaposleni.getSelectionModel().select(0); //paziti na null ptr
 	}
-	private void stampaj(ZaposleniDTO zaposleni, double koeficijent,double cijenaRada, int bolovanje,double pio, double zo,double zap, double djecijaZastita, double porez, double doprinosi, double porezi, double bruto,double neto) {
+	private void stampaj(ZaposleniDTO zaposleni, double koeficijent,double cijenaRada, int bolovanje,double pio, double zo,double zap, double djecijaZastita, double porez, double doprinosi, double bruto,double neto) {
 		File file = new File("tmp.pdf");
 		try {
 
@@ -151,12 +150,10 @@ public class ObracunavanjePlateController extends BaseController{
 			Paragraph temp = new Paragraph("OBRACUN PLATE", FontFactory.getFont(FONTBOLD, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 14));
 			temp.setAlignment(Element.ALIGN_CENTER);
 			p.add(temp);
-			for(int i=0; i<3;i++)
-				p.add(new Paragraph(" "));
+			p.add(new Paragraph(" "));
 			temp = new Paragraph("Zaposleni: "+zaposleni.getIme()+" "+zaposleni.getPrezime(), FontFactory.getFont(FONTBOLD, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12));
-			temp = new Paragraph("___________________________________________________________________", font);
 			p.add(temp);
-			temp.setAlignment(Element.ALIGN_JUSTIFIED);
+			temp = new Paragraph("___________________________________________________________________", font);
 			p.add(temp);
 			p.add(new Paragraph(" "));
 			temp = new Paragraph("Koeficijent: "+koeficijent, font);
@@ -169,15 +166,15 @@ public class ObracunavanjePlateController extends BaseController{
 			p.add(temp);
 			p.add(new Paragraph(" "));
 
-			temp = new Paragraph("Doprinosi za PIO(18.5%):                                               "+String.format("%.2f", pio)+" KM", font);
+			temp = new Paragraph("Doprinosi za PIO(18.5%): "+String.format("%.2f", pio)+" KM", font);
 			p.add(temp);
-			temp = new Paragraph("Doprinosi za zdravstveno osiguranje(12.0%):          "+String.format("%.2f", zo)+" KM", font);
+			temp = new Paragraph("Doprinosi za zdravstveno osiguranje(12.0%): "+String.format("%.2f", zo)+" KM", font);
 			p.add(temp);
-			temp = new Paragraph("Doprinosi za zaposljavanje(1.0%):                    "+String.format("%.2f", zap)+" KM", font);
+			temp = new Paragraph("Doprinosi za zaposljavanje(1.0%): "+String.format("%.2f", zap)+" KM", font);
 			p.add(temp);
-			temp = new Paragraph("Doprinosi za djeciju zastitu(1.5%):                  "+String.format("%.2f", djecijaZastita)+" KM", font);
+			temp = new Paragraph("Doprinosi za djeciju zastitu(1.5%): "+String.format("%.2f", djecijaZastita)+" KM", font);
 			p.add(temp);
-			temp = new Paragraph("Porez na platu(10.0%):                               "+String.format("%.2f", porez)+" KM", font);
+			temp = new Paragraph("Porez na platu(10.0%): "+String.format("%.2f", porez)+" KM", font);
 			p.add(temp);
 			temp = new Paragraph("___________________________________________________________________", font);
 			p.add(temp);
@@ -185,56 +182,31 @@ public class ObracunavanjePlateController extends BaseController{
 			temp = new Paragraph("UKUPNO:", FontFactory.getFont(FONTBOLD, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 11));
 			p.add(temp);
 			p.add(new Paragraph(" "));
-			temp = new Paragraph("Doprinosi:               "+String.format("%.2f", doprinosi)+" KM", font);
+			temp = new Paragraph("Doprinosi: "+String.format("%.2f", doprinosi)+" KM", font);
 			p.add(temp);
-			temp = new Paragraph("Porez:                   "+String.format("%.2f", porezi)+" KM", font);
+			temp = new Paragraph("Bruto iznos: "+String.format("%.2f", bruto)+" KM", font);
 			p.add(temp);
-			temp = new Paragraph("Bruto iznos:             "+String.format("%.2f", bruto)+" KM", font);
-			p.add(temp);
-			temp = new Paragraph("Neto iznos za isplatu:   "+String.format("%.2f", neto)+" KM", font);
+			temp = new Paragraph("Neto iznos za isplatu: "+String.format("%.2f", neto)+" KM", font);
 			p.add(temp);
 			for(int i=0; i<3;i++)
 				p.add(new Paragraph(" "));
-
-
-
-			
 			DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
 			Date today = Calendar.getInstance().getTime();
 			String reportDate = df.format(today);
-			p.add("Banja Luka, " + reportDate + " god.                                             Stonoteniski klub\n");
-			
-			
+			p.add("Banja Luka, " + reportDate + " god.                                             Stonoteniski klub\n");			
 			temp = new Paragraph("\"BORAC\"                        ", font);
 			temp.setAlignment(Element.ALIGN_RIGHT);
 			p.add(temp);
-			
-			/*//addEmptyLine(p, 1);
-			
-			temp = new Paragraph("______________________________   ", font);
-			temp.setAlignment(Element.ALIGN_RIGHT);
-			p.add(temp);
-			
-			temp = new Paragraph("(Predsjednik kluba: Miodrag Malinović)", font);
-			temp.setAlignment(Element.ALIGN_RIGHT);
-			p.add(temp);*/
-
 			report.add(p);
-
 			report.close();
-			
-			// zavrseno printanje u pdf
 			PDDocument doc = PDDocument.load(new BufferedInputStream(new FileInputStream(file)));
 			java.awt.print.PrinterJob job = java.awt.print.PrinterJob.getPrinterJob();
 			job.setPageable(new PDFPageable(doc));
-
 			if (job.printDialog()) {
 				job.print();
 			}
 			doc.close();
 			fos.close();
-			
-			
 			file.delete();
 
 		} catch (Exception e) {

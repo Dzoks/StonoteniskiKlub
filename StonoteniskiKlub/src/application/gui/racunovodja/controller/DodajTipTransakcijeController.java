@@ -20,7 +20,7 @@ public class DodajTipTransakcijeController extends BaseController{ //popraviti p
 	private Button btnDodaj;
 	@FXML
 	private TextField txtTip;
-	// Event Listener on Button[#btnDodaj].onAction
+	
 	@FXML
 	public void dodaj(ActionEvent event) {
 		String tip = txtTip.getText().trim();
