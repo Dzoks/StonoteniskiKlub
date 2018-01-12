@@ -11,8 +11,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.DistributerOpremeDAO;
-import application.model.dao.NarudzbaDAO;
+import application.model.dao.DAOFactory;
 import application.model.dto.DistributerOpreme;
 import application.model.dto.Narudzba;
 import javafx.beans.value.ChangeListener;
@@ -80,6 +79,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 	    MenuItem obrisiNarudzbu = new MenuItem("Obrisi narudzbu");
 	    
 	    obrisiNarudzbu.setOnAction(new EventHandler<ActionEvent>() {
+	    	
 	        @Override
 	        public void handle(ActionEvent t) {
 	        	Narudzba selektovanaNarudzba = null;
@@ -87,12 +87,14 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 	        	if(!listaNarudzbi.isEmpty()) {
 	        		selektovanaNarudzba = listaNarudzbi.get(tblNarudzbe.getSelectionModel().getSelectedIndex());	        		
 	        	}
+	        	
 	            if (selektovanaNarudzba != null){ 
-	            	NarudzbaDAO.UPDATE_OBRISAN(selektovanaNarudzba);
+	            	DAOFactory.getDAOFactory().getNarudzbaDAO().UPDATE_OBRISAN(selektovanaNarudzba);
 	            	popuniTabelu();
 	            	btnIzmjeni.setDisable(true);
 	            }
 	        }
+	        
 	    });
 	    
 	    tblNarudzbe.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -101,14 +103,18 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 	        public void handle(MouseEvent t) {
 	        	cm.getItems().clear();
 	        	Narudzba selektovanaNarudzba = tblNarudzbe.getSelectionModel().getSelectedItem();
-	        	if(selektovanaNarudzba != null && !NarudzbaDAO.PROVJERA_STATUSA(selektovanaNarudzba.getId())) {
+	        	if(selektovanaNarudzba != null && !DAOFactory.getDAOFactory().getNarudzbaDAO().PROVJERA_STATUSA(selektovanaNarudzba.getId())) {
 		    	    cm.getItems().add(obrisiNarudzbu);
 		            if(t.getButton() == MouseButton.SECONDARY)
 		            {
 		            	cm.show(tblNarudzbe , t.getScreenX() , t.getScreenY());
 		            }
+		            else {
+		            	cm.hide();
+		            }
 	        	}
 	        }
+	        
 	    });
 	}
 	
@@ -119,7 +125,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 		vrsta.setCellValueFactory(new PropertyValueFactory<Narudzba, String>("vrsta"));
 		status.setCellValueFactory(new PropertyValueFactory<Narudzba, String>("status"));
 		
-		ObservableList<Narudzba> listaNarudzbi = NarudzbaDAO.SELECT_ALL();
+		ObservableList<Narudzba> listaNarudzbi = DAOFactory.getDAOFactory().getNarudzbaDAO().SELECT_ALL();
 		
 		tblNarudzbe.setItems(listaNarudzbi);
 		tblNarudzbe.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Narudzba>() {
@@ -127,7 +133,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			@Override
 			public void changed(ObservableValue<? extends Narudzba> observable, Narudzba oldValue,Narudzba newValue) {
 				if (tblNarudzbe.getSelectionModel().getSelectedItem()!=null) {
-					if(NarudzbaDAO.PROVJERA_STATUSA(tblNarudzbe.getSelectionModel().getSelectedItem().getId())) {
+					if(DAOFactory.getDAOFactory().getNarudzbaDAO().PROVJERA_STATUSA(tblNarudzbe.getSelectionModel().getSelectedItem().getId())) {
 						btnIzmjeni.setDisable(true);
 					}
 					else {
@@ -138,20 +144,23 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 					btnIzmjeni.setDisable(true);
 				}
 			}
+			
 		});
 		
 		tblNarudzbe.setOnMousePressed(new EventHandler<MouseEvent>() {
+			
 		    @Override 
 		    public void handle(MouseEvent event) {
 		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
 		            idiNaPregledNarudzbe(tblNarudzbe.getSelectionModel().getSelectedItem());                 
 		        }
 		    }
+		    
 		});
 	}
 	
 	public void ucitajComboBoxeve() {
-		ObservableList<DistributerOpreme> listaDistributera = DistributerOpremeDAO.SELECT_ALL();
+		ObservableList<DistributerOpreme> listaDistributera = DAOFactory.getDAOFactory().getDistributerOpremeDAO().SELECT_ALL();
 		comboBoxDistributer.setItems(listaDistributera);
 		comboBoxDistributer.getSelectionModel().selectFirst();
 		
@@ -180,14 +189,16 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			Date trenutniDatum = Calendar.getInstance().getTime(); 
 			String trenutniDatumString = df.format(trenutniDatum);
 			Boolean opremaKluba =  "Oprema kluba".equals(comboBoxVrsta.getSelectionModel().getSelectedItem());
+			
 			if(opremaKluba) {
 				controller.VelicinaOnemoguceno();
 				controller.setOpremaKluba();
 			}
+			
 			controller.disableDugme();
 			Narudzba narudzba = null;
 			try {
-				narudzba = new Narudzba(NarudzbaDAO.SELECT_NEXT_ID(), df.parse(trenutniDatumString), opremaKluba, false, comboBoxDistributer.getSelectionModel().getSelectedItem().getId());
+				narudzba = new Narudzba(DAOFactory.getDAOFactory().getNarudzbaDAO().SELECT_NEXT_ID(), df.parse(trenutniDatumString), opremaKluba, false, comboBoxDistributer.getSelectionModel().getSelectedItem().getId());
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
@@ -195,6 +206,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			
 			controller.setParametre(comboBoxDistributer.getSelectionModel().getSelectedItem().getNaziv(), trenutniDatumString, "-");
 			noviStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
 		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da zapamtite narudzbu?", ButtonType.YES, ButtonType.NO);
@@ -206,6 +218,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 		              else if(ButtonType.NO.equals(rezultat.get())) {
 		            	  noviStage.close();
 		              }
+		              
 		          }});
 			noviStage.showAndWait(); 
 			popuniTabelu();
@@ -244,6 +257,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			
 			controller.setParametre(comboBoxDistributer.getSelectionModel().getSelectedItem().getNaziv(), datumNarudzbe, selektovanaNarudzba.getId().toString());
 			noviStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
 		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sacuvate izmjene?", ButtonType.YES, ButtonType.NO);
@@ -255,6 +269,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 		              else if(ButtonType.NO.equals(rezultat.get())) {
 		            	  noviStage.close();
 		              }
+		              
 		          }});
 			noviStage.showAndWait(); 
 			popuniTabelu();
@@ -277,9 +292,10 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
+			
 			if("YES".equals(controller.getPovratnaVrijednost())) {
 				DistributerOpreme noviDistributer = controller.vratiDistributeraOpreme();
-				DistributerOpremeDAO.INSERT(noviDistributer);
+				DAOFactory.getDAOFactory().getDistributerOpremeDAO().INSERT(noviDistributer);
 				ucitajComboBoxeve();
 				comboBoxDistributer.getSelectionModel().selectLast();
 			}

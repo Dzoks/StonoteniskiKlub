@@ -1,18 +1,8 @@
 package application.model.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-
-
 import application.model.dto.ClanDTO;
-import application.util.ConnectionPool;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public interface ClanDAO {
@@ -24,4 +14,5 @@ public interface ClanDAO {
 	public void insertAll(ClanDTO clan);
 	public ClanDTO getById(int id);
 	public void insert(ClanDTO clan);
+	public void setRegistrovan(boolean flag, int clanId);
 }

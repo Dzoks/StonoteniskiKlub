@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import application.gui.controller.BaseController;
-import application.model.dao.ClanDAO;
 import application.model.dao.DAOFactory;
 import application.model.dao.RegistracijaDAO;
 import application.model.dto.ClanDTO;
@@ -336,8 +335,8 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 	public void prikaziDetaljeOClanu() {
 		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
-
-		if (clan == null)
+		
+		if(clan == null)
 			return;
 		// Provjera da li je igrac
 		if (clan.isRegistrovan()) {

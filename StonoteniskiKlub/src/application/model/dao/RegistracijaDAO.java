@@ -38,6 +38,7 @@ public class RegistracijaDAO {
 			+ "`Pr.Liga`=?,"
 			+ "`Play-off`=?,"
 			+ "Ukupno=? where Sezona=? and CLAN_Id=? and KATEGORIJA_Id=?;";
+	private static String SQL_INSERT = "insert into REGISTRACIJA (Sezona, Datum, KATEGORIJA_Id, CLAN_Id) values(?,?,?,?)";
 	public static ObservableList<RegistracijaDTO> getAllByMember(ClanDTO member) {
 		ObservableList<RegistracijaDTO> list = FXCollections.observableArrayList();
 		Connection c = null;
@@ -65,8 +66,9 @@ public class RegistracijaDAO {
 		}
 		return list;
 	}
-	//20,21
-	public static ObservableList<RegistracijaDTO> getAllBySeason(String sezona,KategorijaDTO kategorija) {
+
+	// 20,21
+	public static ObservableList<RegistracijaDTO> getAllBySeason(String sezona, KategorijaDTO kategorija) {
 		ObservableList<RegistracijaDTO> list = FXCollections.observableArrayList();
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -94,7 +96,7 @@ public class RegistracijaDAO {
 		}
 		return list;
 	}
-	
+
 	public static boolean update(RegistracijaDTO trening) {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -110,16 +112,35 @@ public class RegistracijaDAO {
 				if (point!=null)
 					ps.setInt(j, point);
 				else
-					ps.setNull(j,Types.INTEGER);
+					ps.setNull(j, Types.INTEGER);
 			}
 			ps.executeUpdate();
 			return true;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		} finally {
-			ConnectionPool.close( ps);
+			ConnectionPool.close(ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
+	}
+
+	public static boolean insert(RegistracijaDTO registracija) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_INSERT, false, registracija.getSezona(),
+					Date.valueOf(registracija.getDatum()), registracija.getKATEGORIJA_Id(), registracija.getCLAN_Id());
+			statement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(statement);
+		}
+		return false;
 	}
 }

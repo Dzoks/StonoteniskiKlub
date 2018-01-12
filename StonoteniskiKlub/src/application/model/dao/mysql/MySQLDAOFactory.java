@@ -3,10 +3,24 @@ package application.model.dao.mysql;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanstvoDAO;
 import application.model.dao.DAOFactory;
+import application.model.dao.DistributerOpremeDAO;
+import application.model.dao.DogadjajDAO;
+import application.model.dao.DogadjajTipDAO;
 import application.model.dao.DonacijaDAO;
+import application.model.dao.NarudzbaDAO;
+import application.model.dao.NarudzbaStavkaDAO;
+import application.model.dao.OpremaClanaDAO;
+import application.model.dao.OpremaDAO;
+import application.model.dao.OpremaKlubaDAO;
+import application.model.dao.OpremaTipDAO;
 import application.model.dao.OsobaDAO;
+import application.model.dao.SkupstinaDAO;
 import application.model.dao.SponzorDAO;
+import application.model.dao.StavkaSkupstinaDAO;
 import application.model.dao.UgovorDAO;
+import application.model.dao.ZaposleniDAO;
+import application.model.dao.ZaposleniTipDAO;
+import application.model.dao.ZaposlenjeDAO;
 
 public class MySQLDAOFactory extends DAOFactory{
 	
@@ -22,6 +36,53 @@ public class MySQLDAOFactory extends DAOFactory{
 	}
 	
 	@Override
+	public ClanDAO getClanDAO() {
+		return new MySQLClanDAO();
+	}
+	@Override
+	public ClanstvoDAO getClanstvoDAO() {
+		return new MySQLClanstvoDAO();
+	}
+	@Override
+	public OsobaDAO getOsobaDAO() {
+		return new MySQLOsobaDAO();
+	}
+	
+	@Override
+	public DistributerOpremeDAO getDistributerOpremeDAO() {
+		return new MySQLDistributerOpremeDAO();
+	}
+	
+	@Override
+	public NarudzbaDAO getNarudzbaDAO() {
+		return new MySQLNarudzbaDAO();
+	}
+	
+	@Override
+	public NarudzbaStavkaDAO getNarudzbaStavkaDAO() {
+		return new MySQLNarudzbaStavkaDAO();
+	}
+	
+	@Override
+	public OpremaClanaDAO getOpremaClanaDAO() {
+		return new MySQLOpremaClanaDAO();
+	}
+	
+	@Override
+	public OpremaDAO getOpremaDAO() {
+		return new MySQLOpremaDAO();
+	}
+	
+	@Override
+	public OpremaKlubaDAO getOpremaKlubaDAO() {
+		return new MySQLOpremaKlubaDAO();
+	}
+	
+	@Override
+	public OpremaTipDAO getOpremaTipDAO() {
+		return new MySQLOpremaTipDAO();
+	}
+	@Override
 	public SponzorDAO getSponzorDAO() {
 		return new MySQLSponzorDAO();
 	}
@@ -36,16 +97,31 @@ public class MySQLDAOFactory extends DAOFactory{
 		return new MySQLDonacijaDAO();
 	}
 	@Override
-	public ClanDAO getClanDAO() {
-		return new MySQLClanDAO();
+	public ZaposleniTipDAO getZaposleniTipDAO() {
+		return new MySQLZaposleniTipDAO();
 	}
 	@Override
-	public ClanstvoDAO getClanstvoDAO() {
-		return new MySQLClanstvoDAO();
+	public ZaposlenjeDAO getZaposlenjeDAO() {
+		return new MySQLZaposlenjeDAO();
 	}
 	@Override
-	public OsobaDAO getOsobaDAO() {
-		return new MySQLOsobaDAO();
+	public ZaposleniDAO getZaposleniDAO() {
+		return new MySQLZaposleniDAO();
 	}
-	
+	@Override
+	public StavkaSkupstinaDAO getStavkaSkupstinaDAO() {
+		return MySQLStavkaSkupstinaDAO.getInstance();
+	}
+	@Override
+	public SkupstinaDAO getSkupstinaDAO() {
+		return MySQLSkupstinaDAO.getInstance();
+	}
+	@Override
+	public DogadjajTipDAO getDogadjajTipDAO() {
+		return MySQLDogadjajTipDAO.getInstance();
+	}
+	@Override
+	public DogadjajDAO getDogadjajDAO() {
+		return MySQLDogadjajDAO.getInstance();
+	}
 }

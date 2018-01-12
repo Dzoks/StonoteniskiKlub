@@ -10,4 +10,17 @@ public class InputValidator {
 		}
 		return true;
 	}
+	public static boolean validateJMB(String jmb){
+		if(jmb.length() == 13 && jmb.matches("\\d+")){
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean validateDouble(String input){
+		if(input.matches("[+-]?\\d+(?:\\.\\d+)?")){
+			return true;
+		}
+		return false;
+	}
 }

@@ -11,7 +11,5 @@
       <Button fx:id="btnDonacije" layoutX="151.0" layoutY="153.0" mnemonicParsing="false" onAction="#idiNaEvidentiranjeDonacija" text="Evidentiranje donacija" />
       <Button fx:id="btnPlate" layoutX="153.0" layoutY="188.0" mnemonicParsing="false" onAction="#idiNaEvidentiranjeIsplacenihPlata" text="Evidentiranje isplacenih plata" />
       <Button fx:id="btnObracunavanjePlata" layoutX="153.0" layoutY="225.0" mnemonicParsing="false" onAction="#idiNaObracunavanjePlata" text="Obracunavanje plata zaposlenima" />
-      <Button fx:id="btnTroskoviOprema" layoutX="152.0" layoutY="270.0" mnemonicParsing="false" onAction="#idiNaTroskoviOprema" text="Evidentiranje sredstava za opremu" />
-      <Button fx:id="btnTroskoviTurnir" layoutX="158.0" layoutY="315.0" mnemonicParsing="false" onAction="#idiNaTroskoviTurnir" text="Evidentiranje sredstava za turnir" />
    </children>
 </AnchorPane>

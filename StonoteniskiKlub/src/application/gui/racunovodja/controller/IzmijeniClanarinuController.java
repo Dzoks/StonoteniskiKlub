@@ -9,19 +9,14 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.ClanarinaDAO;
 import application.model.dao.DAOFactoryTransakcije;
-import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
@@ -70,7 +65,7 @@ public class IzmijeniClanarinuController extends BaseController{
 	public void setClanarina(ClanarinaDTO clanarina) {
 		this.clanarina = clanarina;
 	}
-	public void setComboBoxClan(ObservableList<ClanDTO> lista, int clan) { //poslati Clana tu, promijeniti
+	public void setComboBoxClan(ObservableList<ClanDTO> lista, int clan) {
 		this.comboBoxClan.setItems(lista);
 		for(ClanDTO cl : listaClanova) {
 			if(cl.getId()==clan) {
@@ -127,16 +122,7 @@ public class IzmijeniClanarinuController extends BaseController{
 	
 	public void izmijeni() {
 		
-		Double iznos = null;
-		try {
-			iznos = Double.parseDouble(txtIznos.getText());
-			if(iznos<0)
-				throw new NumberFormatException();
-		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
-			alert.showAndWait();
-			return;
-		}
+		Double iznos = Double.parseDouble(txtIznos.getText());
 		Integer mjesec = spinnerMjesec.getValue();
 		Integer godina = spinnerGodina.getValue();
 		ClanDTO clan = comboBoxClan.getValue();
@@ -144,13 +130,11 @@ public class IzmijeniClanarinuController extends BaseController{
 		LocalDate localDate = datePicker.getValue();
 		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
 		Date datum = Date.from(instant);
-		System.out.println(clanarina.getId());
 		String tipTransakcije = "clanarina"; //hardcode, popraviti hashmap...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		ClanarinaDTO clanarina1 = new ClanarinaDTO(clanarina.getId(), datum, iznos, opis, tipTransakcije, mjesec, godina, clan.getIme(), clan.getPrezime(),clan.getId());
 		evidentiranjeController.getListaClanarina().remove(clanarina1);
 		evidentiranjeController.getListaClanarina().add(clanarina1);
 		DAOFactoryTransakcije.getDAOFactory().getClanarinaDAO().UPDATE(clanarina1,clan);
-		DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(clanarina1.getIznos().get()-clanarina.getIznos().get());
 		this.getPrimaryStage().close();
 	}
 	public void otkazi() {

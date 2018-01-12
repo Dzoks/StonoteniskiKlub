@@ -4,8 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import application.model.dao.DistributerOpremeDAO;
-import application.model.dao.NarudzbaStavkaDAO;
+import application.model.dao.DAOFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -34,16 +33,19 @@ public class Narudzba {
 		super();
 		this.id = id==null ? null : new SimpleIntegerProperty(id);
 		this.datum = datum;
+		
 		if(opremaKluba) {
 			this.vrsta = new SimpleStringProperty("Oprema kluba");
 		}
 		else {
 			this.vrsta = new SimpleStringProperty("Oprema clana");
 		}
+		
 		this.idDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleIntegerProperty(idDistributeraOpreme);
-		this.nazivDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleStringProperty(DistributerOpremeDAO.SELECT_BY_ID(idDistributeraOpreme));
+		this.nazivDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleStringProperty(DAOFactory.getDAOFactory().getDistributerOpremeDAO().SELECT_BY_ID(idDistributeraOpreme));
 		this.obradjeno = obradjeno==null ? null : new SimpleBooleanProperty(obradjeno);
-		listaStavki = id==null ? FXCollections.observableArrayList() : NarudzbaStavkaDAO.SELECT_BY_IDNARUDZBE(id);
+		listaStavki = id==null ? FXCollections.observableArrayList() : DAOFactory.getDAOFactory().getNarudzbaStavkaDAO().SELECT_BY_IDNARUDZBE(id);
+		
 		if(obradjeno) {
 			this.status = new SimpleStringProperty("DA");
 		}
@@ -56,16 +58,19 @@ public class Narudzba {
 		super();
 		this.id = id==null ? null : new SimpleIntegerProperty(id);
 		this.datum = datum;
+		
 		if(opremaKluba) {
 			this.vrsta = new SimpleStringProperty("Oprema kluba");
 		}
 		else {
 			this.vrsta = new SimpleStringProperty("Oprema clana");
 		}
+		
 		this.idDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleIntegerProperty(idDistributeraOpreme);
-		this.nazivDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleStringProperty(DistributerOpremeDAO.SELECT_BY_ID(idDistributeraOpreme));
+		this.nazivDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleStringProperty(DAOFactory.getDAOFactory().getDistributerOpremeDAO().SELECT_BY_ID(idDistributeraOpreme));
 		this.obradjeno = obradjeno==null ? null : new SimpleBooleanProperty(obradjeno);
-		this.listaStavki = id==null ? FXCollections.observableArrayList() : NarudzbaStavkaDAO.SELECT_BY_IDNARUDZBE(id);
+		this.listaStavki = id==null ? FXCollections.observableArrayList() : DAOFactory.getDAOFactory().getNarudzbaStavkaDAO().SELECT_BY_IDNARUDZBE(id);
+		
 		if(obradjeno) {
 			this.status = new SimpleStringProperty("DA");
 		}

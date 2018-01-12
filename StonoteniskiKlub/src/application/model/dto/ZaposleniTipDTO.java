@@ -17,21 +17,33 @@ public class ZaposleniTipDTO {
 		this.tip = tip == null ? null : new SimpleStringProperty(tip);
 	}
 
-	public IntegerProperty getId() {
+	// property metode
+	public IntegerProperty idProperty() {
 		return id;
 	}
 
-	public void setId(IntegerProperty id) {
-		this.id = id;
-	}
-
-	public StringProperty getTip() {
+	public StringProperty tipProperty() {
 		return tip;
 	}
 
-	public void setTip(StringProperty tip) {
-		this.tip = tip;
+	// getteri
+	public Integer getId() {
+		return id == null ? null : id.get();
 	}
+
+	public String getTip() {
+		return tip == null ? null : tip.get();
+	}
+
+	// setteri
+	public void setId(Integer id) {
+		this.id = id == null ? null : new SimpleIntegerProperty(id);
+	}
+
+	public void setTip(String tip) {
+		this.tip = tip == null ? null : new SimpleStringProperty(tip);
+	}
+
 	@Override
 	public String toString() {
 		return tip.get();

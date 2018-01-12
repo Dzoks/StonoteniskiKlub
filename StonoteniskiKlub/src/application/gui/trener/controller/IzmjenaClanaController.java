@@ -19,7 +19,6 @@ import com.mysql.jdbc.Blob;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.OsobaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.OsobaDTO;
 import application.util.ConnectionPool;

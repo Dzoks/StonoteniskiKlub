@@ -1,20 +1,7 @@
 package application.gui.sekretar.controller;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.scene.control.TextField;
-
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
@@ -26,19 +13,22 @@ import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
 import application.util.InputValidator;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-
 import javafx.scene.control.RadioButton;
-
-import javafx.scene.control.TableView;
-
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class RadSaSponzorimaController extends BaseController {
 	@FXML

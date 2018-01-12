@@ -30,9 +30,7 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import application.gui.controller.BaseController;
-import application.model.dao.ClanDAO;
 import application.model.dao.DAOFactory;
-import application.model.dao.OsobaDAO;
 import application.model.dto.ClanDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
@@ -40,8 +38,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 

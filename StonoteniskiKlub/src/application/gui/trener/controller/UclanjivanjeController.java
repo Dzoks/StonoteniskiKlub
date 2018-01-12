@@ -15,13 +15,8 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.ClanDAO;
-import application.model.dao.ClanstvoDAO;
 import application.model.dao.DAOFactory;
-import application.model.dao.OsobaDAO;
-import application.model.dto.Clan;
 import application.model.dto.ClanDTO;
-import application.model.dto.Osoba;
 import application.model.dto.OsobaDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;

@@ -7,18 +7,15 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dao.KategorijaTurniraDAO;
-import application.model.dao.OsobaDAO;
 import application.model.dao.TimDAO;
 import application.model.dao.UcesnikPrijavaDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
-import javafx.scene.control.DatePicker;
 
 public class DublPrijavaController extends BaseController{
 	@FXML

@@ -4,10 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.NarudzbaDAO;
-import application.model.dao.NarudzbaStavkaDAO;
-import application.model.dao.OpremaClanaDAO;
-import application.model.dao.OpremaKlubaDAO;
+import application.model.dao.DAOFactory;
 import application.model.dto.Clan;
 import application.model.dto.NarudzbaStavka;
 import application.model.dto.OpremaClana;
@@ -34,8 +31,6 @@ public class ObradiOpremuController extends BaseController implements Initializa
 	
 	private Boolean opremaKluba = false;
 	private NarudzbaStavka stavkaNarudzbe = null;
-	private Boolean donirana = false;
-	private Integer idDonacije = null;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -43,7 +38,7 @@ public class ObradiOpremuController extends BaseController implements Initializa
 	}
 	
 	public void popuniListu() {
-		ObservableList<Clan> listaClanova = OpremaClanaDAO.SELECT_AKTIVNE();
+		ObservableList<Clan> listaClanova = DAOFactory.getDAOFactory().getOpremaClanaDAO().SELECT_AKTIVNE();
 		listClanovi.setItems(listaClanova);
 		listClanovi.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
@@ -67,8 +62,8 @@ public class ObradiOpremuController extends BaseController implements Initializa
 	
 	public Boolean ubaciUBazu() {
 		if(opremaKluba) {
-			OpremaKluba opremaKluba = new OpremaKluba(null, stavkaNarudzbe.getIdNarudzbe(), stavkaNarudzbe.getIdTipaOpreme(), idDonacije, donirana, stavkaNarudzbe.getVelicina(), "Nova oprema.", true);
-			OpremaKlubaDAO.INSERT(opremaKluba, spinnerPristiglo.getValue());
+			OpremaKluba opremaKluba = new OpremaKluba(null, stavkaNarudzbe.getIdNarudzbe(), stavkaNarudzbe.getIdTipaOpreme(), null, null, null, false, stavkaNarudzbe.getVelicina(), "Nova oprema.", true);
+			DAOFactory.getDAOFactory().getOpremaKlubaDAO().INSERT(opremaKluba, spinnerPristiglo.getValue());
 		}
 		else {
 			if(listClanovi.getSelectionModel().getSelectedItems().size() != spinnerPristiglo.getValue().intValue()) {
@@ -77,12 +72,13 @@ public class ObradiOpremuController extends BaseController implements Initializa
 			}
 			ObservableList<Clan> listaClanova = listClanovi.getSelectionModel().getSelectedItems();
 			for(Clan clan : listaClanova) {
-				OpremaClana opremaClana = new OpremaClana(null, stavkaNarudzbe.getIdNarudzbe(), stavkaNarudzbe.getIdTipaOpreme(), idDonacije, donirana, stavkaNarudzbe.getVelicina(), clan.getId());
-				OpremaClanaDAO.INSERT(opremaClana);
+				OpremaClana opremaClana = new OpremaClana(null, stavkaNarudzbe.getIdNarudzbe(), stavkaNarudzbe.getIdTipaOpreme(), stavkaNarudzbe.getVelicina(), clan.getId());
+				DAOFactory.getDAOFactory().getOpremaClanaDAO().INSERT(opremaClana);
 			}
 		}
-		NarudzbaStavkaDAO.UPDATE_OBRADJENO(stavkaNarudzbe);
-		NarudzbaDAO.UPDATE_OBRADJENO(stavkaNarudzbe.getIdNarudzbe());
+		
+		DAOFactory.getDAOFactory().getNarudzbaStavkaDAO().UPDATE_OBRADJENO(stavkaNarudzbe);
+		DAOFactory.getDAOFactory().getNarudzbaDAO().UPDATE_OBRADJENO(stavkaNarudzbe.getIdNarudzbe());
 		
 		return true;
 	}
@@ -99,13 +95,5 @@ public class ObradiOpremuController extends BaseController implements Initializa
 
 	public void setStavkaNarudzbe(NarudzbaStavka stavkaNarudzbe) {
 		this.stavkaNarudzbe = stavkaNarudzbe;
-	}
-
-	public void setDonirana() {
-		this.donirana = true;
-	}
-
-	public void setIdDonacije(Integer idDonacije) {
-		this.idDonacije = idDonacije;
 	}
 }

@@ -72,5 +72,4 @@ public class OpremaTip {
 	public String toString() {
 		return tip.get().toUpperCase() + " - " + proizvodjac.get() + " - " + model.get();
 	}
-	
 }
