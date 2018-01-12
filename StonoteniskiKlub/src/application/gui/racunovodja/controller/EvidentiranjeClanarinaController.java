@@ -9,31 +9,48 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.DAOFactory;
+import application.model.dao.ClanDAO;
+import application.model.dao.ClanarinaDAO;
 import application.model.dao.DAOFactoryTransakcije;
+import application.model.dao.NovcanaSredstvaDAO;
+import application.model.dao.OpremaKlubaDAO;
+import application.model.dao.TipTransakcijeDAO;
+import application.model.dao.TransakcijaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
+import application.model.dto.NovcanaSredstvaDTO;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Label;
+
+import javafx.scene.control.ComboBox;
+
+import javafx.scene.control.TextArea;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.RadioButton;
+
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableView;
+
+import javafx.scene.control.DatePicker;
+
+import javafx.scene.control.TableColumn;
 
 public class EvidentiranjeClanarinaController extends BaseController{
 	@FXML
@@ -58,6 +75,8 @@ public class EvidentiranjeClanarinaController extends BaseController{
 	private RadioButton radiobtnClan;
 	@FXML
 	private RadioButton radiobtnMjesec;
+	@FXML
+	private RadioButton radiobtnSve;
 	@FXML
 	private Label lblMjesec;
 	@FXML
@@ -112,19 +131,56 @@ public class EvidentiranjeClanarinaController extends BaseController{
 		ToggleGroup group = new ToggleGroup();
 		radiobtnClan.setToggleGroup(group);
 		radiobtnMjesec.setToggleGroup(group);
+		radiobtnSve.setToggleGroup(group);
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, 1);
+		SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, 1);
 		SpinnerValueFactory<Integer> valueFactory1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(2010, 2018, 2014);
+		SpinnerValueFactory<Integer> valueFactory4 = new SpinnerValueFactory.IntegerSpinnerValueFactory(2010, 2018, 2014);
 		spinnerMjesecDodaj.setValueFactory(valueFactory);
-		  spinnerMjesecPrikazi.setValueFactory(valueFactory);
+		  spinnerMjesecPrikazi.setValueFactory(valueFactory2);
 		  spinnerGodinaDodaj.setValueFactory(valueFactory1);
-		  spinnerGodina.setValueFactory(valueFactory1);
+		  spinnerGodina.setValueFactory(valueFactory4);
 		this.popuniTabelu();
 		this.popuniComboBox();
+		comboBoxClanPrikazi.setDisable(true);
+		spinnerMjesecPrikazi.setDisable(true);
+		spinnerGodina.setDisable(true);
+		btnDodaj.setDisable(true);
+		BooleanBinding bb = txtIznos.textProperty().isEmpty().or(datePicker.valueProperty().isNull());
+		btnDodaj.disableProperty().bind(bb);
+		txtIznos.textProperty().addListener((observable, oldValue, newValue) -> {
+			if(poljaPrazna())
+				btnDodaj.disableProperty().bind(bb);
+		});
+		datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if(poljaPrazna())
+				btnDodaj.disableProperty().bind(bb);
+		});
+		BooleanBinding binding = radiobtnSve.selectedProperty().not().and(radiobtnClan.selectedProperty().not()).and(radiobtnMjesec.selectedProperty().not());
+		btnPrikazi.disableProperty().bind(binding);
 	}
-	
+	private boolean poljaPrazna() {
+		return txtIznos.getText().isEmpty() || datePicker.getValue()==null;
+	}
+	public void radioClan() {
+		comboBoxClanPrikazi.setDisable(false);
+		spinnerMjesecPrikazi.setDisable(true);
+		spinnerGodina.setDisable(true);
+	}
+	public void radioMjesec() {
+		spinnerMjesecPrikazi.setDisable(false);
+		spinnerGodina.setDisable(false);
+		comboBoxClanPrikazi.setDisable(true);
+	}
+	public void radioSve() {
+		comboBoxClanPrikazi.setDisable(true);
+		spinnerMjesecPrikazi.setDisable(true);
+		spinnerGodina.setDisable(true);
+	}
 	private void popuniTabelu() {
 		
 		postaviKolone();
+		
 		listaClanarina = DAOFactoryTransakcije.getDAOFactory().getClanarinaDAO().SELECT_ALL();
 		tableClanarine.setItems(listaClanarina);
 		tableClanarine.getSelectionModel().select(0);
@@ -140,28 +196,56 @@ public class EvidentiranjeClanarinaController extends BaseController{
 		tableColumnDatumUplate.setCellValueFactory(new PropertyValueFactory<ClanarinaDTO,String>("datum"));
 	}
 	private void popuniComboBox() {
-		listaClanova = DAOFactory.getDAOFactory().getClanDAO().SELECT_ALL();
+		listaClanova = ClanDAO.SELECT_ALL();
 		comboBoxClanDodaj.setItems(listaClanova);
 		comboBoxClanDodaj.getSelectionModel().selectFirst();
 		comboBoxClanPrikazi.setItems(listaClanova);
 		comboBoxClanPrikazi.getSelectionModel().selectFirst();
 	}
-	
+	private void obrisiPolja() {
+		txtIznos.setText("");
+		txtOpis.setText("");
+		datePicker.setValue(null);
+	}
 	public void dodaj() {
-		System.out.println("dodaj");
-		//pokupi podatke sa polja i posalji to u proceduru koja ce napraviti transakciju i clanarinu
-		Double iznos = Double.parseDouble(txtIznos.getText());
+		Double iznos = null;
+		try {
+			iznos = Double.parseDouble(txtIznos.getText());
+			if(iznos<0)
+				throw new NumberFormatException();
+		}catch(NumberFormatException ex) {
+			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
+			this.obrisiPolja();
+			alert.showAndWait();
+			return;
+		}
+		
 		Integer mjesec = spinnerMjesecDodaj.getValue();
 		Integer godina = spinnerGodinaDodaj.getValue();
 		ClanDTO clan = comboBoxClanDodaj.getValue();
 		String opis = txtOpis.getText();
 		LocalDate localDate = datePicker.getValue();
-		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-		Date datum = Date.from(instant);
-		String tipTransakcije = "clanarina"; //hardcode, popraviti hashmap...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		Instant instant = null;
+		Date datum = null;
+		if(localDate!=null) {
+			instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+			datum = Date.from(instant);
+		}
+		
+		String tipTransakcije = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().getById(1).getTip();
+		System.out.println(tipTransakcije);
 		ClanarinaDTO clanarina = new ClanarinaDTO(null, datum, iznos, opis, tipTransakcije, mjesec, godina, clan.getIme(), clan.getPrezime(),clan.getId());
-		DAOFactoryTransakcije.getDAOFactory().getClanarinaDAO().INSERT(clanarina, clan);
-		listaClanarina.add(clanarina);
+		boolean ok = DAOFactoryTransakcije.getDAOFactory().getClanarinaDAO().INSERT(clanarina, clan);
+		if(ok) {
+			listaClanarina.add(clanarina);
+			//dodati u prihode trenutne sezone
+			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(clanarina.getIznos().get());
+			Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje!");
+			alert.showAndWait();
+			this.obrisiPolja();
+			radiobtnSve.fire();
+			btnPrikazi.fire();
+		}
 	}
 	
 	public void prikazi() {
@@ -185,7 +269,10 @@ public class EvidentiranjeClanarinaController extends BaseController{
 				}
 			}
 			tableClanarine.setItems(lista);
+		}else if(radiobtnSve.isSelected()) {
+			tableClanarine.setItems(listaClanarina);
 		}
+		tableClanarine.getSelectionModel().select(0);
 	}
 	public void izmijeni() {
 		Stage noviStage = new Stage();
@@ -214,11 +301,7 @@ public class EvidentiranjeClanarinaController extends BaseController{
 			controller.setClanarina(clanarina);
 			controller.setEvidentiranjeController(this);
 			noviStage.showAndWait();
-			//postaviKolone();
-			//tableClanarine.setItems(listaClanarina);
 			tableClanarine.refresh();
-			postaviKolone();
-			//popuniTabelu();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -233,6 +316,11 @@ public class EvidentiranjeClanarinaController extends BaseController{
 
 	public void setListaClanarina(ObservableList<ClanarinaDTO> listaClanarina) {
 		this.listaClanarina = listaClanarina;
+	}
+	public void obrisi() {
+		DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().delete(tableClanarine.getSelectionModel().getSelectedItem().getId());
+		listaClanarina.remove(tableClanarine.getSelectionModel().getSelectedItem());
+		tableClanarine.refresh();
 	}
 }
 
