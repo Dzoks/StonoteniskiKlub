@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.PocetniProzorRacunovodjaController">
+   <children>
+      <Button fx:id="btnEvidentiranjeNovcanihSredstava" layoutX="144.0" layoutY="44.0" mnemonicParsing="false" onAction="#idiNaEvidentiranjeNovcanihSredstava" text="Evidentiranje novcanih sredstava" />
+      <Button fx:id="btnUplateClanarine" layoutX="151.0" layoutY="85.0" mnemonicParsing="false" onAction="#idiNaEvidentiranjeClanarina" text="Evidentiranje uplata clanarine" />
+      <Button fx:id="btnUplataTurnir" layoutX="153.0" layoutY="119.0" mnemonicParsing="false" onAction="#idiNaEvidentiranjeUplataZaTurnir" text="Evidentiranje uplaza za turnir" />
+      <Button fx:id="btnDonacije" layoutX="151.0" layoutY="153.0" mnemonicParsing="false" onAction="#idiNaEvidentiranjeDonacija" text="Evidentiranje donacija" />
+      <Button fx:id="btnPlate" layoutX="153.0" layoutY="188.0" mnemonicParsing="false" onAction="#idiNaEvidentiranjeIsplacenihPlata" text="Evidentiranje isplacenih plata" />
+      <Button fx:id="btnObracunavanjePlata" layoutX="153.0" layoutY="225.0" mnemonicParsing="false" onAction="#idiNaObracunavanjePlata" text="Obracunavanje plata zaposlenima" />
+      <Button fx:id="btnTroskoviOprema" layoutX="152.0" layoutY="270.0" mnemonicParsing="false" onAction="#idiNaTroskoviOprema" text="Evidentiranje sredstava za opremu" />
+      <Button fx:id="btnTroskoviTurnir" layoutX="158.0" layoutY="315.0" mnemonicParsing="false" onAction="#idiNaTroskoviTurnir" text="Evidentiranje sredstava za turnir" />
+   </children>
+</AnchorPane>
