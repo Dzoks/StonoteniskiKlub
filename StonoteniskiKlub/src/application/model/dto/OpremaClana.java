@@ -1,6 +1,5 @@
 package application.model.dto;
 
-import application.model.dao.ClanDAO;
 import application.model.dao.DAOFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;

@@ -11,15 +11,12 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import application.model.dto.DogadjajDTO;
 import application.model.dto.StavkaSkupstinaDTO;
-import javafx.scene.Node;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 

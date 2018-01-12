@@ -2,6 +2,7 @@ package application.model.dao.mysql;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -10,14 +11,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import java.sql.PreparedStatement;
 
 import application.model.dao.DAOFactory;
 import application.model.dao.DogadjajDAO;
-import application.model.dao.KorisnickiNalogDAO;
 import application.model.dto.DogadjajDTO;
 import application.util.ConnectionPool;
 

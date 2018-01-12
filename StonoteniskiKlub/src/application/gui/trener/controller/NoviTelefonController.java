@@ -4,14 +4,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 
 public class NoviTelefonController extends BaseController implements Initializable{
 

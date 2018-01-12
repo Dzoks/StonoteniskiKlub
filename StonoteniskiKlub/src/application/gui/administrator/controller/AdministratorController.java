@@ -22,15 +22,15 @@ import javafx.stage.Stage;
 
 public class AdministratorController extends BaseController {
 	@FXML
-	private TableView tabelaNalog;
+	private TableView<KorisnickiNalogDTO> tabelaNalog;
 	@FXML
-	private TableColumn kolonaIme;
+	private TableColumn<KorisnickiNalogDTO,String> kolonaIme;
 	@FXML
-	private TableColumn kolonaPrezime;
+	private TableColumn<KorisnickiNalogDTO,String> kolonaPrezime;
 	@FXML
-	private TableColumn kolonaUloga;
+	private TableColumn<KorisnickiNalogDTO,String> kolonaUloga;
 	@FXML
-	private TableColumn kolonaKorisnickoIme;
+	private TableColumn<KorisnickiNalogDTO,String> kolonaKorisnickoIme;
 
 	@FXML
 	private Button obrisiNalogDugme;

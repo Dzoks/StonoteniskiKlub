@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.apache.poi.ddf.EscherColorRef.SysIndexSource;
 import org.mindrot.jbcrypt.BCrypt;
 
-import com.itextpdf.text.log.SysoCounter;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 

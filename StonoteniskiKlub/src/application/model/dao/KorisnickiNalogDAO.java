@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.itextpdf.text.log.SysoCounter;
-
 import application.model.dto.KorisnickiNalogDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;

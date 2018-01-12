@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.sql.Types;
 
 import application.model.dao.DAOFactory;
-import application.model.dao.OsobaDAO;
 import application.model.dao.ZaposleniDAO;
 import application.model.dao.ZaposlenjeDAO;
 import application.model.dto.ZaposleniDTO;
@@ -40,7 +39,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 				result.add(new ZaposleniDTO(resultSet.getInt("Id"), resultSet.getString("Ime"),
 						resultSet.getString("Prezime"), resultSet.getString("ImeRoditelja"), resultSet.getString("JMB"),
 						resultSet.getString("Pol").charAt(0), resultSet.getDate("DatumRodjenja"),
-						resultSet.getBlob("Fotografija"), OsobaDAO.getTelefoni(resultSet.getInt("Id")),
+						resultSet.getBlob("Fotografija"), DAOFactory.getDAOFactory().getOsobaDAO().getTelefoni(resultSet.getInt("Id")),
 						resultSet.getBoolean("Aktivan"), zDAO.selectAllById(resultSet.getInt("Id"))));
 			}
 		} catch (SQLException e) {
@@ -113,7 +112,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 				result.add(new ZaposleniDTO(resultSet.getInt("Id"), resultSet.getString("Ime"),
 						resultSet.getString("Prezime"), resultSet.getString("ImeRoditelja"), resultSet.getString("JMB"),
 						resultSet.getString("Pol").charAt(0), resultSet.getDate("DatumRodjenja"),
-						resultSet.getBlob("Fotografija"), OsobaDAO.getTelefoni(resultSet.getInt("Id")),
+						resultSet.getBlob("Fotografija"), DAOFactory.getDAOFactory().getOsobaDAO().getTelefoni(resultSet.getInt("Id")),
 						true, zDAO.selectAllById(resultSet.getInt("Id"))));
 			}
 		} catch (SQLException e) {

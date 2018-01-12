@@ -1,9 +1,5 @@
 package application.gui.trener.controller;
 
-import javafx.fxml.FXML;
-
-import javafx.scene.control.Button;
-
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -11,8 +7,8 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
+import application.model.dao.DAOFactory;
 import application.model.dao.KategorijaDAO;
-import application.model.dao.OsobaDAO;
 import application.model.dao.RegistracijaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.KategorijaDTO;
@@ -22,16 +18,13 @@ import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-
-import javafx.scene.control.ListView;
-
-import javafx.scene.control.Label;
-
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-
-import javafx.scene.image.ImageView;
-
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 
 public class RegistracijaController extends BaseController {
 	@FXML
@@ -63,7 +56,7 @@ public class RegistracijaController extends BaseController {
 		cbSezona.getSelectionModel().select(0);
 		cbKategorija.setItems(KategorijaDAO.getAllMySQL());
 		cbKategorija.getSelectionModel().select(0);
-		this.setClan(ClanDAO.getById(29));
+		this.setClan(DAOFactory.getDAOFactory().getClanDAO().getById(29));
 	}
 
 	// Event Listener on Button[#btnSacuvaj].onAction
@@ -96,7 +89,7 @@ public class RegistracijaController extends BaseController {
 		lblImeRoditelja.setText(this.clan.getImeRoditelja());
 		lblJmb.setText(this.clan.getJmb());
 		lblDatumR.setText(new SimpleDateFormat("dd.MM.yyyy").format(this.clan.getDatumRodjenja()));
-		List<String> telefoni = OsobaDAO.getTelefoni(clan.getId());
+		List<String> telefoni = DAOFactory.getDAOFactory().getOsobaDAO().getTelefoni(clan.getId());
 		ObservableList<String> tels = FXCollections.observableArrayList();
 		for (String tel : telefoni) {
 			tels.add(tel);

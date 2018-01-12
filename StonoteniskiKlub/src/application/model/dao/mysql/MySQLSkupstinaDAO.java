@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.ZoneId;
 
 import application.model.dao.SkupstinaDAO;
 import application.model.dto.SkupstinaDTO;

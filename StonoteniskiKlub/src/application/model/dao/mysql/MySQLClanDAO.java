@@ -10,7 +10,6 @@ import java.util.List;
 
 import application.model.dao.ClanDAO;
 import application.model.dao.DAOFactory;
-import application.model.dao.OsobaDAO;
 import application.model.dto.ClanDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;

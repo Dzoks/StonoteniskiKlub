@@ -1,15 +1,5 @@
 package application.gui.sekretar.controller;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -23,16 +13,20 @@ import application.model.dto.StavkaSkupstinaDTO;
 import application.util.TextUtility;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
-
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.scene.control.TableView;
-
-import javafx.scene.control.DatePicker;
-
-import javafx.scene.control.TableColumn;
 
 public class RadSaSkupstinamaController extends BaseController {
 	@FXML

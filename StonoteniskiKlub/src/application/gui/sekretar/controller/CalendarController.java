@@ -4,20 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
-
-import com.itextpdf.text.TabStop.Alignment;
-import com.itextpdf.text.log.SysoCounter;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.StavkaSkupstinaDAO;
 import application.model.dto.DogadjajDTO;
-import application.util.InputValidator;
 import application.util.TextUtility;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -30,12 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 

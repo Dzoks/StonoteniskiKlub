@@ -1,13 +1,9 @@
 package application.gui.sekretar.controller;
 
-import javafx.fxml.FXML;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -19,19 +15,15 @@ import application.model.dto.DogadjajDTO;
 import application.model.dto.DogadjajTipDTO;
 import application.util.AlertDisplay;
 import application.util.InputValidator;
-import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-import javafx.util.StringConverter;
-import javafx.util.converter.LocalTimeStringConverter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-
-import javafx.scene.control.Label;
-
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.util.converter.LocalTimeStringConverter;
 
 public class DodavanjeDogadjajaController extends BaseController {
 	@FXML

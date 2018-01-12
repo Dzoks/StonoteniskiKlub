@@ -1,13 +1,5 @@
 package application.gui.sekretar.controller;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,7 +11,6 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dao.SponzorDAO;
-import application.model.dao.UgovorDAO;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
@@ -27,10 +18,11 @@ import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-
-import javafx.scene.control.TextArea;
-
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class DodavanjeSponzoraController extends BaseController {
 	@FXML

@@ -9,7 +9,6 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dao.KorisnickiNalogDAO;
 import application.model.dao.KorisnickiNalogTipDAO;
-import application.model.dao.ZaposleniDAO;
 import application.model.dto.KorisnickiNalogDTO;
 import application.model.dto.KorisnickiNalogTipDTO;
 import application.model.dto.ZaposleniDTO;

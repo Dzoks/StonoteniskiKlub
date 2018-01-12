@@ -43,8 +43,7 @@ public class KorisnickiNalogDTO {
 		this.aktivan = aktivan;
 		this.ulogaId = ulogaId;
 		this.zaposleniId = zaposleniId;
-		this.nalogId=nalogId;
-		this.nazivUloge=nazivUloge;
+
 	}
 	public KorisnickiNalogDTO(String korisnickoIme,String nazivUloge,String ime,String prezime,Integer nalogId) {
 		this.korisnickoIme=korisnickoIme;

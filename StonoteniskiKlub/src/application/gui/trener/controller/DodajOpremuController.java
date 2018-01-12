@@ -6,10 +6,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.NarudzbaDAO;
-import application.model.dao.OpremaClanaDAO;
-import application.model.dao.OpremaKlubaDAO;
-import application.model.dao.OpremaTipDAO;
+import application.model.dao.DAOFactory;
 import application.model.dto.Clan;
 import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
@@ -25,21 +22,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-
-import javafx.scene.control.CheckBox;
 
 public class DodajOpremuController extends BaseController implements Initializable{
 	@FXML
@@ -113,16 +109,16 @@ public class DodajOpremuController extends BaseController implements Initializab
 	}
 	
 	public void ucitajComboBoxeve() {
-		ObservableList<OpremaTip> listaTiOpreme = OpremaTipDAO.SELECT_ALL();
+		ObservableList<OpremaTip> listaTiOpreme = DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_ALL();
 		comboBoxTip.setItems(listaTiOpreme);
 		
 		//ucitati donacije
 		
-		ObservableList<Clan> listaClanova = OpremaClanaDAO.SELECT_AKTIVNE();
+		ObservableList<Clan> listaClanova = DAOFactory.getDAOFactory().getOpremaClanaDAO().SELECT_AKTIVNE();
 		comboBoxClan.setItems(listaClanova);
 		comboBoxClan.getSelectionModel().selectFirst();
 		
-		ObservableList<Narudzba> listaNarudzbi = NarudzbaDAO.SELECT_NEOBRADJENE(opremaKluba);
+		ObservableList<Narudzba> listaNarudzbi = DAOFactory.getDAOFactory().getNarudzbaDAO().SELECT_NEOBRADJENE(opremaKluba);
 		comboBoxNarudzba.setItems(listaNarudzbi);
 		comboBoxNarudzba.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Narudzba>() {
 
@@ -235,7 +231,7 @@ public class DodajOpremuController extends BaseController implements Initializab
 			noviStage.showAndWait();
 			if("YES".equals(controller.getPovratnaVrijednost())) {
 				OpremaTip noviTipOpreme = controller.vratiTipOpreme();
-				OpremaTipDAO.INSERT(noviTipOpreme);
+				DAOFactory.getDAOFactory().getOpremaTipDAO().INSERT(noviTipOpreme);
 				ucitajComboBoxeve();
 				comboBoxTip.getSelectionModel().selectLast();
 			}
@@ -302,7 +298,7 @@ public class DodajOpremuController extends BaseController implements Initializab
 				else {
 					// dodati idDonacije opremaKluba = new OpremaKluba(null, null, comboBoxTip.getSelectionModel().getSelectedItem().getId(), idDonacije, true, "-", txtOpis.getText(), true);
 				}
-				OpremaKlubaDAO.INSERT(opremaKluba, 1);
+				DAOFactory.getDAOFactory().getOpremaKlubaDAO().INSERT(opremaKluba, 1);
 			}
 			else {
 				OpremaClana opremaClana = null;
@@ -313,7 +309,7 @@ public class DodajOpremuController extends BaseController implements Initializab
 				else {
 					// dodati idDonacije opremaClana = new OpremaClana(null, null, comboBoxTip.getSelectionModel().getSelectedItem().getId(), idDonacije, true, "-", comboBoxClan.getSelectionModel().getSelectedItem().getId());
 				}
-				OpremaClanaDAO.INSERT(opremaClana);
+				DAOFactory.getDAOFactory().getOpremaClanaDAO().INSERT(opremaClana);
 			}
 		}
 	}

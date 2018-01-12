@@ -1,13 +1,5 @@
 package application.gui.sekretar.controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-
-import javafx.scene.control.ToggleGroup;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,11 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import org.bouncycastle.jcajce.provider.keystore.BC;
-
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.OsobaDAO;
 import application.model.dto.ZaposleniDTO;
 import application.model.dto.ZaposleniTipDTO;
 import application.model.dto.ZaposlenjeDTO;
@@ -35,15 +24,18 @@ import application.util.ConnectionPool;
 import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.scene.control.RadioButton;
-
-import javafx.scene.control.DatePicker;
 
 public class DodavanjeZaposlenogController extends BaseController {
 
@@ -159,7 +151,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				OsobaDAO.update(zaposleniZaAzurirati);
+				DAOFactory.getDAOFactory().getOsobaDAO().update(zaposleniZaAzurirati);
 				parent.zamijeni(zaposleniZaAzurirati);
 				AlertDisplay.showInformation("Uspjesno", "", "Zaposleni uspjesno azuriran");
 			} else if (tip == DODAVANJE_ZAPOSLENJA) {

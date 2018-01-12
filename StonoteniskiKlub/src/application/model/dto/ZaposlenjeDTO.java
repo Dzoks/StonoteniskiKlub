@@ -3,7 +3,6 @@ package application.model.dto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;

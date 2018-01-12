@@ -1,8 +1,6 @@
 package application;
 
 import java.io.FileNotFoundException;
-import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 
 import com.itextpdf.text.Document;
@@ -12,33 +10,20 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-import application.model.dao.ClanDAO;
 import application.model.dao.DAOFactory;
-import application.model.dao.DonacijaDAO;
-import application.model.dao.SponzorDAO;
-import application.model.dao.UgovorDAO;
-import application.model.dao.ZaposleniDAO;
-import application.model.dao.mysql.MySQLDonacijaDAO;
 import application.model.dto.ClanDTO;
-import application.model.dto.DonacijaDTO;
-import application.model.dto.SponzorDTO;
-import application.model.dto.UgovorDTO;
-import application.model.dto.ZaposleniDTO;
-import application.model.dto.ZaposlenjeDTO;
 import application.util.TextUtility;
-import javafx.collections.ObservableList;
 
 public class Test {
 	public static void main(String[] args) {
 		Font font = FontFactory.getFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
 		Font bold = FontFactory.getFont(FONTBOLD, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
 		String test = "test.pdf";
-		List<ClanDTO> clanovi = ClanDAO.selectAll();
+		List<ClanDTO> clanovi = DAOFactory.getDAOFactory().getClanDAO().selectAll();
 		Document doc;
 		try {
 			doc = TextUtility.createDocument(test, PageSize.A4);

@@ -1,17 +1,10 @@
 package application.gui.sekretar.controller;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.ResourceBundle;
-
-import com.itextpdf.text.log.SysoCounter;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
@@ -23,16 +16,17 @@ import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 
 public class DodavanjeSkupstineController extends BaseController {
 	@FXML

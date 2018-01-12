@@ -1,7 +1,5 @@
 package application.model.dao;
 
-import java.util.List;
-
 import application.model.dto.DonacijaDTO;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;

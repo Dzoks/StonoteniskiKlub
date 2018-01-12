@@ -6,13 +6,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="393.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
-   <children>
-      <Label layoutX="14.0" layoutY="18.0" text="Naslov" />
-      <TextField layoutX="72.0" layoutY="14.0" prefHeight="25.0" prefWidth="315.0" />
-      <Label layoutX="14.0" layoutY="70.0" text="Tekst" />
-      <TextArea layoutX="14.0" layoutY="94.0" prefHeight="243.0" prefWidth="372.0" />
-      <Button layoutX="330.0" layoutY="354.0" mnemonicParsing="false" text="Sacuvaj" />
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="400.0"
+	xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="application.gui.sekretar.controller.DodavanjeStavkeDnevnogRedaController">
+	<children>
+		<Label layoutX="14.0" layoutY="18.0" text="Naslov:" />
+		<TextField fx:id="txtNaslov" layoutX="71.0" layoutY="14.0"
+			prefHeight="25.0" prefWidth="315.0" />
+		<Label layoutX="14.0" layoutY="70.0" text="Tekst:" />
+		<TextArea fx:id="taTekst" layoutX="14.0" layoutY="94.0"
+			prefHeight="258.0" prefWidth="372.0" wrapText="true" />
+		<Button fx:id="btnSacuvaj" layoutX="320.0" layoutY="361.0"
+			mnemonicParsing="false" onAction="#sacuvaj" text="Sacuvajte" />
+	</children>
 </AnchorPane>

@@ -4,10 +4,23 @@ import application.model.dao.ClanDAO;
 import application.model.dao.ClanstvoDAO;
 import application.model.dao.DAOFactory;
 import application.model.dao.DistributerOpremeDAO;
+import application.model.dao.DogadjajDAO;
+import application.model.dao.DogadjajTipDAO;
 import application.model.dao.DonacijaDAO;
+import application.model.dao.NarudzbaDAO;
+import application.model.dao.NarudzbaStavkaDAO;
+import application.model.dao.OpremaClanaDAO;
+import application.model.dao.OpremaDAO;
+import application.model.dao.OpremaKlubaDAO;
+import application.model.dao.OpremaTipDAO;
 import application.model.dao.OsobaDAO;
+import application.model.dao.SkupstinaDAO;
 import application.model.dao.SponzorDAO;
+import application.model.dao.StavkaSkupstinaDAO;
 import application.model.dao.UgovorDAO;
+import application.model.dao.ZaposleniDAO;
+import application.model.dao.ZaposleniTipDAO;
+import application.model.dao.ZaposlenjeDAO;
 
 public class MySQLDAOFactory extends DAOFactory{
 	
@@ -22,20 +35,6 @@ public class MySQLDAOFactory extends DAOFactory{
 		return instance;
 	}
 	
-	@Override
-	public SponzorDAO getSponzorDAO() {
-		return new MySQLSponzorDAO();
-	}
-
-	@Override
-	public UgovorDAO getUgovorDAO() {
-		return new MySQLUgovorDAO();
-	}
-
-	@Override
-	public DonacijaDAO getDonacijaDAO() {
-		return new MySQLDonacijaDAO();
-	}
 	@Override
 	public ClanDAO getClanDAO() {
 		return new MySQLClanDAO();
