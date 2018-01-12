@@ -1,7 +1,9 @@
 package application.model.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -27,43 +29,56 @@ public class ZaposlenjeDTO {
 		this.plata = plata == null ? null : new SimpleDoubleProperty(plata);
 	}
 
-	public IntegerProperty getTipID() {
+	// property metode
+
+	public IntegerProperty tipIDProperty() {
 		return tipID;
 	}
-
-	public void setTipID(IntegerProperty tipID) {
-		this.tipID = tipID;
-	}
-
-	public StringProperty getTipNaziv() {
+	public StringProperty tipNazivProperty() {
 		return tipNaziv;
 	}
-
-	public void setTipNaziv(StringProperty tipNaziv) {
-		this.tipNaziv = tipNaziv;
+	public StringProperty datumOdProperty() {
+		return new SimpleStringProperty(new SimpleDateFormat("yyyy-MM-dd").format(datumOd));
 	}
-
+	public StringProperty datumDoProperty() {
+		return datumDo == null ? new SimpleStringProperty("-")
+				: new SimpleStringProperty(new SimpleDateFormat("yyyy-MM-dd").format(datumDo));
+	}
+	public DoubleProperty plataProperty() {
+		return plata;
+	}
+	// getteri
+	public Integer getTipID(){
+		return tipID == null ? null : tipID.get();
+	}
+	public String getTipNaziv(){
+		return tipNaziv == null ? null : tipNaziv.get();
+	}
 	public Date getDatumOd() {
 		return datumOd;
 	}
-
-	public void setDatumOd(Date datumOd) {
-		this.datumOd = datumOd;
-	}
-
 	public Date getDatumDo() {
 		return datumDo;
 	}
+	public Double getPlata(){
+		return plata == null ? null : plata.get();
+	}
+	// setteri
+	public void setTipID(Integer tipID) {
+		this.tipID = new SimpleIntegerProperty(tipID);
+	}
 
+	public void setTipNaziv(String tipNaziv) {
+		this.tipNaziv = new SimpleStringProperty(tipNaziv);
+	}
+	public void setDatumOd(Date datumOd) {
+		this.datumOd = datumOd;
+	}
 	public void setDatumDo(Date datumDo) {
 		this.datumDo = datumDo;
 	}
 
-	public DoubleProperty getPlata() {
-		return plata;
-	}
-
-	public void setPlata(DoubleProperty plata) {
-		this.plata = plata;
+	public void setPlata(Double plata) {
+		this.plata = new SimpleDoubleProperty(plata);
 	}
 }

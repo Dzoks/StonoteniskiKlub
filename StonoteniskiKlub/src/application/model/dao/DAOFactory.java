@@ -33,4 +33,23 @@ public abstract class DAOFactory {
 		return MySQLDAOFactory.getInstance();
 	}
 	
+	public abstract SponzorDAO getSponzorDAO();
+
+	public abstract UgovorDAO getUgovorDAO();
+
+	public abstract DonacijaDAO getDonacijaDAO();
+
+	public abstract ZaposleniTipDAO getZaposleniTipDAO();
+
+	public abstract ZaposlenjeDAO getZaposlenjeDAO();
+
+	public abstract ZaposleniDAO getZaposleniDAO();
+	
+	public abstract StavkaSkupstinaDAO getStavkaSkupstinaDAO();
+	
+	public abstract SkupstinaDAO getSkupstinaDAO();
+	
+	public abstract DogadjajTipDAO getDogadjajTipDAO();
+	
+	public abstract DogadjajDAO getDogadjajDAO();
 }

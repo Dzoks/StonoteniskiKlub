@@ -12,11 +12,10 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="536.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeClanarinaController">
+<AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeClanarinaController">
    <children>
-      <TableView fx:id="tableClanarine" layoutX="17.0" layoutY="243.0" prefHeight="198.0" prefWidth="451.0">
+      <TableView fx:id="tableClanarine" layoutX="17.0" layoutY="196.0" prefHeight="198.0" prefWidth="451.0">
         <columns>
           <TableColumn fx:id="tableColumnIme" prefWidth="61.0" text="Ime" />
           <TableColumn fx:id="tableColumnPrezime" prefWidth="72.0" text="Prezime" />
@@ -26,37 +25,32 @@
             <TableColumn fx:id="tableColumnIznos" minWidth="0.0" prefWidth="99.0" text="Iznos" />
         </columns>
       </TableView>
-      <Separator layoutX="13.0" layoutY="221.0" prefHeight="1.0" prefWidth="739.0" />
-      <Label fx:id="lblPrikazPo" layoutX="484.0" layoutY="248.0" text="Prikaz po:" />
-      <RadioButton fx:id="radiobtnClan" layoutX="600.0" layoutY="248.0" mnemonicParsing="false" onAction="#radioClan" text="Clanu" />
-      <RadioButton fx:id="radiobtnMjesec" layoutX="668.0" layoutY="248.0" mnemonicParsing="false" onAction="#radioMjesec" text="Mjesecu" />
-      <Label fx:id="lblMjesec" layoutX="484.0" layoutY="291.0" text="Mjesec:" />
-      <Spinner fx:id="spinnerMjesecPrikazi" layoutX="551.0" layoutY="287.0" />
-      <Label fx:id="lblClan" layoutX="484.0" layoutY="373.0" text="Clan:" />
-      <ComboBox fx:id="comboBoxClanPrikazi" layoutX="550.0" layoutY="369.0" prefWidth="150.0" />
-      <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplacenoj clanarini:">
-         <font>
-            <Font name="System Bold Italic" size="16.0" />
-         </font></Label>
-      <Button fx:id="btnDodaj" layoutX="423.0" layoutY="163.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="174.0" text="Dodajte" />
-      <Label fx:id="lblMjesecDodaj" layoutX="27.0" layoutY="100.0" text="Mjesec:" />
-      <Spinner fx:id="spinnerMjesecDodaj" layoutX="101.0" layoutY="96.0" />
-      <Label fx:id="lblClanDodaj" layoutX="26.0" layoutY="60.0" text="Clan:" />
-      <ComboBox fx:id="comboBoxClanDodaj" layoutX="101.0" layoutY="56.0" prefWidth="150.0" />
-      <Label fx:id="lblIznos" layoutX="32.0" layoutY="179.0" text="Iznos:" />
-      <TextField fx:id="txtIznos" layoutX="102.0" layoutY="175.0" />
-      <Label fx:id="lblKM" layoutX="259.0" layoutY="179.0" text="KM" />
-      <Label fx:id="lblDatumUplate" layoutX="324.0" layoutY="60.0" text="Datum uplate:" />
-      <DatePicker fx:id="datePicker" layoutX="423.0" layoutY="56.0" />
-      <Button fx:id="btnPrikazi" layoutX="555.0" layoutY="416.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Pretraga" />
-      <Button fx:id="btnIzmijeni" layoutX="226.0" layoutY="463.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijenite" />
-      <Label fx:id="lblGodina" layoutX="484.0" layoutY="334.0" text="Godina:" />
-      <Spinner fx:id="spinnerGodina" layoutX="551.0" layoutY="330.0" />
-      <Label fx:id="lblGodinaDodaj" layoutX="27.0" layoutY="142.0" text="Godina:" />
-      <Spinner fx:id="spinnerGodinaDodaj" layoutX="102.0" layoutY="138.0" />
-      <Label fx:id="lblOpis" layoutX="324.0" layoutY="100.0" text="Opis:" />
-      <TextArea fx:id="txtOpis" layoutX="423.0" layoutY="103.0" prefHeight="37.0" prefWidth="174.0" />
-      <RadioButton fx:id="radiobtnSve" layoutX="548.0" layoutY="248.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" />
-      <Button fx:id="btnObrisi" layoutX="138.0" layoutY="463.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="75.0" text="Obrisite" />
+      <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
+      <Label fx:id="lblPrikazPo" layoutX="486.0" layoutY="202.0" text="Prikaz po:" />
+      <RadioButton fx:id="radiobtnClan" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" text="Clanu" />
+      <RadioButton fx:id="radiobtnMjesec" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" text="Mjesecu" />
+      <Label fx:id="lblMjesec" layoutX="484.0" layoutY="286.0" text="Mjesec:" />
+      <Spinner fx:id="spinnerMjesecPrikazi" layoutX="546.0" layoutY="282.0" />
+      <Label fx:id="lblClan" layoutX="484.0" layoutY="371.0" text="Clan:" />
+      <ComboBox fx:id="comboBoxClanPrikazi" layoutX="548.0" layoutY="367.0" prefWidth="150.0" />
+      <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplacenoj clanarini:" />
+      <Button fx:id="btnDodaj" layoutX="22.0" layoutY="129.0" mnemonicParsing="false" onAction="#dodaj" text="Dodaj" />
+      <Label fx:id="lblMjesecDodaj" layoutX="26.0" layoutY="51.0" text="Mjesec:" />
+      <Spinner fx:id="spinnerMjesecDodaj" layoutX="101.0" layoutY="47.0" />
+      <Label fx:id="lblClanDodaj" layoutX="26.0" layoutY="91.0" text="Clan:" />
+      <ComboBox fx:id="comboBoxClanDodaj" layoutX="100.0" layoutY="87.0" prefWidth="150.0" />
+      <Label fx:id="lblIznos" layoutX="337.0" layoutY="51.0" text="Iznos:" />
+      <TextField fx:id="txtIznos" layoutX="429.0" layoutY="47.0" />
+      <Label fx:id="lblKM" layoutX="585.0" layoutY="51.0" text="KM" />
+      <Label fx:id="lblDatumUplate" layoutX="337.0" layoutY="91.0" text="Datum uplate:" />
+      <DatePicker fx:id="datePicker" layoutX="429.0" layoutY="87.0" />
+      <Button fx:id="btnPrikazi" layoutX="553.0" layoutY="405.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Prikazi" />
+      <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="430.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijeni" />
+      <Label fx:id="lblGodina" layoutX="484.0" layoutY="325.0" text="Godina:" />
+      <Spinner fx:id="spinnerGodina" layoutX="548.0" layoutY="321.0" />
+      <Label fx:id="lblGodinaDodaj" layoutX="343.0" layoutY="133.0" text="Godina:" />
+      <Spinner fx:id="spinnerGodinaDodaj" layoutX="430.0" layoutY="129.0" />
+      <Label fx:id="lblOpis" layoutX="115.0" layoutY="142.0" text="Opis:" />
+      <TextArea fx:id="txtOpis" layoutX="157.0" layoutY="132.0" prefHeight="17.0" prefWidth="110.0" />
    </children>
 </AnchorPane>

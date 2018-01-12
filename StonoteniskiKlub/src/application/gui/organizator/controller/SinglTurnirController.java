@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import application.gui.controller.BaseController;
 import application.model.dao.KategorijaTurniraDAO;
 import application.model.dao.TimDAO;

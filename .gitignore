@@ -2,6 +2,8 @@
 *.class
 StonoteniskiKlub/bin/
 StonoteniskiKlub/bin/application/gui/organizator/view/DublPrijavaView\.fxml
+StonoteniskiKlub/src/application/util/ConnectionPool.properties
+StonoteniskiKlub/bin/
 
 StonoteniskiKlub/bin/application/gui/organizator/view/DublZrijebView\.fxml
 

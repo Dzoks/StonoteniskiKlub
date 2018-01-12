@@ -29,5 +29,4 @@ public abstract class BaseController implements Initializable{
 		control.primaryStage.setOnCloseRequest(event->{});
 		return control;
 	}
-	
 }

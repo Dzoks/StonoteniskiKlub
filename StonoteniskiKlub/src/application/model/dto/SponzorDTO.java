@@ -2,6 +2,7 @@ package application.model.dto;
 
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

@@ -10,4 +10,6 @@
 	<classpathentry kind="lib" path="jfoenix.jar"/>
 	<classpathentry kind="lib" path="jbcrypt-0.3m.jar"/>
 	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="jfoenix.jar"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>

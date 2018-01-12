@@ -30,6 +30,7 @@ public class DodajDistributeraController extends BaseController implements Initi
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		btnDodaj.disableProperty().bind(txtNaziv.textProperty().isEmpty());
+		
 	}
 	
 	public void provjeriParametre() {

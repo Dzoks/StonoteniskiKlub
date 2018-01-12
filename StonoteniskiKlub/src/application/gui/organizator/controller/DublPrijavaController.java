@@ -3,7 +3,6 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dao.KategorijaTurniraDAO;

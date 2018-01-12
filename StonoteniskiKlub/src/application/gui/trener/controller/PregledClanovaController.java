@@ -9,9 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map.Entry;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
@@ -336,8 +334,8 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 	public void prikaziDetaljeOClanu() {
 		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
-
-		if (clan == null)
+		
+		if(clan == null)
 			return;
 		// Provjera da li je igrac
 		if (clan.isRegistrovan()) {

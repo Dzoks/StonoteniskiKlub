@@ -2,12 +2,16 @@ package application.gui.sekretar.controller;
 
 import java.awt.Desktop;
 import java.awt.print.PrinterJob;
+import static java.nio.charset.StandardCharsets.*;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -18,23 +22,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.printing.PDFPageable;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfWriter;
-
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
 import application.model.dao.DAOFactory;
 import application.model.dao.OsobaDAO;
 import application.model.dto.ClanDTO;
 import application.util.ConnectionPool;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -43,7 +38,24 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
+import org.apache.pdfbox.printing.PDFPageable;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
 
 public class IzdavanjePotvrdaController extends BaseController implements Initializable {
 

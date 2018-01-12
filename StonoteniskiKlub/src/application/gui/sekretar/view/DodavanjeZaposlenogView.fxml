@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="480.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="application.gui.sekretar.controller.DodavanjeZaposlenogController">
+	<children>
+		<ImageView fx:id="imgFotografija" fitHeight="200.0" fitWidth="200.0" layoutX="21.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../resources/avatar.png" />
+         </image></ImageView>
+		<Label layoutX="265.0" layoutY="36.0" text="Ime" />
+		<TextField fx:id="txtIme" layoutX="291.0" layoutY="32.0" prefHeight="25.0" prefWidth="175.0" />
+		<TextField fx:id="txtPrezime" layoutX="291.0" layoutY="69.0" prefHeight="25.0" prefWidth="175.0" />
+		<Label layoutX="243.0" layoutY="73.0" text="Prezime" />
+		<TextField fx:id="txtImeRoditelja" layoutX="291.0" layoutY="108.0" prefHeight="25.0" prefWidth="175.0" />
+		<Label layoutX="221.0" layoutY="112.0" text="Ime roditelja" />
+		<TextField fx:id="txtJMB" layoutX="291.0" layoutY="149.0" prefHeight="25.0" prefWidth="175.0" />
+		<Label layoutX="264.0" layoutY="153.0" text="JMB" />
+		<TextField fx:id="tfBrojTelefona" layoutX="291.0" layoutY="231.0" prefHeight="25.0" prefWidth="140.0" />
+		<Label layoutX="221.0" layoutY="235.0" text="Broj telefona" />
+		<Button fx:id="btnDodajBrojTelefona" layoutX="441.0" layoutY="231.0" mnemonicParsing="false" onAction="#dodajBrojTelefona" text="+" />
+		<DatePicker fx:id="dpDatumRodjenja" layoutX="292.0" layoutY="188.0" />
+		<Label layoutX="202.0" layoutY="192.0" text="Datum rodjenja" />
+		<RadioButton fx:id="rbMuskiPol" layoutX="304.0" layoutY="269.0" mnemonicParsing="false" selected="true" text="Muski">
+			<toggleGroup>
+				<ToggleGroup fx:id="groupPol" />
+			</toggleGroup>
+		</RadioButton>
+		<RadioButton fx:id="rbZenskiPol" layoutX="379.0" layoutY="269.0" mnemonicParsing="false" text="Zenski" toggleGroup="$groupPol" />
+		<Label layoutX="261.0" layoutY="269.0" text="Pol" />
+		<Button fx:id="btnDodajFotografiju" layoutX="21.0" layoutY="257.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="25.0" prefWidth="164.0" text="Dodaj fotografiju" />
+		<Label layoutX="29.0" layoutY="325.0" text="Zaposlen od" />
+		<DatePicker fx:id="dpZaposlenOd" layoutX="105.0" layoutY="321.0" prefHeight="25.0" prefWidth="132.0" />
+		<Label layoutX="259.0" layoutY="325.0" text="Zaposlen do" />
+		<DatePicker fx:id="dpZaposlenDo" layoutX="334.0" layoutY="321.0" prefHeight="25.0" prefWidth="132.0" />
+		<Label layoutX="21.0" layoutY="375.0" text="Radno mjesto" />
+		<Label layoutX="291.0" layoutY="375.0" text="Plata" />
+		<ComboBox fx:id="cmbRadnoMjesto" layoutX="105.0" layoutY="371.0" prefHeight="25.0" prefWidth="132.0" />
+		<TextField fx:id="txtPlata" layoutX="334.0" layoutY="371.0" prefHeight="25.0" prefWidth="132.0" />
+		<Button fx:id="btnSacuvajPodatke" layoutX="334.0" layoutY="424.0" mnemonicParsing="false" onAction="#sacuvaj" prefHeight="25.0" prefWidth="132.0" text="Sacuvaj podatke" />
+	</children>
+</AnchorPane>

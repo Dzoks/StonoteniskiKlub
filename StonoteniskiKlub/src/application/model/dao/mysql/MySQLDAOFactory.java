@@ -83,4 +83,46 @@ public class MySQLDAOFactory extends DAOFactory{
 	public OpremaTipDAO getOpremaTipDAO() {
 		return new MySQLOpremaTipDAO();
 	}
+	@Override
+	public SponzorDAO getSponzorDAO() {
+		return new MySQLSponzorDAO();
+	}
+
+	@Override
+	public UgovorDAO getUgovorDAO() {
+		return new MySQLUgovorDAO();
+	}
+
+	@Override
+	public DonacijaDAO getDonacijaDAO() {
+		return new MySQLDonacijaDAO();
+	}
+	@Override
+	public ZaposleniTipDAO getZaposleniTipDAO() {
+		return new MySQLZaposleniTipDAO();
+	}
+	@Override
+	public ZaposlenjeDAO getZaposlenjeDAO() {
+		return new MySQLZaposlenjeDAO();
+	}
+	@Override
+	public ZaposleniDAO getZaposleniDAO() {
+		return new MySQLZaposleniDAO();
+	}
+	@Override
+	public StavkaSkupstinaDAO getStavkaSkupstinaDAO() {
+		return MySQLStavkaSkupstinaDAO.getInstance();
+	}
+	@Override
+	public SkupstinaDAO getSkupstinaDAO() {
+		return MySQLSkupstinaDAO.getInstance();
+	}
+	@Override
+	public DogadjajTipDAO getDogadjajTipDAO() {
+		return MySQLDogadjajTipDAO.getInstance();
+	}
+	@Override
+	public DogadjajDAO getDogadjajDAO() {
+		return MySQLDogadjajDAO.getInstance();
+	}
 }
