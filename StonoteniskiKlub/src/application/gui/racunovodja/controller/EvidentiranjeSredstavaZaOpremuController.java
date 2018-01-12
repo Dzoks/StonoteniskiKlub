@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanarinaDAO;
+import application.model.dao.DAOFactory;
 import application.model.dao.DAOFactoryTransakcije;
 import application.model.dao.DistributerOpremeDAO;
 import application.model.dao.NarudzbaDAO;
@@ -161,11 +162,11 @@ public class EvidentiranjeSredstavaZaOpremuController extends BaseController{
 		tableTroskoviOprema.setItems(listaTroskovi);
 	}
 	private void popuniComboBox(){
-		ObservableList<Narudzba> listaNarudzba = NarudzbaDAO.SELECT_OPREMA_KLUBA();
+		ObservableList<Narudzba> listaNarudzba = DAOFactory.getDAOFactory().getNarudzbaDAO().SELECT_ALL();
 		comboBoxNarudzba.setItems(listaNarudzba);
 		if(!listaNarudzba.isEmpty())
 			comboBoxNarudzba.getSelectionModel().select(0);
-		ObservableList<DistributerOpreme> listaDistributer = DistributerOpremeDAO.SELECT_ALL();
+		ObservableList<DistributerOpreme> listaDistributer = DAOFactory.getDAOFactory().getDistributerOpremeDAO().SELECT_ALL();
 		comboBoxDistributer.setItems(listaDistributer);
 		if(!listaNarudzba.isEmpty())
 			comboBoxDistributer.getSelectionModel().select(0);
@@ -243,7 +244,7 @@ public class EvidentiranjeSredstavaZaOpremuController extends BaseController{
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			TroskoviOpremaDTO trosak = tableTroskoviOprema.getSelectionModel().getSelectedItem();
 			controller.setListaTroskovi(listaTroskovi);
-			controller.setComboBoxNarudzba(NarudzbaDAO.SELECT_OPREMA_KLUBA(),trosak.getNarudzba());
+			controller.setComboBoxNarudzba(DAOFactory.getDAOFactory().getNarudzbaDAO().SELECT_ALL(),trosak.getNarudzba());//promijenila, ne znam valja li
 			controller.setTxtIznos(new String(trosak.getIznos().getValue().toString()));
 			controller.setTxtOpis(trosak.getOpis().get());
 			controller.setDatePicker(trosak.getDatum());

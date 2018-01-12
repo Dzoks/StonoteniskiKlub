@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanarinaDAO;
+import application.model.dao.DAOFactory;
 import application.model.dao.DAOFactoryTransakcije;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.TipTransakcijeDAO;
@@ -185,6 +186,7 @@ public class EvidentiranjeUplataZaTurnirController extends BaseController{
 	}
 	private void popuniComboBox() {
 		listaUcesnika = UcesnikPrijavaDAO.SELECT_ALL();
+		//listaUcesnika = DAOFactory.getDAOFactory().
 		comboBoxClanUcesnik.setItems(listaUcesnika);
 		comboBoxClanUcesnik.getSelectionModel().selectFirst();
 		comboBoxUcesnikPrikazi.setItems(listaUcesnika);

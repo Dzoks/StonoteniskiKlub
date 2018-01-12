@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanarinaDAO;
+import application.model.dao.DAOFactory;
 import application.model.dao.DAOFactoryTransakcije;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.PlataDAO;
@@ -120,7 +121,7 @@ public class EvidentiranjeIsplacenihPlataController extends BaseController{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		listaZaposlenih=ZaposleniDAO.selectAll();
+		listaZaposlenih=DAOFactory.getDAOFactory().getZaposleniDAO().selectAll();
 		ToggleGroup group = new ToggleGroup();
 		radiobtnZaposleni.setToggleGroup(group);
 		radiobtnMjesec.setToggleGroup(group);

@@ -31,6 +31,7 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import application.gui.controller.BaseController;
+import application.model.dao.DAOFactory;
 import application.model.dao.ZaposleniDAO;
 import application.model.dto.ZaposleniDTO;
 import javafx.embed.swing.SwingFXUtils;
@@ -126,7 +127,7 @@ public class ObracunavanjePlateController extends BaseController{
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		comboBoxZaposleni.setItems(ZaposleniDAO.selectAll());
+		comboBoxZaposleni.setItems(DAOFactory.getDAOFactory().getZaposleniDAO().selectAll());
 		comboBoxZaposleni.getSelectionModel().select(0); //paziti na null ptr
 	}
 	private void stampaj(ZaposleniDTO zaposleni, double koeficijent,double cijenaRada, int bolovanje,double pio, double zo,double zap, double djecijaZastita, double porez, double doprinosi, double bruto,double neto) {

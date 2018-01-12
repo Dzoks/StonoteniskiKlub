@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanarinaDAO;
+import application.model.dao.DAOFactory;
 import application.model.dao.DAOFactoryTransakcije;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.OpremaKlubaDAO;
@@ -196,7 +197,7 @@ public class EvidentiranjeClanarinaController extends BaseController{
 		tableColumnDatumUplate.setCellValueFactory(new PropertyValueFactory<ClanarinaDTO,String>("datum"));
 	}
 	private void popuniComboBox() {
-		listaClanova = ClanDAO.SELECT_ALL();
+		listaClanova = DAOFactory.getDAOFactory().getClanDAO().SELECT_ALL();
 		comboBoxClanDodaj.setItems(listaClanova);
 		comboBoxClanDodaj.getSelectionModel().selectFirst();
 		comboBoxClanPrikazi.setItems(listaClanova);

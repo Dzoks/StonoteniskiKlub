@@ -32,9 +32,9 @@ public class UcesnikPrijavaDTO extends OsobaDTO{
 		super(id, ime, prezime, jmb, pol, datumRodjenja);
 		this.idPrijave = new SimpleIntegerProperty(idPrijave);
 		this.idTurnira = new SimpleIntegerProperty(idTurnira);
-		this.idKategorije = new SimpleIntegerProperty(idKategorije);
+		this.idKategorije = idKategorije == null ? null :new SimpleIntegerProperty(idKategorije); //ostaviti ovako, inace Heleni puca
 		this.datum = datum;
-		this.konvertovanDatumRodjenja=new SimpleStringProperty(TurniriController.konvertujIzSQLDate(datumRodjenja.toString()));
+		this.konvertovanDatumRodjenja= konvertovanDatumRodjenja==null ? null : new SimpleStringProperty(TurniriController.konvertujIzSQLDate(datumRodjenja.toString())); //i ovo
 	}
 	
 	public UcesnikPrijavaDTO(Integer idOsobe, String ime, String prezime, String jmb, Character pol,
@@ -90,5 +90,4 @@ public class UcesnikPrijavaDTO extends OsobaDTO{
 	public final void setKonvertovanDatumRodjenja(final String konvertovanDatumRodjenja) {
 		this.konvertovanDatumRodjenjaProperty().set(konvertovanDatumRodjenja);
 	}
-	
 }
