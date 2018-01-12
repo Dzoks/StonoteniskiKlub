@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.ClanarinaDAO;
 import application.model.dao.DAOFactory;
+import application.model.dao.DAOFactoryTransakcije;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import javafx.collections.FXCollections;
@@ -125,7 +125,7 @@ public class EvidentiranjeClanarinaController extends BaseController{
 	private void popuniTabelu() {
 		
 		postaviKolone();
-		listaClanarina = ClanarinaDAO.SELECT_ALL();
+		listaClanarina = DAOFactoryTransakcije.getDAOFactory().getClanarinaDAO().SELECT_ALL();
 		tableClanarine.setItems(listaClanarina);
 		tableClanarine.getSelectionModel().select(0);
 		
@@ -160,7 +160,7 @@ public class EvidentiranjeClanarinaController extends BaseController{
 		Date datum = Date.from(instant);
 		String tipTransakcije = "clanarina"; //hardcode, popraviti hashmap...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		ClanarinaDTO clanarina = new ClanarinaDTO(null, datum, iznos, opis, tipTransakcije, mjesec, godina, clan.getIme(), clan.getPrezime(),clan.getId());
-		ClanarinaDAO.INSERT(clanarina, clan);
+		DAOFactoryTransakcije.getDAOFactory().getClanarinaDAO().INSERT(clanarina, clan);
 		listaClanarina.add(clanarina);
 	}
 	

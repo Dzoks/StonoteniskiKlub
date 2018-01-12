@@ -85,7 +85,7 @@ public class Parser {
 				String prezimeIme = zapisIgrac.getCell(pozicije[1]).getStringCellValue().trim().toUpperCase().replaceAll("\\s+", " ");
 				RegistracijaDTO igrac = null;
 				for (int i = 0; igrac == null && i < igraci.size(); i++) {
-					String prezimeImeIgraca=igraci.get(i).getClan().getPrezime().trim().toUpperCase() + " " + igraci.get(i).getClan().getPrezime().trim().toUpperCase();
+					String prezimeImeIgraca=igraci.get(i).getClan().getPrezime().trim().toUpperCase() + " " + igraci.get(i).getClan().getIme().trim().toUpperCase();
 					if (prezimeIme.startsWith(prezimeImeIgraca))
 						igrac = igraci.remove(i);
 				}

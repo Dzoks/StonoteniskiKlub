@@ -15,6 +15,10 @@ public class TransakcijaDTO {
 	protected DoubleProperty iznos;
 	protected StringProperty opis;
 	protected StringProperty tipTransakcije;
+	protected Boolean jeUplata;
+	
+	
+	
 	public TransakcijaDTO() {
 		super();
 	}
@@ -25,6 +29,26 @@ public class TransakcijaDTO {
 		this.iznos = iznos==null ? null : new SimpleDoubleProperty(iznos);
 		this.opis = opis==null ? null : new SimpleStringProperty(opis);
 		this.tipTransakcije = tipTransakcije==null ? null : new SimpleStringProperty(tipTransakcije);
+	}
+	public Boolean getJeUplata() {
+		return jeUplata;
+	}
+	public void setJeUplata(Boolean jeUplata) {
+		this.jeUplata = jeUplata;
+	}
+	public TransakcijaDTO(Integer id, Date datum, Double iznos, String opis, String tipTransakcije, boolean jeUplata) {
+		super();
+		this.id = id;
+		this.datum = datum;
+		this.iznos = iznos==null ? null : new SimpleDoubleProperty(iznos);
+		this.opis = opis==null ? null : new SimpleStringProperty(opis);
+		this.tipTransakcije = tipTransakcije==null ? null : new SimpleStringProperty(tipTransakcije);
+		this.jeUplata=jeUplata;
+	}
+	public StringProperty vrstaProperty() {
+		if(jeUplata)
+			return new SimpleStringProperty("Prihodi");
+		else return new SimpleStringProperty("Rashodi");
 	}
 	public Integer getId() {
 		return id;

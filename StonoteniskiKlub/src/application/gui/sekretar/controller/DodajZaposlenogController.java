@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.ZaposleniTipDAO;
+import application.model.dao.DAOFactory;
 import application.model.dto.ZaposleniTipDTO;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -51,7 +51,7 @@ public class DodajZaposlenogController extends BaseController{
 		setUp();
 	}
 	private void setUp(){
-		ObservableList<ZaposleniTipDTO> radnaMjesta = ZaposleniTipDAO.seletAll();
+		ObservableList<ZaposleniTipDTO> radnaMjesta = DAOFactory.getDAOFactory().getZaposleniTipDAO().selectAll();
 		cmbRadnoMjesto.setItems(radnaMjesta);
 		cmbRadnoMjesto.getSelectionModel().selectFirst();
 	}

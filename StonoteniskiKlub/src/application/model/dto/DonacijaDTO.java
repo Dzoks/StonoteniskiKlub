@@ -139,9 +139,9 @@ public class DonacijaDTO {
 	public String toString() {
 		String result = "";
 		if (novcanaDonacija) {
-			result = "Novcana, iznos: " + novcaniIznos.toString() + " KM";
+			result = "Novcana, iznos: " + novcaniIznos.getValue().toString() + " KM";
 		} else {
-			result = tipOpreme + ", komada: " + kolicina.toString();
+			result = tipOpreme + ", komada: " + kolicina.getValue().toString();
 		}
 		return result;
 	}

@@ -14,4 +14,5 @@ public interface ClanDAO {
 	public void insertAll(ClanDTO clan);
 	public ClanDTO getById(int id);
 	public void insert(ClanDTO clan);
+	public void setRegistrovan(boolean flag, int clanId);
 }

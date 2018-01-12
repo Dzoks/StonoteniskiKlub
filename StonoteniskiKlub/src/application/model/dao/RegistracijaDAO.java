@@ -38,6 +38,7 @@ public class RegistracijaDAO {
 			+ "`Pr.Liga`=?,"
 			+ "`Play-off`=?,"
 			+ "Ukupno=? where Sezona=? and CLAN_Id=? and KATEGORIJA_Id=?;";
+	private static String SQL_INSERT = "insert into REGISTRACIJA (Sezona, Datum, KATEGORIJA_Id, CLAN_Id) values(?,?,?,?)";
 	public static ObservableList<RegistracijaDTO> getAllByMember(ClanDTO member) {
 		ObservableList<RegistracijaDTO> list = FXCollections.observableArrayList();
 		Connection c = null;

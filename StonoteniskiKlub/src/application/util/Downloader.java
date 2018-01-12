@@ -29,7 +29,6 @@ public class Downloader {
 		Document htmlDocument=Jsoup.connect(urlListe).get();
 		Elements links=htmlDocument.getElementsByTag("a");
 		String downloadLink=null;
-		System.out.println("HTML inspect");
 		for (Element link:links) {
 			String href=link.attr("href");
 			if (href.endsWith(".xls")) {
