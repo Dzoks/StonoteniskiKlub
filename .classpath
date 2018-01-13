@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="StonoteniskiKlub/src"/>
+	<classpathentry kind="lib" path="StonoteniskiKlub/itextpdf-5.4.2.jar"/>
+	<classpathentry kind="lib" path="StonoteniskiKlub/jbcrypt-0.3m.jar"/>
+	<classpathentry kind="lib" path="StonoteniskiKlub/jfoenix.jar"/>
+	<classpathentry kind="lib" path="StonoteniskiKlub/jsoup-1.11.2.jar"/>
+	<classpathentry kind="lib" path="StonoteniskiKlub/pdfbox-app-2.0.7.jar"/>
+	<classpathentry kind="lib" path="StonoteniskiKlub/poi-3.17.jar"/>
+	<classpathentry kind="output" path="StonoteniskiKlub/bin"/>
+</classpath>
