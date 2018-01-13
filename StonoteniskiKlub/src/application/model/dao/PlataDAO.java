@@ -9,7 +9,7 @@ public interface PlataDAO {
 	public ObservableList<PlataDTO> SELECT_ALL(); 
 	
 	
-	public void INSERT(PlataDTO plata, ZaposleniDTO zaposleni); 
+	public boolean INSERT(PlataDTO plata, ZaposleniDTO zaposleni); 
 	
 	public void UPDATE(PlataDTO plata, ZaposleniDTO zaposleni); 
 	

@@ -20,6 +20,7 @@ import application.model.dao.TroskoviTurnirDAO;
 import application.model.dao.TurnirDAO;
 import application.model.dto.DistributerOpreme;
 import application.model.dto.Narudzba;
+import application.model.dto.TransakcijaDTO;
 import application.model.dto.TroskoviOpremaDTO;
 import application.model.dto.TroskoviTurnirDTO;
 import application.model.dto.TurnirDTO;
@@ -55,7 +56,7 @@ import javafx.scene.control.DatePicker;
 
 import javafx.scene.control.TableColumn;
 
-public class EvidentiranjeSredstavaZaTurnireController extends BaseController{
+public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaController{
 	@FXML
 	private AnchorPane pane;
 	@FXML
@@ -71,23 +72,15 @@ public class EvidentiranjeSredstavaZaTurnireController extends BaseController{
 	@FXML
 	private Label lblPrikazPo;
 	@FXML
-	private RadioButton radiobtnSve;
-	@FXML
 	private RadioButton radiobtnTurnir;
 	@FXML
 	private Button btnDodaj;
 	@FXML
 	private Label lblIznos;
 	@FXML
-	private TextField txtIznos;
-	@FXML
 	private Label lblKM;
 	@FXML
 	private Label lblDatum;
-	@FXML
-	private DatePicker datePicker;
-	@FXML
-	private Button btnPrikazi;
 	@FXML
 	private Button btnObrisi;
 	@FXML
@@ -104,18 +97,26 @@ public class EvidentiranjeSredstavaZaTurnireController extends BaseController{
 	private Label lblOpis;
 	@FXML
 	private ScrollPane scrollPane;
-	@FXML
-	private TextArea txtOpis;
+	
 	
 	private ObservableList<TroskoviTurnirDTO> listaTroskovi;
+	private	ObservableList<TroskoviTurnirDTO> lista = FXCollections.observableArrayList();
 
 	public void obrisi() {
 		DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().delete(tableTroskoviTurnir.getSelectionModel().getSelectedItem().getId());
 		listaTroskovi.remove(tableTroskoviTurnir.getSelectionModel().getSelectedItem());
+		if(!radiobtnSve.isSelected()) {
+			lista.remove(tableTroskoviTurnir.getSelectionModel().getSelectedItem());
+		}
 		tableTroskoviTurnir.refresh();
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		super.setTxtIznos(txtIznos);
+		super.setDatePicker(datePicker);
+		super.setTxtOpis(txtOpis);
+		super.setBtnPrikazi(btnPrikazi);
+		super.setRadiobtnSve(radiobtnSve);
 		ToggleGroup group = new ToggleGroup();
 		radiobtnTurnir.setToggleGroup(group);
 		radiobtnSve.setToggleGroup(group);
@@ -138,19 +139,12 @@ public class EvidentiranjeSredstavaZaTurnireController extends BaseController{
 		tableTroskoviTurnir.getSelectionModel().select(0);
 	
 	}
-	private void obrisiPolja() {
-		txtIznos.setText("");
-		txtOpis.setText("");
-		datePicker.setValue(null);
-	}
+
 	public void radioSve() {
 		comboBoxTurnirPrikazi.setDisable(true);
 	}
 	public void radioTurnir() {
 		comboBoxTurnirPrikazi.setDisable(false);
-	}
-	private boolean poljaPrazna() {
-		return txtIznos.getText().isEmpty() || datePicker.getValue()==null;
 	}
 	private void popuniTabelu() {
 		this.postaviKolone();
@@ -172,37 +166,25 @@ public class EvidentiranjeSredstavaZaTurnireController extends BaseController{
 		tableColumnIznos.setCellValueFactory(new PropertyValueFactory<TroskoviTurnirDTO, Double>("iznos"));
 		tableColumnOpis.setCellValueFactory(new PropertyValueFactory<TroskoviTurnirDTO, String>("opis"));
 	}
-	public void dodaj() {
-		Double iznos = null;
-		try {
-			iznos = Double.parseDouble(txtIznos.getText());
-			if(iznos<0)
-				throw new NumberFormatException();
-		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
-			this.obrisiPolja();
-			alert.showAndWait();
-			return;
-		}
+	public TransakcijaDTO dodaj() {
+		TransakcijaDTO transakcija = super.dodaj();
+		if(transakcija==null)
+			return null;
 		TurnirDTO turnir = comboBoxTurnir.getValue();
-		String opis = txtOpis.getText();
-		LocalDate localDate = datePicker.getValue();
-		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-		Date datum = Date.from(instant);
 		String tipTransakcije = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().getById(5).getTip();
-		TroskoviTurnirDTO troskovi = new TroskoviTurnirDTO(null, datum, iznos, opis, tipTransakcije, turnir);
-		DAOFactoryTransakcije.getDAOFactory().getTroskoviTurnirDAO().INSERT(troskovi,turnir);
-		listaTroskovi.add(troskovi);
-		DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(troskovi.getIznos().get());
-		Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje!");
-		alert.showAndWait();
-		this.obrisiPolja();
-		radiobtnSve.fire();
-		btnPrikazi.fire();
+		TroskoviTurnirDTO troskovi = new TroskoviTurnirDTO(null, transakcija.getDatum(), transakcija.getIznos().get(), transakcija.getOpis().get(), tipTransakcije, turnir);
+		boolean ok = DAOFactoryTransakcije.getDAOFactory().getTroskoviTurnirDAO().INSERT(troskovi,turnir);
+		if(ok) {
+			listaTroskovi.add(troskovi);
+			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(troskovi.getIznos().get());
+			super.uspjesnoDodavanje();
+			return troskovi;
+		}
+		return null;
 	}
 	public void prikazi() {
+		lista = FXCollections.observableArrayList();
 		System.out.println("prikazi");
-		ObservableList<TroskoviTurnirDTO> lista = FXCollections.observableArrayList();
 		if(radiobtnSve.isSelected()) {
 			tableTroskoviTurnir.setItems(listaTroskovi);
 		}else if(radiobtnTurnir.isSelected()) {
