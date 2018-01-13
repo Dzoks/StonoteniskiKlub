@@ -56,6 +56,8 @@ public class LoginController extends BaseController {
 							case "Trener":
 								BaseController.changeScene("/application/gui/trener/view/OpremaGlavniView.fxml",
 										primaryStage);
+								primaryStage.setWidth(1000);
+								primaryStage.setHeight(600);
 								break;
 							case "Računovođa":
 								BaseController.changeScene(

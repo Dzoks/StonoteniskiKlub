@@ -7,6 +7,8 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -14,15 +16,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="560.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaSkupstinamaController">
+<AnchorPane prefHeight="588.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaSkupstinamaController">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Pregled skupstina">
+      <TabPane layoutX="8.0" layoutY="4.0" prefHeight="582.0" prefWidth="716.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Pregled skupstina" />
+        </tabs>
+      </TabPane>
+      <Label layoutX="16.0" layoutY="42.0" text="Pregled skupstina">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Separator layoutX="14.0" layoutY="41.0" prefHeight="1.0" prefWidth="698.0" />
-      <TableView fx:id="tblSkupstine" layoutX="14.0" layoutY="97.0" onMouseClicked="#setTekst" prefHeight="409.0" prefWidth="250.0">
+      <Separator layoutX="16.0" layoutY="69.0" prefHeight="1.0" prefWidth="698.0" />
+      <TableView fx:id="tblSkupstine" layoutX="16.0" layoutY="125.0" onMouseClicked="#setTekst" prefHeight="409.0" prefWidth="250.0">
          <columns>
             <TableColumn fx:id="colDatumOdrzavanja" prefWidth="75.0" text="Datum odrzavanja" />
             <TableColumn fx:id="colImaIzvjestaj" prefWidth="75.0" text="Ima izvjestaj" />
@@ -31,7 +38,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <ScrollPane layoutX="284.0" layoutY="97.0" style="-fx-border-color: grey;">
+      <ScrollPane layoutX="286.0" layoutY="125.0" style="-fx-border-color: grey;">
          <content>
             <TextFlow fx:id="taTekst" prefHeight="405.0" prefWidth="424.0" style="-fx-background-color: white;">
                <padding>
@@ -39,19 +46,19 @@
                </padding></TextFlow>
          </content>
       </ScrollPane>
-      <Label layoutX="480.0" layoutY="55.0" text="Tekst:" />
-      <RadioButton fx:id="rbDnevniRed" layoutX="526.0" layoutY="55.0" mnemonicParsing="false" onAction="#setTekstDnevnogReda" selected="true" text="Dnevnog reda">
+      <Label layoutX="482.0" layoutY="83.0" text="Tekst:" />
+      <RadioButton fx:id="rbDnevniRed" layoutX="528.0" layoutY="83.0" mnemonicParsing="false" onAction="#setTekstDnevnogReda" selected="true" text="Dnevnog reda">
          <toggleGroup>
             <ToggleGroup fx:id="grpTip" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="rbIzvjestaj" layoutX="638.0" layoutY="55.0" mnemonicParsing="false" onAction="#setTekstIzvjestaja" text="Izvjestaja" toggleGroup="$grpTip" />
-      <Label layoutX="14.0" layoutY="55.0" text="Prije:" />
-      <DatePicker fx:id="dpPrije" layoutX="50.0" layoutY="51.0" prefHeight="25.0" prefWidth="112.0" />
-      <Label layoutX="174.0" layoutY="55.0" text="Poslije:" />
-      <DatePicker fx:id="dpPoslije" layoutX="215.0" layoutY="51.0" prefHeight="25.0" prefWidth="112.0" />
-      <Button fx:id="btnPretrazi" layoutX="334.0" layoutY="51.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretrazite" />
-      <Button fx:id="btnDodajIzvjestaj" layoutX="480.0" layoutY="521.0" mnemonicParsing="false" onAction="#dodajIzvjestaj" prefHeight="25.0" prefWidth="112.0" text="Dodajte izvjestaj" />
-      <Button fx:id="btnDodajSkupstinu" layoutX="599.0" layoutY="521.0" mnemonicParsing="false" onAction="#dodajSkupstinu" text="Dodajte skupstinu" />
+      <RadioButton fx:id="rbIzvjestaj" layoutX="640.0" layoutY="83.0" mnemonicParsing="false" onAction="#setTekstIzvjestaja" text="Izvjestaja" toggleGroup="$grpTip" />
+      <Label layoutX="16.0" layoutY="83.0" text="Prije:" />
+      <DatePicker fx:id="dpPrije" layoutX="52.0" layoutY="79.0" prefHeight="25.0" prefWidth="112.0" />
+      <Label layoutX="176.0" layoutY="83.0" text="Poslije:" />
+      <DatePicker fx:id="dpPoslije" layoutX="217.0" layoutY="79.0" prefHeight="25.0" prefWidth="112.0" />
+      <Button fx:id="btnPretrazi" layoutX="336.0" layoutY="79.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretrazite" />
+      <Button fx:id="btnDodajIzvjestaj" layoutX="482.0" layoutY="549.0" mnemonicParsing="false" onAction="#dodajIzvjestaj" prefHeight="25.0" prefWidth="112.0" text="Dodajte izvjestaj" />
+      <Button fx:id="btnDodajSkupstinu" layoutX="601.0" layoutY="549.0" mnemonicParsing="false" onAction="#dodajSkupstinu" text="Dodajte skupstinu" />
    </children>
 </AnchorPane>

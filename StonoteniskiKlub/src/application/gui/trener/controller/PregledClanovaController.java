@@ -377,6 +377,22 @@ public class PregledClanovaController extends BaseController implements Initiali
 			e.printStackTrace();
 		}
 	}
+    @FXML
+    void registrujIgracaKlik(ActionEvent event) {
+    	Stage stage = new Stage();
+		RegistracijaController controller = null;
+		try {
+			controller = (RegistracijaController) BaseController.changeScene("/application/gui/trener/view/RegistracijaView.fxml",
+					stage);
+			stage.setResizable(false);
+			stage.show();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+    
+
 
 	public void preuzmiRezultate() {
 		new Thread(new ListUpdater()).start();
