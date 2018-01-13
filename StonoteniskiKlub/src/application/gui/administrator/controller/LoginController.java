@@ -61,11 +61,11 @@ public class LoginController extends BaseController {
 								break;
 							case "Računovođa":
 								BaseController.changeScene(
-										"/application/gui/racunovodja/view/PocetniProzorRacunovodja.fxml",
+										"/application/gui/racunovodja/view/RacunovodjaView.fxml",
 										primaryStage);
 								break;
 							case "Sekretar":
-								BaseController.changeScene("/application/gui/sekretar/view/RadSaZaposlenimaView.fxml",
+								BaseController.changeScene("/application/gui/sekretar/view/SekretarView.fxml",
 										primaryStage);
 								break;
 							}

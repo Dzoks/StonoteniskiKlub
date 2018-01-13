@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefWidth="716.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
-	<!-- TODO Add Nodes -->
+<AnchorPane prefHeight="630.0" prefWidth="731.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1"
+ fx:controller="application.gui.sekretar.controller.SekretarController">
+   <children>
+      <TabPane prefHeight="663.0" prefWidth="773.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="zaposleniTab" text="Zaposleni" id="zaposleniTab">
+				 <fx:include source="RadSaZaposlenimaView.fxml"/>
+            </Tab>
+          
+          <Tab fx:id="sponzoriTab" text="Sponzori" id="sponzoriTab">
+             <!--  fx:include source="RadSaSponzorimaView.fxml"/-->
+          </Tab>
+           <Tab fx:id="kalendarTab" text="Kalendar" id="calendarTab">
+            <fx:include source="CalendarView.fxml"/>
+          </Tab>
+           <Tab fx:id="skupstineTab" text="Skupštine" id="skupstineTab">
+             <fx:include source="RadSaSkupstinamaView.fxml"/>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
 </AnchorPane>
