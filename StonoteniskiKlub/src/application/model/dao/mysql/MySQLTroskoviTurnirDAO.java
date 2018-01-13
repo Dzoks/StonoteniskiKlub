@@ -12,6 +12,8 @@ import application.model.dto.TurnirDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class MySQLTroskoviTurnirDAO implements TroskoviTurnirDAO{
 	private static final String SQL_SELECT_ALL="select * from prikaz_troskovi_turnir";
@@ -40,9 +42,9 @@ public class MySQLTroskoviTurnirDAO implements TroskoviTurnirDAO{
 		
 		return listaTroskoviTurnir;
 	}
-	public  void INSERT(TroskoviTurnirDTO troskovi, TurnirDTO turnir) { //radi, vidjeti povratnu vrijednost
+	public boolean INSERT(TroskoviTurnirDTO troskovi, TurnirDTO turnir) { //radi, vidjeti povratnu vrijednost
 		//da li je uspio insert
-		 
+		
 		Connection c = null;
 		java.sql.CallableStatement cs = null;
 		
@@ -59,12 +61,16 @@ public class MySQLTroskoviTurnirDAO implements TroskoviTurnirDAO{
 			//while(rs.next())
 			troskovi.setId(cs.getInt("outId"));
 			//System.out.println("Id clanarine je "+id);
+			
 		}catch (SQLException e) {
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.INFORMATION, e.getMessage());
+			alert.showAndWait();
+			return false;
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
 			ConnectionPool.close(cs);
 		}
+		return true;
 	}
 	public void UPDATE(TroskoviTurnirDTO trosak, TurnirDTO turnir) {
 		Connection c = null;

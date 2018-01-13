@@ -21,6 +21,7 @@ import application.model.dao.ZaposleniDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import application.model.dto.PlataDTO;
+import application.model.dto.TransakcijaDTO;
 import application.model.dto.ZaposleniDTO;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
@@ -54,7 +55,7 @@ import javafx.scene.control.DatePicker;
 
 import javafx.scene.control.TableColumn;
 
-public class EvidentiranjeIsplacenihPlataController extends BaseController{
+public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater{
 	@FXML
 	private AnchorPane pane;
 	@FXML
@@ -118,8 +119,15 @@ public class EvidentiranjeIsplacenihPlataController extends BaseController{
 	
 	private ObservableList<PlataDTO> listaPlata;
 	private ObservableList<ZaposleniDTO> listaZaposlenih;
+	private ObservableList<PlataDTO> lista = FXCollections.observableArrayList();
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		super.setTxtIznos(txtIznos);
+		super.setDatePicker(datePicker);
+		super.setTxtOpis(txtOpis);
+		super.setBtnPrikazi(btnPrikazi);
+		super.setRadiobtnSve(radiobtnSve);
 		// TODO Auto-generated method stub
 		listaZaposlenih=DAOFactory.getDAOFactory().getZaposleniDAO().selectAll();
 		ToggleGroup group = new ToggleGroup();
@@ -151,9 +159,7 @@ public class EvidentiranjeIsplacenihPlataController extends BaseController{
 		BooleanBinding binding = radiobtnSve.selectedProperty().not().and(radiobtnZaposleni.selectedProperty().not()).and(radiobtnMjesec.selectedProperty().not());
 		btnPrikazi.disableProperty().bind(binding);
 	}
-	private boolean poljaPrazna() {
-		return txtIznos.getText().isEmpty() || datePicker.getValue()==null;
-	}
+	
 	private void popuniComboBox() {
 		comboBoxZaposleniDodaj.setItems(listaZaposlenih);
 		comboBoxZaposleniPrikazi.setItems(listaZaposlenih);
@@ -234,42 +240,25 @@ public class EvidentiranjeIsplacenihPlataController extends BaseController{
 	public void setListaZaposlenih(ObservableList<ZaposleniDTO> listaZaposlenih) {
 		this.listaZaposlenih = listaZaposlenih;
 	}
-	public void dodaj() {
-		Double iznos = null;
-		try {
-			iznos = Double.parseDouble(txtIznos.getText());
-			if(iznos<0)
-				throw new NumberFormatException();
-		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
-			this.obrisiPolja();
-			alert.showAndWait();
-			return;
-		}
-		String opis = txtOpis.getText();//+
+	public TransakcijaDTO dodaj() {
+		TransakcijaDTO transakcija = super.dodaj();
+		if(transakcija==null)
+			return null;
 		ZaposleniDTO zaposleni = comboBoxZaposleniDodaj.getSelectionModel().getSelectedItem();
-		LocalDate localDate = datePicker.getValue();//+
-		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));//+
-		Date datum = Date.from(instant);//+
 		String tipTransakcije = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().getById(2).getTip();
-		System.out.println(tipTransakcije);
-		PlataDTO plata = new PlataDTO(null, datum, iznos, opis, tipTransakcije, zaposleni);
-		DAOFactoryTransakcije.getDAOFactory().getPlataDAO().INSERT(plata,zaposleni);
-		DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(plata.getIznos().get());
-		listaPlata.add(plata);
-		Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje!");
-		alert.showAndWait();
-		this.obrisiPolja();
-		radiobtnSve.fire();
-		btnPrikazi.fire();
+		PlataDTO plata = new PlataDTO(null, transakcija.getDatum(), transakcija.getIznos().doubleValue(), transakcija.getOpis().getValue(), tipTransakcije, zaposleni);
+		boolean ok = DAOFactoryTransakcije.getDAOFactory().getPlataDAO().INSERT(plata,zaposleni);
+		if(ok) {
+			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(plata.getIznos().get());
+			listaPlata.add(plata);
+			super.uspjesnoDodavanje();
+			return plata;
+		}
+		return null;
 	}
-	private void obrisiPolja() {
-		txtIznos.setText("");
-		txtOpis.setText("");
-		datePicker.setValue(null);
-	}
+	
 	public void prikazi() {
-		ObservableList<PlataDTO> lista = FXCollections.observableArrayList();
+		lista = FXCollections.observableArrayList();
 		if(radiobtnZaposleni.isSelected()) {
 			ZaposleniDTO zaposleni = comboBoxZaposleniPrikazi.getValue();
 			for(PlataDTO pl : listaPlata) {
@@ -303,6 +292,9 @@ public class EvidentiranjeIsplacenihPlataController extends BaseController{
 	public void obrisi() {
 		DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().delete(tablePlate.getSelectionModel().getSelectedItem().getId());
 		listaPlata.remove(tablePlate.getSelectionModel().getSelectedItem());
+		if(!radiobtnSve.isSelected()) {
+			lista.remove(tablePlate.getSelectionModel().getSelectedItem());
+		}
 		tablePlate.refresh();
 	}
 }

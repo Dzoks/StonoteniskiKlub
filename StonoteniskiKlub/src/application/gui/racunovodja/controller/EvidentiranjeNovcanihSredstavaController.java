@@ -54,7 +54,7 @@ import javafx.scene.control.DatePicker;
 
 import javafx.scene.control.TableColumn;
 
-public class EvidentiranjeNovcanihSredstavaController  extends BaseController{ //sezona popraviti
+public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecorater{ //sezona popraviti
 	@FXML
 	private Label lblUsvojeniBudzet;
 	@FXML
@@ -84,21 +84,15 @@ public class EvidentiranjeNovcanihSredstavaController  extends BaseController{ /
 	@FXML
 	private Button btnDodajBudzet;
 	@FXML
-	private Label lblIznos;
-	@FXML
 	private TextField txtIznos;
 	@FXML
 	private TextField txtIznosBudzet;
 	@FXML
 	private TextField txtSezona;
 	@FXML
-	private TextArea txtOpis;
-	@FXML
 	private Label lblOpis;
 	@FXML
 	private Label lblDatum;
-	@FXML
-	private DatePicker datePicker;
 	@FXML
 	private Label lblVrsta;
 	@FXML
@@ -109,16 +103,17 @@ public class EvidentiranjeNovcanihSredstavaController  extends BaseController{ /
 	private RadioButton radioBtnPrihodi;
 	@FXML
 	private RadioButton radioBtnRashodi;
-	@FXML
-	private Button btnPrikazi;
-	@FXML
-	private RadioButton radioBtnSve;
+	
 	private NovcanaSredstvaDTO trenutnaNS;
 	private ObservableList<TransakcijaDTO> listaTransakcija;
 	private ObservableList<TipTransakcijeDTO> listaTip;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-	
+		super.setTxtIznos(txtIznos);
+		super.setDatePicker(datePicker);
+		super.setTxtOpis(txtOpis);
+		super.setBtnPrikazi(btnPrikazi);
+		super.setRadiobtnSve(radiobtnSve);
 		this.popuniTabelu();
 		this.popuniComboBox();
 		btnDodaj.setDisable(true);
@@ -152,9 +147,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends BaseController{ /
 	private boolean poljaPraznaBudzet() {
 		return txtIznosBudzet.getText().isEmpty() || txtSezona.getText().isEmpty();
 	}
-	private boolean poljaPrazna() {
-		return txtIznos.getText().isEmpty() || datePicker.getValue()==null;
-	}
+	
 	// Event Listener on Button[#btnDodaj].onAction
 	public void prikazi() { //zabraniti da se doda za istu sezonu ako nije obrisano za proslu, pitanje korisniku?
 		String sezona = comboBoxSezona.getValue();
@@ -223,47 +216,39 @@ public class EvidentiranjeNovcanihSredstavaController  extends BaseController{ /
 		trenutnaNS = DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().getNSMaxId();
 		this.prikaziLabele(trenutnaNS);
 	}
-	private void obrisiPolja() {
+	public void obrisiPolja() {
 		txtIznos.setText("");
 		txtOpis.setText("");
 		datePicker.setValue(null);
 	}
-	public void dodaj() {
-		Double iznos = null;
-		try {
-			iznos = Double.parseDouble(txtIznos.getText());
-			if(iznos<0)
-				throw new NumberFormatException();
-		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
-			this.obrisiPolja();
-			alert.showAndWait();
-			return;
-		}
+	public TransakcijaDTO dodaj() {
+		TransakcijaDTO tran = super.dodaj();
+		if(tran==null)
+			return null;
 		TipTransakcijeDTO tip = comboBoxTipTransakcije.getValue();
-		String opis = txtOpis.getText();
-		LocalDate localDate = datePicker.getValue();
-		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault())); //paziti na nullptr
-		Date datum = Date.from(instant);
 		String vrsta = comboBoxVrsta.getValue(); 
 		boolean jeUplata = false;
 		if(vrsta.equals("Prihod"))
 			jeUplata=true;
-		TransakcijaDTO transakcija = new TransakcijaDTO(null, datum, iznos, opis, tip.getTip(), jeUplata);
+		TransakcijaDTO transakcija = new TransakcijaDTO(null, tran.getDatum(), tran.getIznos().get(), tran.getOpis().get(), tip.getTip(), jeUplata);
 		listaTransakcija.add(transakcija);
-		DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().INSERT(transakcija, tip);
-		if(jeUplata) {
-			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(transakcija.getIznos().get());
-			trenutnaNS.setPrihodi(trenutnaNS.getPrihodi()+transakcija.getIznos().get());
+		int ok = DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().INSERT(transakcija, tip);
+		if(ok!=0) {
+			if(jeUplata) {
+				DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(transakcija.getIznos().get());
+				trenutnaNS.setPrihodi(trenutnaNS.getPrihodi()+transakcija.getIznos().get());
 
-		}else {
-			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(transakcija.getIznos().get());
-			trenutnaNS.setRashodi(trenutnaNS.getRashodi()+transakcija.getIznos().get());
+			}else {
+				DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(transakcija.getIznos().get());
+				trenutnaNS.setRashodi(trenutnaNS.getRashodi()+transakcija.getIznos().get());
+			}
+			prikaziLabele(trenutnaNS);
+			Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje!");
+			alert.showAndWait();
+			this.obrisiPolja();
+			return transakcija;
 		}
-		prikaziLabele(trenutnaNS);
-		Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje!");
-		alert.showAndWait();
-		
+		return null;
 	}
 	public void izmijeni() { //obrisi
 		Stage noviStage = new Stage();
