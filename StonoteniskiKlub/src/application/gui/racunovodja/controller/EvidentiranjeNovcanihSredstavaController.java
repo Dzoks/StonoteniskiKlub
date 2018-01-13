@@ -155,11 +155,19 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		this.prikaziLabele(ns);
 	}
 	private void prikaziLabele(NovcanaSredstvaDTO ns) {
-		comboBoxSezona.getSelectionModel().select(ns.getSezona());
-		lblPrihodi.setText(ns.getPrihodi().toString());
-		lblRashodi.setText(ns.getRashodi().toString());
-		lblUsvojeniBudzet.setText(ns.getBudzet().toString());
-		lblNovcanaSredstva.setText(new Double(ns.getBudzet()-ns.getRashodi()+ns.getPrihodi()).toString());
+		if(ns!=null) {
+			comboBoxSezona.getSelectionModel().select(ns.getSezona());
+			lblPrihodi.setText(ns.getPrihodi().toString());
+			lblRashodi.setText(ns.getRashodi().toString());
+			lblUsvojeniBudzet.setText(ns.getBudzet().toString());
+			lblNovcanaSredstva.setText(new Double(ns.getBudzet()-ns.getRashodi()+ns.getPrihodi()).toString());
+		}
+		else {
+			lblPrihodi.setText("-");
+			lblRashodi.setText("-");
+			lblUsvojeniBudzet.setText("-");
+			lblNovcanaSredstva.setText("-");
+		}
 	}
 
 	@FXML
@@ -214,6 +222,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		comboBoxVrsta.getSelectionModel().selectFirst();
 		comboBoxSezona.setItems(DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().getSezone());
 		trenutnaNS = DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().getNSMaxId();
+		System.out.println(trenutnaNS);
 		this.prikaziLabele(trenutnaNS);
 	}
 	public void obrisiPolja() {

@@ -232,9 +232,7 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaContro
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
+		}	
 	}
 	public ObservableList<TroskoviTurnirDTO> getListaTroskovi() {
 		return listaTroskovi;
