@@ -6,11 +6,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
+import application.util.GUIBuilder;
 import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +27,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -54,13 +57,9 @@ public class RadSaUgovorimaController extends BaseController {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		colRb.setCellValueFactory(new PropertyValueFactory<UgovorDTO, Integer>("redniBroj"));
-		colDatumOd.setCellValueFactory(new PropertyValueFactory<UgovorDTO, String>("datumOd"));
-		colDatumDo.setCellValueFactory(new PropertyValueFactory<UgovorDTO, String>("datumDo"));
-		colSaDonacijom.setCellValueFactory(new PropertyValueFactory<UgovorDTO, String>("saDonacijom"));
-		cbTip.setItems(cbItems);
-		cbTip.getSelectionModel().select(0);
-		btnPregledajDonacije.disableProperty().bind(tblUgovori.getSelectionModel().selectedItemProperty().isNull());
+		buildTable();
+		populateComboBoxes();
+		bindDisable();
 	}
 
 	// Event Listener on ComboBox[#cbTip].onAction
@@ -107,11 +106,12 @@ public class RadSaUgovorimaController extends BaseController {
 		}
 		boolean dOd = InputValidator.allEntered(dpDatumOd.getValue());
 		boolean dDo = InputValidator.allEntered(dpDatumDo.getValue());
+		ObservableList<UgovorDTO> tableList = tblUgovori.getItems();
 		if (!dOd && !dDo) {
 			AlertDisplay.showInformation("Greska", "", "Niste unijeli datum");
 		} else if (dOd && dDo) {
 			ObservableList<UgovorDTO> filtered = FXCollections.observableArrayList();
-			for (UgovorDTO ugovor : listaUgovora) {
+			for (UgovorDTO ugovor : tableList) {
 				if (ugovor.getDatumOd().compareTo(datumOd) >= 0 && ugovor.getDatumOd().compareTo(datumDo) <= 0) {
 					filtered.add(ugovor);
 				}
@@ -119,7 +119,7 @@ public class RadSaUgovorimaController extends BaseController {
 			tblUgovori.setItems(filtered);
 		} else if (dOd) {
 			ObservableList<UgovorDTO> filtered = FXCollections.observableArrayList();
-			for (UgovorDTO ugovor : listaUgovora) {
+			for (UgovorDTO ugovor : tableList) {
 				if (ugovor.getDatumOd().compareTo(datumOd) >= 0) {
 					filtered.add(ugovor);
 				}
@@ -127,7 +127,7 @@ public class RadSaUgovorimaController extends BaseController {
 			tblUgovori.setItems(filtered);
 		} else {
 			ObservableList<UgovorDTO> filtered = FXCollections.observableArrayList();
-			for (UgovorDTO ugovor : listaUgovora) {
+			for (UgovorDTO ugovor : tableList) {
 				if (ugovor.getDatumOd().compareTo(datumDo) <= 0) {
 					filtered.add(ugovor);
 				}
@@ -168,7 +168,7 @@ public class RadSaUgovorimaController extends BaseController {
 	}
 
 	@FXML
-	public void updateOpis() {
+	public void updateOpis(MouseEvent event) {
 		UgovorDTO ugovorDTO = tblUgovori.getSelectionModel().getSelectedItem();
 		if (ugovorDTO != null) {
 			taOpis.setText(ugovorDTO.getOpis());
@@ -188,5 +188,24 @@ public class RadSaUgovorimaController extends BaseController {
 		cbItems.add("Bez donacija");
 		cbItems.add("Sa donacijama");
 	}
+	// Pomocne metode
+		private void buildTable() {
+			Map<String, TableColumn<UgovorDTO, Integer>> mapInteger = new HashMap<String, TableColumn<UgovorDTO, Integer>>();
+			mapInteger.put("redniBroj", colRb);
+			GUIBuilder.<UgovorDTO, Integer>initializeTableColumns(mapInteger);
+			Map<String, TableColumn<UgovorDTO, String>> mapString = new HashMap<String, TableColumn<UgovorDTO, String>>();
+			mapString.put("datumOd", colDatumOd);
+			mapString.put("datumDo", colDatumDo);
+			mapString.put("saDonacijom", colSaDonacijom);
+			GUIBuilder.<UgovorDTO, String>initializeTableColumns(mapString);
+		}
 
+		private void populateComboBoxes() {
+			cbTip.setItems(cbItems);
+			cbTip.getSelectionModel().select(0);
+		}
+
+		private void bindDisable() {
+			btnPregledajDonacije.disableProperty().bind(tblUgovori.getSelectionModel().selectedItemProperty().isNull());
+		}
 }

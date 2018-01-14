@@ -38,7 +38,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			UgovorDTO ugovor = null;
 			if (resultSet.next()) {
 				sponzor = new SponzorDTO(resultSet.getInt("SponzorId"), resultSet.getString("Naziv"),
-						resultSet.getString("Adresa"), resultSet.getString("Mail"), null);
+						resultSet.getString("Adresa"), resultSet.getString("Mail"), null, null);
 				ugovor = new UgovorDTO(resultSet.getInt("UgovorRb"), resultSet.getDate("DatumOd"),
 						resultSet.getDate("DatumDo"), resultSet.getString("UgovorOpis"), null);
 				do {
@@ -77,7 +77,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			UgovorDTO ugovor = null;
 			while (resultSet.next()) {
 				sponzor = new SponzorDTO(resultSet.getInt("SponzorId"), resultSet.getString("Naziv"),
-						resultSet.getString("Adresa"), resultSet.getString("Mail"), null);
+						resultSet.getString("Adresa"), resultSet.getString("Mail"), null, null);
 				ugovor = new UgovorDTO(resultSet.getInt("UgovorRb"), resultSet.getDate("DatumOd"),
 						resultSet.getDate("DatumDo"), resultSet.getString("UgovorOpis"), null);
 				DonacijaDTO d = new DonacijaDTO(sponzor, ugovor, resultSet.getInt("DonacijaRb"),
@@ -127,9 +127,14 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			} else {
 				statement.setInt("pOpremaTipId", donacija.getTipOpreme().getId());
 			}
-			statement.registerOutParameter("pUspjesno", Types.BOOLEAN);
+			statement.registerOutParameter("pRedniBroj", Types.INTEGER);
 			statement.execute();
-			result = statement.getBoolean("pUspjesno");
+			Integer redniBroj = -1;
+			redniBroj = statement.getInt("pRedniBroj");
+			if(!redniBroj.equals(Integer.valueOf(-1))){
+				result = true;
+				donacija.setRedniBroj(redniBroj);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

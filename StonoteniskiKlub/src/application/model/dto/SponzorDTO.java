@@ -14,16 +14,19 @@ public class SponzorDTO {
 	private StringProperty adresa;
 	private StringProperty email;
 	private ObservableList<UgovorDTO> ugovori;
-
+	private ObservableList<String> telefoni;
+	
+	
 	public SponzorDTO() {
 	}
 
-	public SponzorDTO(Integer id, String naziv, String adresa, String email, ObservableList<UgovorDTO> ugovori) {
+	public SponzorDTO(Integer id, String naziv, String adresa, String email, ObservableList<UgovorDTO> ugovori, ObservableList<String> telefoni) {
 		this.id = id == null ? null : new SimpleIntegerProperty(id);
 		this.naziv = naziv == null ? null : new SimpleStringProperty(naziv);
 		this.adresa = adresa == null ? null : new SimpleStringProperty(adresa);
 		this.email = email == null ? null : new SimpleStringProperty(email);
 		this.ugovori = ugovori;
+		this.telefoni = telefoni;
 	}
 
 	// Property metode
@@ -46,7 +49,15 @@ public class SponzorDTO {
 		return new SimpleStringProperty(this.daLiJeAktivan() ? "Da" : "Ne");
 	}
 	public StringProperty telefonProperty(){
-		return new SimpleStringProperty("065/111-222");
+		if(telefoni == null || telefoni.size() == 0){
+			return new SimpleStringProperty("-");
+		}else{
+			String tels = "";
+			for(String telefon : telefoni){
+				tels+=telefon + " ; ";
+			}
+			return new SimpleStringProperty(tels);
+		}
 	}
 	
 	// Obicni getteri
@@ -90,6 +101,14 @@ public class SponzorDTO {
 	public void setUgovori(ObservableList<UgovorDTO> ugovori) {
 		this.ugovori = ugovori;
 	}
+	
+	public ObservableList<String> getTelefoni() {
+		return telefoni;
+	}
+
+	public void setTelefoni(ObservableList<String> telefoni) {
+		this.telefoni = telefoni;
+	}
 
 	@Override
 	public int hashCode() {
@@ -128,15 +147,5 @@ public class SponzorDTO {
 	@Override
 	public String toString() {
 		return naziv.get() + ", " + adresa.get();
-	}
-	
-	public Integer getMaxUgovorId(){
-		Integer max = 0;
-		for(UgovorDTO ug : ugovori){
-			if(ug.getRedniBroj().compareTo(max) > 0){
-				max = ug.getRedniBroj();
-			}
-		}
-		return max;
 	}
 }
