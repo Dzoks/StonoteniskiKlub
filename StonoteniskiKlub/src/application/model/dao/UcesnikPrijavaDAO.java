@@ -192,11 +192,14 @@ public class UcesnikPrijavaDAO {
 			c = ConnectionPool.getInstance().checkOut();
 			s = c.createStatement();
 			rs = s.executeQuery(SQL_SELECT_ALL1);
-			while (rs.next())
+			while (rs.next()) {
+				System.out.println("select "+	rs.getInt("Id"));
+
 				retVal.add(new UcesnikPrijavaDTO(rs.getInt("OSOBA_Id"), rs.getString("Ime"), rs.getString("Prezime"), 
 						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"), 
 						rs.getInt("Id"), rs.getInt("TURNIR_Id"), rs.getInt("TURNIR_KATEGORIJA_Id"),rs.getDate("Datum")));
-		} catch (SQLException e) {
+			}
+			} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			ConnectionPool.close(rs, s);

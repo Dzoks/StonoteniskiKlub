@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanarinaDAO;
-import application.model.dao.DAOFactoryTransakcije;
+import application.model.dao.DAOFactory;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.TroskoviOpremaDAO;
 import application.model.dto.ClanDTO;
@@ -131,8 +131,8 @@ public void izmijeni() {
 		TroskoviOpremaDTO trosak1 = new TroskoviOpremaDTO(trosak.getId(), datum, iznos, opis, tipTransakcije, narudzba);
 		evidentiranjeController.getListaTroskovi().remove(trosak1);
 		evidentiranjeController.getListaTroskovi().add(trosak1);
-		DAOFactoryTransakcije.getDAOFactory().getTroskoviOpremaDAO().UPDATE(trosak1,narudzba);
-		DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(trosak1.getIznos().get()-trosak.getIznos().get());
+		DAOFactory.getDAOFactory().getTroskoviOpremaDAO().UPDATE(trosak1,narudzba);
+		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(trosak1.getIznos().get()-trosak.getIznos().get());
 
 		this.getPrimaryStage().close();
 	}

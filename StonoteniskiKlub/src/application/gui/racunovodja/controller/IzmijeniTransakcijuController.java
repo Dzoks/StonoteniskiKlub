@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.DAOFactoryTransakcije;
+import application.model.dao.DAOFactory;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.TipTransakcijeDAO;
 import application.model.dao.TransakcijaDAO;
@@ -144,12 +144,12 @@ public class IzmijeniTransakcijuController extends BaseController{
 		TransakcijaDTO transakcija1 = new TransakcijaDTO(transakcija.getId(), datum, iznos, opis, tip.getTip(), jeUplata);
 		evidentiranjeController.getListaTransakcija().remove(transakcija1);
 		evidentiranjeController.getListaTransakcija().add(transakcija1);
-		DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().UPDATE(transakcija1,tip);
+		DAOFactory.getDAOFactory().getTransakcijaDAO().UPDATE(transakcija1,tip);
 		if(jeUplata) {
-			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(transakcija1.getIznos().get()-transakcija.getIznos().get());
+			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(transakcija1.getIznos().get()-transakcija.getIznos().get());
 
 		}else {
-			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(transakcija1.getIznos().get()-transakcija.getIznos().get());
+			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(transakcija1.getIznos().get()-transakcija.getIznos().get());
 		}
 		this.getPrimaryStage().close();
 	}
@@ -172,7 +172,7 @@ public class IzmijeniTransakcijuController extends BaseController{
 			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
-			listaTip = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().SELECT_ALL();
+			listaTip = DAOFactory.getDAOFactory().getTipTransakcijeDAO().SELECT_ALL();
 			comboBoxTipTransakcije.setItems(listaTip);
 			comboBoxTipTransakcije.getSelectionModel().select(0);
 		} catch (IOException e) {

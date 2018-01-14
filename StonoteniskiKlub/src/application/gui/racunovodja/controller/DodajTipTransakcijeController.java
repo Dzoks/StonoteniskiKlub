@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.DAOFactoryTransakcije;
+import application.model.dao.DAOFactory;
 import application.model.dao.TipTransakcijeDAO;
 import application.model.dto.TipTransakcijeDTO;
 import javafx.event.ActionEvent;
@@ -25,7 +25,7 @@ public class DodajTipTransakcijeController extends BaseController{ //popraviti p
 	public void dodaj(ActionEvent event) {
 		String tip = txtTip.getText().trim();
 		TipTransakcijeDTO tipTransakcije = new TipTransakcijeDTO(tip);
-		DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().INSERT(tipTransakcije);
+		DAOFactory.getDAOFactory().getTipTransakcijeDAO().INSERT(tipTransakcije);
 		Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje tipa transakcije.");
 		alert.showAndWait();
 		this.getPrimaryStage().close();

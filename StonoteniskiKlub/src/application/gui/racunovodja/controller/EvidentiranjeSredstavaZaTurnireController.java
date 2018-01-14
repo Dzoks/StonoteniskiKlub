@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.DAOFactoryTransakcije;
+import application.model.dao.DAOFactory;
 import application.model.dao.DistributerOpremeDAO;
 import application.model.dao.NarudzbaDAO;
 import application.model.dao.NovcanaSredstvaDAO;
@@ -103,7 +103,7 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaContro
 	private	ObservableList<TroskoviTurnirDTO> lista = FXCollections.observableArrayList();
 
 	public void obrisi() {
-		DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().delete(tableTroskoviTurnir.getSelectionModel().getSelectedItem().getId());
+		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(tableTroskoviTurnir.getSelectionModel().getSelectedItem().getId());
 		listaTroskovi.remove(tableTroskoviTurnir.getSelectionModel().getSelectedItem());
 		if(!radiobtnSve.isSelected()) {
 			lista.remove(tableTroskoviTurnir.getSelectionModel().getSelectedItem());
@@ -148,7 +148,7 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaContro
 	}
 	private void popuniTabelu() {
 		this.postaviKolone();
-		listaTroskovi = DAOFactoryTransakcije.getDAOFactory().getTroskoviTurnirDAO().SELECT_ALL();
+		listaTroskovi = DAOFactory.getDAOFactory().getTroskoviTurnirDAO().SELECT_ALL();
 		tableTroskoviTurnir.setItems(listaTroskovi);
 	}
 	private void popuniComboBox(){
@@ -171,12 +171,12 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaContro
 		if(transakcija==null)
 			return null;
 		TurnirDTO turnir = comboBoxTurnir.getValue();
-		String tipTransakcije = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().getById(5).getTip();
+		String tipTransakcije = DAOFactory.getDAOFactory().getTipTransakcijeDAO().getById(5).getTip();
 		TroskoviTurnirDTO troskovi = new TroskoviTurnirDTO(null, transakcija.getDatum(), transakcija.getIznos().get(), transakcija.getOpis().get(), tipTransakcije, turnir);
-		boolean ok = DAOFactoryTransakcije.getDAOFactory().getTroskoviTurnirDAO().INSERT(troskovi,turnir);
+		boolean ok = DAOFactory.getDAOFactory().getTroskoviTurnirDAO().INSERT(troskovi,turnir);
 		if(ok) {
 			listaTroskovi.add(troskovi);
-			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(troskovi.getIznos().get());
+			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(troskovi.getIznos().get());
 			super.uspjesnoDodavanje();
 			return troskovi;
 		}

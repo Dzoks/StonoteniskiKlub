@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanarinaDAO;
-import application.model.dao.DAOFactoryTransakcije;
+import application.model.dao.DAOFactory;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.TipTransakcijeDAO;
 import application.model.dao.TransakcijaDAO;
@@ -151,7 +151,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 	// Event Listener on Button[#btnDodaj].onAction
 	public void prikazi() { //zabraniti da se doda za istu sezonu ako nije obrisano za proslu, pitanje korisniku?
 		String sezona = comboBoxSezona.getValue();
-		NovcanaSredstvaDTO ns = DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().getBySezona(sezona);
+		NovcanaSredstvaDTO ns = DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getBySezona(sezona);
 		this.prikaziLabele(ns);
 	}
 	private void prikaziLabele(NovcanaSredstvaDTO ns) {
@@ -186,7 +186,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
-			listaTip = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().SELECT_ALL();
+			listaTip = DAOFactory.getDAOFactory().getTipTransakcijeDAO().SELECT_ALL();
 			comboBoxTipTransakcije.setItems(listaTip);
 			comboBoxTipTransakcije.getSelectionModel().select(0);
 		} catch (IOException e) {
@@ -198,7 +198,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 	private void popuniTabelu() {
 		
 		postaviKolone();
-		listaTransakcija = DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().SELECT_ALL();
+		listaTransakcija = DAOFactory.getDAOFactory().getTransakcijaDAO().SELECT_ALL();
 		tableView.setItems(listaTransakcija);
 		tableView.getSelectionModel().select(0);
 		
@@ -212,7 +212,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		tableColumnTipTransakcije.setCellValueFactory(new PropertyValueFactory<TransakcijaDTO,String>("tipTransakcije"));
 	}
 	private void popuniComboBox() {//paziti na null ptr
-		listaTip = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().SELECT_ALL();
+		listaTip = DAOFactory.getDAOFactory().getTipTransakcijeDAO().SELECT_ALL();
 		comboBoxTipTransakcije.setItems(listaTip);
 		comboBoxTipTransakcije.getSelectionModel().selectFirst();
 		ObservableList<String> list = FXCollections.observableArrayList();
@@ -220,8 +220,8 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		list.add("Rashod");
 		comboBoxVrsta.setItems(list);
 		comboBoxVrsta.getSelectionModel().selectFirst();
-		comboBoxSezona.setItems(DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().getSezone());
-		trenutnaNS = DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().getNSMaxId();
+		comboBoxSezona.setItems(DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getSezone());
+		trenutnaNS = DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getNSMaxId();
 		System.out.println(trenutnaNS);
 		this.prikaziLabele(trenutnaNS);
 	}
@@ -241,14 +241,14 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			jeUplata=true;
 		TransakcijaDTO transakcija = new TransakcijaDTO(null, tran.getDatum(), tran.getIznos().get(), tran.getOpis().get(), tip.getTip(), jeUplata);
 		listaTransakcija.add(transakcija);
-		int ok = DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().INSERT(transakcija, tip);
+		int ok = DAOFactory.getDAOFactory().getTransakcijaDAO().INSERT(transakcija, tip);
 		if(ok!=0) {
 			if(jeUplata) {
-				DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(transakcija.getIznos().get());
+				DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(transakcija.getIznos().get());
 				trenutnaNS.setPrihodi(trenutnaNS.getPrihodi()+transakcija.getIznos().get());
 
 			}else {
-				DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(transakcija.getIznos().get());
+				DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(transakcija.getIznos().get());
 				trenutnaNS.setRashodi(trenutnaNS.getRashodi()+transakcija.getIznos().get());
 			}
 			prikaziLabele(trenutnaNS);
@@ -315,9 +315,9 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			return;
 		}
 		NovcanaSredstvaDTO ns = new NovcanaSredstvaDTO(sezona, iznos, new Double(0), new Double(0));
-		boolean ok = DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().INSERT(ns);
+		boolean ok = DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().INSERT(ns);
 		if(ok) {
-			comboBoxSezona.setItems(DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().getSezone());
+			comboBoxSezona.setItems(DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getSezone());
 			Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje!");
 			this.obrisiPolja();
 			alert.showAndWait();
@@ -327,7 +327,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		
 	}
 	public void obrisi() {
-		DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().delete(tableView.getSelectionModel().getSelectedItem().getId());
+		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(tableView.getSelectionModel().getSelectedItem().getId());
 		listaTransakcija.remove(tableView.getSelectionModel().getSelectedItem());
 		tableView.refresh();
 	}

@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.ClanarinaDAO;
 import application.model.dao.DAOFactory;
-import application.model.dao.DAOFactoryTransakcije;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.PlataDAO;
 import application.model.dao.TipTransakcijeDAO;
@@ -174,7 +173,7 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 		tableColumnIznos.setCellValueFactory(new PropertyValueFactory<PlataDTO, Double>("iznos")); 
 		tableColumnRadnoMjesto.setCellValueFactory(new PropertyValueFactory<PlataDTO,String>("zaposlenje")); 
 		//
-		listaPlata = DAOFactoryTransakcije.getDAOFactory().getPlataDAO().SELECT_ALL();
+		listaPlata = DAOFactory.getDAOFactory().getPlataDAO().SELECT_ALL();
 		tablePlate.setItems(listaPlata);
 	}
 	public void izmijeni() {
@@ -245,11 +244,11 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 		if(transakcija==null)
 			return null;
 		ZaposleniDTO zaposleni = comboBoxZaposleniDodaj.getSelectionModel().getSelectedItem();
-		String tipTransakcije = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().getById(2).getTip();
+		String tipTransakcije = DAOFactory.getDAOFactory().getTipTransakcijeDAO().getById(2).getTip();
 		PlataDTO plata = new PlataDTO(null, transakcija.getDatum(), transakcija.getIznos().doubleValue(), transakcija.getOpis().getValue(), tipTransakcije, zaposleni);
-		boolean ok = DAOFactoryTransakcije.getDAOFactory().getPlataDAO().INSERT(plata,zaposleni);
+		boolean ok = DAOFactory.getDAOFactory().getPlataDAO().INSERT(plata,zaposleni);
 		if(ok) {
-			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(plata.getIznos().get());
+			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(plata.getIznos().get());
 			listaPlata.add(plata);
 			super.uspjesnoDodavanje();
 			return plata;
@@ -290,7 +289,7 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 		tablePlate.getSelectionModel().select(0);
 	}
 	public void obrisi() {
-		DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().delete(tablePlate.getSelectionModel().getSelectedItem().getId());
+		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(tablePlate.getSelectionModel().getSelectedItem().getId());
 		listaPlata.remove(tablePlate.getSelectionModel().getSelectedItem());
 		if(!radiobtnSve.isSelected()) {
 			lista.remove(tablePlate.getSelectionModel().getSelectedItem());

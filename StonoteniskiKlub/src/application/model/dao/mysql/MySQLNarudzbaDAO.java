@@ -16,7 +16,8 @@ import javafx.collections.ObservableList;
 
 public class MySQLNarudzbaDAO implements NarudzbaDAO{
 
-	private static final String SQL_SELECT_ALL = "SELECT * FROM narudzba WHERE Obrisan=false";
+	private static final String SQL_SELECT_ALL = "SELECT * FROM narudzba WHERE Obrisan=false ";
+	private static final String SQL_SELECT = "SELECT * FROM NARUDZBA WHERE Obrisan=false and OpremaKluba=true";
 	private static final String SQL_SELECT_NEOBRADJENE = "SELECT * FROM narudzba WHERE Obrisan=false AND Obradjeno=false AND OpremaKluba=?";
 	private static final String SQL_SELECT_NEXT_ID = "SELECT MAX(Id) FROM narudzba";
 	private static final String SQL_INSERT = "INSERT INTO narudzba VALUES (?, ?, ?, ?, ?, false)";
@@ -47,7 +48,29 @@ public class MySQLNarudzbaDAO implements NarudzbaDAO{
 		
 		return listaNarudzbi;
 	}
-	
+	public ObservableList<Narudzba> SELECT_OPREMA_KLUBA() {//dodala Helena, ne brisite
+		ObservableList<Narudzba> listaNarudzbi = FXCollections.observableArrayList();
+		Connection c = null;
+		Statement s = null;
+		ResultSet rs = null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			s = c.createStatement();
+			rs = s.executeQuery(SQL_SELECT);
+			
+			while(rs.next()) {
+				listaNarudzbi.add(new Narudzba(rs.getInt("Id"), rs.getDate("Datum"), rs.getBoolean("OpremaKluba"), rs.getBoolean("Obradjeno"), rs.getInt("DISTRIBUTER_OPREME_Id"), DAOFactory.getDAOFactory().getNarudzbaStavkaDAO().SELECT_BY_IDNARUDZBE(rs.getInt("Id"))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.getInstance().checkIn(c);
+			ConnectionPool.close(rs, s);
+		}
+		
+		return listaNarudzbi;
+	}
 	public ObservableList<Narudzba> SELECT_NEOBRADJENE(Boolean opremaKluba) {
 		ObservableList<Narudzba> listaNarudzbi = FXCollections.observableArrayList();
 		Connection c = null;

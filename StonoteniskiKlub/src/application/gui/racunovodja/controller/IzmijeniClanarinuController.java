@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanarinaDAO;
-import application.model.dao.DAOFactoryTransakcije;
+import application.model.dao.DAOFactory;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
@@ -153,8 +153,8 @@ public class IzmijeniClanarinuController extends BaseController{
 		ClanarinaDTO clanarina1 = new ClanarinaDTO(clanarina.getId(), datum, iznos, opis, tipTransakcije, mjesec, godina, clan.getIme(), clan.getPrezime(),clan.getId());
 		evidentiranjeController.getListaClanarina().remove(clanarina1);
 		evidentiranjeController.getListaClanarina().add(clanarina1);
-		DAOFactoryTransakcije.getDAOFactory().getClanarinaDAO().UPDATE(clanarina1,clan);
-		DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(clanarina1.getIznos().get()-clanarina.getIznos().get());
+		DAOFactory.getDAOFactory().getClanarinaDAO().UPDATE(clanarina1,clan);
+		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(clanarina1.getIznos().get()-clanarina.getIznos().get());
 		this.getPrimaryStage().close();
 	}
 	public void otkazi() {

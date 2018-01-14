@@ -22,7 +22,6 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.ClanarinaDAO;
 import application.model.dao.DAOFactory;
-import application.model.dao.DAOFactoryTransakcije;
 import application.model.dao.DistributerOpremeDAO;
 import application.model.dao.NarudzbaDAO;
 import application.model.dao.NovcanaSredstvaDAO;
@@ -111,7 +110,7 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 	private ObservableList<TroskoviOpremaDTO> lista = FXCollections.observableArrayList();
 
 	public void obrisi() {
-		DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().delete(tableTroskoviOprema.getSelectionModel().getSelectedItem().getId());
+		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(tableTroskoviOprema.getSelectionModel().getSelectedItem().getId());
 		listaTroskovi.remove(tableTroskoviOprema.getSelectionModel().getSelectedItem());
 		if(!radiobtnSve.isSelected()) {
 			lista.remove(tableTroskoviOprema.getSelectionModel().getSelectedItem());
@@ -156,11 +155,11 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 
 	private void popuniTabelu() {
 		this.postaviKolone();
-		listaTroskovi = DAOFactoryTransakcije.getDAOFactory().getTroskoviOpremaDAO().SELECT_ALL();
+		listaTroskovi = DAOFactory.getDAOFactory().getTroskoviOpremaDAO().SELECT_ALL();
 		tableTroskoviOprema.setItems(listaTroskovi);
 	}
 	private void popuniComboBox(){
-		ObservableList<Narudzba> listaNarudzba = DAOFactory.getDAOFactory().getNarudzbaDAO().SELECT_ALL();
+		ObservableList<Narudzba> listaNarudzba = DAOFactory.getDAOFactory().getNarudzbaDAO().SELECT_OPREMA_KLUBA();
 		comboBoxNarudzba.setItems(listaNarudzba);
 		if(!listaNarudzba.isEmpty())
 			comboBoxNarudzba.getSelectionModel().select(0);
@@ -182,12 +181,12 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 			return null;
 		Narudzba narudzba = comboBoxNarudzba.getValue();
 		
-		String tipTransakcije = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().getById(3).getTip();
+		String tipTransakcije = DAOFactory.getDAOFactory().getTipTransakcijeDAO().getById(3).getTip();
 		TroskoviOpremaDTO troskovi = new TroskoviOpremaDTO(null, transakcija.getDatum(), transakcija.getIznos().get(), transakcija.getOpis().get(), tipTransakcije, narudzba);
-		boolean ok = DAOFactoryTransakcije.getDAOFactory().getTroskoviOpremaDAO().INSERT(troskovi, narudzba);
+		boolean ok = DAOFactory.getDAOFactory().getTroskoviOpremaDAO().INSERT(troskovi, narudzba);
 		if(ok) {
 			listaTroskovi.add(troskovi);
-			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(troskovi.getIznos().get());
+			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(troskovi.getIznos().get());
 			super.uspjesnoDodavanje();
 			return troskovi;
 		}

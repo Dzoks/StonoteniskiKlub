@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.ClanarinaDAO;
-import application.model.dao.DAOFactoryTransakcije;
+import application.model.dao.DAOFactory;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.PlataDAO;
 import application.model.dto.ClanDTO;
@@ -134,8 +134,8 @@ public void izmijeni() {
 		PlataDTO plata1 = new PlataDTO(plata.getId(), datum, iznos, opis, tipTransakcije,zaposleni);
 		evidentiranjeController.getListaPlata().remove(plata1);
 		evidentiranjeController.getListaPlata().add(plata1);
-		DAOFactoryTransakcije.getDAOFactory().getPlataDAO().UPDATE(plata1,zaposleni);
-		DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(plata1.getIznos().get()-plata.getIznos().get());
+		DAOFactory.getDAOFactory().getPlataDAO().UPDATE(plata1,zaposleni);
+		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(plata1.getIznos().get()-plata.getIznos().get());
 		this.getPrimaryStage().close();
 	}
 	public void otkazi() {

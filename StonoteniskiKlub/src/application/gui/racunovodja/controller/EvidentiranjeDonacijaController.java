@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.DAOFactoryTransakcije;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
@@ -94,22 +93,22 @@ public class EvidentiranjeDonacijaController extends BaseController{
 		}
 		DonacijaDTO donacija = tableDonacije.getSelectionModel().getSelectedItem();
 		Double iznos = donacija.getNovcaniIznos().doubleValue();
-		TipTransakcijeDTO tip = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().getById(6);
+		TipTransakcijeDTO tip = DAOFactory.getDAOFactory().getTipTransakcijeDAO().getById(6);
 		TransakcijaDTO transakcija = new TransakcijaDTO(null, datum, iznos, opis, tip.getTip(), true);
-		int id = DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().INSERT(transakcija,tip );
+		int id = DAOFactory.getDAOFactory().getTransakcijaDAO().INSERT(transakcija,tip );
 		DAOFactory.getDAOFactory().getDonacijaDAO().setObradjeno(donacija);
 		transakcija.setId(id);
 		donacija.setObradjeno(true);
 		DAOFactory.getDAOFactory().getDonacijaDAO().setIdTransakcije(donacija, id);
 		
 		donacija.setTransakcija(transakcija);
-		DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(iznos);
+		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(iznos);
 		tableDonacije.refresh();
 	}
 	public void neObradi() {
 		DonacijaDTO donacija = tableDonacije.getSelectionModel().getSelectedItem();
 		Double iznos = donacija.getNovcaniIznos().doubleValue();
-		DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(-iznos);
+		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(-iznos);
 	}
 	
 }

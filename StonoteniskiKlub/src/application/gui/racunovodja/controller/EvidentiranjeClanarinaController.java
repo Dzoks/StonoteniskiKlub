@@ -12,7 +12,6 @@ import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanarinaDAO;
 import application.model.dao.DAOFactory;
-import application.model.dao.DAOFactoryTransakcije;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.OpremaKlubaDAO;
 import application.model.dao.TipTransakcijeDAO;
@@ -198,7 +197,7 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 		
 		postaviKolone();
 		
-		listaClanarina = DAOFactoryTransakcije.getDAOFactory().getClanarinaDAO().SELECT_ALL();
+		listaClanarina = DAOFactory.getDAOFactory().getClanarinaDAO().SELECT_ALL();
 		tableClanarine.setItems(listaClanarina);
 		tableClanarine.getSelectionModel().select(0);
 		
@@ -227,12 +226,12 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 		Integer mjesec = spinnerMjesecDodaj.getValue();
 		Integer godina = spinnerGodinaDodaj.getValue();
 		ClanDTO clan = comboBoxClanDodaj.getValue();
-		String tipTransakcije = DAOFactoryTransakcije.getDAOFactory().getTipTransakcijeDAO().getById(1).getTip();
+		String tipTransakcije = DAOFactory.getDAOFactory().getTipTransakcijeDAO().getById(1).getTip();
 		ClanarinaDTO clanarina = new ClanarinaDTO(null, transakcija.getDatum(), transakcija.getIznos().doubleValue(), transakcija.getOpis().getValue(), tipTransakcije, mjesec, godina, clan.getIme(), clan.getPrezime(),clan.getId());
-		boolean ok = DAOFactoryTransakcije.getDAOFactory().getClanarinaDAO().INSERT(clanarina, clan);
+		boolean ok = DAOFactory.getDAOFactory().getClanarinaDAO().INSERT(clanarina, clan);
 		if(ok) {
 			listaClanarina.add(clanarina);
-			DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(clanarina.getIznos().get());
+			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(clanarina.getIznos().get());
 			super.uspjesnoDodavanje();
 			return clanarina;
 		}
@@ -309,7 +308,7 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 		this.listaClanarina = listaClanarina;
 	}
 	public void obrisi() {
-		DAOFactoryTransakcije.getDAOFactory().getTransakcijaDAO().delete(tableClanarine.getSelectionModel().getSelectedItem().getId());
+		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(tableClanarine.getSelectionModel().getSelectedItem().getId());
 		listaClanarina.remove(tableClanarine.getSelectionModel().getSelectedItem());
 		if(!radiobtnSve.isSelected()) {
 			lista.remove(tableClanarine.getSelectionModel().getSelectedItem());

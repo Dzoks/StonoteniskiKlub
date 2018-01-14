@@ -48,4 +48,13 @@ public abstract class DAOFactory {
 	public abstract DogadjajTipDAO getDogadjajTipDAO();
 	
 	public abstract DogadjajDAO getDogadjajDAO();
+	
+	public abstract ClanarinaDAO getClanarinaDAO();
+	public abstract PlataDAO getPlataDAO();
+	public abstract TransakcijaDAO getTransakcijaDAO();
+	public abstract NovcanaSredstvaDAO getNovcanaSredstvaDAO();
+	public abstract TipTransakcijeDAO getTipTransakcijeDAO();
+	public abstract TroskoviOpremaDAO getTroskoviOpremaDAO();
+	public abstract TroskoviTurnirDAO getTroskoviTurnirDAO();
+	public abstract UplataZaTurnirDAO getUplataZaTurnirDAO();
 }

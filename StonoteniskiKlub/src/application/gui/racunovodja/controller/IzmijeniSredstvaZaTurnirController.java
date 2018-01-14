@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.DAOFactoryTransakcije;
+import application.model.dao.DAOFactory;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.TroskoviOpremaDAO;
 import application.model.dao.TroskoviTurnirDAO;
@@ -125,8 +125,8 @@ public void izmijeni() {
 		TroskoviTurnirDTO trosak1 = new TroskoviTurnirDTO(trosak.getId(), datum, iznos, opis, tipTransakcije, turnir);
 		evidentiranjeController.getListaTroskovi().remove(trosak1);
 		evidentiranjeController.getListaTroskovi().add(trosak1);
-		DAOFactoryTransakcije.getDAOFactory().getTroskoviTurnirDAO().UPDATE(trosak1,turnir);
-		DAOFactoryTransakcije.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(trosak1.getIznos().get()-trosak.getIznos().get());
+		DAOFactory.getDAOFactory().getTroskoviTurnirDAO().UPDATE(trosak1,turnir);
+		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(trosak1.getIznos().get()-trosak.getIznos().get());
 
 		this.getPrimaryStage().close();
 	}
