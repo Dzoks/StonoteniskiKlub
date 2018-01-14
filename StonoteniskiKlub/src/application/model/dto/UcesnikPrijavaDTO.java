@@ -35,8 +35,6 @@ public class UcesnikPrijavaDTO extends OsobaDTO{
 		this.idKategorije = idKategorije == null ? null :new SimpleIntegerProperty(idKategorije); //ostaviti ovako, inace Heleni puca
 		this.datum = datum;
 		this.konvertovanDatumRodjenja= konvertovanDatumRodjenja==null ? null : new SimpleStringProperty(TurniriController.konvertujIzSQLDate(datumRodjenja.toString())); //i ovo
-		System.out.println("ucesnik konstruktor "+idPrijave);
-		System.out.println("izvrsenje");
 	}
 	
 	public UcesnikPrijavaDTO(Integer idOsobe, String ime, String prezime, String jmb, Character pol,

@@ -37,7 +37,7 @@
          </font></Label>
       <Button fx:id="btnDodaj" layoutX="429.0" layoutY="126.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="149.0" text="Dodajte" />
       <Label fx:id="lblUcesnikDodaj" layoutX="24.0" layoutY="51.0" text="Ucesnik na turniru:" />
-      <ComboBox fx:id="comboBoxClanUcesnik" layoutX="137.0" layoutY="47.0" onAction="#ispisi" prefWidth="150.0" />
+      <ComboBox fx:id="comboBoxClanUcesnik" layoutX="137.0" layoutY="47.0" prefWidth="150.0" />
       <Label fx:id="lblIznos" layoutX="337.0" layoutY="51.0" text="Iznos:" />
       <TextField fx:id="txtIznos" layoutX="429.0" layoutY="47.0" />
       <Label fx:id="lblKM" layoutX="585.0" layoutY="51.0" text="KM" />

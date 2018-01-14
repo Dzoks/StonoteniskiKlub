@@ -193,8 +193,6 @@ public class UcesnikPrijavaDAO {
 			s = c.createStatement();
 			rs = s.executeQuery(SQL_SELECT_ALL1);
 			while (rs.next()) {
-				System.out.println("select "+	rs.getInt("Id"));
-
 				retVal.add(new UcesnikPrijavaDTO(rs.getInt("OSOBA_Id"), rs.getString("Ime"), rs.getString("Prezime"), 
 						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"), 
 						rs.getInt("Id"), rs.getInt("TURNIR_Id"), rs.getInt("TURNIR_KATEGORIJA_Id"),rs.getDate("Datum")));

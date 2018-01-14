@@ -201,10 +201,7 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 	}
 	
 	public TransakcijaDTO dodaj() {
-		System.out.println("dodaj");
-		for(UcesnikPrijavaDTO u : listaUcesnika) {
-			System.out.println(u.getIdPrijave());
-		}
+		
 		TransakcijaDTO transakcija = super.dodaj();
 		if(transakcija==null)
 			return null;
@@ -213,8 +210,7 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 		
 		String tipTransakcije = DAOFactory.getDAOFactory().getTipTransakcijeDAO().getById(4).getTip();
 		UplataZaTurnirDTO uplata = new UplataZaTurnirDTO(null, transakcija.getDatum(), transakcija.getIznos().get(), transakcija.getOpis().get(), tipTransakcije, ucesnik);
-		System.out.println("Ucesnik "+ucesnik.getIdPrijave());
-		//comboBoxUcesnikPrikazi.
+		
 		boolean ok = DAOFactory.getDAOFactory().getUplataZaTurnirDAO().INSERT(uplata, ucesnik);
 		if(ok) {
 			listaUplata.add(uplata);
@@ -226,7 +222,6 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 		return null;
 	}
 	public void prikazi() {
-		System.out.println("prikazi");
 		lista = FXCollections.observableArrayList();
 		if(radiobtnTurnir.isSelected()) {
 			TurnirDTO turnir = comboBoxTurnirPrikazi.getSelectionModel().getSelectedItem();
@@ -237,7 +232,6 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 			}
 			tableUplateZaTurnir.setItems(lista);
 		}else if(radiobtnUcesnik.isSelected()) {
-			System.out.println("mjesec");
 			UcesnikPrijavaDTO ucesnik = comboBoxUcesnikPrikazi.getSelectionModel().getSelectedItem();
 			for(UplataZaTurnirDTO cl : listaUplata) {
 				if(cl.getUcesnik().getIdPrijave()==ucesnik.getIdPrijave()) {
@@ -257,7 +251,6 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 	}
 	public void izmijeni() {
 		Stage noviStage = new Stage();
-		System.out.println("prije loader");
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/IzmijeniUplatuZaTurnir.fxml"));
 		AnchorPane root;
 		IzmijeniUplatuZaTurnirController controller=null;
@@ -291,8 +284,5 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 		}
 		
 		
-	}
-	public void ispisi() {
-		System.out.println(comboBoxClanUcesnik.getSelectionModel().getSelectedItem().getIdPrijave());
 	}
 }

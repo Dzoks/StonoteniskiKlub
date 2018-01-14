@@ -53,7 +53,6 @@ public class MySQLUplataZaTurnirDAO implements UplataZaTurnirDAO{
 			cs.setDouble("inIznos", uplata.getIznos().doubleValue());
 			cs.setString("inOpis",uplata.getOpis().getValue());
 			cs.setInt("inPrijavaId", ucesnik.getIdPrijave());
-			System.out.println(ucesnik.getIdPrijave());
 			try {
 				cs.executeQuery();
 			}catch(SQLException ex) {
