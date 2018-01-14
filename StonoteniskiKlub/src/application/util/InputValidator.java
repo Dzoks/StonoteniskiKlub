@@ -23,4 +23,10 @@ public class InputValidator {
 		}
 		return false;
 	}
+	public static boolean validateTelefon(String input){
+		if(input.matches("[0-9][0-9][0-9]/[0-9][0-9][0-9]-[0-9][0-9][0-9]")){
+			return true;
+		}
+		return false;
+	}
 }

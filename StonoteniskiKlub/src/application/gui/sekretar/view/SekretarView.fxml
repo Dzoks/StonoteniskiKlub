@@ -14,7 +14,7 @@
             </Tab>
           
           <Tab fx:id="sponzoriTab" text="Sponzori" id="sponzoriTab">
-             <!--  fx:include source="RadSaSponzorimaView.fxml"/-->
+             <fx:include source="RadSaSponzorimaView.fxml"/>
           </Tab>
            <Tab fx:id="kalendarTab" text="Kalendar" id="calendarTab">
             <fx:include source="CalendarView.fxml"/>

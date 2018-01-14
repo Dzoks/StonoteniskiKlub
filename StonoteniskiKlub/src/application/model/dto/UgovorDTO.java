@@ -80,7 +80,7 @@ public class UgovorDTO {
 
 	// Obicni setteri
 	public void setRedniBroj(Integer redniBroj) {
-		this.redniBroj.set(redniBroj);
+		this.redniBroj = new SimpleIntegerProperty(redniBroj);
 	}
 
 	public void setDatumOd(Date datumOd) {
@@ -97,7 +97,7 @@ public class UgovorDTO {
 
 	public boolean daLiJeAktivan() {
 		Date danas = Calendar.getInstance().getTime();
-		return danas.compareTo(datumOd) > 0 && danas.compareTo(datumDo) < 0;
+		return danas.compareTo(datumOd) > 0 && (datumDo != null && danas.compareTo(datumDo) < 0);
 	}
 
 	public void setOpis(String opis) {

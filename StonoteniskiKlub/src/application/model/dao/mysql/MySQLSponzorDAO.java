@@ -19,7 +19,7 @@ import javafx.collections.ObservableList;
 public class MySQLSponzorDAO implements SponzorDAO {
 
 	private static final String SQL_SELECT_ALL = "select * from SPONZOR";
-	private static final String SQL_INSERT = "{call dodaj_sponozra(?,?,?,?,?,?,?)}";
+	private static final String SQL_INSERT = "{call dodaj_sponzora(?,?,?,?,?,?,?,?)}";
 	private static final String SQL_GET_BY_ID = "select * from SPONZOR where Id=?";
 	private static final String SQL_UPDATE = "update SPONZOR set Naziv=?, Adresa=?, Mail=? where Id=?";
 	private static final String SQL_GET_BY_NAME = "select * from SPONZOR where Naziv like ?";
@@ -88,9 +88,18 @@ public class MySQLSponzorDAO implements SponzorDAO {
 				statement.setDate("pDatumDo", new Date(ugovor.getDatumDo().getTime()));
 			}
 			statement.setString("pOpis", ugovor.getOpis());
-			statement.registerOutParameter("pUspjesno", Types.BOOLEAN);
+			statement.registerOutParameter("pId", Types.INTEGER);
+			statement.registerOutParameter("pRedniBroj", Types.INTEGER);
+			Integer id = -1;
+			Integer redniBroj = -1;
 			statement.execute();
-			result = statement.getBoolean("pUspjesno");
+			id = statement.getInt("pId");
+			redniBroj = statement.getInt("pRedniBroj");
+			if(!id.equals(Integer.valueOf(-1)) && !redniBroj.equals(Integer.valueOf(-1))){
+				sponzor.setId(id);
+				ugovor.setRedniBroj(redniBroj);
+				result = true;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

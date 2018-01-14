@@ -68,7 +68,7 @@ public class SponzorDTO {
 
 	// Obicni setteri
 	public void setId(Integer id) {
-		this.id.set(id);
+		this.id = new SimpleIntegerProperty(id);
 	}
 
 	public void setNaziv(String naziv) {

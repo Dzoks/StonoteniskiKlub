@@ -18,7 +18,7 @@ import javafx.collections.ObservableList;
 
 public class MySQLDonacijaDAO implements DonacijaDAO {
 
-	public static final String SQL_SELECT_ALL_BY_ID = "select * from donacija_detaljno where SponzorId=? and UgovorRb=?";
+	public static final String SQL_SELECT_ALL_BY_ID = "select * from DONACIJA_DETALJNO where SponzorId=? and UgovorRb=?";
 	public static final String SQL_NEOBRADJENE = "select * from donacija_detaljno where Obradjeno=false and NovcanaDonacija=?";
 	public static final String SQL_INSERT = "{call dodaj_donaciju(?,?,?,?,?,?,?,?)}";
 	public static final String SQL_UPDATE_OBRADJENA = "update DONACIJA set Obradjeno=true where SPONZOR_Id=? and UGOVOR_RedniBroj=? and RedniBroj=?";

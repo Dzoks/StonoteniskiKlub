@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -43,22 +44,29 @@ public class DodavanjeSponzoraController extends BaseController {
 	private TextArea taOpis;
 	@FXML
 	private Button btnDodajSponzora;
-
+	@FXML
+	private ListView<String> lstTelefoni;
+	@FXML
+	private Button btnUkloniTelefon;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		telefoni = new ArrayList<String>();
+		bindDisable();
 	}
 
 	// Event Listener on Button[#btnDodajTelefon].onAction
 	@FXML
 	public void dodajTelefon(ActionEvent event) {
 		String brTelefona = tfTelefon.getText();
-		if (!telefoni.contains(brTelefona)) {
-			telefoni.add(brTelefona);
-			tfTelefon.setText("");
-		} else {
-			AlertDisplay.showInformation("Greska", "", "Broj telefona ranije unesen.");
+		if(InputValidator.validateTelefon(brTelefona)){
+			ObservableList<String> telefoni = lstTelefoni.getItems();
+			if(!telefoni.contains(brTelefona)){
+				telefoni.add(brTelefona);
+			}
 		}
+	}
+	@FXML
+	public void ukloniTelefon(ActionEvent event){
+		lstTelefoni.getItems().remove(lstTelefoni.getSelectionModel().getSelectedIndex());
 	}
 
 	// Event Listener on Button[#btnDodajSponzora].onAction
@@ -125,7 +133,10 @@ public class DodavanjeSponzoraController extends BaseController {
 		}
 	}
 
-	private List<String> telefoni;
 	private RadSaSponzorimaController parent;
 	private SponzorDTO trenutniSponzor;
+	
+	private void bindDisable(){
+		btnUkloniTelefon.disableProperty().bind(lstTelefoni.getSelectionModel().selectedItemProperty().isNull());
+	}
 }
