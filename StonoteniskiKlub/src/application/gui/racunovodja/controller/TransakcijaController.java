@@ -20,7 +20,6 @@ import javafx.scene.control.TextField;
 public class TransakcijaController extends Controller{//realizacija
 	//imacemo polja zajednicka
 	
-	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		System.out.println("TransakcijaController initialize");

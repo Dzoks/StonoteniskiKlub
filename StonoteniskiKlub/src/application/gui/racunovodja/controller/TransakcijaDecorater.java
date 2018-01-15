@@ -10,6 +10,12 @@ import javafx.scene.control.TextField;
 public abstract class TransakcijaDecorater extends Controller{ //delegacija
 	private Controller controller = new TransakcijaController();
 	
+	public Controller getController() {
+		return controller;
+	}
+	public void setController(Controller controller) {
+		this.controller = controller;
+	}
 	public void setTxtIznos(TextField txtIznos) {
 		this.controller.setTxtIznos(txtIznos); 
 	}

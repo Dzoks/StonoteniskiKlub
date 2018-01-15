@@ -119,11 +119,8 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		super.setTxtIznos(txtIznos);
-		super.setDatePicker(datePicker);
-		super.setTxtOpis(txtOpis);
-		super.setBtnPrikazi(btnPrikazi);
-		super.setRadiobtnSve(radiobtnSve);
+		super.setController(new TransakcijaController(txtIznos, datePicker, txtOpis, radiobtnSve,btnPrikazi));
+
 		ToggleGroup group = new ToggleGroup();
 		radiobtnDistributer.setToggleGroup(group);
 		radiobtnSve.setToggleGroup(group);
@@ -227,7 +224,7 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			TroskoviOpremaDTO trosak = tableTroskoviOprema.getSelectionModel().getSelectedItem();
 			controller.setListaTroskovi(listaTroskovi);
-			controller.setComboBoxNarudzba(DAOFactory.getDAOFactory().getNarudzbaDAO().SELECT_ALL(),trosak.getNarudzba());//promijenila, ne znam valja li
+			controller.setComboBoxNarudzba(DAOFactory.getDAOFactory().getNarudzbaDAO().SELECT_OPREMA_KLUBA(),trosak.getNarudzba());//promijenila, ne znam valja li
 			controller.setTxtIznos(new String(trosak.getIznos().getValue().toString()));
 			controller.setTxtOpis(trosak.getOpis().get());
 			controller.setDatePicker(trosak.getDatum());

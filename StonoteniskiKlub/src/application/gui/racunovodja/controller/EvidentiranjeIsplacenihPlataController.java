@@ -122,11 +122,8 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		super.setTxtIznos(txtIznos);
-		super.setDatePicker(datePicker);
-		super.setTxtOpis(txtOpis);
-		super.setBtnPrikazi(btnPrikazi);
-		super.setRadiobtnSve(radiobtnSve);
+		super.setController(new TransakcijaController(txtIznos, datePicker, txtOpis, radiobtnSve,btnPrikazi));
+
 		// TODO Auto-generated method stub
 		listaZaposlenih=DAOFactory.getDAOFactory().getZaposleniDAO().selectAll();
 		ToggleGroup group = new ToggleGroup();
@@ -197,7 +194,6 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 			controller.setListaPlata(listaPlata);								//+
 			//
 			System.out.println(controller);
-			controller.setComboBoxZaposleni(listaZaposlenih,plata.getZaposleni().getId()); 
 			//
 			controller.setTxtIznos(new String(plata.getIznos().getValue().toString())); //+
 			controller.setTxtOpis(plata.getOpis().get()); //+

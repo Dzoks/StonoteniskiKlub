@@ -45,19 +45,17 @@ import javafx.scene.control.TextArea;
 
 import javafx.scene.control.DatePicker;
 
-public class IzmijeniTransakcijuController extends BaseController{
+public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 	@FXML
 	private Label lblDatum;
-	@FXML
-	private DatePicker datePicker;
+	
 	@FXML
 	private Button btnIzmijeni;
 	@FXML
 	private Button btnOtkazi;
 	@FXML
 	private Label lblIznos;
-	@FXML
-	private TextField txtIznos;
+	
 	@FXML
 	private Label lblKM;
 	@FXML
@@ -71,8 +69,6 @@ public class IzmijeniTransakcijuController extends BaseController{
 	@FXML
 	private ScrollPane scrollPane;
 	@FXML
-	private TextArea txtOpis;
-	@FXML
 	private Button btnDodajTipTransakcije;
 
 	private EvidentiranjeNovcanihSredstavaController evidentiranjeController;
@@ -83,7 +79,8 @@ public class IzmijeniTransakcijuController extends BaseController{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		;
+		super.setController(new TransakcijaIzmijeniController(txtIznos, datePicker, txtOpis));
+
 		ObservableList<String> vrsta = FXCollections.observableArrayList();
 		vrsta.add("Prihod");
 		vrsta.add("Rashod");
@@ -118,30 +115,18 @@ public class IzmijeniTransakcijuController extends BaseController{
 		comboBoxTipTransakcije.setItems(listaTip);
 		comboBoxTipTransakcije.getSelectionModel().select(0);
 	}
-	public void izmijeni() { //dodati uticaj na budzet
-		Double iznos = null;
-		try {
-			iznos = Double.parseDouble(txtIznos.getText());
-			if(iznos<0)
-				throw new NumberFormatException();
-		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
-			alert.showAndWait();
-			return;
-		}
+	public TransakcijaDTO izmijeni() { //dodati uticaj na budzet
+		TransakcijaDTO trans = super.izmijeni();
+		if(transakcija==null)
+			return null;
 		TipTransakcijeDTO tip = (TipTransakcijeDTO)comboBoxTipTransakcije.getValue();
-		System.out.println(tip.getId());
-		System.out.println(transakcija.getId());
-		String opis = txtOpis.getText();
-		LocalDate localDate = datePicker.getValue();
-		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-		Date datum = Date.from(instant);
+		
 		boolean jeUplata = false;
 		String vrsta = comboBoxVrsta.getValue();
 		if(vrsta.equals("Prihod"))
 			jeUplata=true;
 		
-		TransakcijaDTO transakcija1 = new TransakcijaDTO(transakcija.getId(), datum, iznos, opis, tip.getTip(), jeUplata);
+		TransakcijaDTO transakcija1 = new TransakcijaDTO(transakcija.getId(), trans.getDatum(), trans.getIznos().get(), trans.getOpis().get(), tip.getTip(), jeUplata);
 		evidentiranjeController.getListaTransakcija().remove(transakcija1);
 		evidentiranjeController.getListaTransakcija().add(transakcija1);
 		DAOFactory.getDAOFactory().getTransakcijaDAO().UPDATE(transakcija1,tip);
@@ -152,6 +137,7 @@ public class IzmijeniTransakcijuController extends BaseController{
 			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(transakcija1.getIznos().get()-transakcija.getIznos().get());
 		}
 		this.getPrimaryStage().close();
+		return transakcija1;
 	}
 	
 	public void otkazi() {

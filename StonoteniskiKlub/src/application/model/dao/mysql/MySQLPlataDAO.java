@@ -19,7 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 public class MySQLPlataDAO implements PlataDAO{
 	private static final String SQL_SELECT_ALL="select * from prikaz_plata";
 	private static final String SQL_INSERT = "{call dodaj_platu(?,?,?,?,?)}";
-	private static final String SQL_UPDATE = "{call update_platu(?,?,?,?,?)}";
+	private static final String SQL_UPDATE = "{call update_platu(?,?,?,?)}";
 	public  ObservableList<PlataDTO> SELECT_ALL() {
 		ObservableList<PlataDTO> listaPlata = FXCollections.observableArrayList();
 		Connection c = null;
@@ -80,7 +80,7 @@ public class MySQLPlataDAO implements PlataDAO{
 		return true;
 	}
 	
-	public  void UPDATE(PlataDTO plata, ZaposleniDTO zaposleni) {//ne radi nijedan update kod novih
+	public  void UPDATE(PlataDTO plata) {//ne radi nijedan update kod novih
 		//objekata je ne znam id
 		Connection c = null;
 		java.sql.CallableStatement cs = null;
@@ -96,7 +96,6 @@ public class MySQLPlataDAO implements PlataDAO{
 			cs.setDate("inDatum", new java.sql.Date(plata.getDatum().getTime()));
 			cs.setDouble("inIznos", plata.getIznos().doubleValue());
 			cs.setString("inOpis", plata.getOpis().getValue());
-			cs.setInt("inOsobaId", zaposleni.getId());
 			cs.executeQuery();
 		}catch (SQLException e) {
 			e.printStackTrace();

@@ -76,7 +76,6 @@ public abstract class Controller extends BaseController{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	public boolean poljaPrazna() {

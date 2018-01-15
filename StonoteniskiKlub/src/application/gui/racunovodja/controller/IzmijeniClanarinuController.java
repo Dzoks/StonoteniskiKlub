@@ -14,6 +14,7 @@ import application.model.dao.DAOFactory;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
+import application.model.dto.TransakcijaDTO;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -33,7 +34,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.DatePicker;
 
-public class IzmijeniClanarinuController extends BaseController{
+public class IzmijeniClanarinuController extends TransakcijaIzmijeniDecorater{
 	@FXML
 	private Label lblClan;
 	@FXML
@@ -43,22 +44,18 @@ public class IzmijeniClanarinuController extends BaseController{
 	@FXML
 	private Label lblGodinaUplate;
 	@FXML
-	private ComboBox<ClanDTO> comboBoxClan;
-	@FXML
 	private Spinner<Integer> spinnerMjesec;
 	@FXML
 	private Spinner<Integer> spinnerGodina;
-	@FXML
-	private DatePicker datePicker;
+	
 	@FXML
 	private Button btnIzmijeni;
 	@FXML
 	private Button btnOtkazi;
 	@FXML
 	private Label lblIznos;
-	@FXML
-	private TextField txtIznos;
 	
+	private ClanDTO clan = new ClanDTO();
 	private ClanarinaDTO clanarina;
 	private EvidentiranjeClanarinaController evidentiranjeController;
 	
@@ -71,37 +68,22 @@ public class IzmijeniClanarinuController extends BaseController{
 	public ClanarinaDTO getClanarina() {
 		return clanarina;
 	}
+	public void setClan(String ime, String prezime, int id) {
+		this.clan.setIme(ime);
+		this.clan.setPrezime(prezime);
+		this.clan.setId(id);
+	}
 	public void setClanarina(ClanarinaDTO clanarina) {
 		this.clanarina = clanarina;
 	}
-	public void setComboBoxClan(ObservableList<ClanDTO> lista, int clan) { //poslati Clana tu, promijeniti
-		this.comboBoxClan.setItems(lista);
-		for(ClanDTO cl : listaClanova) {
-			if(cl.getId()==clan) {
-				comboBoxClan.getSelectionModel().select(cl);
-			}
-		}
-	}
+	
 	public void setSpinnerMjesec(int spinnerMjesec) {
 		this.spinnerMjesec.getValueFactory().setValue(spinnerMjesec);
 	}
 	public void setSpinnerGodina(int spinnerGodina) {
 		this.spinnerGodina.getValueFactory().setValue(spinnerGodina);
 	}
-	public void setTxtIznos(String txtIznos) {
-		this.txtIznos.setText(txtIznos);;
-	}
-	public void setTxtOpis(String txtOpis) {
-		this.txtOpis.setText(txtOpis);
-	}
-	public void setDatePicker(Date input) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(input);
-		LocalDate date = LocalDate.of(cal.get(Calendar.YEAR),
-		        cal.get(Calendar.MONTH) + 1,
-		        cal.get(Calendar.DAY_OF_MONTH));
-		this.datePicker.setValue(date);
-	}
+
 	public void setListaClanova(ObservableList<ClanDTO> listaClanova) {
 		this.listaClanova = listaClanova;
 	}
@@ -111,53 +93,41 @@ public class IzmijeniClanarinuController extends BaseController{
 	private Label lblOpis;
 	@FXML
 	private ScrollPane scrollPane;
-	@FXML
-	private TextArea txtOpis;
+	
 	
 	
 	private ObservableList<ClanDTO> listaClanova;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("initialize");
-		
+		super.setController(new TransakcijaIzmijeniController(txtIznos, datePicker, txtOpis));
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, 1);
 		SpinnerValueFactory<Integer> valueFactory1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(2010, 2018, 2014);
 		spinnerMjesec.setValueFactory(valueFactory);
 		spinnerGodina.setValueFactory(valueFactory1);
 	}
-	public ComboBox getComboBoxClan() {
-		return comboBoxClan;
-	}
 	
-	public void izmijeni() {
+	
+	public TransakcijaDTO izmijeni() {
+		TransakcijaDTO transakcija = super.izmijeni();
+		if(transakcija==null)
+			return null;
 		
-		Double iznos = null;
-		try {
-			iznos = Double.parseDouble(txtIznos.getText());
-			if(iznos<0)
-				throw new NumberFormatException();
-		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
-			alert.showAndWait();
-			return;
-		}
 		Integer mjesec = spinnerMjesec.getValue();
 		Integer godina = spinnerGodina.getValue();
-		ClanDTO clan = comboBoxClan.getValue();
-		String opis = txtOpis.getText();
-		LocalDate localDate = datePicker.getValue();
-		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-		Date datum = Date.from(instant);
-		System.out.println(clanarina.getId());
-		String tipTransakcije = "clanarina"; //hardcode, popraviti hashmap...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		ClanarinaDTO clanarina1 = new ClanarinaDTO(clanarina.getId(), datum, iznos, opis, tipTransakcije, mjesec, godina, clan.getIme(), clan.getPrezime(),clan.getId());
+		//ClanDTO clan = comboBoxClan.getValue();
+		
+		String tipTransakcije = DAOFactory.getDAOFactory().getTipTransakcijeDAO().getById(1).getTip();
+		ClanarinaDTO clanarina1 = new ClanarinaDTO(clanarina.getId(), transakcija.getDatum(), transakcija.getIznos().doubleValue(), transakcija.getOpis().get(), tipTransakcije, mjesec, godina, clan.getIme(), clan.getPrezime(),clan.getId());
 		evidentiranjeController.getListaClanarina().remove(clanarina1);
 		evidentiranjeController.getListaClanarina().add(clanarina1);
-		DAOFactory.getDAOFactory().getClanarinaDAO().UPDATE(clanarina1,clan);
+		DAOFactory.getDAOFactory().getClanarinaDAO().UPDATE(clanarina1);
 		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(clanarina1.getIznos().get()-clanarina.getIznos().get());
 		this.getPrimaryStage().close();
+		return clanarina1;
 	}
+
 	public void otkazi() {
 		this.getPrimaryStage().close();
 	}
+	
 }

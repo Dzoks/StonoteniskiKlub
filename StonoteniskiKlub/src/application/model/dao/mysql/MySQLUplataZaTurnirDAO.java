@@ -17,7 +17,7 @@ import javafx.scene.control.Alert.AlertType;
 public class MySQLUplataZaTurnirDAO implements UplataZaTurnirDAO{
 	private static final String SQL_SELECT_ALL="select * from prikaz_uplata_turnir";
 	private static final String SQL_INSERT = "{call dodaj_uplatu_turnir(?,?,?,?,?)}";
-	private static final String SQL_UPDATE = "{call update_uplatu_turnir(?,?,?,?,?)}";
+	private static final String SQL_UPDATE = "{call update_uplatu_turnir(?,?,?,?)}";
 	public  ObservableList<UplataZaTurnirDTO> SELECT_ALL() {
 		ObservableList<UplataZaTurnirDTO> listaUplataZaTurnir = FXCollections.observableArrayList();
 		Connection c = null;
@@ -69,7 +69,7 @@ public class MySQLUplataZaTurnirDAO implements UplataZaTurnirDAO{
 		}
 		return true;
 	}
-	public  void UPDATE(UplataZaTurnirDTO uplata, UcesnikPrijavaDTO ucesnik) {
+	public  void UPDATE(UplataZaTurnirDTO uplata) {
 		Connection c = null;
 		java.sql.CallableStatement cs = null;
 		
@@ -84,7 +84,6 @@ public class MySQLUplataZaTurnirDAO implements UplataZaTurnirDAO{
 			cs.setDate("inDatum", new java.sql.Date(uplata.getDatum().getTime()));
 			cs.setDouble("inIznos", uplata.getIznos().doubleValue());
 			cs.setString("inOpis",uplata.getOpis().getValue());
-			cs.setInt("inPrijavaId", ucesnik.getId());
 			cs.executeQuery();
 		}catch (SQLException e) {
 			e.printStackTrace();

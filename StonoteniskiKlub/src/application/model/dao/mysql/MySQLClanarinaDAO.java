@@ -19,7 +19,7 @@ public class MySQLClanarinaDAO implements ClanarinaDAO{
 private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 	
 	private static final String SQL_INSERT = "{call dodaj_clanarinu(?,?,?,?,?,?,?)}";
-	private static final String SQL_UPDATE = "{call update_clanarinu(?,?,?,?,?,?,?)}";
+	private static final String SQL_UPDATE = "{call update_clanarinu(?,?,?,?,?,?)}";
 	public ObservableList<ClanarinaDTO> SELECT_ALL() {
 		ObservableList<ClanarinaDTO> listaClanarina = FXCollections.observableArrayList();
 		Connection c = null;
@@ -78,7 +78,7 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 		}
 		return true;
 	}
-	public  void UPDATE(ClanarinaDTO clanarina, ClanDTO clan) {
+	public  void UPDATE(ClanarinaDTO clanarina) {
 		Connection c = null;
 		java.sql.CallableStatement cs = null;
 		
@@ -96,7 +96,6 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 			cs.setString("inOpis",clanarina.getOpis().getValue());
 			cs.setInt("inMjesec", clanarina.getMjesec().intValue());
 			cs.setInt("inGodina",clanarina.getGodina().intValue());
-			cs.setInt("inOsobaId", clan.getId());
 			cs.executeQuery();
 		}catch (SQLException e) {
 			e.printStackTrace();

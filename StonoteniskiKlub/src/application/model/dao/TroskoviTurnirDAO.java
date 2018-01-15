@@ -8,6 +8,6 @@ public interface TroskoviTurnirDAO {
 
 	public  ObservableList<TroskoviTurnirDTO> SELECT_ALL(); 
 	public  boolean INSERT(TroskoviTurnirDTO troskovi, TurnirDTO turnir); 
-	public  void UPDATE(TroskoviTurnirDTO trosak, TurnirDTO turnir); 
+	public  void UPDATE(TroskoviTurnirDTO trosak); 
 	
 }

@@ -132,11 +132,8 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		super.setTxtIznos(txtIznos);
-		super.setDatePicker(datePicker);
-		super.setTxtOpis(txtOpis);
-		super.setBtnPrikazi(btnPrikazi);
-		super.setRadiobtnSve(radiobtnSve);
+		super.setController(new TransakcijaController(txtIznos, datePicker, txtOpis, radiobtnSve,btnPrikazi));
+
 		// TODO Auto-generated method stub
 		ToggleGroup group = new ToggleGroup();
 		radiobtnTurnir.setToggleGroup(group);
@@ -267,7 +264,7 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 			UplataZaTurnirDTO trosak = tableUplateZaTurnir.getSelectionModel().getSelectedItem();
 			controller.setUplata(trosak);
 			controller.setListaUplate(listaUplata);
-			controller.setComboBoxUcesnik(UcesnikPrijavaDAO.SELECT_ALL());
+			controller.setUcesnik(trosak.getUcesnik());
 			controller.setTxtIznos(new String(trosak.getIznos().getValue().toString()));
 			controller.setTxtOpis(trosak.getOpis().get());
 			controller.setDatePicker(trosak.getDatum());

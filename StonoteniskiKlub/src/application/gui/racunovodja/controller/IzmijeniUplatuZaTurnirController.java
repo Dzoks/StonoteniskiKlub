@@ -14,6 +14,7 @@ import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.TroskoviTurnirDAO;
 import application.model.dao.UcesnikPrijavaDAO;
 import application.model.dao.UplataZaTurnirDAO;
+import application.model.dto.TransakcijaDTO;
 import application.model.dto.TroskoviTurnirDTO;
 import application.model.dto.TurnirDTO;
 import application.model.dto.UcesnikPrijavaDTO;
@@ -35,23 +36,17 @@ import javafx.scene.control.TextArea;
 
 import javafx.scene.control.DatePicker;
 
-public class IzmijeniUplatuZaTurnirController extends BaseController{
+public class IzmijeniUplatuZaTurnirController extends TransakcijaIzmijeniDecorater{
 	@FXML
 	private Label lblUcesnik;
 	@FXML
 	private Label lblGodinaUplate;
-	@FXML
-	private ComboBox<UcesnikPrijavaDTO> comboBoxUcesnik;
-	@FXML
-	private DatePicker datePicker;
 	@FXML
 	private Button btnIzmijeni;
 	@FXML
 	private Button btnOtkazi;
 	@FXML
 	private Label lblIznos;
-	@FXML
-	private TextField txtIznos;
 	@FXML
 	private Label lblKM;
 	@FXML
@@ -61,9 +56,11 @@ public class IzmijeniUplatuZaTurnirController extends BaseController{
 	private Label lblOpis;
 	@FXML
 	private ScrollPane scrollPane;
-	@FXML
-	private TextArea txtOpis;
+	private UcesnikPrijavaDTO ucesnik;
 	
+	public void setUcesnik(UcesnikPrijavaDTO ucesnik) {
+		this.ucesnik = ucesnik;
+	}
 	private EvidentiranjeUplataZaTurnirController evidentiranjeController;
 	private ObservableList<UplataZaTurnirDTO> listaUplate;
 	private UplataZaTurnirDTO uplata;
@@ -71,8 +68,8 @@ public class IzmijeniUplatuZaTurnirController extends BaseController{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
+		super.setController(new TransakcijaIzmijeniController(txtIznos, datePicker, txtOpis));
+
 	}
 	public void setTxtIznos(String txtIznos) {
 		this.txtIznos.setText(txtIznos);;
@@ -80,11 +77,7 @@ public class IzmijeniUplatuZaTurnirController extends BaseController{
 	public void setTxtOpis(String txtOpis) {
 		this.txtOpis.setText(txtOpis);;
 	}
-	public void setComboBoxUcesnik(ObservableList<UcesnikPrijavaDTO> lista) {
-		this.comboBoxUcesnik.setItems(lista);
-		comboBoxUcesnik.getSelectionModel().select(uplata.getUcesnik());
-		
-	}
+	
 	public void setListaUplate(ObservableList<UplataZaTurnirDTO> listaUplate) {
 		this.listaUplate = listaUplate;
 	}
@@ -92,47 +85,26 @@ public class IzmijeniUplatuZaTurnirController extends BaseController{
 		this.uplata = uplata;
 	}
 
-
-	public void setDatePicker(Date input) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(input);
-		LocalDate date = LocalDate.of(cal.get(Calendar.YEAR),
-		        cal.get(Calendar.MONTH) + 1,
-		        cal.get(Calendar.DAY_OF_MONTH));
-		this.datePicker.setValue(date);
-	}
 	
 	public void setEvidentiranjeController(EvidentiranjeUplataZaTurnirController evidentiranjeController) {
 		this.evidentiranjeController = evidentiranjeController;
 	}
 	
-public void izmijeni() {
+	public TransakcijaDTO izmijeni() {
 		
-	Double iznos = null;
-	try {
-		iznos = Double.parseDouble(txtIznos.getText());
-		if(iznos<0)
-			throw new NumberFormatException();
-	}catch(NumberFormatException ex) {
-		Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
-		alert.showAndWait();
-		return;
-	}
-		
-		UcesnikPrijavaDTO ucesnik = comboBoxUcesnik.getValue();
-		String opis = txtOpis.getText();
-		LocalDate localDate = datePicker.getValue();
-		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-		Date datum = Date.from(instant);
-		
-		String tipTransakcije = "uplataZaTurnir"; //hardcode, popraviti hashmap...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		UplataZaTurnirDTO trosak1 = new UplataZaTurnirDTO(uplata.getId(), datum, iznos, opis, tipTransakcije,ucesnik);
+	TransakcijaDTO transakcija = super.izmijeni();
+	if(transakcija==null)
+		return null;
+				
+		String tipTransakcije = DAOFactory.getDAOFactory().getTipTransakcijeDAO().getById(4).getTip();
+		UplataZaTurnirDTO trosak1 = new UplataZaTurnirDTO(uplata.getId(),transakcija.getDatum(), transakcija.getIznos().get(), transakcija.getOpis().get(), tipTransakcije,ucesnik);
 		evidentiranjeController.getListaUplata().remove(trosak1);
 		evidentiranjeController.getListaUplata().add(trosak1);
-		DAOFactory.getDAOFactory().getUplataZaTurnirDAO().UPDATE(trosak1,ucesnik);
+		DAOFactory.getDAOFactory().getUplataZaTurnirDAO().UPDATE(trosak1);
 		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(trosak1.getIznos().get()-uplata.getIznos().get());
 
 		this.getPrimaryStage().close();
+		return trosak1;
 	}
 	public void otkazi() {
 		this.getPrimaryStage().close();

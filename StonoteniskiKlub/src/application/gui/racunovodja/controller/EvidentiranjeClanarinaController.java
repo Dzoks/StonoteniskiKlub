@@ -8,6 +8,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import javax.swing.plaf.synth.SynthSpinnerUI;
+
 import application.gui.controller.BaseController;
 import application.model.dao.ClanDAO;
 import application.model.dao.ClanarinaDAO;
@@ -140,11 +142,8 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 
 		System.out.println(txtIznos);
 		System.out.println(lblOpis);
-		super.setTxtIznos(txtIznos);
-		super.setDatePicker(datePicker);
-		super.setTxtOpis(txtOpis);
-		super.setBtnPrikazi(btnPrikazi);
-		super.setRadiobtnSve(radiobtnSve);
+		super.setController(new TransakcijaController(txtIznos, datePicker, txtOpis, radiobtnSve,btnPrikazi));
+		
 		metoda();
 		ToggleGroup group = new ToggleGroup();
 		radiobtnClan.setToggleGroup(group);
@@ -231,7 +230,7 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 		boolean ok = DAOFactory.getDAOFactory().getClanarinaDAO().INSERT(clanarina, clan);
 		if(ok) {
 			listaClanarina.add(clanarina);
-			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(clanarina.getIznos().get());
+			boolean flag = DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(clanarina.getIznos().get());
 			super.uspjesnoDodavanje();
 			return clanarina;
 		}
@@ -282,7 +281,7 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 			noviStage.initModality(Modality.APPLICATION_MODAL);//
 			ClanarinaDTO clanarina = tableClanarine.getSelectionModel().getSelectedItem();
 			controller.setListaClanova(listaClanova);
-			controller.setComboBoxClan(listaClanova,clanarina.getClanId());
+			controller.setClan(clanarina.getImeClana().get(),clanarina.getPrezimeClana().get(),clanarina.getClanId());
 			controller.setTxtIznos(new String(clanarina.getIznos().getValue().toString()));//
 			controller.setTxtOpis(clanarina.getOpis().get());//
 			controller.setSpinnerGodina(clanarina.getGodina().intValue());
@@ -290,6 +289,7 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 			controller.setDatePicker(clanarina.getDatum());//
 			controller.setClanarina(clanarina);
 			controller.setEvidentiranjeController(this);//
+			
 			noviStage.showAndWait();//
 			tableClanarine.refresh();
 		} catch (IOException e) {

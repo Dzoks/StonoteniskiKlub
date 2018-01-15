@@ -56,7 +56,7 @@ import javafx.scene.control.DatePicker;
 
 import javafx.scene.control.TableColumn;
 
-public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaController{
+public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaDecorater{
 	@FXML
 	private AnchorPane pane;
 	@FXML
@@ -112,11 +112,8 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaContro
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		super.setTxtIznos(txtIznos);
-		super.setDatePicker(datePicker);
-		super.setTxtOpis(txtOpis);
-		super.setBtnPrikazi(btnPrikazi);
-		super.setRadiobtnSve(radiobtnSve);
+		super.setController(new TransakcijaController(txtIznos, datePicker, txtOpis, radiobtnSve,btnPrikazi));
+
 		ToggleGroup group = new ToggleGroup();
 		radiobtnTurnir.setToggleGroup(group);
 		radiobtnSve.setToggleGroup(group);
@@ -217,7 +214,6 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaContro
 			TroskoviTurnirDTO trosak = tableTroskoviTurnir.getSelectionModel().getSelectedItem();
 			controller.setTrosak(trosak);
 			controller.setListaTroskovi(listaTroskovi);
-			controller.setComboBoxTurnir(TurnirDAO.getAll());
 			controller.setTxtIznos(new String(trosak.getIznos().getValue().toString()));
 			controller.setTxtOpis(trosak.getOpis().get());
 			controller.setDatePicker(trosak.getDatum());

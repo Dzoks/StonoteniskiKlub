@@ -11,6 +11,6 @@ public interface PlataDAO {
 	
 	public boolean INSERT(PlataDTO plata, ZaposleniDTO zaposleni); 
 	
-	public void UPDATE(PlataDTO plata, ZaposleniDTO zaposleni); 
+	public void UPDATE(PlataDTO plata); 
 	
 }

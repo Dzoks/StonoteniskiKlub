@@ -109,11 +109,8 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 	private ObservableList<TipTransakcijeDTO> listaTip;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		super.setTxtIznos(txtIznos);
-		super.setDatePicker(datePicker);
-		super.setTxtOpis(txtOpis);
-		super.setBtnPrikazi(btnPrikazi);
-		super.setRadiobtnSve(radiobtnSve);
+		super.setController(new TransakcijaController(txtIznos, datePicker, txtOpis, radiobtnSve,btnPrikazi));
+
 		this.popuniTabelu();
 		this.popuniComboBox();
 		btnDodaj.setDisable(true);
@@ -231,6 +228,21 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		datePicker.setValue(null);
 	}
 	public TransakcijaDTO dodaj() {
+		if(trenutnaNS==null) {
+			String sezona = comboBoxSezona.getSelectionModel().getSelectedItem();
+			if(sezona!=null) {
+				trenutnaNS= DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getBySezona(sezona);
+			}else {
+				Alert alert = new Alert(AlertType.INFORMATION,"Nema podataka o trenutnom budzetu.");
+				alert.showAndWait();
+				return null;
+			}
+			if(trenutnaNS==null) {
+				Alert alert = new Alert(AlertType.INFORMATION,"Nema podataka o trenutnom budzetu.");
+				alert.showAndWait();
+				return null;
+			}
+		}
 		TransakcijaDTO tran = super.dodaj();
 		if(tran==null)
 			return null;
@@ -318,7 +330,9 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		boolean ok = DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().INSERT(ns);
 		if(ok) {
 			comboBoxSezona.setItems(DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getSezone());
+			comboBoxSezona.getSelectionModel().select(0);
 			Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje!");
+			btnPrikazi.fire();
 			this.obrisiPolja();
 			alert.showAndWait();
 			obrisiPoljaBudzet();

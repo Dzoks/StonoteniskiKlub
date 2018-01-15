@@ -23,6 +23,7 @@ import application.model.dao.TroskoviOpremaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import application.model.dto.Narudzba;
+import application.model.dto.TransakcijaDTO;
 import application.model.dto.TroskoviOpremaDTO;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,30 +38,26 @@ import javafx.scene.control.TextArea;
 
 import javafx.scene.control.DatePicker;
 
-public class IzmijeniSredstvaZaOpremuController extends BaseController{
+public class IzmijeniSredstvaZaOpremuController extends TransakcijaIzmijeniDecorater{
 	@FXML
 	private Label lblDatum;
-	@FXML
-	private DatePicker datePicker;
+	
 	@FXML
 	private Button btnIzmijeni;
 	@FXML
 	private Button btnOtkazi;
 	@FXML
 	private Label lblIznos;
-	@FXML
-	private TextField txtIznos;
+	
 	@FXML
 	private Label lblKM;
 	@FXML
 	private Label lblNarudzba;
-
 	@FXML
 	private Label lblOpis;
 	@FXML
 	private ScrollPane scrollPane;
-	@FXML
-	private TextArea txtOpis;
+	
 	@FXML
 	private ComboBox<Narudzba> comboBoxNarudzba;
 	
@@ -68,13 +65,7 @@ public class IzmijeniSredstvaZaOpremuController extends BaseController{
 	private ObservableList<TroskoviOpremaDTO> listaTroskovi;
 	private TroskoviOpremaDTO trosak;
 	private ObservableList<Narudzba> listaNarudzbe;
-	
-	public void setTxtIznos(String txtIznos) {
-		this.txtIznos.setText(txtIznos);;
-	}
-	public void setTxtOpis(String txtOpis) {
-		this.txtOpis.setText(txtOpis);;
-	}
+
 	public void setComboBoxNarudzba(ObservableList<Narudzba> lista, Narudzba narudzba) {
 		this.comboBoxNarudzba.setItems(lista);
 		comboBoxNarudzba.getSelectionModel().select(narudzba);
@@ -90,18 +81,10 @@ public class IzmijeniSredstvaZaOpremuController extends BaseController{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
+		super.setController(new TransakcijaIzmijeniController(txtIznos, datePicker, txtOpis));
+
 	}
 	
-	public void setDatePicker(Date input) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(input);
-		LocalDate date = LocalDate.of(cal.get(Calendar.YEAR),
-		        cal.get(Calendar.MONTH) + 1,
-		        cal.get(Calendar.DAY_OF_MONTH));
-		this.datePicker.setValue(date);
-	}
 	public void setComboBoxNarudzba(ObservableList<Narudzba> lista) {
 		this.comboBoxNarudzba.setItems(lista);
 	}
@@ -109,32 +92,21 @@ public class IzmijeniSredstvaZaOpremuController extends BaseController{
 		this.evidentiranjeController = evidentiranjeController;
 	}
 	
-public void izmijeni() {
+	public TransakcijaDTO izmijeni() {
+		TransakcijaDTO transakcija = super.izmijeni();
+		if(transakcija==null)
+			return null;
 		
-		Double iznos = null;
-		try {
-			iznos = Double.parseDouble(txtIznos.getText());
-			if(iznos<0)
-				throw new NumberFormatException();
-		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
-			alert.showAndWait();
-			return;
-		}
 		Narudzba narudzba = comboBoxNarudzba.getValue();
-		String opis = txtOpis.getText();
-		LocalDate localDate = datePicker.getValue();
-		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-		Date datum = Date.from(instant);
 		
-		String tipTransakcije = "troskoviOprema"; //hardcode, popraviti hashmap...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		TroskoviOpremaDTO trosak1 = new TroskoviOpremaDTO(trosak.getId(), datum, iznos, opis, tipTransakcije, narudzba);
+		String tipTransakcije = DAOFactory.getDAOFactory().getTipTransakcijeDAO().getById(3).getTip();
+		TroskoviOpremaDTO trosak1 = new TroskoviOpremaDTO(trosak.getId(), transakcija.getDatum(), transakcija.getIznos().get(), transakcija.getOpis().get(), tipTransakcije, narudzba);
 		evidentiranjeController.getListaTroskovi().remove(trosak1);
 		evidentiranjeController.getListaTroskovi().add(trosak1);
 		DAOFactory.getDAOFactory().getTroskoviOpremaDAO().UPDATE(trosak1,narudzba);
 		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(trosak1.getIznos().get()-trosak.getIznos().get());
-
 		this.getPrimaryStage().close();
+		return trosak1;
 	}
 	public void otkazi() {
 		this.getPrimaryStage().close();
