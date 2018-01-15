@@ -46,7 +46,6 @@ public class TextUtility {
 				}
 			});
 			for (DogadjajDTO dogadjaj : dogadjaji) {
-				System.out.println(dogadjaj);
 				Text naslov = new Text("[" + dogadjaj.getPocetak().format(DateTimeFormatter.ofPattern("HH:mm")) + " - "
 						+ dogadjaj.getKraj().format(DateTimeFormatter.ofPattern("HH:mm")) + "] - " + dogadjaj.getTipDogadjaja().getTip() + AlertDisplay.NL
 						+ AlertDisplay.NL);

@@ -13,6 +13,7 @@ import application.model.dto.SkupstinaDTO;
 import application.model.dto.StavkaSkupstinaDTO;
 import application.util.AlertDisplay;
 import application.util.InputValidator;
+import application.util.TextUtility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,7 +25,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
@@ -82,13 +82,7 @@ public class DodavanjeSkupstineController extends BaseController {
 		for (int i = index; i < stavke.size(); i++) {
 			stavke.get(i).setRedniBroj(stavke.get(i).getRedniBroj() - 1);
 		}
-		taTekstDnevnogReda.getChildren().clear();
-		for (StavkaSkupstinaDTO s : stavke) {
-			Text naslov = new Text(s.getRedniBroj() + ". " + s.getNaslov() + AlertDisplay.NL + AlertDisplay.NL);
-			naslov.setStyle("-fx-font-weight: bold");
-			Text tekst = new Text("    " + s.getTekst() + AlertDisplay.NL + AlertDisplay.NL);
-			taTekstDnevnogReda.getChildren().addAll(naslov, tekst);
-		}
+		TextUtility.setTextFlow(taTekstDnevnogReda, stavke);
 	}
 
 	// Event Listener on Button[#btnSacuvaj].onAction
@@ -126,10 +120,7 @@ public class DodavanjeSkupstineController extends BaseController {
 		int nextRb = stavke.size() + 1;
 		stavka.setRedniBroj(nextRb);
 		stavke.add(stavka);
-		Text naslov = new Text(stavka.getRedniBroj() + ". " + stavka.getNaslov() + AlertDisplay.NL + AlertDisplay.NL);
-		naslov.setStyle("-fx-font-weight: bold");
-		Text tekst = new Text("    " + stavka.getTekst() + AlertDisplay.NL + AlertDisplay.NL);
-		taTekstDnevnogReda.getChildren().addAll(naslov, tekst);
+		TextUtility.setTextFlow(taTekstDnevnogReda, stavke);
 	}
 
 	public void setParentController(RadSaSkupstinamaController parentController) {
