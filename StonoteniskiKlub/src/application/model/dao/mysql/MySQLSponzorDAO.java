@@ -23,7 +23,9 @@ public class MySQLSponzorDAO implements SponzorDAO {
 	private static final String SQL_GET_BY_ID = "select * from SPONZOR where Id=?";
 	private static final String SQL_UPDATE = "update SPONZOR set Naziv=?, Adresa=?, Mail=? where Id=?";
 	private static final String SQL_GET_BY_NAME = "select * from SPONZOR where Naziv like ?";
-	
+	private static final String SQL_GET_TELEFONI = "select * from TELEFON where SPONZOR_Id=?";
+	private static final String SQL_DELETE_TELEFON = "delete from TELEFON where BrojTelefona=?";
+	private static final String SQL_INSERT_TELEFON = "insert into TELEFON values(?,null,?)";
 	@Override
 	public ObservableList<SponzorDTO> selectAll() {
 		ObservableList<SponzorDTO> result = FXCollections.observableArrayList();
@@ -36,7 +38,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			resultSet = statement.executeQuery(SQL_SELECT_ALL);
 			while (resultSet.next()) {
 				result.add(new SponzorDTO(resultSet.getInt("Id"), resultSet.getString("Naziv"),
-						resultSet.getString("Adresa"), resultSet.getString("Mail"), null));
+						resultSet.getString("Adresa"), resultSet.getString("Mail"), null, null));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -59,7 +61,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				result = new SponzorDTO(resultSet.getInt("Id"), resultSet.getString("Naziv"),
-						resultSet.getString("Adresa"), resultSet.getString("Mail"), null);
+						resultSet.getString("Adresa"), resultSet.getString("Mail"), null, null);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -138,7 +140,72 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				result.add(new SponzorDTO(resultSet.getInt("Id"), resultSet.getString("Naziv"),
-						resultSet.getString("Adresa"), resultSet.getString("Mail"), null));
+						resultSet.getString("Adresa"), resultSet.getString("Mail"), null, null));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(resultSet, statement);
+		}
+		return result;
+	}
+
+	@Override
+	public ObservableList<String> getTelefoni(SponzorDTO sponzor) {
+		ObservableList<String> result = FXCollections.observableArrayList();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_GET_TELEFONI, false, sponzor.getId());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				result.add(resultSet.getString("BrojTelefona"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(resultSet, statement);
+		}
+		return result;
+	}
+
+	@Override
+	public boolean deleteTelefon(String brojTelefona) {
+		boolean result = false;
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_DELETE_TELEFON, false, brojTelefona);
+			statement.execute();
+			result = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(resultSet, statement);
+		}
+		return result;
+	}
+
+	@Override
+	public boolean insertTelefon(SponzorDTO sponzor, String telefon) {
+		boolean result = false;
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_INSERT_TELEFON, true, telefon, sponzor.getId());
+			statement.executeUpdate();
+			resultSet = statement.getGeneratedKeys();
+			if(resultSet.next()){
+				result = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -3,9 +3,7 @@ package application.gui.sekretar.controller;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
@@ -61,12 +59,20 @@ public class DodavanjeSponzoraController extends BaseController {
 			ObservableList<String> telefoni = lstTelefoni.getItems();
 			if(!telefoni.contains(brTelefona)){
 				telefoni.add(brTelefona);
+				if(!uklonjeniTelefoni.contains(brTelefona)){
+					noviTelefoni.add(brTelefona);
+				}
+			}
+			if(uklonjeniTelefoni.contains(brTelefona)){
+				uklonjeniTelefoni.remove(telefoni);
 			}
 		}
 	}
 	@FXML
 	public void ukloniTelefon(ActionEvent event){
+		String telefon = lstTelefoni.getSelectionModel().getSelectedItem();
 		lstTelefoni.getItems().remove(lstTelefoni.getSelectionModel().getSelectedIndex());
+		uklonjeniTelefoni.add(telefon);
 	}
 
 	// Event Listener on Button[#btnDodajSponzora].onAction
@@ -89,13 +95,18 @@ public class DodavanjeSponzoraController extends BaseController {
 					e.printStackTrace();
 				}
 				SponzorDTO sponzor = new SponzorDTO(null, txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(),
-						null);
+						null, null);
 				UgovorDTO ugovor = new UgovorDTO(null, datumOd, datumDo, taOpis.getText(), null);
 				if (sponzorDAO.insert(sponzor, ugovor)) {
 					ObservableList<UgovorDTO> list = FXCollections.observableArrayList();
 					sponzor.setUgovori(list);
 					sponzor.getUgovori().add(ugovor);
 					parent.dodajSponzora(sponzor);
+					for(String telefon : noviTelefoni){
+						DAOFactory.getDAOFactory().getSponzorDAO().insertTelefon(sponzor, telefon);
+					}
+					noviTelefoni.clear();
+					sponzor.setTelefoni(lstTelefoni.getItems());
 					AlertDisplay.showInformation("Uspjesno", "", "Sponzor uspjesno dodan.");
 				} else {
 					AlertDisplay.showInformation("Greska", "", "Dodavanje nije uspjelo.");
@@ -108,13 +119,23 @@ public class DodavanjeSponzoraController extends BaseController {
 				trenutniSponzor.setNaziv(txtNaziv.getText());
 				trenutniSponzor.setAdresa(txtAdresa.getText());
 				trenutniSponzor.setEmail(txtMail.getText());
+				trenutniSponzor.setTelefoni(lstTelefoni.getItems());
 				DAOFactory.getDAOFactory().getSponzorDAO().update(trenutniSponzor);
+				for(String telefon : noviTelefoni){
+					DAOFactory.getDAOFactory().getSponzorDAO().insertTelefon(trenutniSponzor, telefon);
+				}
 				parent.zamijeni(trenutniSponzor);
+				noviTelefoni.clear();
 				AlertDisplay.showInformation("Uspjesno", "", "Sponzor uspjesno azuriran.");
+				parent.refresh();
 			}else {
 				AlertDisplay.showInformation("Greska", "", "Niste unijeli sve podatke.");
 			}
 		}
+		for(String telefon: uklonjeniTelefoni){
+			DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(telefon);
+		}
+		uklonjeniTelefoni.clear();
 	}
 
 	public void setParentController(RadSaSponzorimaController parent) {
@@ -130,12 +151,14 @@ public class DodavanjeSponzoraController extends BaseController {
 			dpDatumOd.setDisable(true);
 			dpDatumDo.setDisable(true);
 			taOpis.setDisable(true);
+			lstTelefoni.setItems(trenutniSponzor.getTelefoni());
 		}
 	}
 
 	private RadSaSponzorimaController parent;
 	private SponzorDTO trenutniSponzor;
-	
+	private ObservableList<String> uklonjeniTelefoni = FXCollections.observableArrayList();
+	private ObservableList<String> noviTelefoni = FXCollections.observableArrayList();
 	private void bindDisable(){
 		btnUkloniTelefon.disableProperty().bind(lstTelefoni.getSelectionModel().selectedItemProperty().isNull());
 	}

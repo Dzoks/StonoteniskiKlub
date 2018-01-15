@@ -65,21 +65,9 @@ public class RadSaDonacijamaController extends BaseController {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		colRb.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, Integer>("redniBroj"));
-		colTipDonacije.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, String>("tipDonacije"));
-		colNovcaniIznos.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, Double>("novcaniIznos"));
-		colTipOpreme.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, String>("tipOpreme"));
-		colKolicina.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, Double>("kolicina"));
-		colObradjena.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, String>("obradjeno"));
-		cbTipDonacije.setItems(cbTipItems);
-		cbTipDonacije.getSelectionModel().select(0);
-		cbTipOpreme.setItems(DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_ALL());
-		cbTipOpreme.getSelectionModel().select(0);
-		tfDoNovac.disableProperty().bind(rbOprema.selectedProperty());
-		tfOdNovac.disableProperty().bind(rbOprema.selectedProperty());
-		tfOdKolicina.disableProperty().bind(rbNovcane.selectedProperty());
-		tfDoKolicina.disableProperty().bind(rbNovcane.selectedProperty());
-		cbTipOpreme.disableProperty().bind(rbNovcane.selectedProperty());
+		buildTable();
+		populateComboBoxes();
+		bindDisable();
 	}
 
 	@FXML
@@ -154,7 +142,7 @@ public class RadSaDonacijamaController extends BaseController {
 						}
 					}
 					tblDonacije.setItems(filtered);
-				} else{
+				} else {
 					ObservableList<DonacijaDTO> filtered = FXCollections.observableArrayList();
 					for (DonacijaDTO donacija : donacije) {
 						if (donacija.getNovcanaDonacija() && donacija.getNovcaniIznos().compareTo(doN) <= 0) {
@@ -163,8 +151,46 @@ public class RadSaDonacijamaController extends BaseController {
 					}
 					tblDonacije.setItems(filtered);
 				}
-			} else{
-				
+			} else {
+				String odText = tfOdKolicina.getText();
+				String doText = tfDoKolicina.getText();
+				BigDecimal odN = "".equals(odText) ? null : new BigDecimal(odText);
+				BigDecimal doN = "".equals(doText) ? null : new BigDecimal(doText);
+				if (odKolicina && doKolicina) {
+					ObservableList<DonacijaDTO> filtered = FXCollections.observableArrayList();
+					for (DonacijaDTO donacija : donacije) {
+						if (!donacija.getNovcanaDonacija()
+								&& donacija.getTipOpreme().getId()
+										.equals(cbTipOpreme.getSelectionModel().getSelectedItem().getId())
+								&& donacija.getKolicina().compareTo(odN) >= 0
+								&& donacija.getKolicina().compareTo(doN) <= 0) {
+							filtered.add(donacija);
+						}
+					}
+					tblDonacije.setItems(filtered);
+				} else if (odKolicina) {
+					ObservableList<DonacijaDTO> filtered = FXCollections.observableArrayList();
+					for (DonacijaDTO donacija : donacije) {
+						if (!donacija.getNovcanaDonacija()
+								&& donacija.getTipOpreme().getId()
+										.equals(cbTipOpreme.getSelectionModel().getSelectedItem().getId())
+								&& donacija.getKolicina().compareTo(odN) >= 0) {
+							filtered.add(donacija);
+						}
+					}
+					tblDonacije.setItems(filtered);
+				} else {
+					ObservableList<DonacijaDTO> filtered = FXCollections.observableArrayList();
+					for (DonacijaDTO donacija : donacije) {
+						if (!donacija.getNovcanaDonacija()
+								&& donacija.getTipOpreme().getId()
+										.equals(cbTipOpreme.getSelectionModel().getSelectedItem().getId())
+								&& donacija.getKolicina().compareTo(doN) <= 0) {
+							filtered.add(donacija);
+						}
+					}
+					tblDonacije.setItems(filtered);
+				}
 			}
 		}
 	}
@@ -186,5 +212,29 @@ public class RadSaDonacijamaController extends BaseController {
 		cbTipItems.add("Sve");
 		cbTipItems.add("Novcane");
 		cbTipItems.add("Oprema");
+	}
+
+	private void buildTable() {
+		colRb.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, Integer>("redniBroj"));
+		colTipDonacije.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, String>("tipDonacije"));
+		colNovcaniIznos.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, Double>("novcaniIznos"));
+		colTipOpreme.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, String>("tipOpreme"));
+		colKolicina.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, Double>("kolicina"));
+		colObradjena.setCellValueFactory(new PropertyValueFactory<DonacijaDTO, String>("obradjeno"));
+	}
+
+	private void populateComboBoxes() {
+		cbTipDonacije.setItems(cbTipItems);
+		cbTipDonacije.getSelectionModel().select(0);
+		cbTipOpreme.setItems(DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_ALL());
+		cbTipOpreme.getSelectionModel().select(0);
+	}
+
+	private void bindDisable() {
+		tfDoNovac.disableProperty().bind(rbOprema.selectedProperty());
+		tfOdNovac.disableProperty().bind(rbOprema.selectedProperty());
+		tfOdKolicina.disableProperty().bind(rbNovcane.selectedProperty());
+		tfDoKolicina.disableProperty().bind(rbNovcane.selectedProperty());
+		cbTipOpreme.disableProperty().bind(rbNovcane.selectedProperty());
 	}
 }

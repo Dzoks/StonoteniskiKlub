@@ -143,7 +143,7 @@ public class CalendarController extends BaseController {
 							LocalDate date = LocalDate.of(currentYearMonth.getYear(), currentYearMonth.getMonth(),
 									Integer.parseInt(label.getText()));
 							selectedDate = date;
-							if(label!=selectedLabel){
+							if (label != selectedLabel) {
 								vratiStil(selectedLabel);
 							}
 							selectedLabel = label;
@@ -205,9 +205,8 @@ public class CalendarController extends BaseController {
 	}
 
 	public void dodajDogadjajUKalendar(DogadjajDTO dogadjaj) {
-		if(dnevniDogadjaji.isEmpty()){
-			System.out.println("AAA");
-			selectedLabel.setStyle(selectedLabel.getStyle().replaceAll("green", "red")); 
+		if (dnevniDogadjaji.isEmpty()) {
+			selectedLabel.setStyle(selectedLabel.getStyle().replaceAll("green", "red"));
 		}
 		dogadjaji.add(dogadjaj);
 		dnevniDogadjaji.add(dogadjaj);

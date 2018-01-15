@@ -240,7 +240,9 @@ public class RadSaSponzorimaController extends BaseController {
 		listaSponzora.remove(index);
 		listaSponzora.add(index, sponzor);
 	}
-	
+	public void refresh(){
+		tblSponzori.refresh();
+	}
 	
 	// fields
 	private ObservableList<SponzorDTO> listaSponzora;
@@ -261,6 +263,7 @@ public class RadSaSponzorimaController extends BaseController {
 	private void populateTable() {
 		listaSponzora = DAOFactory.getDAOFactory().getSponzorDAO().selectAll();
 		for (SponzorDTO sponzor : listaSponzora) {
+			sponzor.setTelefoni(DAOFactory.getDAOFactory().getSponzorDAO().getTelefoni(sponzor));
 			sponzor.setUgovori(DAOFactory.getDAOFactory().getUgovorDAO().selectAllById(sponzor.getId()));
 			for (UgovorDTO ugovor : sponzor.getUgovori()) {
 				ObservableList<DonacijaDTO> donacije = DAOFactory.getDAOFactory().getDonacijaDAO()
