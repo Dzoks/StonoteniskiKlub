@@ -19,5 +19,5 @@ public interface OsobaDAO {
 	public void deleteTelefon(int id); 
 	public boolean doesExist(String jmb,Integer idTurnira,Integer idKategorije); 
 	public void insertTelefon(OsobaDTO osoba);
-	
+	public boolean insertTel(String telefon, OsobaDTO osoba);
 }
