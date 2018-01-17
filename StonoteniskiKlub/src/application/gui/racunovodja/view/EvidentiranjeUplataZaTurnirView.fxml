@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="475.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeUplataZaTurnirController">
+<AnchorPane fx:id="pane" prefHeight="475.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeUplataZaTurnirController">
    <children>
       <TableView fx:id="tableUplateZaTurnir" layoutX="17.0" layoutY="197.0" prefHeight="198.0" prefWidth="448.0">
         <columns>
@@ -24,6 +24,9 @@
             <TableColumn fx:id="tableColumnDatumUplate" prefWidth="99.0" text="Datum uplate" />
             <TableColumn fx:id="tableColumnIznos" prefWidth="104.0" text="Iznos" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
       <Label fx:id="lblPrikazPo" layoutX="482.0" layoutY="219.0" text="Prikaz po:" />
