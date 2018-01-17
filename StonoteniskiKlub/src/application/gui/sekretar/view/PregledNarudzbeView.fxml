@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="384.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.PregledNarudzbeController">
+<AnchorPane prefHeight="384.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.PregledNarudzbeController">
    <children>
       <Label layoutX="25.0" layoutY="27.0" text="Distributer: ">
          <font>
@@ -51,6 +51,9 @@
             <TableColumn fx:id="velicina" prefWidth="109.0" text="Veličina" />
             <TableColumn fx:id="cijena" prefWidth="118.0" text="Cijena" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <Button fx:id="btnOK" layoutX="533.0" layoutY="328.0" mnemonicParsing="false" onAction="#ugasi" prefHeight="42.0" prefWidth="214.0" text="OK" />
    </children>

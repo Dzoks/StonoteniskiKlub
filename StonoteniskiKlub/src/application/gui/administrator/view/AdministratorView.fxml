@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.administrator.controller.AdministratorController">
+<AnchorPane prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.administrator.controller.AdministratorController">
    <children>
       <TableView fx:id="tabelaNalog" layoutY="-1.0" prefHeight="315.0" prefWidth="520.0">
         <columns>
@@ -14,6 +14,9 @@
             <TableColumn fx:id="kolonaPrezime" prefWidth="135.0" text="Prezime" />
             <TableColumn fx:id="kolonaIme" prefWidth="114.0" text="Ime" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <Button layoutX="267.0" layoutY="342.0" mnemonicParsing="false" onAction="#dodajNalogKlik" prefHeight="25.0" prefWidth="112.0" text="Dodaj nalog" />
       <Button fx:id="obrisiNalogDugme" layoutX="14.0" layoutY="342.0" mnemonicParsing="false" onAction="#obrisiNalogKlik" prefHeight="25.0" prefWidth="112.0" text="Obriši nalog" />
