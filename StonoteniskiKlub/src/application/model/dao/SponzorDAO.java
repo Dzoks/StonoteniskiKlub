@@ -10,4 +10,7 @@ public interface SponzorDAO {
 	ObservableList<SponzorDTO> getByNaziv(String naziv);
 	boolean insert(SponzorDTO sponzor, UgovorDTO ugovor);
 	void update(SponzorDTO sponzor);
+	ObservableList<String> getTelefoni(SponzorDTO sponzor);
+	boolean deleteTelefon(String brojTelefona);
+	boolean insertTelefon(SponzorDTO sponzor, String telefon);
 }

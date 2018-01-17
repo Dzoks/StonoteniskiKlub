@@ -45,13 +45,8 @@ public class DodavanjeDogadjajaController extends BaseController {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ObservableList<DogadjajTipDTO> tipovi = DAOFactory.getDAOFactory().getDogadjajTipDAO().selectAll();
-		cbTIpDogadjaja.setItems(tipovi);
-		cbTIpDogadjaja.getSelectionModel().select(0);
-		tpPocetak.setIs24HourView(true);
-		tpKraj.setIs24HourView(true);
-		tpPocetak.setConverter(new LocalTimeStringConverter(DateTimeFormatter.ofPattern("HH:mm"), DateTimeFormatter.ofPattern("HH:mm")));
-		tpKraj.setConverter(new LocalTimeStringConverter(DateTimeFormatter.ofPattern("HH:mm"), DateTimeFormatter.ofPattern("HH:mm")));
+		populateComboBoxes();
+		initTimePicker();
 	}
 
 	// Event Listener on Button[#btnDodajNoviTip].onAction
@@ -75,12 +70,13 @@ public class DodavanjeDogadjajaController extends BaseController {
 			DogadjajDTO dogadjaj = new DogadjajDTO(null, pocetak, kraj, taOpis.getText(),
 					cbTIpDogadjaja.getSelectionModel().getSelectedItem(), null);
 			int result = DAOFactory.getDAOFactory().getDogadjajDAO().insert(dogadjaj);
-			if(result > 0){
+			if (result > 0) {
 				parentController.dodajDogadjajUKalendar(dogadjaj);
 				AlertDisplay.showInformation("Uspjesno", "", "Dodavanje dogadjaja uspjesno.");
-			} else if(result == -1){
-				AlertDisplay.showInformation("Greska", "", "Dogadjaj se preklapa sa drugim dogadjajem u istom terminu.");
-			} else if(result == -2){
+			} else if (result == -1) {
+				AlertDisplay.showInformation("Greska", "",
+						"Dogadjaj se preklapa sa drugim dogadjajem u istom terminu.");
+			} else if (result == -2) {
 				AlertDisplay.showInformation("Greska", "", "Vrijeme kraja dogadjaja mora biti nakon vremena pocetka.");
 			}
 		}
@@ -89,14 +85,28 @@ public class DodavanjeDogadjajaController extends BaseController {
 	public void setParams(LocalDate datum, List<DogadjajDTO> dogadjaji) {
 		this.datum = datum;
 		lblDatum.setText(datum.toString());
-		this.dogadjaji = dogadjaji;
 	}
 
-	public void setParentController(CalendarController parentController){
+	public void setParentController(CalendarController parentController) {
 		this.parentController = parentController;
 	}
-	
-	private List<DogadjajDTO> dogadjaji;
+
 	private LocalDate datum;
 	private CalendarController parentController;
+
+	private void populateComboBoxes() {
+		ObservableList<DogadjajTipDTO> tipovi = DAOFactory.getDAOFactory().getDogadjajTipDAO().selectAll();
+		cbTIpDogadjaja.setItems(tipovi);
+		cbTIpDogadjaja.getSelectionModel().select(0);
+	}
+
+	private void initTimePicker() {
+		tpPocetak.setIs24HourView(true);
+		tpKraj.setIs24HourView(true);
+		tpPocetak.setConverter(new LocalTimeStringConverter(DateTimeFormatter.ofPattern("HH:mm"),
+				DateTimeFormatter.ofPattern("HH:mm")));
+		tpKraj.setConverter(new LocalTimeStringConverter(DateTimeFormatter.ofPattern("HH:mm"),
+				DateTimeFormatter.ofPattern("HH:mm")));
+	}
+
 }

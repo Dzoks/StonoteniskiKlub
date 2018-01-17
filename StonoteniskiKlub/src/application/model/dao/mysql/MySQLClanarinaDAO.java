@@ -1,14 +1,18 @@
 package application.model.dao.mysql;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 import application.model.dao.ClanarinaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
+import application.model.dto.ClanstvoDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,8 +22,11 @@ import javafx.scene.control.Alert.AlertType;
 public class MySQLClanarinaDAO implements ClanarinaDAO{
 private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 	
-	private static final String SQL_INSERT = "{call dodaj_clanarinu(?,?,?,?,?,?,?)}";
-	private static final String SQL_UPDATE = "{call update_clanarinu(?,?,?,?,?,?,?)}";
+	private static final String SQL_INSERT = "{call dodaj_clanarinu(?,?,?,?,?,?,?)}";	
+	private static final String SQL_UPDATE = "{call update_clanarinu(?,?,?,?,?,?)}";
+	//brada
+	private static final String SQL_SELECT = "select * from prikaz_clanarina where OSOBA_ID = ?";
+	
 	public ObservableList<ClanarinaDTO> SELECT_ALL() {
 		ObservableList<ClanarinaDTO> listaClanarina = FXCollections.observableArrayList();
 		Connection c = null;
@@ -78,7 +85,7 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 		}
 		return true;
 	}
-	public  void UPDATE(ClanarinaDTO clanarina, ClanDTO clan) {
+	public  void UPDATE(ClanarinaDTO clanarina) {
 		Connection c = null;
 		java.sql.CallableStatement cs = null;
 		
@@ -96,7 +103,6 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 			cs.setString("inOpis",clanarina.getOpis().getValue());
 			cs.setInt("inMjesec", clanarina.getMjesec().intValue());
 			cs.setInt("inGodina",clanarina.getGodina().intValue());
-			cs.setInt("inOsobaId", clan.getId());
 			cs.executeQuery();
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -104,5 +110,32 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 			ConnectionPool.getInstance().checkIn(c);
 			ConnectionPool.close(cs);
 		}
+	}
+	
+	//brada
+	public List<ClanarinaDTO> selectByClanID(int clanID) {
+		ArrayList<ClanarinaDTO> retVal = new ArrayList<>();
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_SELECT;
+			Object pom[] = { clanID };
+			
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				retVal.add(new ClanarinaDTO(rs.getInt("Id"), rs.getDate("Datum"), rs.getDouble("Iznos"), rs.getString("Opis"),rs.getString("Tip"),rs.getInt("Mjesec"),rs.getInt("Godina"), rs.getString("Ime"),rs.getString("Prezime"),rs.getInt("OSOBA_Id")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(rs, ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+
+		return retVal;
 	}
 }

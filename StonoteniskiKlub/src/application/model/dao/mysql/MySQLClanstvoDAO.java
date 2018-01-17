@@ -15,6 +15,26 @@ import application.util.ConnectionPool;
 public class MySQLClanstvoDAO implements ClanstvoDAO{
 	private final static String SQL_GET_BY_ID = "SELECT * FROM CLANSTVO WHERE CLAN_OSOBA_ID=?";
 	private final static String SQL_INSERT = "INSERT INTO CLANSTVO VALUES(?, ?, ?)";
+	private final static String SQL_UPDATE = "UPDATE clanstvo SET DatumDo = ? where CLAN_OSOBA_Id=?";
+	
+	public void update(int clanId) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			String query = SQL_UPDATE;
+			Object pom[] = { new Date(), clanId };
+			
+			ps = ConnectionPool.prepareStatement(c, query, false, pom);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.close(ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+	}
 	
 	public List<ClanstvoDTO> getByClanId(int id) {
 		ArrayList<ClanstvoDTO> retVal = new ArrayList<>();

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="540.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.RacunovodjaController">
+   <children>
+      <TabPane layoutX="7.0" prefHeight="541.0" prefWidth="915.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="uplateTurniraTab" text="Uplate turnira">
+             <fx:include source="EvidentiranjeUplataZaTurnirView.fxml"/>
+          </Tab>
+          <Tab fx:id="uplaeClanarinaTab" text="Uplate članarina">
+             <fx:include source="EvidentiranjeClanarinaView.fxml"/>
+          </Tab>
+           <Tab fx:id="novcanaSredstvaTab" text="NovcanaSredstva">
+             <!--fx:include source="EvidentiranjeNovcanihSredstavaView.fxml"/-->
+          </Tab>
+            <Tab fx:id="sredsvaZaTurnirTab" text="Sredstva za turnir">
+               <fx:include source="EvidentiranjeSredstavaZaTurnire.fxml"/>
+            </Tab>
+            <Tab fx:id="sredstvaZaOpremuTab" text="Sredstva za opremu">
+                <fx:include source="EvidentiranjeSredstavaZaOpremu.fxml"/>
+            </Tab>
+            <Tab fx:id="plateTab" text="Plate">
+  					<fx:include source="EvidentiranjeIsplacenihPlataView.fxml"/>		
+            </Tab>
+            <Tab fx:id="donacijeTab" text="Donacije">
+                  <fx:include source="EvidentiranjeDonacijaView.fxml"/>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

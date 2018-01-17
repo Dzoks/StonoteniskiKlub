@@ -12,6 +12,8 @@ import application.model.dto.TransakcijaDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class MySQLTransakcijaDAO implements TransakcijaDAO{
 	private static final String SQL_SELECT_ALL="select * from prikaz_transakcija";
@@ -62,7 +64,9 @@ public class MySQLTransakcijaDAO implements TransakcijaDAO{
 			    id = rs.getInt(1);
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.INFORMATION, "Neuspjesno dodavanje");
+			alert.showAndWait();
+			return 0;
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
 			ConnectionPool.close(ps);

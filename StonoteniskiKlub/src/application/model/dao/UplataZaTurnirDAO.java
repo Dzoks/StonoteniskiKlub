@@ -8,6 +8,6 @@ public interface UplataZaTurnirDAO {
 
 	public ObservableList<UplataZaTurnirDTO> SELECT_ALL(); 
 	public boolean INSERT(UplataZaTurnirDTO uplata, UcesnikPrijavaDTO ucesnik); 
-	public void UPDATE(UplataZaTurnirDTO uplata, UcesnikPrijavaDTO ucesnik); 
+	public void UPDATE(UplataZaTurnirDTO uplata); 
 
 }

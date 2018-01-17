@@ -12,40 +12,44 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="pane" prefHeight="479.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeSredstavaZaOpremuController">
    <children>
-      <TableView fx:id="tableUplateZaTurnir" layoutX="17.0" layoutY="197.0" prefHeight="198.0" prefWidth="465.0">
+      <TableView fx:id="tableTroskoviOprema" layoutX="20.0" layoutY="219.0" prefHeight="195.0" prefWidth="443.0">
         <columns>
-            <TableColumn fx:id="tableColumnNazivTurnira" prefWidth="104.0" text="Narudzba" />
-            <TableColumn prefWidth="76.0" text="Distributer" />
+            <TableColumn fx:id="tableColumnNarudzba" prefWidth="104.0" text="Narudzba" />
+            <TableColumn fx:id="tableColumnDistributer" prefWidth="76.0" text="Distributer" />
             <TableColumn fx:id="tableColumnDatumUplate" prefWidth="87.0" text="Datum uplate" />
             <TableColumn fx:id="tableColumnIznos" prefWidth="75.0" text="Iznos" />
-            <TableColumn prefWidth="122.0" text="Opis" />
+            <TableColumn fx:id="tableColumnOpis" prefWidth="99.0" text="Opis" />
         </columns>
       </TableView>
-      <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
-      <Label fx:id="lblPrikazPo" layoutX="486.0" layoutY="202.0" text="Prikazi:" />
-      <RadioButton fx:id="radiobtnSve" layoutX="568.0" layoutY="202.0" mnemonicParsing="false" text="Sve" />
-      <RadioButton fx:id="radiobtnDistributer" layoutX="571.0" layoutY="239.0" mnemonicParsing="false" text="Po distributeru" />
-      <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o troskovima za opremu kluba:" />
-      <Button fx:id="btnDodaj" layoutX="22.0" layoutY="129.0" mnemonicParsing="false" text="Dodaj" />
-      <Label fx:id="lblIznos" layoutX="337.0" layoutY="51.0" text="Iznos:" />
-      <TextField fx:id="txtIznos" layoutX="429.0" layoutY="47.0" />
-      <Label fx:id="lblKM" layoutX="585.0" layoutY="51.0" text="KM" />
-      <Label fx:id="lblDatum" layoutX="20.0" layoutY="91.0" text="Datum:" />
-      <DatePicker fx:id="datePicker" layoutX="88.0" layoutY="87.0" />
-      <Button fx:id="btnPrikazi" layoutX="553.0" layoutY="332.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Prikazi" />
-      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="430.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Obrisi" />
-      <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="430.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Izmijeni" />
-      <Label fx:id="lblNarudzbaDodaj" layoutX="22.0" layoutY="51.0" text="Narudzba:" />
-      <ComboBox fx:id="comboBoxTurnir" layoutX="88.0" layoutY="47.0" prefWidth="150.0" />
-      <Label fx:id="lblDistributer" layoutX="487.0" layoutY="288.0" text="Distributer:" />
-      <ComboBox fx:id="comboBoxDistributer" layoutX="549.0" layoutY="284.0" prefWidth="150.0" />
-      <Label fx:id="lblOpis" layoutX="339.0" layoutY="104.0" text="Opis:" />
-      <ScrollPane fx:id="scrollPane" layoutX="503.0" layoutY="90.0" prefHeight="25.0" prefWidth="100.0">
+      <Separator layoutX="15.0" layoutY="189.0" prefHeight="0.0" prefWidth="678.0" />
+      <Label fx:id="lblPrikazPo" layoutX="485.0" layoutY="246.0" text="Prikazi:" />
+      <RadioButton fx:id="radiobtnSve" layoutX="544.0" layoutY="246.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" />
+      <RadioButton fx:id="radiobtnDistributer" layoutX="603.0" layoutY="246.0" mnemonicParsing="false" onAction="#radioDistributer" text="Po distributeru" />
+      <Label layoutX="20.0" layoutY="14.0" text="Unos podataka o troskovima za opremu kluba:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <Button fx:id="btnDodaj" layoutX="428.0" layoutY="136.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="150.0" text="Dodajte" />
+      <Label fx:id="lblIznos" layoutX="338.0" layoutY="64.0" text="Iznos:" />
+      <TextField fx:id="txtIznos" layoutX="429.0" layoutY="60.0" />
+      <Label fx:id="lblKM" layoutX="584.0" layoutY="64.0" text="KM" />
+      <Label fx:id="lblDatum" layoutX="336.0" layoutY="98.0" text="Datum:" />
+      <DatePicker fx:id="datePicker" layoutX="428.0" layoutY="96.0" />
+      <Button fx:id="btnPrikazi" layoutX="553.0" layoutY="348.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Pretraga" />
+      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="430.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrisite" />
+      <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="430.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijenite" />
+      <Label fx:id="lblNarudzbaDodaj" layoutX="22.0" layoutY="64.0" text="Narudzba:" />
+      <ComboBox fx:id="comboBoxNarudzba" layoutX="91.0" layoutY="60.0" prefWidth="150.0" />
+      <Label fx:id="lblDistributer" layoutX="485.0" layoutY="298.0" text="Distributer:" />
+      <ComboBox fx:id="comboBoxDistributer" layoutX="549.0" layoutY="294.0" prefWidth="150.0" />
+      <Label fx:id="lblOpis" layoutX="22.0" layoutY="100.0" text="Opis:" />
+      <ScrollPane fx:id="scrollPane" layoutX="91.0" layoutY="100.0" prefHeight="36.0" prefWidth="150.0">
          <content>
-            <TextArea fx:id="txtOpis" prefHeight="57.0" prefWidth="200.0" />
+            <TextArea fx:id="txtOpis" prefHeight="57.0" prefWidth="167.0" />
          </content>
       </ScrollPane>
    </children>

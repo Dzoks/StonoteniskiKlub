@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 public interface NarudzbaDAO {
 
 	ObservableList<Narudzba> SELECT_ALL();
+	ObservableList<Narudzba> SELECT_OPREMA_KLUBA();
 	ObservableList<Narudzba> SELECT_NEOBRADJENE(Boolean opremaKluba);
 	Integer SELECT_NEXT_ID();
 	Integer INSERT(Narudzba narudzba, Boolean vrstaOpreme);

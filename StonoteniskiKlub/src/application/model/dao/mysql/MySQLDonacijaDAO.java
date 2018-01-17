@@ -18,10 +18,11 @@ import javafx.collections.ObservableList;
 
 public class MySQLDonacijaDAO implements DonacijaDAO {
 
-	public static final String SQL_SELECT_ALL_BY_ID = "select * from donacija_detaljno where SponzorId=? and UgovorRb=?";
+	public static final String SQL_SELECT_ALL_BY_ID = "select * from DONACIJA_DETALJNO where SponzorId=? and UgovorRb=?";
 	public static final String SQL_NEOBRADJENE = "select * from donacija_detaljno where Obradjeno=false and NovcanaDonacija=?";
 	public static final String SQL_INSERT = "{call dodaj_donaciju(?,?,?,?,?,?,?,?)}";
 	public static final String SQL_UPDATE_OBRADJENA = "update DONACIJA set Obradjeno=true where SPONZOR_Id=? and UGOVOR_RedniBroj=? and RedniBroj=?";
+	private static final String SQL_UPDATE_TRANSAKCIJA_ID = "update DONACIJA set TRANSAKCIJA_Id=? where SPONZOR_Id=? and UGOVOR_RedniBroj=? and RedniBroj=? ";
 
 	@Override
 	public ObservableList<DonacijaDTO> selectAllById(Integer idSponzora, Integer rbUgovora) {
@@ -37,7 +38,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			UgovorDTO ugovor = null;
 			if (resultSet.next()) {
 				sponzor = new SponzorDTO(resultSet.getInt("SponzorId"), resultSet.getString("Naziv"),
-						resultSet.getString("Adresa"), resultSet.getString("Mail"), null);
+						resultSet.getString("Adresa"), resultSet.getString("Mail"), null, null);
 				ugovor = new UgovorDTO(resultSet.getInt("UgovorRb"), resultSet.getDate("DatumOd"),
 						resultSet.getDate("DatumDo"), resultSet.getString("UgovorOpis"), null);
 				do {
@@ -76,7 +77,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			UgovorDTO ugovor = null;
 			while (resultSet.next()) {
 				sponzor = new SponzorDTO(resultSet.getInt("SponzorId"), resultSet.getString("Naziv"),
-						resultSet.getString("Adresa"), resultSet.getString("Mail"), null);
+						resultSet.getString("Adresa"), resultSet.getString("Mail"), null, null);
 				ugovor = new UgovorDTO(resultSet.getInt("UgovorRb"), resultSet.getDate("DatumOd"),
 						resultSet.getDate("DatumDo"), resultSet.getString("UgovorOpis"), null);
 				DonacijaDTO d = new DonacijaDTO(sponzor, ugovor, resultSet.getInt("DonacijaRb"),
@@ -126,9 +127,14 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			} else {
 				statement.setInt("pOpremaTipId", donacija.getTipOpreme().getId());
 			}
-			statement.registerOutParameter("pUspjesno", Types.BOOLEAN);
+			statement.registerOutParameter("pRedniBroj", Types.INTEGER);
 			statement.execute();
-			result = statement.getBoolean("pUspjesno");
+			Integer redniBroj = -1;
+			redniBroj = statement.getInt("pRedniBroj");
+			if(!redniBroj.equals(Integer.valueOf(-1))){
+				result = true;
+				donacija.setRedniBroj(redniBroj);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -146,6 +152,21 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			connection = ConnectionPool.getInstance().checkOut();
 			statement = ConnectionPool.prepareStatement(connection, SQL_UPDATE_OBRADJENA, false,
 					donacija.getSponzor().getId(), donacija.getUgovor().getRedniBroj(), donacija.getRedniBroj());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(statement);
+		}
+	}
+	public void setIdTransakcije(DonacijaDTO donacija, int id) {//Helena dodala
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_UPDATE_TRANSAKCIJA_ID, false,
+					id,donacija.getSponzor().getId(), donacija.getUgovor().getRedniBroj(), donacija.getRedniBroj());
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

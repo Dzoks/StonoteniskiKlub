@@ -10,6 +10,6 @@ public interface NovcanaSredstvaDAO {
 	public  NovcanaSredstvaDTO getBySezona(String sezona);
 	public boolean INSERT(NovcanaSredstvaDTO ns);
 	
-	public  void dodajPrihode(double prihod);
-	public  void dodajRashode(double rashod); 
+	public  boolean dodajPrihode(double prihod);
+	public  boolean dodajRashode(double rashod); 
 }

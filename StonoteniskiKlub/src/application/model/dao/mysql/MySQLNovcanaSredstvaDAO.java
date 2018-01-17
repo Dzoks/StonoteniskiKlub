@@ -122,36 +122,50 @@ public class MySQLNovcanaSredstvaDAO implements NovcanaSredstvaDAO{
 		return true;
 	}
 	
-	public  void dodajPrihode(double prihod) {
+	public  boolean dodajPrihode(double prihod) {
 		NovcanaSredstvaDTO ns = getNSMaxId();
-		Connection c = null;
-		PreparedStatement ps = null;
-		
-		try {
-			c = ConnectionPool.getInstance().checkOut();
-			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_PRIHODI, false, ns.getPrihodi()+prihod, ns.getId());
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			ConnectionPool.getInstance().checkIn(c);
-			ConnectionPool.close(ps);
+		if(ns!=null) {
+			Connection c = null;
+			PreparedStatement ps = null;
+			
+			try {
+				c = ConnectionPool.getInstance().checkOut();
+				ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_PRIHODI, false, ns.getPrihodi()+prihod, ns.getId());
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				ConnectionPool.getInstance().checkIn(c);
+				ConnectionPool.close(ps);
+			}
+			return true;
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION,"Nije moguce dodati transakciju, jer trenutni budzet nije unesen.");
+			alert.showAndWait();
+			return false;
 		}
-	}
-	public  void dodajRashode(double rashod) {
-		NovcanaSredstvaDTO ns = getNSMaxId();
-		Connection c = null;
-		PreparedStatement ps = null;
 		
-		try {
-			c = ConnectionPool.getInstance().checkOut();
-			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_RASHODI, false, ns.getRashodi()+rashod, ns.getId());
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			ConnectionPool.getInstance().checkIn(c);
-			ConnectionPool.close(ps);
+	}
+	public  boolean dodajRashode(double rashod) {
+		NovcanaSredstvaDTO ns = getNSMaxId();
+		if(ns!=null) {
+			Connection c = null;
+			PreparedStatement ps = null;
+			try {
+				c = ConnectionPool.getInstance().checkOut();
+				ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_RASHODI, false, ns.getRashodi()+rashod, ns.getId());
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				ConnectionPool.getInstance().checkIn(c);
+				ConnectionPool.close(ps);
+			}
+			return true;
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION,"Nije moguce dodati transakciju, jer trenutni budzet nije unesen.");
+			alert.showAndWait();
+			return false;
 		}
 	}
 }

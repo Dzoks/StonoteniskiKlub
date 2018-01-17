@@ -84,9 +84,14 @@ public class MySQLUgovorDAO implements UgovorDAO {
 			} else {
 				statement.setDate("pDatumDo", new Date(ugovor.getDatumDo().getTime()));
 			}
-			statement.registerOutParameter("pUspjesno", Types.BOOLEAN);
+			statement.registerOutParameter("pId", Types.INTEGER);
 			statement.execute();
-			result = statement.getBoolean("pUspjesno");
+			Integer redniBroj = -1;
+			redniBroj = statement.getInt("pId");
+			if(!redniBroj.equals(Integer.valueOf(-1))){
+				result = true;
+				ugovor.setRedniBroj(redniBroj);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

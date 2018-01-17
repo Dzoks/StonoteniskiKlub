@@ -1,5 +1,9 @@
 package application.gui.sekretar.controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import application.gui.controller.BaseController;
 import application.model.dto.StavkaSkupstinaDTO;
 import application.util.AlertDisplay;
 import application.util.InputValidator;
@@ -10,7 +14,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class DodavanjeStavkeDnevnogRedaController {
+public class DodavanjeStavkeDnevnogRedaController extends BaseController{
 	@FXML
 	private TextField txtNaslov;
 	@FXML
@@ -40,4 +44,10 @@ public class DodavanjeStavkeDnevnogRedaController {
 	}
 	private StavkaSkupstinaDTO stavka;
 	private DodavanjeSkupstineController parentController;
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
 }

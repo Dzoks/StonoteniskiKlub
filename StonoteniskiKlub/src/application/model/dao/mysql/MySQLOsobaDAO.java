@@ -275,4 +275,27 @@ public class MySQLOsobaDAO implements OsobaDAO {
 		}
 		return retVal;
 	}
+
+	@Override
+	public boolean insertTel(String telefon, OsobaDTO osoba) {
+		boolean result = false;
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_INSERT_TELEFON, true, telefon, osoba.getId(), null);
+			statement.executeUpdate();
+			resultSet = statement.getGeneratedKeys();
+			if(resultSet.next()){
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(resultSet, statement);
+		}
+		return result;
+	}
 }

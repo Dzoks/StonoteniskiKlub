@@ -19,7 +19,14 @@ public class DonacijaDTO {
 	private Boolean novcanaDonacija;
 	private Boolean obradjeno;
 	private OpremaTip tipOpreme;
+	private TransakcijaDTO transakcija;
+	public TransakcijaDTO getTransakcija() {
+		return transakcija;
+	}
 
+	public void setTransakcija(TransakcijaDTO transakcija) {
+		this.transakcija = transakcija;
+	}
 	public DonacijaDTO() {
 	}
 

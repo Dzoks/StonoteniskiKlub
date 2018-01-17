@@ -2,6 +2,8 @@ package application.model.dto;
 
 import java.util.Date;
 
+import com.sun.javafx.beans.IDProperty;
+
 import application.model.dao.TurnirDAO;
 import javafx.beans.property.StringProperty;
 
@@ -41,4 +43,6 @@ public class UplataZaTurnirDTO extends TransakcijaDTO{
 		TurnirDTO turnir = TurnirDAO.getById(ucesnik.getIdTurnira());
 		return turnir.nazivProperty();
 	}
+	
+	
 }
