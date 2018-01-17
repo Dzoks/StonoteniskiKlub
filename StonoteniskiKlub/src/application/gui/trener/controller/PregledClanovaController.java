@@ -311,6 +311,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			alert.setTitle("Greška");
 			alert.setHeaderText("Greška!");
 			alert.setContentText("Odabrani član nije aktivan. Nemoguće je izvršiti njegovo iščlanjivanje.");
+			alert.getButtonTypes().clear();
 			alert.getButtonTypes().add(ButtonType.OK);
 			alert.getButtonTypes().add(ButtonType.CANCEL);
 			alert.show();
@@ -319,28 +320,46 @@ public class PregledClanovaController extends BaseController implements Initiali
 		
 		// provjeriti da li je uplatio sve clanarine do tad, ako nije ERROR
 		List<ClanarinaDTO> list = DAOFactory.getDAOFactory().getClanarinaDAO().selectByClanID(clan.getId());
-		ClanarinaDTO max = list.get(0);
-		for(int i = 1; i<list.size(); i++) {
-			if(list.get(i).getDatum().after(max.getDatum()))
-				max = list.get(i);
+		if(list.size() == 0) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Upozorenje");
+			alert.setHeaderText("Upozorenje!");
+			alert.setContentText("Odabrani član nije uplatio ni jednu članarinu. "
+					+ " Da li želite da nastavite?");
+			alert.getButtonTypes().clear();
+			alert.getButtonTypes().add(ButtonType.YES);
+			alert.getButtonTypes().add(ButtonType.NO);
+			Optional<ButtonType> tmp = alert.showAndWait();
+			if(tmp.isPresent() && tmp.get() == ButtonType.NO) {
+				return;
+			}
 		}
-		DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("Upozorenje");
-		alert.setHeaderText("Upozorenje!");
-		alert.setContentText("Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec " + max.getMjesec() +
-				", godine " + max.getGodina() + ". "
-				+ " Da li želite da nastavite?");
-		alert.getButtonTypes().add(ButtonType.YES);
-		alert.getButtonTypes().add(ButtonType.NO);
-		Optional<ButtonType> tmp = alert.showAndWait();
-		if(tmp.isPresent() && tmp.get() == ButtonType.NO) {
-			return;
+		else {
+			ClanarinaDTO max = list.get(0);
+			for(int i = 1; i<list.size(); i++) {
+				if(list.get(i).getDatum().after(max.getDatum()))
+					max = list.get(i);
+			}
+			DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Upozorenje");
+			alert.setHeaderText("Upozorenje!");
+			alert.setContentText("Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec " + max.getMjesec() +
+					", godine " + max.getGodina() + ". "
+					+ " Da li želite da nastavite?");
+			alert.getButtonTypes().clear();
+			alert.getButtonTypes().add(ButtonType.YES);
+			alert.getButtonTypes().add(ButtonType.NO);
+			Optional<ButtonType> tmp = alert.showAndWait();
+			if(tmp.isPresent() && tmp.get() == ButtonType.NO) {
+				return;
+			}
 		}
 
 		// ako je sve u redu:
 		// * resetovati AKTIVAN
 		// * setovati DATUM_DO u clanstvu na trenutni datum
+		clan.setAktivan(false);
 		DAOFactory.getDAOFactory().getClanDAO().setAktivan(false, clan.getId());
 		DAOFactory.getDAOFactory().getClanstvoDAO().update(clan.getId());
 	}
