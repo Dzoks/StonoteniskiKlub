@@ -8,4 +8,5 @@ public interface ClanstvoDAO {
 
 	public List<ClanstvoDTO> getByClanId(int id);
 	public boolean insert(int clanId);
+	public void update(int clanId);
 }
