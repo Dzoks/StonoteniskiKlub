@@ -11,7 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="598.0" prefWidth="653.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjenaClanaController">
+<AnchorPane prefHeight="598.0" prefWidth="653.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjenaClanaController">
    <children>
       <TextField fx:id="txtIme" layoutX="413.0" layoutY="49.0" prefHeight="31.0" prefWidth="218.0" promptText="Ime" />
       <TextField fx:id="txtPrezime" layoutX="413.0" layoutY="94.0" prefHeight="31.0" prefWidth="218.0" promptText="Prezime" />
@@ -22,11 +22,11 @@
       <RadioButton fx:id="rbMusko" layoutX="414.0" layoutY="406.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" text="Muško" />
       <RadioButton fx:id="rbZensko" layoutX="523.0" layoutY="406.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" text="Žensko" />
       <DatePicker fx:id="dpDatumRodjenja" layoutX="412.0" layoutY="444.0" promptText="dd/MM/yyyy" showWeekNumbers="true" />
-      <Button layoutX="40.0" layoutY="297.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="31.0" prefWidth="200.0" text="Dodaj fotografiju" />
-      <Button fx:id="btnUclani" layoutX="414.0" layoutY="528.0" mnemonicParsing="false" onAction="#sacuvajIzmjene" prefHeight="44.0" prefWidth="106.0" text="Sačuvaj" />
-      <Button layoutX="525.0" layoutY="528.0" mnemonicParsing="false" onAction="#izlaz" prefHeight="44.0" prefWidth="106.0" text="Odustani" />
-      <ImageView fx:id="ivSlika" fitHeight="236.0" fitWidth="200.0" layoutX="40.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="40.0" layoutY="340.0" mnemonicParsing="false" onAction="#obrisiFotografiju" prefHeight="31.0" prefWidth="200.0" text="Obriši fotografiju" />
+      <Button layoutX="71.0" layoutY="322.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="25.0" prefWidth="139.0" text="Dodaj fotografiju" />
+      <Button fx:id="btnUclani" layoutX="414.0" layoutY="528.0" mnemonicParsing="false" onAction="#sacuvajIzmjene" prefHeight="25.0" prefWidth="106.0" text="Sačuvaj" />
+      <Button layoutX="533.0" layoutY="528.0" mnemonicParsing="false" onAction="#izlaz" prefHeight="25.0" prefWidth="98.0" text="Odustani" />
+      <ImageView fx:id="ivSlika" fitHeight="227.0" fitWidth="200.0" layoutX="40.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="71.0" layoutY="381.0" mnemonicParsing="false" onAction="#obrisiFotografiju" prefHeight="25.0" prefWidth="139.0" text="Obriši fotografiju" />
       <ListView fx:id="lvTelefoni" layoutX="413.0" layoutY="275.0" prefHeight="106.0" prefWidth="218.0">
          <contextMenu>
             <ContextMenu>
