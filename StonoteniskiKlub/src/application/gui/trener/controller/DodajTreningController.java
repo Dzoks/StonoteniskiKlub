@@ -40,7 +40,7 @@ public class DodajTreningController extends BaseController{
 				Alert error=new Alert(AlertType.ERROR);
 				error.setTitle("Greška");
 				error.setContentText("Datum treninga ne smije biti u budućnosti");
-				error.setHeaderText("Greška");
+				error.setHeaderText("Greška u datumu");
 				error.showAndWait();
 				return;
 			}

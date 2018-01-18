@@ -67,10 +67,10 @@ public class RegistracijaController extends BaseController {
 					cbKategorija.getSelectionModel().getSelectedItem().getId(), dpDatum.getValue(), null, clan);
 			if(RegistracijaDAO.insert(registracijaDTO)){
 				DAOFactory.getDAOFactory().getClanDAO().setRegistrovan(true, this.clan.getId());
-				AlertDisplay.showInformation("Registracija", "", "Registracija uspjesna.");
+				AlertDisplay.showInformation("Informacija", "Registracija", "Registracija uspješna.");
 			}
 		} else {
-			AlertDisplay.showInformation("Greska", "", "Unesite datum.");
+			AlertDisplay.showInformation("Greška", "Greška prilikom registracije", "Unesite datum.");
 		}
 	}
 

@@ -13,20 +13,20 @@
 
 <AnchorPane prefHeight="598.0" prefWidth="653.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjenaClanaController">
    <children>
-      <TextField fx:id="txtIme" layoutX="413.0" layoutY="49.0" prefHeight="31.0" prefWidth="218.0" promptText="Ime" />
-      <TextField fx:id="txtPrezime" layoutX="413.0" layoutY="94.0" prefHeight="31.0" prefWidth="218.0" promptText="Prezime" />
-      <TextField fx:id="txtJMB" layoutX="413.0" layoutY="136.0" prefHeight="31.0" prefWidth="218.0" promptText="JMB" />
-      <TextField fx:id="txtImeRoditelja" layoutX="413.0" layoutY="180.0" prefHeight="31.0" prefWidth="218.0" promptText="Ime roditelja" />
+      <TextField fx:id="txtIme" layoutX="413.0" layoutY="49.0" prefHeight="31.0" prefWidth="218.0" />
+      <TextField fx:id="txtPrezime" layoutX="413.0" layoutY="94.0" prefHeight="31.0" prefWidth="218.0" />
+      <TextField fx:id="txtJMB" layoutX="413.0" layoutY="136.0" prefHeight="31.0" prefWidth="218.0" />
+      <TextField fx:id="txtImeRoditelja" layoutX="413.0" layoutY="180.0" prefHeight="31.0" prefWidth="218.0" />
       <TextField fx:id="txtTelefon" layoutX="413.0" layoutY="227.0" prefHeight="31.0" prefWidth="171.0" promptText="XXX/XXX-XXX" />
       <Button layoutX="594.0" layoutY="227.0" mnemonicParsing="false" onAction="#sacuvajTelefon" prefHeight="31.0" prefWidth="37.0" text="-&gt;" />
       <RadioButton fx:id="rbMusko" layoutX="414.0" layoutY="406.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" text="Muško" />
       <RadioButton fx:id="rbZensko" layoutX="523.0" layoutY="406.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" text="Žensko" />
       <DatePicker fx:id="dpDatumRodjenja" layoutX="412.0" layoutY="444.0" promptText="dd/MM/yyyy" showWeekNumbers="true" />
-      <Button layoutX="40.0" layoutY="297.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="31.0" prefWidth="200.0" text="Dodaj fotografiju" />
-      <Button fx:id="btnUclani" layoutX="414.0" layoutY="528.0" mnemonicParsing="false" onAction="#sacuvajIzmjene" prefHeight="44.0" prefWidth="106.0" text="Sačuvaj" />
-      <Button layoutX="525.0" layoutY="528.0" mnemonicParsing="false" onAction="#izlaz" prefHeight="44.0" prefWidth="106.0" text="Odustani" />
+      <Button layoutX="40.0" layoutY="297.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="31.0" prefWidth="200.0" text="Dodajte fotografiju" />
+      <Button fx:id="btnUclani" layoutX="414.0" layoutY="528.0" mnemonicParsing="false" onAction="#sacuvajIzmjene" prefHeight="44.0" prefWidth="106.0" text="Sačuvajte" />
+      <Button layoutX="525.0" layoutY="528.0" mnemonicParsing="false" onAction="#izlaz" prefHeight="44.0" prefWidth="106.0" text="Odustanite" />
       <ImageView fx:id="ivSlika" fitHeight="236.0" fitWidth="200.0" layoutX="40.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="40.0" layoutY="340.0" mnemonicParsing="false" onAction="#obrisiFotografiju" prefHeight="31.0" prefWidth="200.0" text="Obriši fotografiju" />
+      <Button layoutX="40.0" layoutY="340.0" mnemonicParsing="false" onAction="#obrisiFotografiju" prefHeight="31.0" prefWidth="200.0" text="Obrišite fotografiju" />
       <ListView fx:id="lvTelefoni" layoutX="413.0" layoutY="275.0" prefHeight="106.0" prefWidth="218.0">
          <contextMenu>
             <ContextMenu>
@@ -36,12 +36,12 @@
             </ContextMenu>
          </contextMenu>
       </ListView>
-      <Label layoutX="283.0" layoutY="54.0" text="Ime" />
-      <Label layoutX="282.0" layoutY="141.0" text="Ime roditelja" />
-      <Label layoutX="281.0" layoutY="232.0" text="Telefon" />
-      <Label layoutX="285.0" layoutY="406.0" text="Pol" />
-      <Label layoutX="281.0" layoutY="449.0" text="Datum rođenja" />
-      <Label layoutX="282.0" layoutY="99.0" text="Prezime" />
-      <Label layoutX="282.0" layoutY="185.0" text="JMB" />
+      <Label layoutX="283.0" layoutY="54.0" text="Ime:" />
+      <Label layoutX="282.0" layoutY="141.0" text="Ime roditelja:" />
+      <Label layoutX="281.0" layoutY="232.0" text="Telefon:" />
+      <Label layoutX="285.0" layoutY="406.0" text="Pol:" />
+      <Label layoutX="281.0" layoutY="449.0" text="Datum rođenja:" />
+      <Label layoutX="282.0" layoutY="99.0" text="Prezime:" />
+      <Label layoutX="282.0" layoutY="185.0" text="JMB:" />
    </children>
 </AnchorPane>

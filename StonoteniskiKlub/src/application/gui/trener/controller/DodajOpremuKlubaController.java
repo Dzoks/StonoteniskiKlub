@@ -164,7 +164,7 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 					else {
 						txtVelicina.setDisable(true);
 					}
-					lblKolicina.setText("Kolicina: " + newValue.getKolicina().toString());
+					lblKolicina.setText("Količina: " + newValue.getKolicina().toString());
 					lblTipOpreme.setText(newValue.getTipOpreme().toString());
 				}
 			}
@@ -188,7 +188,7 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 	
 	public void dodajKonteksniMeni() {
 		ContextMenu cm = new ContextMenu();
-	    MenuItem obrisiStavku = new MenuItem("Obrisi stavku");
+	    MenuItem obrisiStavku = new MenuItem("Obriši stavku");
 	    obrisiStavku.setOnAction(new EventHandler<ActionEvent>() {
 	    	
 	        @Override
@@ -337,7 +337,7 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 				controller.setPrimaryStage(noviStage);
 				noviStage.setScene(scene);
 				noviStage.setResizable(false);
-				noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+				noviStage.setTitle("Stonoteniski klub");
 				noviStage.initModality(Modality.APPLICATION_MODAL);
 				
 				controller.setOpremaKluba();
@@ -350,7 +350,8 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 					
 			          public void handle(WindowEvent we) {
 			        	  we.consume();
-			              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da zapamtite dodavanje?", ButtonType.YES, ButtonType.NO);
+			              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da zapamtite dodavanje?", ButtonType.YES, ButtonType.NO);
+			              alert.setHeaderText("");
 			              Optional<ButtonType> rezultat = alert.showAndWait();
 			              if(ButtonType.YES.equals(rezultat.get())) {
 			            	  if(controller.ubaciUBazu()) {
@@ -392,7 +393,10 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 				primaryStage.close();
 			}
 			else {
-				new Alert(AlertType.ERROR, "Koli�ina stavki je ne poklapa sa ukupnom koli�inom donacije.").show();
+				
+				Alert alert=new Alert(AlertType.ERROR, "Količina stavki se ne poklapa sa ukupnom količinom donacije.");
+				alert.setHeaderText("Greška u količini");
+				alert.setTitle("Greška");
 			}
 		}
 	}

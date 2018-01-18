@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="280.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.DodajOpremuClanaController">
    <children>
-      <Label layoutX="20.0" layoutY="18.0" text="Narudžba" />
+      <Label layoutX="20.0" layoutY="18.0" text="Narudžba:" />
       <ComboBox fx:id="comboBoxNarudzba" layoutX="82.0" layoutY="14.0" prefHeight="25.0" prefWidth="186.0" />
       <TableView fx:id="tblNarudzbe" layoutX="20.0" layoutY="50.0" prefHeight="165.0" prefWidth="722.0">
         <columns>
@@ -26,6 +26,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btnDodaj" layoutX="525.0" layoutY="224.0" mnemonicParsing="false" onAction="#idiNaObradiOpremu" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
+      <Button fx:id="btnDodaj" layoutX="525.0" layoutY="224.0" mnemonicParsing="false" onAction="#idiNaObradiOpremu" prefHeight="42.0" prefWidth="214.0" text="Dodajte" />
    </children>
 </AnchorPane>

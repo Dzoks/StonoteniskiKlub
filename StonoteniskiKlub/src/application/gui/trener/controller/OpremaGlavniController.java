@@ -154,13 +154,13 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 	public void dodajKonteksniMeni() {
 		ContextMenu cm = new ContextMenu();
-		MenuItem postaviUNeaktivno = new MenuItem("Postavi u neaktivno");
-		MenuItem postaviUAktivno = new MenuItem("Postavi u aktivno");
-		MenuItem pogledajOpis = new MenuItem("Pogledaj opis");
-		MenuItem pogledajOpisDonacije = new MenuItem("Pogledaj opis donacije");
-		MenuItem izmjeniOpis = new MenuItem("Izmjeni opis");
-		MenuItem obrisiOpremuKluba = new MenuItem("Obrisi opremu");
-		MenuItem obrisiOpremuClana = new MenuItem("Obrisi opremu");
+		MenuItem postaviUNeaktivno = new MenuItem("Postavite u neaktivno");
+		MenuItem postaviUAktivno = new MenuItem("Postavite u aktivno");
+		MenuItem pogledajOpis = new MenuItem("Pogledajte opis");
+		MenuItem pogledajOpisDonacije = new MenuItem("Pogledajte opis donacije");
+		MenuItem izmjeniOpis = new MenuItem("Izmjenite opis");
+		MenuItem obrisiOpremuKluba = new MenuItem("Obriši opremu");
+		MenuItem obrisiOpremuClana = new MenuItem("Obriši opremu");
 
 		obrisiOpremuKluba.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -795,7 +795,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 
 			controller.setOpremaKluba();
@@ -842,7 +842,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 
 			OpremaClana selektovanaOprema = tblOpremaClana.getSelectionModel().getSelectedItem();
@@ -888,7 +888,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 
 			controller.ucitajComboBoxeve();
@@ -914,7 +914,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			controller.setOprema(oprema);
 
@@ -954,7 +954,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 
 			controller.ucitajComboBoxeve();

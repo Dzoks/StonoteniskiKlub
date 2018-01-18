@@ -230,7 +230,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			Scene scene = new Scene(root, 761, 484);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -247,7 +247,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			Scene scene = new Scene(root, 761, 484);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -265,7 +265,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.setResizable(false);
-			stage.setTitle("Uclanjivanje");
+			stage.setTitle("Stonoteniski klub");
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				@Override
 				public void handle(WindowEvent event) {
@@ -299,7 +299,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.setResizable(false);
-			stage.setTitle("Izmjena");
+			stage.setTitle("Stonoteniski Klub");
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				@Override
 				public void handle(WindowEvent event) {
@@ -324,7 +324,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 		if(!clan.isAktivan()) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Greška");
-			alert.setHeaderText("Greška!");
+			alert.setHeaderText("Greška prilikom iščlanjivanja");
 			alert.setContentText("Odabrani član nije aktivan. Nemoguće je izvršiti njegovo iščlanjivanje.");
 			alert.getButtonTypes().clear();
 			alert.getButtonTypes().add(ButtonType.OK);
@@ -338,7 +338,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 		if(list.size() == 0) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Upozorenje");
-			alert.setHeaderText("Upozorenje!");
+			alert.setHeaderText("Upozorenje prilikom iščlanjivanja");
 			alert.setContentText("Odabrani član nije uplatio ni jednu članarinu. "
 					+ " Da li želite da nastavite?");
 			alert.getButtonTypes().clear();
@@ -358,7 +358,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Upozorenje");
-			alert.setHeaderText("Upozorenje!");
+			alert.setHeaderText("Upozorenje prilikom učlanjivanja");
 			alert.setContentText("Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec "
 					+ max.getNazivMjeseca() +
 					", godine " + max.getGodina().getValue() + ". "

@@ -99,7 +99,7 @@ public class DublPrijavaController extends BaseController{
 						else{
 							Alert alert = new Alert(AlertType.ERROR);
 							alert.setTitle("Greška");
-							alert.setHeaderText("Nešto nije uredu!");
+							alert.setHeaderText("Nešto nije u redu!");
 							alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
 							alert.show();
 						}
@@ -115,7 +115,7 @@ public class DublPrijavaController extends BaseController{
 						else{
 							Alert alert = new Alert(AlertType.ERROR);
 							alert.setTitle("Greška");
-							alert.setHeaderText("Nešto nije uredu!");
+							alert.setHeaderText("Nešto nije u redu!");
 							alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
 							alert.show();
 						}
@@ -131,7 +131,7 @@ public class DublPrijavaController extends BaseController{
 						else{
 							Alert alert = new Alert(AlertType.ERROR);
 							alert.setTitle("Greška");
-							alert.setHeaderText("Nešto nije uredu!");
+							alert.setHeaderText("Nešto nije u redu!");
 							alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
 							alert.show();
 						}
@@ -148,7 +148,7 @@ public class DublPrijavaController extends BaseController{
 						else{
 							Alert alert = new Alert(AlertType.ERROR);
 							alert.setTitle("Greška");
-							alert.setHeaderText("Nešto nije uredu!");
+							alert.setHeaderText("Nešto nije u redu!");
 							alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
 							alert.show();
 						}

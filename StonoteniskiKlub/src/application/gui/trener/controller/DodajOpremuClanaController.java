@@ -117,9 +117,8 @@ public class DodajOpremuClanaController extends BaseController{
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski Klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
-			
 			controller.setStavkaNarudzbe(tblNarudzbe.getSelectionModel().selectedItemProperty().get());
 			controller.postaviSpiner();
 			controller.disableDugmeEvidentiraj();
@@ -127,7 +126,9 @@ public class DodajOpremuClanaController extends BaseController{
 				
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
-		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da zapamtite dodavanje?", ButtonType.YES, ButtonType.NO);
+		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da zapamtite dodavanje?", ButtonType.YES, ButtonType.NO);
+		              alert.setTitle("Upozorenje");
+		              alert.setHeaderText("");
 		              Optional<ButtonType> rezultat = alert.showAndWait();
 		              if(ButtonType.YES.equals(rezultat.get())) {
 		            	  if(controller.ubaciUBazu()) {

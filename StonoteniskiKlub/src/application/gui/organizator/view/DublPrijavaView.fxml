@@ -81,12 +81,12 @@
             <DatePicker id="dpDatumRodjenja2" fx:id="dpDatumRodjenja2" layoutX="142.0" layoutY="129.0" prefHeight="25.0" prefWidth="130.0" />
          </children>
       </Pane>
-      <Label layoutX="24.0" layoutY="22.0" text="Prvi igrač">
+      <Label layoutX="24.0" layoutY="22.0" text="Prvi igrač:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="367.0" layoutY="22.0" text="Drugi igrač">
+      <Label layoutX="367.0" layoutY="22.0" text="Drugi igrač:">
          <font>
             <Font size="18.0" />
          </font>
