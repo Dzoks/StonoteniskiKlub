@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
@@ -25,6 +26,8 @@ public class LoginController extends BaseController {
 
 	@FXML
 	private JFXPasswordField txtLozinka;
+	@FXML
+	private JFXButton prijaviteSeDugme;
 
 	@FXML
 	void prijaviteSe(ActionEvent event) {
@@ -56,12 +59,9 @@ public class LoginController extends BaseController {
 							case "Trener":
 								BaseController.changeScene("/application/gui/trener/view/OpremaGlavniView.fxml",
 										primaryStage);
-								primaryStage.setWidth(1000);
-								primaryStage.setHeight(600);
 								break;
 							case "Računovođa":
-								BaseController.changeScene(
-										"/application/gui/racunovodja/view/RacunovodjaView.fxml",
+								BaseController.changeScene("/application/gui/racunovodja/view/RacunovodjaView.fxml",
 										primaryStage);
 								break;
 							case "Sekretar":
@@ -90,6 +90,7 @@ public class LoginController extends BaseController {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		prijaviteSeDugme.disableProperty().bind(txtKorisnickoIme.textProperty().isEmpty());
 	}
 
 	/*

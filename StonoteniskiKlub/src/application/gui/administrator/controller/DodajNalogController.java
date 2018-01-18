@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,6 +37,9 @@ public class DodajNalogController extends BaseController {
     private TableView<ZaposleniDTO> tabelaZaposleni;
 	@FXML
 	private TextField korisnickoIme;
+    @FXML
+    private Button dodajteNalogDugme;
+    
 
 	// Event Listener on Button.onAction
 	@FXML
@@ -45,16 +49,15 @@ public class DodajNalogController extends BaseController {
 					try {
 						new Alert(AlertType.INFORMATION, new String("Korisnički nalog je uspješno dodan.".getBytes(),"UTF-8")).show();
 					} catch (UnsupportedEncodingException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				else {
-					new Alert(AlertType.INFORMATION, "KorisniÄ�ko ime veÄ‡ postoji.").show();
+					new Alert(AlertType.INFORMATION, "Korisničko ime već postoji.").show();
 				}
 				korisnickoIme.clear();
 		} else {
 			if (korisnickoIme.getText().isEmpty())
-				new Alert(AlertType.ERROR, "Unesite korisniÄ�ko ime.").show();
+				new Alert(AlertType.ERROR, "Unesite korisničko ime.").show();
 			if (ulogaChoiceBox.getSelectionModel().getSelectedItem().getNaziv().isEmpty())
 				new Alert(AlertType.ERROR, "Odaberite zaposlenog.").show();
 		}
@@ -80,6 +83,8 @@ public class DodajNalogController extends BaseController {
 	public void initialize(URL location, ResourceBundle resources) {
 		popuniTabelu();
 		popuniChoiceBox();
+		dodajteNalogDugme.disableProperty().bind(korisnickoIme.textProperty().isEmpty().or(ulogaChoiceBox.getSelectionModel().selectedItemProperty().isNull()));
+		
 
 	}
 

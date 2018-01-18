@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.PregledClanovaController">
+<AnchorPane prefHeight="561.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.PregledClanovaController">
    <children>
-      <TableView fx:id="twTabela" layoutX="51.0" layoutY="85.0" onMouseClicked="#prikaziDetaljeOClanu" prefHeight="471.0" prefWidth="365.0" tableMenuButtonVisible="true">
+      <TableView fx:id="twTabela" layoutX="13.0" layoutY="366.0" onMouseClicked="#prikaziDetaljeOClanu" prefHeight="177.0" prefWidth="758.0" tableMenuButtonVisible="true">
         <columns>
           <TableColumn fx:id="tcIme" editable="false" prefWidth="75.0" text="Ime" />
           <TableColumn fx:id="tcPrezime" editable="false" prefWidth="75.0" text="Prezime" />
@@ -31,20 +31,20 @@
          <contextMenu>
             <ContextMenu>
               <items>
-                <MenuItem fx:id="miIzmjeni" mnemonicParsing="false" onAction="#izmjeniClana" text="Izmjeni" />
-                  <MenuItem fx:id="miIsclani" mnemonicParsing="false" onAction="#izvrsiIsclanjivanje" text="Iščlani" />
-                  <MenuItem fx:id="miTreninzi" mnemonicParsing="false" onAction="#otvoriTreninge" text="Treninzi" />
+                <MenuItem fx:id="miIzmjeni" mnemonicParsing="false" onAction="#izmjeniClana" text="Izmjenite" />
+                  <MenuItem fx:id="miIsclani" mnemonicParsing="false" onAction="#izvrsiIsclanjivanje" text="Iščlanite" />
+                  <MenuItem fx:id="miTreninzi" mnemonicParsing="false" onAction="#otvoriTreninge" text="Pregledajte treninge" />
               </items>
             </ContextMenu>
          </contextMenu>
       </TableView>
-      <TextField fx:id="txtIme" layoutX="51.0" layoutY="46.0" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="137.0" />
-      <TextField fx:id="txtPrezime" layoutX="195.0" layoutY="46.0" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="137.0" />
-      <Button layoutX="340.0" layoutY="46.0" mnemonicParsing="false" onAction="#pretragaClanova" text="Pretražite" />
-      <Button layoutX="426.0" layoutY="465.0" mnemonicParsing="false" onAction="#uclanjivanje" text="Učlanjivanje" />
-      <Button layoutX="422.0" layoutY="440.0" mnemonicParsing="false" onAction="#idiNaPregledNarudzbi" text="Pregled narudzbi" />
-      <ImageView fx:id="ivFotografija" fitHeight="225.0" fitWidth="200.0" layoutX="423.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
-      <GridPane layoutX="666.0" layoutY="52.0" prefHeight="289.0" prefWidth="296.0">
+
+      <TextField fx:id="txtIme" layoutX="14.0" layoutY="327.0" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="137.0"  />
+      <TextField fx:id="txtPrezime" layoutX="158.0" layoutY="327.0" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="137.0" />
+      <Button layoutX="303.0" layoutY="327.0" mnemonicParsing="false" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="88.0" text="Pretražite" />
+      <Button layoutX="791.0" layoutY="506.0" mnemonicParsing="false" onAction="#uclanjivanje" prefHeight="37.0" prefWidth="119.0" text="Učlanjivanje" />
+      <ImageView fx:id="ivFotografija" fitHeight="289.0" fitWidth="256.0" layoutX="332.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+      <GridPane layoutX="15.0" layoutY="14.0" prefHeight="289.0" prefWidth="296.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -73,21 +73,21 @@
             <Label text="Datum rođenja" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Label fx:id="lblTurniri" layoutX="671.0" layoutY="356.0" text="Sezona:" />
-      <TableView fx:id="tblTurniri" layoutX="814.0" layoutY="356.0" prefHeight="147.0" prefWidth="148.0">
+      <Label fx:id="lblTurniri" layoutX="614.0" layoutY="30.0" text="Sezona:" />
+      <TableView fx:id="tblTurniri" layoutX="757.0" layoutY="30.0" prefHeight="147.0" prefWidth="148.0">
         <columns>
           <TableColumn fx:id="clnTurnir" prefWidth="75.0" text="Turnir" />
           <TableColumn fx:id="clnBodovi" prefWidth="75.0" text="Bodovi" />
         </columns>
       </TableView>
-      <Label fx:id="lblBodoviTxt" layoutX="671.0" layoutY="508.0" text="Ukupno bodova:" />
-      <Label fx:id="lblPozicijaTxt" layoutX="671.0" layoutY="548.0" text="Pozicija na rang listi:" />
-      <Label fx:id="lblBodovi" layoutX="814.0" layoutY="508.0" text="0" />
-      <Label fx:id="lblPozicija" layoutX="818.0" layoutY="548.0" text="Nepoznato" />
-      <ChoiceBox fx:id="cbxSezona" layoutX="665.0" layoutY="390.0" prefHeight="25.0" prefWidth="101.0" />
-      <Button layoutX="423.0" layoutY="415.0" mnemonicParsing="false" onAction="#preuzmiRezultate" text="Preuzmite rezultate" />
-      <Button layoutX="426.0" layoutY="378.0" mnemonicParsing="false" onAction="#registrujIgracaKlik" text="Registrujte igrača" />
       <Label layoutX="51.0" layoutY="21.0" text="Ime:" />
       <Label layoutX="195.0" layoutY="21.0" text="Prezime:" />
+      <Label fx:id="lblBodoviTxt" layoutX="614.0" layoutY="182.0" text="Ukupno bodova:" />
+      <Label fx:id="lblPozicijaTxt" layoutX="614.0" layoutY="222.0" text="Pozicija na rang listi:" />
+      <Label fx:id="lblBodovi" layoutX="757.0" layoutY="182.0" text="0" />
+      <Label fx:id="lblPozicija" layoutX="761.0" layoutY="222.0" text="Nepoznato" />
+      <ChoiceBox fx:id="cbxSezona" layoutX="608.0" layoutY="64.0" prefHeight="25.0" prefWidth="101.0" />
+      <Button layoutX="791.0" layoutY="436.0" mnemonicParsing="false" onAction="#preuzmiRezultate" prefHeight="37.0" prefWidth="119.0" text="Preuzmite rezultate" />
+      <Button layoutX="791.0" layoutY="366.0" mnemonicParsing="false" onAction="#registrujIgracaKlik" prefHeight="37.0" prefWidth="119.0" text="Registruj igraca" />
    </children>
 </AnchorPane>

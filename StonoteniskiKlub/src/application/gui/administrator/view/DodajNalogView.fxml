@@ -8,9 +8,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="337.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.administrator.controller.DodajNalogController">
+<AnchorPane prefHeight="370.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.administrator.controller.DodajNalogController">
    <children>
-      <TableView fx:id="tabelaZaposleni" layoutY="1.0" prefHeight="339.0" prefWidth="422.0">
+      <TableView fx:id="tabelaZaposleni" layoutX="14.0" layoutY="14.0" prefHeight="339.0" prefWidth="422.0">
         <columns>
           <TableColumn fx:id="kolonaJmbg" prefWidth="173.0" text="JMBG" />
           <TableColumn fx:id="kolonaIme" prefWidth="122.0" text="Ime" />
@@ -20,9 +20,9 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button defaultButton="true" layoutX="447.0" layoutY="258.0" mnemonicParsing="false" onAction="#dodajteNalogKlik" prefHeight="25.0" prefWidth="149.0" text="Dodajte nalog" />
+      <Button fx:id="dodajteNalogDugme" defaultButton="true" layoutX="447.0" layoutY="258.0" mnemonicParsing="false" onAction="#dodajteNalogKlik" prefHeight="25.0" prefWidth="149.0" text="Dodajte nalog" />
       <ChoiceBox fx:id="ulogaChoiceBox" layoutX="447.0" layoutY="171.0" prefHeight="25.0" prefWidth="149.0" />
-      <TextField fx:id="korisnickoIme" layoutX="447.0" layoutY="90.0" prefHeight="25.0" prefWidth="149.0" promptText="Korisničko ime" />
+      <TextField fx:id="korisnickoIme" layoutX="447.0" layoutY="90.0" prefHeight="25.0" prefWidth="149.0" />
       <Label layoutX="447.0" layoutY="63.0" text="Korisničko ime:" />
       <Label layoutX="447.0" layoutY="143.0" text="Uloga:" />
    </children>
