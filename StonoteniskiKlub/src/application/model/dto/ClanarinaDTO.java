@@ -31,7 +31,7 @@ public class ClanarinaDTO extends TransakcijaDTO{
 	
 	public String getNazivMjeseca() {
 		if(mjesec != null)
-			return mjeseciUGodini[mjesec.getValue()];
+			return mjeseciUGodini[mjesec.getValue()-1];
 		return null;
 	}
 
