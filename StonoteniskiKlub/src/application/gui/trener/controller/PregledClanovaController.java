@@ -3,13 +3,18 @@ package application.gui.trener.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -17,6 +22,7 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dao.RegistracijaDAO;
 import application.model.dto.ClanDTO;
+import application.model.dto.ClanarinaDTO;
 import application.model.dto.RegistracijaDTO;
 import application.model.helper.Rezultat;
 import application.util.ListUpdater;
@@ -30,6 +36,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -37,6 +44,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -45,6 +54,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.scene.control.TableCell;
 
 public class PregledClanovaController extends BaseController implements Initializable {
 
@@ -142,9 +152,23 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 		tcAktivan.setCellValueFactory(new PropertyValueFactory<ClanDTO, Boolean>("aktivan"));
 		tcAktivan.setVisible(false);
+		tcAktivan.setCellFactory(col -> new TableCell<ClanDTO, Boolean>() {
+		    @Override
+		    protected void updateItem(Boolean item, boolean empty) {
+		        super.updateItem(item, empty) ;
+		        setText(empty ? null : item ? "Da" : "Ne" );
+		    }
+		});
 
 		tcRegistrovan.setCellValueFactory(new PropertyValueFactory<ClanDTO, Boolean>("registrovan"));
 		tcRegistrovan.setVisible(false);
+		tcRegistrovan.setCellFactory(col -> new TableCell<ClanDTO, Boolean>() {
+		    @Override
+		    protected void updateItem(Boolean item, boolean empty) {
+		        super.updateItem(item, empty) ;
+		        setText(empty ? null : item ? "Da" : "Ne" );
+		    }
+		});
 
 		listaClanova = FXCollections.observableArrayList();
 		listaClanova.addAll(DAOFactory.getDAOFactory().getClanDAO().selectAll());
@@ -261,7 +285,8 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 	public void izmjeniClana() {
 		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
-
+		if(clan == null)
+			return;
 		try {
 			Stage stage = new Stage();
 			FXMLLoader loader = new FXMLLoader(
@@ -291,13 +316,68 @@ public class PregledClanovaController extends BaseController implements Initiali
 	}
 
 	public void izvrsiIsclanjivanje() {
+		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
+		if(clan == null)
+			return;
+		
 		// provjriti da li je AKTIVAN, ako nije ERROR
-
+		if(!clan.isAktivan()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Greška");
+			alert.setHeaderText("Greška!");
+			alert.setContentText("Odabrani član nije aktivan. Nemoguće je izvršiti njegovo iščlanjivanje.");
+			alert.getButtonTypes().clear();
+			alert.getButtonTypes().add(ButtonType.OK);
+			alert.getButtonTypes().add(ButtonType.CANCEL);
+			alert.show();
+			return;
+		}
+		
 		// provjeriti da li je uplatio sve clanarine do tad, ako nije ERROR
+		List<ClanarinaDTO> list = DAOFactory.getDAOFactory().getClanarinaDAO().selectByClanID(clan.getId());
+		if(list.size() == 0) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Upozorenje");
+			alert.setHeaderText("Upozorenje!");
+			alert.setContentText("Odabrani član nije uplatio ni jednu članarinu. "
+					+ " Da li želite da nastavite?");
+			alert.getButtonTypes().clear();
+			alert.getButtonTypes().add(ButtonType.YES);
+			alert.getButtonTypes().add(ButtonType.NO);
+			Optional<ButtonType> tmp = alert.showAndWait();
+			if(tmp.isPresent() && tmp.get() == ButtonType.NO) {
+				return;
+			}
+		}
+		else {
+			ClanarinaDTO max = list.get(0);
+			for(int i = 1; i<list.size(); i++) {
+				if(list.get(i).getDatum().after(max.getDatum()))
+					max = list.get(i);
+			}
+			DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Upozorenje");
+			alert.setHeaderText("Upozorenje!");
+			alert.setContentText("Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec "
+					+ max.getNazivMjeseca() +
+					", godine " + max.getGodina().getValue() + ". "
+					+ " Da li želite da nastavite?");
+			alert.getButtonTypes().clear();
+			alert.getButtonTypes().add(ButtonType.YES);
+			alert.getButtonTypes().add(ButtonType.NO);
+			Optional<ButtonType> tmp = alert.showAndWait();
+			if(tmp.isPresent() && tmp.get() == ButtonType.NO) {
+				return;
+			}
+		}
 
 		// ako je sve u redu:
 		// * resetovati AKTIVAN
 		// * setovati DATUM_DO u clanstvu na trenutni datum
+		clan.setAktivan(false);
+		DAOFactory.getDAOFactory().getClanDAO().setAktivan(false, clan.getId());
+		DAOFactory.getDAOFactory().getClanstvoDAO().update(clan.getId());
 	}
 
 	public void pretragaClanova() {

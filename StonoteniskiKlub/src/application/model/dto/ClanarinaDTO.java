@@ -13,6 +13,27 @@ public class ClanarinaDTO extends TransakcijaDTO{
 	private StringProperty imeClana;
 	private StringProperty prezimeClana;
 	private Integer clanId;
+	
+	private String[] mjeseciUGodini = {
+			"Januar",
+			"Februar",
+			"Mart",
+			"April",
+			"Maj",
+			"Jun",
+			"Jul",
+			"Avgust",
+			"Septembar",
+			"Oktobar",
+			"Novembar",
+			"Decembar"
+	};
+	
+	public String getNazivMjeseca() {
+		if(mjesec != null)
+			return mjeseciUGodini[mjesec.getValue()-1];
+		return null;
+	}
 
 
 	public Integer getClanId() {

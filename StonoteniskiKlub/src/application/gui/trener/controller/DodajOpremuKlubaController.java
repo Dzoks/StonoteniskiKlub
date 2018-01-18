@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.mysql.MySQLDAOFactory;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.DonacijaStavka;
 import application.model.dto.Narudzba;
@@ -150,7 +149,7 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 	}
 	
 	public void ucitajComboBoxeve() {
-		ObservableList<DonacijaDTO> listaDonacija = MySQLDAOFactory.getInstance().getDonacijaDAO().neobradjene(false);
+		ObservableList<DonacijaDTO> listaDonacija = DAOFactory.getDAOFactory().getDonacijaDAO().neobradjene(false);
 		comboBoxDonacija.setItems(listaDonacija);
 		comboBoxDonacija.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<DonacijaDTO>() {
 

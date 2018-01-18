@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="330.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeDonacijaController">
+<AnchorPane fx:id="pane" prefHeight="330.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeDonacijaController">
    <children>
       <TableView fx:id="tableDonacije" layoutX="37.0" layoutY="94.0" prefHeight="198.0" prefWidth="448.0">
         <columns>
@@ -20,6 +20,9 @@
             <TableColumn fx:id="tableColumnOpis" prefWidth="118.0" text="Opis" />
             <TableColumn fx:id="tableColumnObradjeno" prefWidth="103.0" text="Obradjeno" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <Button fx:id="btnObradi" layoutX="586.0" layoutY="212.0" mnemonicParsing="false" onAction="#obradi" prefHeight="25.0" prefWidth="149.0" text="Obradi" />
       <Button fx:id="btnNeobradjeno" layoutX="589.0" layoutY="257.0" mnemonicParsing="false" onAction="#neObradi" prefHeight="25.0" prefWidth="142.0" text="Postavi na neobradjeno" />
