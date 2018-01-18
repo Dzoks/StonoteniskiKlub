@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="672.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.DodajOpremuController">
+<AnchorPane prefHeight="655.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.DodajOpremuController">
    <children>
       <CheckBox fx:id="checkBoxDonirana" layoutX="22.0" layoutY="27.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="129.0" text="Donirana">
          <font>
@@ -23,9 +23,9 @@
       <Label layoutX="22.0" layoutY="66.0" text="Donacija" />
       <ComboBox fx:id="comboBoxDonacija" layoutX="81.0" layoutY="62.0" prefHeight="25.0" prefWidth="186.0" />
       <Label layoutX="22.0" layoutY="99.0" text="Opis" />
-      <TextArea fx:id="txtOpis" layoutX="81.0" layoutY="97.0" prefHeight="109.0" prefWidth="273.0" promptText="Opis" />
-      <Label layoutX="386.0" layoutY="99.0" text="Veličina" />
-      <TextField fx:id="txtVelicina" layoutX="451.0" layoutY="95.0" prefHeight="25.0" prefWidth="186.0" promptText="Veličina" />
+      <TextArea fx:id="txtOpis" layoutX="81.0" layoutY="97.0" prefHeight="109.0" prefWidth="381.0" promptText="Opis" />
+      <Label layoutX="489.0" layoutY="91.0" text="Veličina" />
+      <TextField fx:id="txtVelicina" layoutX="554.0" layoutY="87.0" prefHeight="25.0" prefWidth="186.0" promptText="Veličina" />
       <Separator layoutX="16.0" layoutY="396.0" prefHeight="0.0" prefWidth="730.0" />
       <Label layoutX="25.0" layoutY="412.0" text="Narudžba" />
       <ComboBox fx:id="comboBoxNarudzba" layoutX="87.0" layoutY="408.0" prefHeight="25.0" prefWidth="186.0" />
@@ -41,7 +41,7 @@
             <TableColumn fx:id="obradjeno" prefWidth="75.0" text="Obrađeno" />
         </columns>
       </TableView>
-      <Button fx:id="btnDodaj" layoutX="530.0" layoutY="618.0" mnemonicParsing="false" onAction="#idiNaObradiOpremu" prefHeight="42.0" prefWidth="214.0" text="Dodaj" />
+      <Button fx:id="btnDodaj" layoutX="578.0" layoutY="618.0" mnemonicParsing="false" onAction="#idiNaObradiOpremu" prefHeight="25.0" prefWidth="166.0" text="Dodaj" />
       <TableView fx:id="tblDonacije" layoutX="25.0" layoutY="228.0" prefHeight="155.0" prefWidth="722.0">
          <columns>
             <TableColumn fx:id="idDonacije" prefWidth="72.0" text="ID" />
@@ -52,14 +52,14 @@
             <TableColumn fx:id="velicinaDonacije" prefWidth="102.0" text="Veličina" />
          </columns>
       </TableView>
-      <Label fx:id="lblTipOpreme" layoutX="539.0" layoutY="66.0" prefHeight="17.0" prefWidth="186.0" />
-      <Label fx:id="lblKolicina" layoutX="273.0" layoutY="66.0" prefHeight="17.0" prefWidth="166.0">
+      <Label fx:id="lblTipOpreme" layoutX="554.0" layoutY="66.0" prefHeight="17.0" prefWidth="186.0" />
+      <Label fx:id="lblKolicina" layoutX="273.0" layoutY="66.0" prefHeight="17.0" prefWidth="186.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
       <Button fx:id="btnDodajStavku" layoutX="602.0" layoutY="181.0" mnemonicParsing="false" onAction="#idiNaObradiOpremu" prefHeight="25.0" prefWidth="142.0" text="Dodaj stavku" />
-      <Label layoutX="386.0" layoutY="143.0" text="Količina" />
-      <TextField fx:id="txtKolicina" layoutX="451.0" layoutY="139.0" prefHeight="25.0" prefWidth="186.0" promptText="Količina" />
+      <Label layoutX="489.0" layoutY="135.0" text="Količina" />
+      <TextField fx:id="txtKolicina" layoutX="554.0" layoutY="131.0" prefHeight="25.0" prefWidth="186.0" promptText="Količina" />
    </children>
 </AnchorPane>

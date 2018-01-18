@@ -12,7 +12,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="614.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.UclanjivanjeController">
+<AnchorPane prefHeight="602.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.UclanjivanjeController">
    <children>
       <TextField fx:id="txtIme" layoutX="375.0" layoutY="49.0" prefHeight="31.0" prefWidth="218.0" promptText="Ime" />
       <TextField fx:id="txtPrezime" layoutX="374.0" layoutY="102.0" prefHeight="31.0" prefWidth="218.0" promptText="Prezime" />
@@ -24,8 +24,8 @@
       <RadioButton fx:id="rbZensko" layoutX="495.0" layoutY="444.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="100.0" text="Žensko" />
       <DatePicker fx:id="dpDatumRodjenja" layoutX="374.0" layoutY="485.0" prefHeight="31.0" prefWidth="218.0" promptText="dd/MM/yyyy" showWeekNumbers="true" />
       <Button layoutX="40.0" layoutY="297.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="31.0" prefWidth="200.0" text="Dodaj fotografiju" />
-      <Button fx:id="btnUclani" layoutX="417.0" layoutY="549.0" mnemonicParsing="false" onAction="#izvrsiUclanjivanje" prefHeight="40.0" prefWidth="80.0" text="Učlani" />
-      <Button layoutX="511.0" layoutY="549.0" mnemonicParsing="false" onAction="#izlaz" prefHeight="40.0" prefWidth="84.0" text="Odustani" />
+      <Button fx:id="btnUclani" layoutX="376.0" layoutY="549.0" mnemonicParsing="false" onAction="#izvrsiUclanjivanje" prefHeight="31.0" prefWidth="100.0" text="Učlani" />
+      <Button layoutX="506.0" layoutY="549.0" mnemonicParsing="false" onAction="#izlaz" prefHeight="31.0" prefWidth="89.0" text="Odustani" />
       <ImageView fx:id="ivSlika" fitHeight="236.0" fitWidth="200.0" layoutX="40.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../resources/avatar.png" />

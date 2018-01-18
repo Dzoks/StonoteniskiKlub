@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="680.0" prefWidth="1090.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.SinglZrijebController">
+<AnchorPane prefHeight="680.0" prefWidth="1090.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.SinglZrijebController">
    <children>
       <Label layoutX="86.0" text="1. runda">
          <font>
@@ -24,17 +24,17 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="702.0" layoutY="237.0" text="1/2 finala">
+      <Label layoutX="710.0" layoutY="237.0" text="1/2 finala">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="923.0" layoutY="269.0" text="Finale">
+      <Label layoutX="931.0" layoutY="269.0" text="Finale">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <TableView fx:id="tblRunda1" layoutX="7.0" layoutY="18.0" prefHeight="670.0" prefWidth="213.0">
+      <TableView fx:id="tblRunda1" layoutX="7.0" layoutY="18.0" prefHeight="654.0" prefWidth="213.0">
         <columns>
           <TableColumn fx:id="clnMec1" prefWidth="135.0" text="Mec" />
           <TableColumn fx:id="clnRezultat1" prefWidth="67.0" text="Rezultat" />
@@ -52,7 +52,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="tblRunda5" layoutX="840.0" layoutY="287.0" prefHeight="70.0" prefWidth="205.0">
+      <TableView fx:id="tblRunda5" layoutX="857.0" layoutY="290.0" prefHeight="70.0" prefWidth="199.0">
          <columns>
             <TableColumn fx:id="clnMec5" prefWidth="135.0" text="Mec" />
             <TableColumn fx:id="clnRezultat5" prefWidth="62.0" text="Rezultat" />
@@ -61,7 +61,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="tblRunda4" layoutX="634.0" layoutY="256.0" prefHeight="110.0" prefWidth="205.0">
+      <TableView fx:id="tblRunda4" layoutX="642.0" layoutY="256.0" prefHeight="110.0" prefWidth="205.0">
          <columns>
             <TableColumn fx:id="clnMec4" prefWidth="135.0" text="Mec" />
             <TableColumn fx:id="clnRezultat4" prefWidth="62.0" text="Rezultat" />
@@ -70,7 +70,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="tblRunda3" layoutX="429.0" layoutY="206.0" prefHeight="190.0" prefWidth="205.0">
+      <TableView fx:id="tblRunda3" layoutX="435.0" layoutY="206.0" prefHeight="190.0" prefWidth="199.0">
          <columns>
             <TableColumn fx:id="clnMec3" prefWidth="135.0" text="Mec" />
             <TableColumn fx:id="clnRezultat3" prefWidth="62.0" text="Rezultat" />
@@ -87,8 +87,8 @@
       <Button fx:id="btnRunda1" layoutX="221.0" layoutY="18.0" mnemonicParsing="false" onAction="#refresujRundu1" text="-&gt;" />
       <Button fx:id="btnRunda2" layoutX="426.0" layoutY="137.0" mnemonicParsing="false" onAction="#refresujRundu2" text="-&gt;" />
       <Button fx:id="btnRunda3" layoutX="634.0" layoutY="206.0" mnemonicParsing="false" onAction="#refresujRundu3" text="-&gt;" />
-      <Button fx:id="btnRunda4" layoutX="840.0" layoutY="258.0" mnemonicParsing="false" onAction="#refresujRundu4" text="-&gt;" />
-      <Button fx:id="btnRunda5" layoutX="1049.0" layoutY="287.0" mnemonicParsing="false" onAction="#refresujRundu5" text="-&gt;" />
+      <Button fx:id="btnRunda4" layoutX="848.0" layoutY="258.0" mnemonicParsing="false" onAction="#refresujRundu4" text="-&gt;" />
+      <Button fx:id="btnRunda5" layoutX="1060.0" layoutY="290.0" mnemonicParsing="false" onAction="#refresujRundu5" text="-&gt;" />
       <Label fx:id="lblPobjednik" layoutX="742.0" layoutY="92.0" style="-fx-font-size: 18px;" text="Pobjednik:">
          <font>
             <Font size="18.0" />

@@ -758,7 +758,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	}
 
 	public void popuniTabele() {
-		idKlub.setCellValueFactory(new PropertyValueFactory<OpremaKluba, Integer>("id"));
+
 		tipKlub.setCellValueFactory(new PropertyValueFactory<OpremaKluba, String>("tipOpreme"));
 		proizvodjacKlub.setCellValueFactory(new PropertyValueFactory<OpremaKluba, String>("tipProizvodjac"));
 		modelKlub.setCellValueFactory(new PropertyValueFactory<OpremaKluba, String>("tipModel"));
@@ -769,7 +769,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 		tblOpremaKluba.setItems(listaOpremeKluba);
 
-		idClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, Integer>("id"));
+
 		tipClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, String>("tipOpreme"));
 		proizvodjacClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, String>("tipProizvodjac"));
 		modelClan.setCellValueFactory(new PropertyValueFactory<OpremaClana, String>("tipModel"));

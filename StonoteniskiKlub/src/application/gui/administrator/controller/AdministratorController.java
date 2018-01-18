@@ -60,7 +60,7 @@ public class AdministratorController extends BaseController {
 		if (tabelaNalog.getSelectionModel().getSelectedItem() != null) {
 			KorisnickiNalogDAO.setAktivan(0,
 					((KorisnickiNalogDTO) tabelaNalog.getSelectionModel().getSelectedItem()).getNalogId());
-			new Alert(AlertType.INFORMATION, "Uspjesno ste obrisali nalog.", ButtonType.OK).show();
+			new Alert(AlertType.INFORMATION, "Uspješno ste obrisali nalog.", ButtonType.OK).show();
 
 			popuniTabelu();
 		} else {
@@ -75,6 +75,7 @@ public class AdministratorController extends BaseController {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		obrisiNalogDugme.disableProperty().bind(tabelaNalog.getSelectionModel().selectedItemProperty().isNull());
 		popuniTabelu();
 	}
 
