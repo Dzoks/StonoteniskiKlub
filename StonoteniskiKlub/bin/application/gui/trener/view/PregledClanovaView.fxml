@@ -31,17 +31,18 @@
          <contextMenu>
             <ContextMenu>
               <items>
-                <MenuItem fx:id="miIzmjeni" mnemonicParsing="false" onAction="#izmjeniClana" text="Izmjeni" />
-                  <MenuItem fx:id="miIsclani" mnemonicParsing="false" onAction="#izvrsiIsclanjivanje" text="Iščlani" />
-                  <MenuItem fx:id="miTreninzi" mnemonicParsing="false" onAction="#otvoriTreninge" text="Treninzi" />
+                <MenuItem fx:id="miIzmjeni" mnemonicParsing="false" onAction="#izmjeniClana" text="Izmjenite" />
+                  <MenuItem fx:id="miIsclani" mnemonicParsing="false" onAction="#izvrsiIsclanjivanje" text="Iščlanite" />
+                  <MenuItem fx:id="miTreninzi" mnemonicParsing="false" onAction="#otvoriTreninge" text="Pregledajte treninge" />
               </items>
             </ContextMenu>
          </contextMenu>
       </TableView>
-      <TextField fx:id="txtIme" layoutX="14.0" layoutY="327.0" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="137.0" promptText="Ime" />
-      <TextField fx:id="txtPrezime" layoutX="158.0" layoutY="327.0" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="137.0" promptText="Prezime" />
-      <Button layoutX="303.0" layoutY="327.0" mnemonicParsing="false" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="88.0" text="Pretraga" />
-      <Button layoutX="791.0" layoutY="506.0" mnemonicParsing="false" onAction="#uclanjivanje" prefHeight="37.0" prefWidth="119.0" text="Uclanjivanje" />
+
+      <TextField fx:id="txtIme" layoutX="14.0" layoutY="327.0" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="137.0"  />
+      <TextField fx:id="txtPrezime" layoutX="158.0" layoutY="327.0" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="137.0" />
+      <Button layoutX="303.0" layoutY="327.0" mnemonicParsing="false" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="88.0" text="Pretražite" />
+      <Button layoutX="791.0" layoutY="506.0" mnemonicParsing="false" onAction="#uclanjivanje" prefHeight="37.0" prefWidth="119.0" text="Učlanjivanje" />
       <ImageView fx:id="ivFotografija" fitHeight="289.0" fitWidth="256.0" layoutX="332.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
       <GridPane layoutX="15.0" layoutY="14.0" prefHeight="289.0" prefWidth="296.0">
         <columnConstraints>
@@ -69,7 +70,7 @@
             <Label text="Ime roditelja:" GridPane.rowIndex="2" />
             <Label text="Telefon:" GridPane.rowIndex="5" />
             <Label text="Pol:" GridPane.rowIndex="4" />
-            <Label text="Datum rodjenja:" GridPane.rowIndex="3" />
+            <Label text="Datum rođenja" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Label fx:id="lblTurniri" layoutX="614.0" layoutY="30.0" text="Sezona:" />
@@ -79,6 +80,8 @@
           <TableColumn fx:id="clnBodovi" prefWidth="75.0" text="Bodovi" />
         </columns>
       </TableView>
+      <Label layoutX="51.0" layoutY="21.0" text="Ime:" />
+      <Label layoutX="195.0" layoutY="21.0" text="Prezime:" />
       <Label fx:id="lblBodoviTxt" layoutX="614.0" layoutY="182.0" text="Ukupno bodova:" />
       <Label fx:id="lblPozicijaTxt" layoutX="614.0" layoutY="222.0" text="Pozicija na rang listi:" />
       <Label fx:id="lblBodovi" layoutX="757.0" layoutY="182.0" text="0" />

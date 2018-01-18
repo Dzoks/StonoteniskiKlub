@@ -257,7 +257,6 @@ public class SinglTurnirController extends BaseController{
 	public void vratiNazad(){
 		try {
 			changeScene("/application/gui/organizator/view/TurniriView.fxml", primaryStage);
-			primaryStage.setTitle("Turniri");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

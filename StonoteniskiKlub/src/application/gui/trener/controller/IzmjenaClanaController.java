@@ -166,27 +166,36 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 		}
 		
 		if(!jmb.matches("[0-9]*") || !(jmb.length() == 13)) {
-			new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) nije dobro unesen.", ButtonType.OK).showAndWait();
+			Alert alert=new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) nije dobro unesen.", ButtonType.OK);
+			alert.setHeaderText("Greška prilikom unosa matičnog broja");
+			alert.setTitle("Greška");
+			alert.showAndWait();
 			return;
 		}
 		OsobaDTO osoba = DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(jmb);
 		if(osoba != null && osoba.getId() != clan.getId()) {
-			new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) već postoji u bazi podataka."
-					+ " Pokusajte ponovo.", ButtonType.OK).showAndWait();
+			Alert alert=new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) već postoji u bazi podataka. Pokušajte ponovo.", ButtonType.OK);
+			alert.setHeaderText("Greška prilikom unosa matičnog broja");
+			alert.setTitle("Greška");
+			alert.showAndWait();
 			return;
 		}
 		
 		for(String tel : telefoni) {
 			int id = DAOFactory.getDAOFactory().getOsobaDAO().getIdByTelefon(tel);
 			if(id!=0 && id!=clan.getId()) {
-				new Alert(AlertType.ERROR, "Greška prilikom unosa broja telefona. "
-						+ "Broj: " + tel + " pripada nekom drugom.", ButtonType.OK).showAndWait();
+				Alert alert=new Alert(AlertType.ERROR, "Broj: " + tel + " pripada nekom drugom.", ButtonType.OK);
+				alert.setHeaderText("Greška prilikom unosa telefona");
+				alert.setTitle("Greška");
+				alert.showAndWait();
 				return;
 			}
 		}
 		if(telefoni.size() == 0) {
-			new Alert(AlertType.ERROR, "Greška prilikom unosa broja telefona. "
-					+ "Bar jedan broj telefona mora biti unesen.", ButtonType.OK).showAndWait();
+			Alert alert=new Alert(AlertType.ERROR, "Bar jedan broj telefona mora biti unesen.", ButtonType.OK);
+			alert.setHeaderText("Greška prilikom unosa telefona");
+			alert.setTitle("Greška");
+			alert.showAndWait();
 			return;
 		}
 		
@@ -241,7 +250,10 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			txtTelefon.clear();
 		}
 		else {
-			new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK).show();
+			Alert alert=new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK);
+			alert.setHeaderText("Greška prilikom unosa telefona");
+			alert.setTitle("Greška");
+			alert.showAndWait();
 		}
 	}
 	
