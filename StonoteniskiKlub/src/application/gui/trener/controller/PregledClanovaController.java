@@ -54,6 +54,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.scene.control.TableCell;
 
 public class PregledClanovaController extends BaseController implements Initializable {
 
@@ -151,9 +152,23 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 		tcAktivan.setCellValueFactory(new PropertyValueFactory<ClanDTO, Boolean>("aktivan"));
 		tcAktivan.setVisible(false);
+		tcAktivan.setCellFactory(col -> new TableCell<ClanDTO, Boolean>() {
+		    @Override
+		    protected void updateItem(Boolean item, boolean empty) {
+		        super.updateItem(item, empty) ;
+		        setText(empty ? null : item ? "Da" : "Ne" );
+		    }
+		});
 
 		tcRegistrovan.setCellValueFactory(new PropertyValueFactory<ClanDTO, Boolean>("registrovan"));
 		tcRegistrovan.setVisible(false);
+		tcRegistrovan.setCellFactory(col -> new TableCell<ClanDTO, Boolean>() {
+		    @Override
+		    protected void updateItem(Boolean item, boolean empty) {
+		        super.updateItem(item, empty) ;
+		        setText(empty ? null : item ? "Da" : "Ne" );
+		    }
+		});
 
 		listaClanova = FXCollections.observableArrayList();
 		listaClanova.addAll(DAOFactory.getDAOFactory().getClanDAO().selectAll());
@@ -344,8 +359,9 @@ public class PregledClanovaController extends BaseController implements Initiali
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Upozorenje");
 			alert.setHeaderText("Upozorenje!");
-			alert.setContentText("Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec " + max.getMjesec() +
-					", godine " + max.getGodina() + ". "
+			alert.setContentText("Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec "
+					+ max.getNazivMjeseca() +
+					", godine " + max.getGodina().getValue() + ". "
 					+ " Da li želite da nastavite?");
 			alert.getButtonTypes().clear();
 			alert.getButtonTypes().add(ButtonType.YES);
