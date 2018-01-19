@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="536.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeClanarinaController">
+<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeClanarinaController">
    <children>
-      <TableView fx:id="tableClanarine" layoutX="17.0" layoutY="243.0" prefHeight="198.0" prefWidth="451.0">
+      <TableView fx:id="tableClanarine" layoutX="17.0" layoutY="243.0" prefHeight="192.0" prefWidth="451.0">
         <columns>
           <TableColumn fx:id="tableColumnIme" prefWidth="61.0" text="Ime" />
           <TableColumn fx:id="tableColumnPrezime" prefWidth="72.0" text="Prezime" />
@@ -31,12 +31,12 @@
       </TableView>
       <Separator layoutX="13.0" layoutY="221.0" prefHeight="1.0" prefWidth="739.0" />
       <Label fx:id="lblPrikazPo" layoutX="484.0" layoutY="248.0" text="Prikaz po:" />
-      <RadioButton fx:id="radiobtnClan" layoutX="600.0" layoutY="248.0" mnemonicParsing="false" onAction="#radioClan" text="Clanu" />
-      <RadioButton fx:id="radiobtnMjesec" layoutX="668.0" layoutY="248.0" mnemonicParsing="false" onAction="#radioMjesec" text="Mjesecu" />
-      <Label fx:id="lblMjesec" layoutX="484.0" layoutY="291.0" text="Mjesec:" />
-      <Spinner fx:id="spinnerMjesecPrikazi" layoutX="551.0" layoutY="287.0" />
-      <Label fx:id="lblClan" layoutX="484.0" layoutY="373.0" text="Clan:" />
-      <ComboBox fx:id="comboBoxClanPrikazi" layoutX="550.0" layoutY="369.0" prefWidth="150.0" />
+      <RadioButton fx:id="radiobtnClan" alignment="CENTER_LEFT" contentDisplay="RIGHT" layoutX="557.0" layoutY="250.0" mnemonicParsing="false" onAction="#radioClan" prefHeight="17.0" prefWidth="65.0" text="Clanu" />
+      <RadioButton fx:id="radiobtnMjesec" layoutX="557.0" layoutY="305.0" mnemonicParsing="false" onAction="#radioMjesec" text="Mjesecu" />
+      <Label fx:id="lblMjesec" layoutX="480.0" layoutY="332.0" text="Mjesec:" />
+      <Spinner fx:id="spinnerMjesecPrikazi" layoutX="547.0" layoutY="328.0" />
+      <Label fx:id="lblClan" layoutX="480.0" layoutY="414.0" text="Clan:" />
+      <ComboBox fx:id="comboBoxClanPrikazi" layoutX="546.0" layoutY="410.0" prefWidth="150.0" />
       <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplacenoj clanarini:">
          <font>
             <Font name="System Bold Italic" size="16.0" />
@@ -51,15 +51,15 @@
       <Label fx:id="lblKM" layoutX="259.0" layoutY="179.0" text="KM" />
       <Label fx:id="lblDatumUplate" layoutX="324.0" layoutY="60.0" text="Datum uplate:" />
       <DatePicker fx:id="datePicker" layoutX="423.0" layoutY="56.0" />
-      <Button fx:id="btnPrikazi" layoutX="555.0" layoutY="416.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Pretraga" />
-      <Button fx:id="btnIzmijeni" layoutX="226.0" layoutY="463.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijenite" />
-      <Label fx:id="lblGodina" layoutX="484.0" layoutY="334.0" text="Godina:" />
-      <Spinner fx:id="spinnerGodina" layoutX="551.0" layoutY="330.0" />
+      <Button fx:id="btnPrikazi" layoutX="611.0" layoutY="453.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="83.0" text="Pretraga" />
+      <Button fx:id="btnIzmijeni" layoutX="261.0" layoutY="453.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijenite" />
+      <Label fx:id="lblGodina" layoutX="480.0" layoutY="375.0" text="Godina:" />
+      <Spinner fx:id="spinnerGodina" layoutX="547.0" layoutY="371.0" />
       <Label fx:id="lblGodinaDodaj" layoutX="27.0" layoutY="142.0" text="Godina:" />
       <Spinner fx:id="spinnerGodinaDodaj" layoutX="102.0" layoutY="138.0" />
       <Label fx:id="lblOpis" layoutX="324.0" layoutY="100.0" text="Opis:" />
       <TextArea fx:id="txtOpis" layoutX="423.0" layoutY="103.0" prefHeight="37.0" prefWidth="174.0" />
-      <RadioButton fx:id="radiobtnSve" layoutX="548.0" layoutY="248.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" />
-      <Button fx:id="btnObrisi" layoutX="138.0" layoutY="463.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="75.0" text="Obrisite" />
+      <RadioButton fx:id="radiobtnSve" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="557.0" layoutY="278.0" mnemonicParsing="false" onAction="#radioSve" prefHeight="17.0" prefWidth="41.0" text="Sve" />
+      <Button fx:id="btnObrisi" layoutX="87.0" layoutY="453.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrisite" />
    </children>
 </AnchorPane>

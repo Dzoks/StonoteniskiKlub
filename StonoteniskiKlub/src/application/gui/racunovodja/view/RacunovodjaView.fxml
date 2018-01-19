@@ -4,9 +4,9 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="482.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.RacunovodjaController">
+<AnchorPane prefHeight="520.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.RacunovodjaController">
    <children>
-      <TabPane prefHeight="482.0" prefWidth="767.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="510.0" prefWidth="767.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="uplateTurniraTab" text="Uplate turnira">
              <fx:include source="EvidentiranjeUplataZaTurnirView.fxml" />

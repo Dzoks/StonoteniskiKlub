@@ -8,17 +8,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="421.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniUplatuZaTurnirController">
+<AnchorPane prefHeight="317.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniUplatuZaTurnirController">
    <children>
-      <Label fx:id="lblGodinaUplate" layoutX="24.0" layoutY="113.0" text="Datum uplate:" />
-      <DatePicker fx:id="datePicker" layoutX="124.0" layoutY="118.0" />
-      <Button fx:id="btnIzmijeni" layoutX="126.0" layoutY="327.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="149.0" text="Izmijeni" />
-      <Button fx:id="btnOtkazi" layoutX="126.0" layoutY="373.0" mnemonicParsing="false" onAction="#otkazi" prefHeight="25.0" prefWidth="150.0" text="Otkazi" />
-      <Label fx:id="lblIznos" layoutX="22.0" layoutY="155.0" prefHeight="17.0" prefWidth="46.0" text="Iznos:" />
-      <TextField fx:id="txtIznos" layoutX="125.0" layoutY="160.0" />
+      <Label fx:id="lblGodinaUplate" layoutX="21.0" layoutY="39.0" prefHeight="17.0" prefWidth="78.0" text="Datum uplate:" />
+      <DatePicker fx:id="datePicker" layoutX="124.0" layoutY="44.0" />
+      <Button fx:id="btnIzmijeni" layoutX="134.0" layoutY="225.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="149.0" text="Izmijeni" />
+      <Button fx:id="btnOtkazi" layoutX="134.0" layoutY="270.0" mnemonicParsing="false" onAction="#otkazi" prefHeight="25.0" prefWidth="150.0" text="Otkazi" />
+      <Label fx:id="lblIznos" layoutX="21.0" layoutY="81.0" prefHeight="17.0" prefWidth="47.0" text="Iznos:" />
+      <TextField fx:id="txtIznos" layoutX="125.0" layoutY="86.0" />
       <Label fx:id="lblKM" layoutX="280.0" layoutY="164.0" text="KM" />
-      <Label fx:id="lblOpis" layoutX="22.0" layoutY="211.0" text="Opis:" />
-      <ScrollPane fx:id="scrollPane" layoutX="126.0" layoutY="211.0" prefHeight="62.0" prefWidth="165.0">
+      <Label fx:id="lblOpis" layoutX="21.0" layoutY="137.0" prefHeight="17.0" prefWidth="47.0" text="Opis:" />
+      <ScrollPane fx:id="scrollPane" layoutX="126.0" layoutY="137.0" prefHeight="62.0" prefWidth="165.0">
          <content>
             <TextArea fx:id="txtOpis" prefHeight="61.0" prefWidth="164.0" />
          </content>
