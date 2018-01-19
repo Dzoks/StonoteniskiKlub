@@ -67,7 +67,10 @@ public class ObradiOpremuController extends BaseController implements Initializa
 		}
 		else {
 			if(listClanovi.getSelectionModel().getSelectedItems().size() != spinnerPristiglo.getValue().intValue()) {
-				new Alert(AlertType.ERROR, "Broj odabranih ljudi mora biti " + spinnerPristiglo.getValue() + ".", ButtonType.OK).show();
+				Alert alert=new Alert(AlertType.ERROR, "Broj odabranih ljudi mora biti " + spinnerPristiglo.getValue() + ".", ButtonType.OK);
+				alert.setTitle("Greška");
+				alert.setHeaderText("Greška prilikom dodavanja");
+				alert.showAndWait();
 				return false;
 			}
 			ObservableList<Clan> listaClanova = listClanovi.getSelectionModel().getSelectedItems();

@@ -7,16 +7,16 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="37.0" layoutY="33.0" text="Datum odrzavanja skupstine" />
+      <Label layoutX="37.0" layoutY="33.0" text="Datum održavanja skupštine:" />
       <DatePicker layoutX="199.0" layoutY="29.0" />
       <Label layoutX="37.0" layoutY="82.0" text="Tekst:" />
       <TextArea layoutX="37.0" layoutY="106.0" prefHeight="371.0" prefWidth="528.0" />
-      <Button layoutX="478.0" layoutY="496.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="Sacuvaj" />
-      <Button layoutX="371.0" layoutY="496.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="Dodaj stavku" />
-      <Label layoutX="37.0" layoutY="500.0" text="Redni broj" />
+      <Button layoutX="478.0" layoutY="496.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="Sačuvajte" />
+      <Button layoutX="360.0" layoutY="496.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Dodajte stavku" />
+      <Label layoutX="37.0" layoutY="500.0" text="Redni broj:" />
       <ComboBox layoutX="106.0" layoutY="496.0" prefHeight="25.0" prefWidth="55.0" />
-      <Button layoutX="173.0" layoutY="496.0" mnemonicParsing="false" text="Ukloni stavku" />
+      <Button layoutX="173.0" layoutY="496.0" mnemonicParsing="false" text="Uklonite stavku" />
    </children>
 </AnchorPane>

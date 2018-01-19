@@ -159,8 +159,8 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		MenuItem pogledajOpis = new MenuItem("Pogledajte opis");
 		MenuItem pogledajOpisDonacije = new MenuItem("Pogledajte opis donacije");
 		MenuItem izmjeniOpis = new MenuItem("Izmjenite opis");
-		MenuItem obrisiOpremuKluba = new MenuItem("Obriši opremu");
-		MenuItem obrisiOpremuClana = new MenuItem("Obriši opremu");
+		MenuItem obrisiOpremuKluba = new MenuItem("Obrišite opremu");
+		MenuItem obrisiOpremuClana = new MenuItem("Obrišite opremu");
 
 		obrisiOpremuKluba.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -304,8 +304,9 @@ public class OpremaGlavniController extends BaseController implements Initializa
 				}
 
 				if (selektovanaOprema != null) {
-					new Alert(AlertType.INFORMATION, "Sponzor - " + DAOFactory.getDAOFactory().getSponzorDAO()
-							.getById(selektovanaOprema.getIdSponzora()).getNaziv(), ButtonType.OK).show();
+					Alert alert=new Alert(AlertType.INFORMATION, "Sponzor - " + DAOFactory.getDAOFactory().getSponzorDAO()
+							.getById(selektovanaOprema.getIdSponzora()).getNaziv(), ButtonType.OK);
+					alert.showAndWait();
 				}
 			}
 
@@ -809,8 +810,10 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 				public void handle(WindowEvent we) {
 					we.consume();
-					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sacuvate izmjene?", ButtonType.YES,
+					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da sačuvate izmjene?", ButtonType.YES,
 							ButtonType.NO);
+					alert.setTitle("Informacija");
+					alert.setHeaderText("");
 					Optional<ButtonType> rezultat = alert.showAndWait();
 
 					if (ButtonType.YES.equals(rezultat.get())) {
@@ -855,8 +858,10 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 				public void handle(WindowEvent we) {
 					we.consume();
-					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sacuvate izmjene?", ButtonType.YES,
+					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sačuvate izmjene?", ButtonType.YES,
 							ButtonType.NO);
+					alert.setTitle("Informacija");
+					alert.setHeaderText("");
 					Optional<ButtonType> rezultat = alert.showAndWait();
 
 					if (ButtonType.YES.equals(rezultat.get())) {
@@ -922,8 +927,10 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 				public void handle(WindowEvent we) {
 					we.consume();
-					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sacuvate izmjene?", ButtonType.YES,
+					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da sačuvate izmjene?", ButtonType.YES,
 							ButtonType.NO);
+					alert.setTitle("Informacija");
+					alert.setHeaderText("");
 					Optional<ButtonType> rezultat = alert.showAndWait();
 
 					if (ButtonType.YES.equals(rezultat.get())) {

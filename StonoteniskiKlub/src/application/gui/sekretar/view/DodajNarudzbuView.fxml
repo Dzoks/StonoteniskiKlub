@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="548.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodajNarudzbuController">
+<AnchorPane prefHeight="548.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodajNarudzbuController">
    <children>
       <Label layoutX="25.0" layoutY="27.0" text="Distributer: ">
          <font>
@@ -43,16 +43,16 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="25.0" layoutY="150.0" text="Tip" />
+      <Label layoutX="25.0" layoutY="150.0" text="Tip:" />
       <ComboBox fx:id="comboBoxTip" layoutX="112.0" layoutY="146.0" prefHeight="25.0" prefWidth="171.0" />
       <Separator layoutX="3.0" layoutY="123.0" prefHeight="17.0" prefWidth="755.0" />
-      <Label layoutX="20.0" layoutY="188.0" text="Količina" />
+      <Label layoutX="20.0" layoutY="188.0" text="Količina:" />
       <Spinner fx:id="spinnerKolicina" layoutX="112.0" layoutY="184.0" prefHeight="25.0" prefWidth="171.0" />
-      <Label layoutX="20.0" layoutY="225.0" text="Cijena" />
-      <TextField fx:id="txtCijena" layoutX="112.0" layoutY="221.0" prefHeight="25.0" prefWidth="171.0" promptText="Cijena" />
-      <Label layoutX="20.0" layoutY="262.0" text="Veličina" />
-      <TextField fx:id="txtVelicina" layoutX="112.0" layoutY="258.0" prefHeight="25.0" prefWidth="171.0" promptText="Veličina" />
-      <Button fx:id="btnDodajStavku" layoutX="533.0" layoutY="250.0" mnemonicParsing="false" onAction="#provjeriParametre" prefHeight="42.0" prefWidth="214.0" text="Dodaj stavku" />
+      <Label layoutX="20.0" layoutY="225.0" text="Cijena:" />
+      <TextField fx:id="txtCijena" layoutX="112.0" layoutY="221.0" prefHeight="25.0" prefWidth="171.0" />
+      <Label layoutX="20.0" layoutY="262.0" text="Veličina:" />
+      <TextField fx:id="txtVelicina" layoutX="112.0" layoutY="258.0" prefHeight="25.0" prefWidth="171.0" />
+      <Button fx:id="btnDodajStavku" layoutX="533.0" layoutY="250.0" mnemonicParsing="false" onAction="#provjeriParametre" prefHeight="42.0" prefWidth="214.0" text="Dodajte stavku" />
       <TableView fx:id="tblNarudzbe" layoutX="12.0" layoutY="310.0" prefHeight="162.0" prefWidth="734.0">
         <columns>
           <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
@@ -64,7 +64,7 @@
             <TableColumn fx:id="cijena" prefWidth="118.0" text="Cijena" />
         </columns>
       </TableView>
-      <Button fx:id="btnEvidentiraj" layoutX="533.0" layoutY="492.0" mnemonicParsing="false" onAction="#evidentirajDodavanje" prefHeight="42.0" prefWidth="214.0" text="Evidentiraj" />
+      <Button fx:id="btnEvidentiraj" layoutX="533.0" layoutY="492.0" mnemonicParsing="false" onAction="#evidentirajDodavanje" prefHeight="42.0" prefWidth="214.0" text="Evidentirajte" />
       <Button fx:id="btnDodajTipOpreme" layoutX="301.0" layoutY="146.0" mnemonicParsing="false" onAction="#idiNaDodajTipOpreme" prefHeight="25.0" prefWidth="25.0" text="+" />
    </children>
 </AnchorPane>

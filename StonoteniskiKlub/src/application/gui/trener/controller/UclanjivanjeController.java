@@ -141,7 +141,9 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			txtTelefon.clear();
 		}
 		else {
-			new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK).show();
+			Alert alert=new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK);
+			alert.setTitle("Greška");
+			alert.setHeaderText("Greška prilikom dodavanja");
 		}
 	}
 	
@@ -160,7 +162,9 @@ public class UclanjivanjeController extends BaseController implements Initializa
 		if(!"".equals(txtIme.getText()) || !"".equals(txtImeRoditelja.getText()) 
 				|| !"".equals(txtJMB.getText()) || !"".equals(txtPrezime.getText()) 
 				|| !(listaTelefona.size()==0) || slikaOdabrana) {
-			Alert alert = new Alert(AlertType.WARNING, "Uneseni podaci ce biti izgubljeni. Da li želite da nastavite?", ButtonType.YES, ButtonType.NO);
+			Alert alert = new Alert(AlertType.WARNING, "Uneseni podaci će biti izgubljeni. Da li želite da nastavite?", ButtonType.YES, ButtonType.NO);
+			alert.setTitle("Upozorenje");
+			alert.setHeaderText("");
 			alert.showAndWait();
 			if(ButtonType.YES.equals(alert.getResult())) {
 				primaryStage.close();
@@ -194,7 +198,11 @@ public class UclanjivanjeController extends BaseController implements Initializa
 		String jmb = txtJMB.getText();
 		
 		if(!jmb.matches("[0-9]*") || !(jmb.length() == 13)) {
-			new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) nije dobro unesen.", ButtonType.OK).showAndWait();
+			
+			Alert alert=new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) nije dobro unesen.", ButtonType.OK);
+			alert.setTitle("Greška");
+			alert.setHeaderText("Greška prilikom dodavanja");
+			alert.showAndWait();
 			return;
 		}
 		
@@ -212,14 +220,21 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			if(clan != null) {
 //				ako postoji i aktivan je, ne mozemo ga dodati
 				if(clan.isAktivan()) {
-					new Alert(AlertType.ERROR, "Greška prilikom dodavanja člana. Član već postoji.", ButtonType.OK).showAndWait();
+					Alert alert=new Alert(AlertType.ERROR, "Greška prilikom dodavanja člana. Član već postoji.", ButtonType.OK);
+					alert.setTitle("Greška");
+					alert.setHeaderText("Greška prilikom dodavanja");
+					alert.showAndWait();
 					return;
 				}
 //				ako postoji unos u bazi, a nije aktivan, dodati novo clanstvo u tabeli CLANSTVO od danasnjeg datuma
 //				i azurirati fleg aktivan
 				DAOFactory.getDAOFactory().getClanDAO().setAktivan(true, clan.getId());
 				DAOFactory.getDAOFactory().getClanstvoDAO().insert(clan.getId());
-				new Alert(AlertType.INFORMATION, "Bivši član je ponovo aktivan. Neke informacije je možda potrebno izmjeniti.", ButtonType.OK).showAndWait();
+				
+				Alert alert=new Alert(AlertType.INFORMATION, "Bivši član je ponovo aktivan. Neke informacije je možda potrebno izmjeniti.", ButtonType.OK);
+				alert.setTitle("Informacija");
+				alert.setHeaderText("Dodavanje člana");
+				alert.showAndWait();
 				primaryStage.close();
 				return;
 			}
@@ -233,7 +248,10 @@ public class UclanjivanjeController extends BaseController implements Initializa
 //			MOZDA TREBA OBRISATI
 			DAOFactory.getDAOFactory().getClanDAO().insert(clan);
 			DAOFactory.getDAOFactory().getClanstvoDAO().insert(clan.getId());
-			new Alert(AlertType.INFORMATION, "Novi član. Neke informacije je možda potrebno izmjeniti.", ButtonType.OK).showAndWait();
+			Alert alert=new Alert(AlertType.INFORMATION, "Novi član. Neke informacije je možda potrebno izmjeniti.", ButtonType.OK);
+			alert.setTitle("Informacija");
+			alert.setHeaderText("Dodavanje člana");
+			alert.showAndWait();
 			primaryStage.close();
 			return;
 		}
@@ -252,7 +270,10 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			e.printStackTrace();
 			return;
 		}
-		new Alert(AlertType.INFORMATION, "Novi član uspiješno dodat.", ButtonType.OK).showAndWait();
+		Alert alert=new Alert(AlertType.INFORMATION, "Novi član uspiješno dodat.", ButtonType.OK);
+		alert.setTitle("Informacija");
+		alert.setHeaderText("Dodavanje člana");
+		alert.showAndWait();
 		primaryStage.close();
 	}
 	

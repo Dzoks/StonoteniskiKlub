@@ -130,7 +130,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 	
 	public void dodajKonteksniMeni() {
 		ContextMenu cm = new ContextMenu();
-	    MenuItem obrisiStavku = new MenuItem("Obrisi stavku");
+	    MenuItem obrisiStavku = new MenuItem("Obrišite stavku");
 	    obrisiStavku.setOnAction(new EventHandler<ActionEvent>() {
 	    	
 	        @Override
@@ -250,7 +250,10 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 			popuniTabelu();
 			
 		}catch(NumberFormatException e) {
-			new Alert(AlertType.ERROR, "Cijena nije u dobrom formatu.", ButtonType.OK).show();
+			Alert alert=new Alert(AlertType.ERROR, "Cijena nije u dobrom formatu.", ButtonType.OK);
+			alert.setTitle("Greška");
+			alert.setTitle("Greška prilikom dodavanja cijene");
+			alert.showAndWait();
 		}
 	}
 	
@@ -270,7 +273,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
 			
@@ -296,7 +299,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
 			if("YES".equals(controller.getPovratnaVrijednost())) {

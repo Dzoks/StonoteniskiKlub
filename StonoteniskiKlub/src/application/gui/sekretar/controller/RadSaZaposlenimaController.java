@@ -100,7 +100,7 @@ public class RadSaZaposlenimaController extends BaseController {
 			controller.setTip(DodavanjeZaposlenogController.DODAVANJE_ZAPOSLENOG);
 			newStage.setScene(scene);
 			newStage.setResizable(false);
-			newStage.setTitle("Stonoteniski klub - Dodavanje zaposlenog");
+			newStage.setTitle("Stonoteniski klub");
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -124,7 +124,7 @@ public class RadSaZaposlenimaController extends BaseController {
 			controller.setZaposleni(zaposleni);
 			newStage.setScene(scene);
 			newStage.setResizable(false);
-			newStage.setTitle("Stonoteniski klub - Dodavanje zaposlenja");
+			newStage.setTitle("Stonoteniski klub");
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -148,7 +148,7 @@ public class RadSaZaposlenimaController extends BaseController {
 			controller.setZaposleni(zaposleni);
 			newStage.setScene(scene);
 			newStage.setResizable(false);
-			newStage.setTitle("Stonoteniski klub - Azuriranje zaposlenog");
+			newStage.setTitle("Stonoteniski klub");
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

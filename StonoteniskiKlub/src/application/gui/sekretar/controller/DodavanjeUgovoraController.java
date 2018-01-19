@@ -110,7 +110,7 @@ public class DodavanjeUgovoraController extends BaseController {
 				donacije.add(donacija);
 				lstDonacije.setItems(donacije);
 			} else {
-				AlertDisplay.showInformation("Greska", "", "Niste unijeli sve podatke o donaciji");
+				AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Niste unijeli sve podatke o donaciji");
 			}
 		}
 
@@ -160,14 +160,14 @@ public class DodavanjeUgovoraController extends BaseController {
 							DAOFactory.getDAOFactory().getDonacijaDAO().insert(sponzor, ugovor, donacija);
 						}
 					}
-					AlertDisplay.showInformation("Uspjesno", "", "Ugovor uspjesno dodan.");
+					AlertDisplay.showInformation("Informacija", "Dodavanje ugovora", "Ugovor uspješno dodan.");
 				}
 				
 			} else {
-				AlertDisplay.showInformation("Greska", "", "Niste dodali donaciju!");
+				AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Niste dodali donaciju!");
 			}
 		} else {
-			AlertDisplay.showInformation("Greska", "", "Niste unijeli podatke o ugovoru!");
+			AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Niste unijeli podatke o ugovoru!");
 		}
 	}
 

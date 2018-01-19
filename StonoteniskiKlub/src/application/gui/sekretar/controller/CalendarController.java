@@ -56,7 +56,7 @@ public class CalendarController extends BaseController {
 				Scene scene = new Scene(root, 330, 377);
 				newStage.setScene(scene);
 				newStage.setResizable(false);
-				newStage.setTitle("Dodavanje dogadjaja");
+				newStage.setTitle("Stonoteniski klub");
 				newStage.show();
 			} catch (IOException e) {
 				e.printStackTrace();

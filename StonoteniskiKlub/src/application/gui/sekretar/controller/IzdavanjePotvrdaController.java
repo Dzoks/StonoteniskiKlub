@@ -187,6 +187,8 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			}
 			
 			Alert alert = new Alert(AlertType.CONFIRMATION, "Da li ste sigurni da želite da nastavite?", ButtonType.YES, ButtonType.NO);
+			alert.setTitle("Informacija");
+			alert.setHeaderText("");
 			if(alert.showAndWait().equals(ButtonType.YES)) {
 				if (job.printDialog()) {
 					job.print();

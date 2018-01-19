@@ -66,7 +66,7 @@ public class DodavanjeSkupstineController extends BaseController {
 			Scene scene = new Scene(root, 400, 400);
 			newStage.setScene(scene);
 			newStage.setResizable(false);
-			newStage.setTitle("Dodavanje stavke dnevnog reda");
+			newStage.setTitle("Stonoteniski klub");
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -107,12 +107,12 @@ public class DodavanjeSkupstineController extends BaseController {
 						parentController.addItem(skupstina);
 					}
 					parentController.refresh();
-					AlertDisplay.showInformation("Uspjesno", "", "Uspjesno dodavanje");
+					AlertDisplay.showInformation("Informacija", "Dodavanje skupštine", "Uspješno dodavanje");
 			}
 			Stage stage = (Stage) btnSacuvaj.getScene().getWindow();
 			stage.close();
 		} else {
-			AlertDisplay.showInformation("Greska", "", "Niste unijeli datum odrzavanja skupstine.");
+			AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Niste unijeli datum održavanja skupštine.");
 		}
 	}
 

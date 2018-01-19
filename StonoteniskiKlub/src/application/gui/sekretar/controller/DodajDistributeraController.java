@@ -39,7 +39,11 @@ public class DodajDistributeraController extends BaseController implements Initi
 			primaryStage.close();
 		}
 		else {
-			new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK).show();
+			
+			Alert alert=new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK);
+			alert.setTitle("Greška");
+			alert.setTitle("Greška prilikom dodavanja");
+			alert.showAndWait();
 		}
 	}
 	

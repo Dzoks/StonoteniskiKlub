@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodavanjeUgovoraController">
+<AnchorPane prefHeight="650.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodavanjeUgovoraController">
 	<children>
 		<Label layoutX="12.0" layoutY="6.0" text="Dodavanje sponzorskog ugovora">
 			<font>
@@ -30,22 +30,22 @@
 		<DatePicker fx:id="dpDatumDo" layoutX="282.0" layoutY="72.0" prefHeight="25.0" prefWidth="110.0" />
 		<Label layoutX="14.0" layoutY="106.0" text="Opis ugovora:" />
 		<TextArea fx:id="taOpisUgovora" layoutX="14.0" layoutY="133.0" prefHeight="139.0" prefWidth="568.0" />
-		<CheckBox fx:id="cbUkljucujeDonacije" layoutX="18.0" layoutY="280.0" mnemonicParsing="false" text="Ukljucuje donacije" />
+		<CheckBox fx:id="cbUkljucujeDonacije" layoutX="18.0" layoutY="280.0" mnemonicParsing="false" text="Uključuje donacije" />
 		<Separator layoutX="14.0" layoutY="297.0" prefHeight="17.0" prefWidth="568.0" />
-		<RadioButton fx:id="rbNovcana" layoutX="116.0" layoutY="317.0" mnemonicParsing="false" selected="true" text="Novcana">
+		<RadioButton fx:id="rbNovcana" layoutX="116.0" layoutY="317.0" mnemonicParsing="false" selected="true" text="Novčana">
 			<toggleGroup>
 				<ToggleGroup fx:id="grpTip" />
 			</toggleGroup>
 		</RadioButton>
 		<RadioButton fx:id="rbOprema" layoutX="195.0" layoutY="317.0" mnemonicParsing="false" text="Oprema" toggleGroup="$grpTip" />
-		<Label layoutX="15.0" layoutY="359.0" text="Novcami iznos:" />
+		<Label layoutX="15.0" layoutY="359.0" text="Novčani iznos:" />
 		<TextField fx:id="tfNovcaniIznos" layoutX="115.0" layoutY="355.0" prefHeight="25.0" prefWidth="116.0" />
 		<Separator layoutX="362.0" layoutY="308.0" orientation="VERTICAL" prefHeight="291.0" prefWidth="7.0" />
 		<Label layoutX="237.0" layoutY="359.0" text="KM" />
 		<ComboBox fx:id="cbTipOpreme" layoutX="115.0" layoutY="393.0" prefHeight="25.0" prefWidth="116.0" />
 		<Label alignment="CENTER_RIGHT" layoutX="15.0" layoutY="397.0" prefHeight="17.0" prefWidth="80.0" text="Tip opreme:" />
 		<Label alignment="CENTER_RIGHT" layoutX="15.0" layoutY="317.0" prefHeight="17.0" prefWidth="80.0" text="Tip donacije:" />
-		<Label alignment="CENTER_RIGHT" layoutX="15.0" layoutY="431.0" prefHeight="17.0" prefWidth="80.0" text="Kolicina:" />
+		<Label alignment="CENTER_RIGHT" layoutX="15.0" layoutY="431.0" prefHeight="17.0" prefWidth="80.0" text="Količina:" />
 		<TextField fx:id="tfKolicina" layoutX="115.0" layoutY="427.0" prefHeight="25.0" prefWidth="116.0" />
 		<Label layoutX="241.0" layoutY="431.0" text="komada" />
 		<Label layoutX="21.0" layoutY="466.0" prefHeight="17.0" prefWidth="80.0" text="Opis donacije:" />
@@ -53,9 +53,9 @@
 		<Label layoutX="382.0" layoutY="317.0" text="Dodane donacije:" />
 		<Separator layoutX="16.0" layoutY="600.0" prefHeight="3.0" prefWidth="568.0" />
 		<ListView fx:id="lstDonacije" layoutX="382.0" layoutY="340.0" onMouseClicked="#selectDonacija" prefHeight="220.0" prefWidth="200.0" />
-		<Button fx:id="btnUkloniDonaciju" layoutX="472.0" layoutY="568.0" mnemonicParsing="false" onAction="#ukloniDonaciju" prefHeight="25.0" prefWidth="110.0" text="Ukloni donaciju" />
-		<Button fx:id="btnSacuvaj" layoutX="472.0" layoutY="611.0" mnemonicParsing="false" onAction="#sacuvaj" prefHeight="25.0" prefWidth="110.0" text="Sacuvajte" />
-		<Button fx:id="btnDodajDonaciju" layoutX="240.0" layoutY="568.0" mnemonicParsing="false" onAction="#dodajDonaciju" prefHeight="25.0" prefWidth="110.0" text="Dodaj donaciju" />
-      <Button fx:id="btnAzurirajDonaciju" layoutX="118.0" layoutY="568.0" mnemonicParsing="false" onAction="#azurirajDonaciju" prefHeight="25.0" prefWidth="110.0" text="Azuriraj donaciju" />
+		<Button fx:id="btnUkloniDonaciju" layoutX="464.0" layoutY="568.0" mnemonicParsing="false" onAction="#ukloniDonaciju" prefHeight="25.0" prefWidth="118.0" text="Uklonite donaciju" />
+		<Button fx:id="btnSacuvaj" layoutX="472.0" layoutY="611.0" mnemonicParsing="false" onAction="#sacuvaj" prefHeight="25.0" prefWidth="110.0" text="Sačuvajte" />
+		<Button fx:id="btnDodajDonaciju" layoutX="240.0" layoutY="568.0" mnemonicParsing="false" onAction="#dodajDonaciju" prefHeight="25.0" prefWidth="110.0" text="Dodajte donaciju" />
+      <Button fx:id="btnAzurirajDonaciju" layoutX="104.0" layoutY="568.0" mnemonicParsing="false" onAction="#azurirajDonaciju" prefHeight="25.0" prefWidth="124.0" text="Ažurirajte donaciju" />
 	</children>
 </AnchorPane>
