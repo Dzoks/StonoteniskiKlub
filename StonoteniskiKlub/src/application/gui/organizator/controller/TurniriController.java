@@ -66,9 +66,14 @@ public class TurniriController extends BaseController{
 	}
 	
 	public void selektovan(){
-		if(tblTurniri.getSelectionModel().getSelectedItem().getZatvoren().equals("Ne")){
+		if(!tblTurniri.getSelectionModel().isEmpty() && "Ne".equals(tblTurniri.getSelectionModel().getSelectedItem().getZatvoren())){
 			btnZatvori.setDisable(false);
 			btnUredi.setDisable(false);
+			btnPregledaj.setDisable(true);
+		}
+		else if(tblTurniri.getSelectionModel().isEmpty()){
+			btnZatvori.setDisable(true);
+			btnUredi.setDisable(true);
 			btnPregledaj.setDisable(true);
 		}
 		else{

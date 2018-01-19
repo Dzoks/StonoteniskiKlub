@@ -13,7 +13,7 @@ public class UcesnikPrijavaDTO extends OsobaDTO{
 	private IntegerProperty idTurnira;
 	private IntegerProperty idKategorije;
 	private Date datum;
-	private StringProperty konvertovanDatumRodjenja;
+	private String konvertovanDatumRodjenja;
 	
 	public UcesnikPrijavaDTO() {
 		super();
@@ -34,13 +34,13 @@ public class UcesnikPrijavaDTO extends OsobaDTO{
 		this.idTurnira = new SimpleIntegerProperty(idTurnira);
 		this.idKategorije = idKategorije == null ? null :new SimpleIntegerProperty(idKategorije); //ostaviti ovako, inace Heleni puca
 		this.datum = datum;
-		this.konvertovanDatumRodjenja= konvertovanDatumRodjenja==null ? null : new SimpleStringProperty(TurniriController.konvertujIzSQLDate(datumRodjenja.toString())); //i ovo
+		this.konvertovanDatumRodjenja= TurniriController.konvertujIzSQLDate(datumRodjenja.toString()); //ovo ostaviti, Gaji odgovara ovako
 	}
 	
 	public UcesnikPrijavaDTO(Integer idOsobe, String ime, String prezime, String jmb, Character pol,
 			Date datumRodjenja){
 		super(idOsobe,ime,prezime,jmb,pol,datumRodjenja);
-		this.konvertovanDatumRodjenja=new SimpleStringProperty(TurniriController.konvertujIzSQLDate(datumRodjenja.toString()));
+		this.konvertovanDatumRodjenja=TurniriController.konvertujIzSQLDate(datumRodjenja.toString());
 	}
 
 	public final IntegerProperty idTurniraProperty() {
@@ -79,15 +79,12 @@ public class UcesnikPrijavaDTO extends OsobaDTO{
 		this.idPrijaveProperty().set(idPrijave);
 	}
 
-	public final StringProperty konvertovanDatumRodjenjaProperty() {
-		return this.konvertovanDatumRodjenja;
+	public String getKonvertovanDatumRodjenja() {
+		return konvertovanDatumRodjenja;
+	}
+
+	public void setKonvertovanDatumRodjenja(String konvertovanDatumRodjenja) {
+		this.konvertovanDatumRodjenja = konvertovanDatumRodjenja;
 	}
 	
-	public final String getKonvertovanDatumRodjenja() {
-		return this.konvertovanDatumRodjenjaProperty().get();
-	}
-	
-	public final void setKonvertovanDatumRodjenja(final String konvertovanDatumRodjenja) {
-		this.konvertovanDatumRodjenjaProperty().set(konvertovanDatumRodjenja);
-	}
 }
