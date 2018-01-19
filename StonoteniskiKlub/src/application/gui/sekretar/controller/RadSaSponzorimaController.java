@@ -123,7 +123,7 @@ public class RadSaSponzorimaController extends BaseController {
 				tblSponzori.setItems(result);
 			}
 		} else {
-			AlertDisplay.showInformation("Greska", "", "Unesite pojam za pretragu!");
+			AlertDisplay.showInformation("Greška", "Greška prilikom pretrage", "Unesite pojam za pretragu!");
 		}
 	}
 
@@ -141,7 +141,7 @@ public class RadSaSponzorimaController extends BaseController {
 			controller.setListaUgovora(sponzor.getUgovori());
 			newStage.setScene(scene);
 			newStage.setResizable(false);
-			newStage.setTitle("Stonoteniski klub - Pregled ugovora za: " + sponzor.getNaziv());
+			newStage.setTitle("Stonoteniski klub");
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -165,7 +165,7 @@ public class RadSaSponzorimaController extends BaseController {
 			controller.setTrenutniSponzor(null);
 			newStage.setScene(scene);
 			newStage.setResizable(false);
-			newStage.setTitle("Stonoteniski klub - Dodavanje sponzora");
+			newStage.setTitle("Stonoteniski klub");
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -190,7 +190,7 @@ public class RadSaSponzorimaController extends BaseController {
 			controller.setTrenutniSponzor(odabrani);
 			newStage.setScene(scene);
 			newStage.setResizable(false);
-			newStage.setTitle("Stonoteniski klub - Azuriranje sponzora");
+			newStage.setTitle("Stonoteniski klub");
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -216,7 +216,7 @@ public class RadSaSponzorimaController extends BaseController {
 			controller.setSponzor(odabrani);
 			newStage.setScene(scene);
 			newStage.setResizable(false);
-			newStage.setTitle("Stonoteniski klub - Dodavanje ugovora za "  + odabrani.getNaziv());
+			newStage.setTitle("Stonoteniski klub");
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

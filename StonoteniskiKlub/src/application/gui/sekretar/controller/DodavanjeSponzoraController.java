@@ -107,12 +107,12 @@ public class DodavanjeSponzoraController extends BaseController {
 					}
 					noviTelefoni.clear();
 					sponzor.setTelefoni(lstTelefoni.getItems());
-					AlertDisplay.showInformation("Uspjesno", "", "Sponzor uspjesno dodan.");
+					AlertDisplay.showInformation("Informacija", "Dodavanje sponzora", "Sponzor uspješno dodat.");
 				} else {
-					AlertDisplay.showInformation("Greska", "", "Dodavanje nije uspjelo.");
+					AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Dodavanje nije uspjelo.");
 				}
 			} else {
-				AlertDisplay.showInformation("Greska", "", "Niste unijeli sve podatke.");
+				AlertDisplay.showInformation("Greska", "Greška prilikom dodavanja", "Niste unijeli sve podatke.");
 			}
 		}else{
 			if(InputValidator.allEntered(txtAdresa.getText(), txtNaziv.getText(), txtMail.getText())){
@@ -126,10 +126,10 @@ public class DodavanjeSponzoraController extends BaseController {
 				}
 				parent.zamijeni(trenutniSponzor);
 				noviTelefoni.clear();
-				AlertDisplay.showInformation("Uspjesno", "", "Sponzor uspjesno azuriran.");
+				AlertDisplay.showInformation("Informacija", "Izmjena sponzora", "Sponzor uspješno ažuriran.");
 				parent.refresh();
 			}else {
-				AlertDisplay.showInformation("Greska", "", "Niste unijeli sve podatke.");
+				AlertDisplay.showInformation("Greška", "Greška prilikom izmjene", "Niste unijeli sve podatke.");
 			}
 		}
 		for(String telefon: uklonjeniTelefoni){

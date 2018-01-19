@@ -32,7 +32,7 @@ public class DodavanjeStavkeDnevnogRedaController extends BaseController{
 			parentController.dodaj(stavka);
 			stage.close();
 		} else{
-			AlertDisplay.showInformation("Greska", "", "Niste unijeli sve potrebne podatke.");
+			AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Niste unijeli sve potrebne podatke.");
 		}
 	}
 	

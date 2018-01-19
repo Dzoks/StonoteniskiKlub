@@ -239,7 +239,9 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 			
 			popuniTabelu();
 		}catch(NumberFormatException e) {
-			new Alert(AlertType.ERROR, "Cijena nije u dobrom formatu.", ButtonType.OK).show();
+			Alert alert=new Alert(AlertType.ERROR, "Cijena nije u dobrom formatu.", ButtonType.OK);
+			alert.setTitle("Greška");
+			alert.setHeaderText("Greška prilikom provjere cijene");
 		}
 	}
 	
@@ -254,7 +256,7 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
 			

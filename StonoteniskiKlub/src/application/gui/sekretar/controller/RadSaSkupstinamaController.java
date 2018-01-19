@@ -98,7 +98,7 @@ public class RadSaSkupstinamaController extends BaseController {
 	@FXML
 	public void pretrazi(ActionEvent event) {
 		if (!InputValidator.allEntered(dpOd.getValue()) && !InputValidator.allEntered(dpDo.getValue())) {
-			AlertDisplay.showInformation("Greska", "", "Niste unijeli parametre pretrage.");
+			AlertDisplay.showInformation("Greška", "Greška prilikom pretrage", "Niste unijeli parametre pretrage.");
 		} else {
 			int type = 0;
 			ObservableList<SkupstinaDTO> filtered = FXCollections.observableArrayList();
@@ -138,18 +138,18 @@ public class RadSaSkupstinamaController extends BaseController {
 				controller = loader.<DodavanjeSkupstineController>getController();
 				controller.setParentController(this);
 				controller.setSkupstina(skupstina);
-				controller.setTitle("Dodavanje izvjestaja");
+				controller.setTitle("Stonoteniski klub");
 				controller.setTip(StavkaSkupstinaDAO.IZVJESTAJ);
 				Scene scene = new Scene(root, 700, 600);
 				newStage.setScene(scene);
 				newStage.setResizable(false);
-				newStage.setTitle("Dodavanje skupstine");
+				newStage.setTitle("Stoneteniski klub");
 				newStage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
-			AlertDisplay.showInformation("Greska", "", "Izvjestaj vec postoji.");
+			AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Izvještaj vec postoji.");
 		}
 	}
 
@@ -168,7 +168,7 @@ public class RadSaSkupstinamaController extends BaseController {
 			Scene scene = new Scene(root, 700, 600);
 			newStage.setScene(scene);
 			newStage.setResizable(false);
-			newStage.setTitle("Dodavanje skupstine");
+			newStage.setTitle("Stonoteniski klub");
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

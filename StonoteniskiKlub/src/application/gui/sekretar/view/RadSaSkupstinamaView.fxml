@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="588.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaSkupstinamaController">
+<AnchorPane prefHeight="588.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaSkupstinamaController">
    <children>
-      <Label layoutX="16.0" layoutY="42.0" text="Pregled skupstina">
+      <Label layoutX="16.0" layoutY="42.0" text="Pregled skupština">
          <font>
             <Font size="18.0" />
          </font>
@@ -24,8 +24,8 @@
       <Separator layoutX="16.0" layoutY="69.0" prefHeight="3.0" prefWidth="741.0" />
       <TableView fx:id="tblSkupstine" layoutX="16.0" layoutY="125.0" onMouseClicked="#setTekst" prefHeight="409.0" prefWidth="304.0">
          <columns>
-            <TableColumn fx:id="colDatumOdrzavanja" prefWidth="75.0" text="Datum odrzavanja" />
-            <TableColumn fx:id="colImaIzvjestaj" prefWidth="75.0" text="Ima izvjestaj" />
+            <TableColumn fx:id="colDatumOdrzavanja" prefWidth="75.0" text="Datum održavanja" />
+            <TableColumn fx:id="colImaIzvjestaj" prefWidth="75.0" text="Ima izvještaj" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -45,14 +45,14 @@
             <ToggleGroup fx:id="grpTip" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="rbIzvjestaj" layoutX="688.0" layoutY="83.0" mnemonicParsing="false" onAction="#setTekstIzvjestaja" text="Izvjestaja" toggleGroup="$grpTip" />
+      <RadioButton fx:id="rbIzvjestaj" layoutX="688.0" layoutY="83.0" mnemonicParsing="false" onAction="#setTekstIzvjestaja" text="Izvještaja" toggleGroup="$grpTip" />
       <Label layoutX="16.0" layoutY="83.0" text="Od:" />
       <DatePicker fx:id="dpOd" layoutX="45.0" layoutY="79.0" prefHeight="25.0" prefWidth="112.0" />
       <Label layoutX="176.0" layoutY="83.0" text="Do:" />
       <DatePicker fx:id="dpDo" layoutX="202.0" layoutY="79.0" prefHeight="25.0" prefWidth="112.0" />
-      <Button fx:id="btnPretrazi" layoutX="320.0" layoutY="79.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretrazite" />
-      <Button fx:id="btnDodajIzvjestaj" layoutX="525.0" layoutY="549.0" mnemonicParsing="false" onAction="#dodajIzvjestaj" prefHeight="25.0" prefWidth="112.0" text="Dodajte izvjestaj" />
-      <Button fx:id="btnDodajSkupstinu" layoutX="644.0" layoutY="549.0" mnemonicParsing="false" onAction="#dodajSkupstinu" text="Dodajte skupstinu" />
-      <Button fx:id="btnOsvjezi" layoutX="394.0" layoutY="79.0" mnemonicParsing="false" onAction="#osvjezi" text="Osvjezi" />
+      <Button fx:id="btnPretrazi" layoutX="320.0" layoutY="79.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretražite" />
+      <Button fx:id="btnDodajIzvjestaj" layoutX="525.0" layoutY="549.0" mnemonicParsing="false" onAction="#dodajIzvjestaj" prefHeight="25.0" prefWidth="112.0" text="Dodajte izvještaj" />
+      <Button fx:id="btnDodajSkupstinu" layoutX="644.0" layoutY="549.0" mnemonicParsing="false" onAction="#dodajSkupstinu" text="Dodajte skupštinu" />
+      <Button fx:id="btnOsvjezi" layoutX="394.0" layoutY="79.0" mnemonicParsing="false" onAction="#osvjezi" text="Osvježite" />
    </children>
 </AnchorPane>

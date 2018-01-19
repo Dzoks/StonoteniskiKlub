@@ -42,6 +42,6 @@
 		<TextArea fx:id="taOpis" layoutX="124.0" layoutY="240.0"
 			prefHeight="78.0" prefWidth="171.0" />
 		<Button fx:id="btnDodajDogadjaj" layoutX="187.0" layoutY="336.0"
-			mnemonicParsing="false" onAction="#dodajDogadjaj" text="Dodajte dogadjaj" />
+			mnemonicParsing="false" onAction="#dodajDogadjaj" text="Dodajte događaj" />
 	</children>
 </AnchorPane>

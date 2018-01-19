@@ -76,7 +76,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 	
 	public void dodajKonteksniMeni() {
 		ContextMenu cm = new ContextMenu();
-	    MenuItem obrisiNarudzbu = new MenuItem("Obrisi narudzbu");
+	    MenuItem obrisiNarudzbu = new MenuItem("Obrišite narudžbu");
 	    
 	    obrisiNarudzbu.setOnAction(new EventHandler<ActionEvent>() {
 	    	
@@ -166,7 +166,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 		
 		ObservableList<String> listaVrsta = FXCollections.observableArrayList();
 		listaVrsta.add("Oprema kluba");
-		listaVrsta.add("Oprema clana");
+		listaVrsta.add("Oprema člana");
 		comboBoxVrsta.setItems(listaVrsta);
 		comboBoxVrsta.getSelectionModel().selectFirst();
 	}
@@ -182,7 +182,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -210,6 +210,8 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
 		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da zapamtite narudzbu?", ButtonType.YES, ButtonType.NO);
+		              alert.setTitle("Informacija");
+		              alert.setHeaderText("");
 		              Optional<ButtonType> rezultat = alert.showAndWait();
 		              if(ButtonType.YES.equals(rezultat.get())) {
 		            	  controller.ubaciUBazu();
@@ -238,7 +240,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			
 			Narudzba selektovanaNarudzba = tblNarudzbe.getSelectionModel().selectedItemProperty().get();
@@ -260,7 +262,9 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 				
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
-		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sacuvate izmjene?", ButtonType.YES, ButtonType.NO);
+		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da sačuvate izmjene?", ButtonType.YES, ButtonType.NO);
+		              alert.setTitle("Informacija");
+		              alert.setHeaderText("");
 		              Optional<ButtonType> rezultat = alert.showAndWait();
 		              if(ButtonType.YES.equals(rezultat.get())) {
 		            	  controller.azurirajUBazi();
@@ -289,7 +293,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
 			
@@ -315,7 +319,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			controller.setNarudzba(narudzba);
 			controller.popuniPodatke();
 			noviStage.showAndWait();

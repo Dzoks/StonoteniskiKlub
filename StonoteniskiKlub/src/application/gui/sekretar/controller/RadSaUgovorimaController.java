@@ -108,7 +108,7 @@ public class RadSaUgovorimaController extends BaseController {
 		boolean dDo = InputValidator.allEntered(dpDatumDo.getValue());
 		ObservableList<UgovorDTO> tableList = tblUgovori.getItems();
 		if (!dOd && !dDo) {
-			AlertDisplay.showInformation("Greska", "", "Niste unijeli datum");
+			AlertDisplay.showInformation("Greška", "Greška prilikom pretrage", "Niste unijeli datom.");
 		} else if (dOd && dDo) {
 			ObservableList<UgovorDTO> filtered = FXCollections.observableArrayList();
 			for (UgovorDTO ugovor : tableList) {
@@ -152,13 +152,13 @@ public class RadSaUgovorimaController extends BaseController {
 				controller.setDonacije(ugovor.getDonacije());
 				newStage.setScene(scene);
 				newStage.setResizable(false);
-				newStage.setTitle("Stonoteniski klub - Pregled donacija");
+				newStage.setTitle("Stonoteniski klub");
 				newStage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else{
-			AlertDisplay.showInformation("Rezultat", "", "Nema donacija u ugovoru.");
+			AlertDisplay.showInformation("Rezultat", "", "Nema donacija u ugovoru.");//ŠTA OVDJE TREBA BITI??? Dzoks
 		}
 	}
 
