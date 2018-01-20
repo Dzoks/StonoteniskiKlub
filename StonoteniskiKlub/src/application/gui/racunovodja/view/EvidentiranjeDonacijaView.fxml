@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeDonacijaController">
+<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeDonacijaController">
    <children>
       <TableView fx:id="tableDonacije" layoutX="37.0" layoutY="94.0" prefHeight="375.0" prefWidth="448.0">
         <columns>
@@ -25,7 +25,7 @@
          </columnResizePolicy>
       </TableView>
       <Button fx:id="btnObradi" layoutX="595.0" layoutY="389.0" mnemonicParsing="false" onAction="#obradi" prefHeight="25.0" prefWidth="142.0" text="Obradi" />
-      <Button fx:id="btnNeobradjeno" layoutX="595.0" layoutY="434.0" mnemonicParsing="false" onAction="#neObradi" prefHeight="25.0" prefWidth="142.0" text="Postavi na neobradjeno" />
+      <Button fx:id="btnNeobradjeno" layoutX="595.0" layoutY="434.0" mnemonicParsing="false" onAction="#neObradi" prefHeight="25.0" prefWidth="142.0" text="Poništi" />
       <Label layoutX="500.0" layoutY="100.0" text="Datum uplate:" />
       <Label layoutX="500.0" layoutY="148.0" text="Opis:" />
       <DatePicker fx:id="datePicker" layoutX="592.0" layoutY="96.0" prefHeight="25.0" prefWidth="149.0" />

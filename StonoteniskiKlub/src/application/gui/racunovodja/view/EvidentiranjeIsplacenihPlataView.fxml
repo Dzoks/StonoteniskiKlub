@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeIsplacenihPlataController">
+<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="761.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeIsplacenihPlataController">
    <children>
       <TableView fx:id="tablePlate" layoutX="26.0" layoutY="208.0" prefHeight="222.0" prefWidth="405.0">
         <columns>
@@ -30,8 +30,8 @@
       </TableView>
       <Separator layoutX="18.0" layoutY="183.0" prefHeight="0.0" prefWidth="678.0" />
       <Label fx:id="lblPrikazPo" layoutX="453.0" layoutY="208.0" text="Prikaz po:" />
-      <RadioButton fx:id="radiobtnZaposleni" layoutX="531.0" layoutY="247.0" mnemonicParsing="false" onAction="#radioZaposleni" prefHeight="17.0" prefWidth="128.0" text="Zaposlenom" />
-      <RadioButton fx:id="radiobtnMjesec" layoutX="532.0" layoutY="216.0" mnemonicParsing="false" onAction="#radioMjesec" prefHeight="17.0" prefWidth="98.0" text="Mjesecu" />
+      <RadioButton fx:id="radiobtnZaposleni" layoutX="531.0" layoutY="247.0" mnemonicParsing="false" onAction="#radioZaposleni" prefHeight="17.0" prefWidth="128.0" text="Zaposlenom" textFill="#f2e9e9" />
+      <RadioButton fx:id="radiobtnMjesec" layoutX="532.0" layoutY="216.0" mnemonicParsing="false" onAction="#radioMjesec" prefHeight="17.0" prefWidth="98.0" text="Mjesecu" textFill="#f2e9e9" />
       <Label fx:id="lblMjesec" layoutX="459.0" layoutY="320.0" text="Mjesec:" />
       <Spinner fx:id="spinnerMjesecPrikazi" layoutX="530.0" layoutY="316.0" />
       <Label fx:id="lblZaposleni" layoutX="457.0" layoutY="400.0" text="Zaposleni:" />
@@ -55,6 +55,6 @@
       <Spinner fx:id="spinnerGodina" layoutX="529.0" layoutY="357.0" />
       <Label fx:id="lblOpis" layoutX="26.0" layoutY="101.0" text="Opis:" />
       <TextArea fx:id="txtOpis" layoutX="115.0" layoutY="104.0" prefHeight="65.0" prefWidth="316.0" />
-      <RadioButton fx:id="radiobtnSve" layoutX="533.0" layoutY="280.0" mnemonicParsing="false" onAction="#radioSve" prefHeight="17.0" prefWidth="75.0" text="Sve" />
+      <RadioButton fx:id="radiobtnSve" layoutX="533.0" layoutY="280.0" mnemonicParsing="false" onAction="#radioSve" prefHeight="17.0" prefWidth="75.0" text="Sve" textFill="#f2e9e9" />
    </children>
 </AnchorPane>

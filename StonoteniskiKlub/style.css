@@ -16,3 +16,70 @@
 	-fx-background-image: url("key-icon.png");
 	   -fx-background-repeat: no-repeat;
 }
+.radio-button{
+
+	-fx-text-fill:#f2e9e9;
+}
+
+.table{
+	-fx-text-fill:black;
+	}
+	
+.body{
+	-fx-height: 100%;
+	-fx-margin: 0;
+		-fx-background-image: url("slika.png");
+   
+	-fx-font-family: sans-serif;
+	-fx-font-weight: 100;
+	
+	
+	}
+.table-view .column-header {
+    -fx-background-color: #638EA6;
+}	
+.combo-box .cell{
+	 -fx-background-color:white;
+	 -fx-text-fill: black;
+	 
+}
+.tab-pane{
+		-fx-color: #638EA6;
+}
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-text-fill: red;
+}
+.label{
+	-fx-text-fill:#f2e9e9;
+}
+.button{
+	-fx-color: #638EA6;
+	-fx-text-fill:#f2e9e9;
+	
+	}
+
+.tab .tab-label 
+{
+-fx-skin: "com.sun.javafx.scene.control.skin.LabelSkin";
+-fx-background-color: transparent;    
+-fx-alignment: CENTER;
+-fx-text-fill: white;
+}
+
+.tab:selected 
+{
+/*    -fx-background-color: white;*/
+/*    -fx-background-color: -fx-tab-border-color, -fx-inner-border, -fx-body-color;
+-fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
+-fx-background-insets: 0, 1 1 0 1, 2 2 0 2;*/
+-fx-background-color:  #3e4e63;
+-fx-background-insets: 0, 1 1 0 1;
+-fx-background-radius: 5 5 0 0, 4 4 0 0;
+}
+.tab-pane *.tab-header-background 
+{
+-fx-background-color: -fx-outer-border, -fx-inner-border, derive(-fx-color, -20%);
+-fx-effect: innershadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 0);
+}
+	
+	

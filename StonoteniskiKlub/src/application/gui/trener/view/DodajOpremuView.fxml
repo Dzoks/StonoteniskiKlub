@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="655.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.DodajOpremuController">
+<AnchorPane prefHeight="655.0" prefWidth="761.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.DodajOpremuController">
    <children>
       <CheckBox fx:id="checkBoxDonirana" layoutX="22.0" layoutY="27.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="129.0" text="Donirana">
          <font>

@@ -59,13 +59,16 @@ public class DodajNalogController extends BaseController {
 			if (korisnickoIme.getText().isEmpty())
 				new Alert(AlertType.ERROR, "Unesite korisničko ime.").show();
 			if (ulogaChoiceBox.getSelectionModel().getSelectedItem().getNaziv().isEmpty())
-				new Alert(AlertType.ERROR, "Odaberite zaposlenog.").show();
+				new Alert(AlertType.ERROR, "Odaberite tip naloga.").show();
 		}
 	}
 
 	private boolean dodajNalog() {
 		Integer ulogaId=ulogaChoiceBox.getSelectionModel().getSelectedItem().getId();
-		Integer zaposleniId=tabelaZaposleni.getSelectionModel().getSelectedItem().getId();
+		Integer zaposleniId=null;
+		if(!tabelaZaposleni.getSelectionModel().isEmpty())
+		 zaposleniId=tabelaZaposleni.getSelectionModel().getSelectedItem().getId();
+		
 		String ime=korisnickoIme.getText();
 		java.sql.Date sqlDate = java.sql.Date.valueOf( LocalDate.now() );
 		if(!KorisnickiNalogDAO.daLiPostoji(ime)) {

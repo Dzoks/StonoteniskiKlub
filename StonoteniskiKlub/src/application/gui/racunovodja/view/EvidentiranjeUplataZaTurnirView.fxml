@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeUplataZaTurnirController">
+<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeUplataZaTurnirController">
    <children>
       <TableView fx:id="tableUplateZaTurnir" layoutX="17.0" layoutY="197.0" prefHeight="227.0" prefWidth="419.0">
         <columns>
@@ -30,8 +30,8 @@
       </TableView>
       <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
       <Label fx:id="lblPrikazPo" layoutX="457.0" layoutY="206.0" text="Prikaz po:" />
-      <RadioButton fx:id="radiobtnUcesnik" layoutX="538.0" layoutY="303.0" mnemonicParsing="false" onAction="#radioUcesnik" text="Ucesniku" />
-      <RadioButton fx:id="radiobtnTurnir" layoutX="539.0" layoutY="223.0" mnemonicParsing="false" onAction="#radioTurnir" text="Turniru" />
+      <RadioButton fx:id="radiobtnUcesnik" layoutX="538.0" layoutY="303.0" mnemonicParsing="false" onAction="#radioUcesnik" text="Ucesniku" textFill="#f2e9e9" />
+      <RadioButton fx:id="radiobtnTurnir" layoutX="539.0" layoutY="223.0" mnemonicParsing="false" onAction="#radioTurnir" text="Turniru" textFill="#f2e9e9" />
       <Label fx:id="lblUcesnik" layoutX="461.0" layoutY="350.0" text="Ucesnik:" />
       <ComboBox fx:id="comboBoxUcesnikPrikazi" layoutX="528.0" layoutY="346.0" prefWidth="150.0" />
       <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplacenom ucescu na turniru:">
@@ -46,7 +46,7 @@
       <Label fx:id="lblKM" layoutX="700.0" layoutY="44.0" text="KM" />
       <Label fx:id="lblDatumUplate" layoutX="452.0" layoutY="84.0" text="Datum uplate:" />
       <DatePicker fx:id="datePicker" layoutX="544.0" layoutY="80.0" />
-      <Button fx:id="btnPrikazi" layoutX="530.0" layoutY="436.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="149.0" text="Pretraga" />
+      <Button fx:id="btnPrikazi" layoutX="529.0" layoutY="448.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="149.0" text="Pretraga" />
       <Button fx:id="btnObrisi" layoutX="118.0" layoutY="448.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrisite" />
       <Button fx:id="btnIzmijeni" layoutX="224.0" layoutY="448.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijenite" />
       <Label fx:id="lblTurnirPrikazi" layoutX="461.0" layoutY="386.0" text="Turnir:" />
@@ -57,6 +57,6 @@
             <TextArea fx:id="txtOpis" prefHeight="63.0" prefWidth="299.0" />
          </content>
       </ScrollPane>
-      <RadioButton fx:id="radiobtnSve" layoutX="539.0" layoutY="262.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" />
+      <RadioButton fx:id="radiobtnSve" layoutX="539.0" layoutY="262.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" textFill="#f2e9e9" />
    </children>
 </AnchorPane>

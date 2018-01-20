@@ -4,23 +4,22 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="630.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1"
- fx:controller="application.gui.sekretar.controller.SekretarController">
+<AnchorPane prefHeight="603.0" prefWidth="770.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.SekretarController">
    <children>
-      <TabPane prefHeight="663.0" prefWidth="1100.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="600.0" prefWidth="770.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="zaposleniTab" text="Zaposleni" id="zaposleniTab">
-				 <fx:include source="RadSaZaposlenimaView.fxml"/>
+          <Tab id="zaposleniTab" fx:id="zaposleniTab" text="Zaposleni">
+				 <fx:include source="RadSaZaposlenimaView.fxml" />
             </Tab>
           
-          <Tab fx:id="sponzoriTab" text="Sponzori" id="sponzoriTab">
-             <fx:include source="RadSaSponzorimaView.fxml"/>
+          <Tab id="sponzoriTab" fx:id="sponzoriTab" text="Sponzori">
+             <fx:include source="RadSaSponzorimaView.fxml" />
           </Tab>
-           <Tab fx:id="kalendarTab" text="Kalendar" id="calendarTab">
-            <fx:include source="CalendarView.fxml"/>
+           <Tab id="calendarTab" fx:id="kalendarTab" text="Kalendar">
+            <fx:include source="CalendarView.fxml" />
           </Tab>
-           <Tab fx:id="skupstineTab" text="Skupštine" id="skupstineTab">
-             <fx:include source="RadSaSkupstinamaView.fxml"/>
+           <Tab id="skupstineTab" fx:id="skupstineTab" text="Skupštine">
+             <fx:include source="RadSaSkupstinamaView.fxml" />
           </Tab>
         </tabs>
       </TabPane>

@@ -10,9 +10,9 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane onMouseClicked="#deselect" prefHeight="400.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaSponzorimaController">
+<AnchorPane onMouseClicked="#deselect" prefHeight="588.0" prefWidth="770.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaSponzorimaController">
    <children>
-      <TableView fx:id="tblSponzori" layoutX="14.0" layoutY="49.0" prefHeight="295.0" prefWidth="700.0">
+      <TableView fx:id="tblSponzori" layoutX="14.0" layoutY="69.0" prefHeight="437.0" prefWidth="738.0">
          <columns>
             <TableColumn fx:id="colNaziv" editable="false" prefWidth="150.0" text="Naziv" />
             <TableColumn fx:id="colAdresa" editable="false" prefWidth="200.0" text="Adresa" />
@@ -24,21 +24,21 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <RadioButton fx:id="rbSvi" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#prikaziSve" selected="true" text="Svi">
+      <RadioButton fx:id="rbSvi" layoutX="34.0" layoutY="27.0" mnemonicParsing="false" onAction="#prikaziSve" selected="true" text="Svi" textFill="#f2e9e9">
          <toggleGroup>
             <ToggleGroup fx:id="grpSvi" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="rbAktivni" layoutX="63.0" layoutY="14.0" mnemonicParsing="false" onAction="#prikaziAktivne" text="Aktivni" toggleGroup="$grpSvi" />
-      <RadioButton fx:id="rbNeaktivni" layoutX="133.0" layoutY="14.0" mnemonicParsing="false" onAction="#prikaziNeaktivne" text="Neaktivni" toggleGroup="$grpSvi" />
-      <Button fx:id="btnPretrazi" layoutX="649.0" layoutY="10.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretražite" />
-      <TextField fx:id="txtPretraga" layoutX="493.0" layoutY="10.0" />
-      <ComboBox fx:id="cbPretraga" layoutX="384.0" layoutY="10.0" prefWidth="100.0" />
-      <Label layoutX="309.0" layoutY="14.0" text="Pretražite po:" />
-      <Button fx:id="btnUgovori" layoutX="14.0" layoutY="355.0" mnemonicParsing="false" onAction="#pregledajUgovore" text="Pregledajte ugovore" />
-      <Button fx:id="btnDodajSponzora" layoutX="604.0" layoutY="355.0" mnemonicParsing="false" onAction="#dodajSponzora" text="Dodajte sponzora" />
-      <Button fx:id="btnAzuriraj" layoutX="143.0" layoutY="355.0" mnemonicParsing="false" onAction="#azuriraj" prefHeight="25.0" prefWidth="71.0" text="Ažurirajte" />
-      <Button fx:id="btnObrisi" layoutX="220.0" layoutY="355.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="71.0" text="Obrišite " />
-      <Button fx:id="btnDodajUgovor" layoutX="482.0" layoutY="355.0" mnemonicParsing="false" onAction="#dodajUgovor" prefHeight="25.0" prefWidth="110.0" text="Dodajte ugovor" />
+      <RadioButton fx:id="rbAktivni" layoutX="83.0" layoutY="27.0" mnemonicParsing="false" onAction="#prikaziAktivne" text="Aktivni" textFill="#f2e9e9" toggleGroup="$grpSvi" />
+      <RadioButton fx:id="rbNeaktivni" layoutX="153.0" layoutY="27.0" mnemonicParsing="false" onAction="#prikaziNeaktivne" text="Neaktivni" textFill="#f2e9e9" toggleGroup="$grpSvi" />
+      <Button fx:id="btnPretrazi" layoutX="639.0" layoutY="23.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretražite" />
+      <TextField fx:id="txtPretraga" layoutX="483.0" layoutY="23.0" />
+      <ComboBox fx:id="cbPretraga" layoutX="374.0" layoutY="23.0" prefWidth="100.0" />
+      <Label layoutX="299.0" layoutY="27.0" text="Pretražite po:" />
+      <Button fx:id="btnUgovori" layoutX="34.0" layoutY="535.0" mnemonicParsing="false" onAction="#pregledajUgovore" prefHeight="25.0" prefWidth="124.0" text="Pregledajte ugovore" />
+      <Button fx:id="btnDodajSponzora" layoutX="612.0" layoutY="535.0" mnemonicParsing="false" onAction="#dodajSponzora" prefHeight="25.0" prefWidth="124.0" text="Dodajte sponzora" />
+      <Button fx:id="btnAzuriraj" layoutX="175.0" layoutY="535.0" mnemonicParsing="false" onAction="#azuriraj" prefHeight="25.0" prefWidth="124.0" text="Ažurirajte" />
+      <Button fx:id="btnObrisi" layoutX="321.0" layoutY="535.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="124.0" text="Obrišite " />
+      <Button fx:id="btnDodajUgovor" layoutX="467.0" layoutY="535.0" mnemonicParsing="false" onAction="#dodajUgovor" prefHeight="25.0" prefWidth="124.0" text="Dodajte ugovor" />
    </children>
 </AnchorPane>

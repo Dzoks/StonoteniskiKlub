@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="151.0" prefWidth="204.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.DodajTipTransakcijeController">
+<AnchorPane prefHeight="151.0" prefWidth="204.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.DodajTipTransakcijeController">
    <children>
       <Label layoutX="28.0" layoutY="22.0" text="Tip transakcije: " />
       <TextField fx:id="txtTip" layoutX="28.0" layoutY="55.0" />

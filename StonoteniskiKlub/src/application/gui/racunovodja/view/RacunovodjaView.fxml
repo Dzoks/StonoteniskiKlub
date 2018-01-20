@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="520.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.RacunovodjaController">
+<AnchorPane prefHeight="520.0" prefWidth="767.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.RacunovodjaController">
    <children>
-      <TabPane prefHeight="510.0" prefWidth="767.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="520.0" prefWidth="767.0" stylesheets="@../../../../../style.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="uplateTurniraTab" text="Uplate turnira">
              <fx:include source="EvidentiranjeUplataZaTurnirView.fxml" />
@@ -30,6 +31,10 @@
                   <fx:include source="EvidentiranjeDonacijaView.fxml" />
             </Tab>
         </tabs>
+         <styleClass>
+            <String fx:value="tab-pane" />
+            <String fx:value="tab-label" />
+         </styleClass>
       </TabPane>
    </children>
 </AnchorPane>

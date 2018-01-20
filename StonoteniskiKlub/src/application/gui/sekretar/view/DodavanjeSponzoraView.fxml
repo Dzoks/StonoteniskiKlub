@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodavanjeSponzoraController">
+<AnchorPane prefHeight="550.0" prefWidth="410.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodavanjeSponzoraController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Dodavanje sponzora">
          <font>
@@ -18,7 +18,7 @@
          </font>
       </Label>
       <Separator layoutX="14.0" layoutY="49.0" prefHeight="0.0" prefWidth="379.0" />
-      <Label layoutX="44.0" layoutY="77.0" prefHeight="17.0" prefWidth="40.0" text="Naziv:" />
+      <Label layoutX="24.0" layoutY="77.0" prefHeight="17.0" prefWidth="40.0" text="Naziv:" />
       <TextField fx:id="txtNaziv" layoutX="99.0" layoutY="73.0" prefHeight="25.0" prefWidth="244.0" />
       <TextField fx:id="txtAdresa" layoutX="99.0" layoutY="113.0" prefHeight="25.0" prefWidth="244.0" />
       <TextField fx:id="txtMail" layoutX="99.0" layoutY="150.0" prefHeight="25.0" prefWidth="244.0" />
@@ -26,15 +26,15 @@
       <Button fx:id="btnDodajTelefon" layoutX="313.0" layoutY="188.0" mnemonicParsing="false" onAction="#dodajTelefon" prefHeight="25.0" prefWidth="30.0" text="+" />
       <ListView fx:id="lstTelefoni" layoutX="99.0" layoutY="228.0" prefHeight="25.0" prefWidth="207.0" />
       <Button fx:id="btnUkloniTelefon" layoutX="313.0" layoutY="228.0" mnemonicParsing="false" onAction="#ukloniTelefon" prefHeight="25.0" prefWidth="30.0" text="-" />
-      <DatePicker fx:id="dpDatumOd" layoutX="87.0" layoutY="275.0" prefHeight="25.0" prefWidth="110.0" />
-      <DatePicker fx:id="dpDatumDo" layoutX="282.0" layoutY="275.0" prefHeight="25.0" prefWidth="110.0" />
-      <Label layoutX="51.0" layoutY="117.0" text="Adresa:" />
-      <Label layoutX="58.0" layoutY="154.0" text="Mail:" />
-      <Label layoutX="49.0" layoutY="192.0" text="Telefon:" />
-      <Label layoutX="21.0" layoutY="279.0" text="Datum od:" />
-      <Label layoutX="222.0" layoutY="279.0" text="Datum do:" />
-      <Label layoutX="20.0" layoutY="328.0" text="Opis ugovora:" />
-      <TextArea fx:id="taOpis" layoutX="19.0" layoutY="351.0" prefHeight="139.0" prefWidth="373.0" />
-      <Button fx:id="btnDodajSponzora" layoutX="293.0" layoutY="502.0" mnemonicParsing="false" onAction="#sacuvaj" prefHeight="25.0" prefWidth="98.0" text="Sačuvajte" />
+      <DatePicker fx:id="dpDatumOd" layoutX="99.0" layoutY="267.0" prefHeight="25.0" prefWidth="207.0" />
+      <DatePicker fx:id="dpDatumDo" layoutX="99.0" layoutY="311.0" prefHeight="25.0" prefWidth="207.0" />
+      <Label layoutX="24.0" layoutY="117.0" text="Adresa:" />
+      <Label layoutX="24.0" layoutY="154.0" prefHeight="17.0" prefWidth="40.0" text="Mail:" />
+      <Label layoutX="21.0" layoutY="192.0" prefHeight="17.0" prefWidth="56.0" text="Telefon:" />
+      <Label layoutX="21.0" layoutY="271.0" text="Datum od:" />
+      <Label layoutX="21.0" layoutY="315.0" text="Datum do:" />
+      <Label layoutX="21.0" layoutY="363.0" text="Opis ugovora:" />
+      <TextArea fx:id="taOpis" layoutX="19.0" layoutY="393.0" prefHeight="103.0" prefWidth="373.0" />
+      <Button fx:id="btnDodajSponzora" layoutX="294.0" layoutY="511.0" mnemonicParsing="false" onAction="#sacuvaj" prefHeight="25.0" prefWidth="98.0" text="Sačuvajte" />
    </children>
 </AnchorPane>

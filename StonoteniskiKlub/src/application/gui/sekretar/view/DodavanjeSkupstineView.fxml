@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodavanjeSkupstineController">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodavanjeSkupstineController">
    <children>
       <Label fx:id="lblNaslov" layoutX="14.0" layoutY="14.0" text="Dodavanje dnevnog reda skupštine">
          <font>

@@ -119,6 +119,7 @@ public class CalendarController extends BaseController {
 				int day = calendarDate.getDayOfMonth();
 				Label label = labele[i][j];
 				label.setText(day + "");
+				label.setStyle(label.getStyle()+" fx-text-fill:black;");
 				if (YearMonth.of(calendarDate.getYear(), calendarDate.getMonth()).equals(yearMonth)) {
 					LocalDate date = LocalDate.of(yearMonth.getYear(), yearMonth.getMonth(),
 							Integer.parseInt(label.getText()));
@@ -132,9 +133,9 @@ public class CalendarController extends BaseController {
 						}
 					}
 					if (contains) {
-						fontColor = " -fx-text-fill: red;";
+						fontColor = " -fx-text-fill: blue;";
 					} else {
-						fontColor = " -fx-text-fill: green;";
+						fontColor = " -fx-text-fill: black;";
 					}
 					label.setStyle(label.getStyle() + fontColor);
 					label.setOnMouseClicked(new EventHandler<Event>() {

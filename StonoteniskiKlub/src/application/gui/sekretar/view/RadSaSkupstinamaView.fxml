@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="588.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaSkupstinamaController">
+<AnchorPane prefHeight="588.0" prefWidth="770.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaSkupstinamaController">
    <children>
       <Label layoutX="16.0" layoutY="42.0" text="Pregled skupština">
          <font>
@@ -22,7 +22,7 @@
          </font>
       </Label>
       <Separator layoutX="16.0" layoutY="69.0" prefHeight="3.0" prefWidth="741.0" />
-      <TableView fx:id="tblSkupstine" layoutX="16.0" layoutY="125.0" onMouseClicked="#setTekst" prefHeight="409.0" prefWidth="304.0">
+      <TableView fx:id="tblSkupstine" layoutX="16.0" layoutY="125.0" onMouseClicked="#setTekst" prefHeight="398.0" prefWidth="304.0">
          <columns>
             <TableColumn fx:id="colDatumOdrzavanja" prefWidth="75.0" text="Datum održavanja" />
             <TableColumn fx:id="colImaIzvjestaj" prefWidth="75.0" text="Ima izvještaj" />
@@ -33,26 +33,26 @@
       </TableView>
       <ScrollPane layoutX="329.0" layoutY="125.0" style="-fx-border-color: grey;">
          <content>
-            <TextFlow fx:id="taTekst" prefHeight="405.0" prefWidth="424.0" style="-fx-background-color: white;">
+            <TextFlow fx:id="taTekst" prefHeight="394.0" prefWidth="424.0" style="-fx-background-color: white;">
                <padding>
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </padding></TextFlow>
          </content>
       </ScrollPane>
-      <Label layoutX="530.0" layoutY="83.0" text="Tekst:" />
-      <RadioButton fx:id="rbDnevniRed" layoutX="576.0" layoutY="83.0" mnemonicParsing="false" onAction="#setTekstDnevnogReda" selected="true" text="Dnevnog reda">
+      <Label layoutX="524.0" layoutY="83.0" text="Tekst:" />
+      <RadioButton fx:id="rbDnevniRed" layoutX="570.0" layoutY="83.0" mnemonicParsing="false" onAction="#setTekstDnevnogReda" selected="true" text="Dnevnog reda" textFill="#f2e9e9">
          <toggleGroup>
             <ToggleGroup fx:id="grpTip" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="rbIzvjestaj" layoutX="688.0" layoutY="83.0" mnemonicParsing="false" onAction="#setTekstIzvjestaja" text="Izvještaja" toggleGroup="$grpTip" />
+      <RadioButton fx:id="rbIzvjestaj" layoutX="682.0" layoutY="83.0" mnemonicParsing="false" onAction="#setTekstIzvjestaja" text="Izvještaja" textFill="#f2e9e9" toggleGroup="$grpTip" />
       <Label layoutX="16.0" layoutY="83.0" text="Od:" />
       <DatePicker fx:id="dpOd" layoutX="45.0" layoutY="79.0" prefHeight="25.0" prefWidth="112.0" />
       <Label layoutX="176.0" layoutY="83.0" text="Do:" />
       <DatePicker fx:id="dpDo" layoutX="202.0" layoutY="79.0" prefHeight="25.0" prefWidth="112.0" />
-      <Button fx:id="btnPretrazi" layoutX="320.0" layoutY="79.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretražite" />
-      <Button fx:id="btnDodajIzvjestaj" layoutX="525.0" layoutY="549.0" mnemonicParsing="false" onAction="#dodajIzvjestaj" prefHeight="25.0" prefWidth="112.0" text="Dodajte izvještaj" />
-      <Button fx:id="btnDodajSkupstinu" layoutX="644.0" layoutY="549.0" mnemonicParsing="false" onAction="#dodajSkupstinu" text="Dodajte skupštinu" />
-      <Button fx:id="btnOsvjezi" layoutX="394.0" layoutY="79.0" mnemonicParsing="false" onAction="#osvjezi" text="Osvježite" />
+      <Button fx:id="btnPretrazi" layoutX="329.0" layoutY="79.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretražite" />
+      <Button fx:id="btnDodajIzvjestaj" layoutX="524.0" layoutY="537.0" mnemonicParsing="false" onAction="#dodajIzvjestaj" prefHeight="25.0" prefWidth="112.0" text="Dodajte izvještaj" />
+      <Button fx:id="btnDodajSkupstinu" layoutX="644.0" layoutY="537.0" mnemonicParsing="false" onAction="#dodajSkupstinu" text="Dodajte skupštinu" />
+      <Button fx:id="btnOsvjezi" layoutX="403.0" layoutY="79.0" mnemonicParsing="false" onAction="#osvjezi" text="Osvježite" />
    </children>
 </AnchorPane>

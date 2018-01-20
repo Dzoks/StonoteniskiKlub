@@ -6,8 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="158.0" prefWidth="264.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjenaOpremeController">
+<AnchorPane prefHeight="158.0" prefWidth="264.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjenaOpremeController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Tip:" />
       <Label layoutX="14.0" layoutY="51.0" text="Član:" />

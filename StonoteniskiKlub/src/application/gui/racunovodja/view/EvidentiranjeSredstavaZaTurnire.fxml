@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeSredstavaZaTurnireController">
+<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="713.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeSredstavaZaTurnireController">
    <children>
       <TableView fx:id="tableTroskoviTurnir" layoutX="17.0" layoutY="197.0" prefHeight="228.0" prefWidth="398.0">
         <columns>
@@ -29,8 +29,8 @@
       </TableView>
       <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
       <Label fx:id="lblPrikazPo" layoutX="445.0" layoutY="227.0" text="Prikazi:" />
-      <RadioButton fx:id="radiobtnSve" layoutX="520.0" layoutY="227.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" />
-      <RadioButton fx:id="radiobtnTurnir" layoutX="596.0" layoutY="227.0" mnemonicParsing="false" onAction="#radioTurnir" text="Po turniru" />
+      <RadioButton fx:id="radiobtnSve" layoutX="520.0" layoutY="227.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" textFill="#f2e9e9" />
+      <RadioButton fx:id="radiobtnTurnir" layoutX="596.0" layoutY="227.0" mnemonicParsing="false" onAction="#radioTurnir" text="Po turniru" textFill="#f2e9e9" />
       <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o troskovima za turnir:">
          <font>
             <Font name="System Bold Italic" size="15.0" />

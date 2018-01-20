@@ -8,19 +8,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="386.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniPlatuController">
+<AnchorPane prefHeight="344.0" prefWidth="342.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniPlatuController">
    <children>
-      <Label fx:id="lblDatumUplate" layoutX="24.0" layoutY="89.0" text="Datum uplate:" />
-      <DatePicker fx:id="datePicker" layoutX="124.0" layoutY="85.0" />
-      <Button fx:id="btnIzmijeni" layoutX="137.0" layoutY="288.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="149.0" text="Izmijeni" />
-      <Button fx:id="btnOtkazi" layoutX="131.0" layoutY="324.0" mnemonicParsing="false" onAction="#otkazi" prefHeight="25.0" prefWidth="149.0" text="Otkazi" />
-      <Label fx:id="lblIznos" layoutX="27.0" layoutY="138.0" prefHeight="17.0" prefWidth="46.0" text="Iznos:" />
-      <TextField fx:id="txtIznos" layoutX="125.0" layoutY="134.0" />
-      <Label fx:id="lblKM" layoutX="289.0" layoutY="138.0" text="KM" />
-      <Label fx:id="lblOpis" layoutX="27.0" layoutY="193.0" text="Opis:" />
-      <ScrollPane fx:id="scrollPane" layoutX="124.0" layoutY="188.0" prefHeight="74.0" prefWidth="174.0">
+      <Label fx:id="lblDatumUplate" layoutX="27.0" layoutY="42.0" text="Datum uplate:" />
+      <DatePicker fx:id="datePicker" layoutX="127.0" layoutY="38.0" />
+      <Button fx:id="btnIzmijeni" layoutX="134.0" layoutY="299.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="75.0" text="Izmijeni" />
+      <Button fx:id="btnOtkazi" layoutX="221.0" layoutY="299.0" mnemonicParsing="false" onAction="#otkazi" prefHeight="25.0" prefWidth="75.0" text="Otkazi" />
+      <Label fx:id="lblIznos" layoutX="30.0" layoutY="91.0" prefHeight="17.0" prefWidth="46.0" text="Iznos:" />
+      <TextField fx:id="txtIznos" layoutX="128.0" layoutY="87.0" />
+      <Label fx:id="lblKM" layoutX="283.0" layoutY="92.0" text="KM" />
+      <Label fx:id="lblOpis" layoutX="27.0" layoutY="135.0" text="Opis:" />
+      <ScrollPane fx:id="scrollPane" layoutX="124.0" layoutY="130.0" prefHeight="146.0" prefWidth="175.0">
          <content>
-            <TextArea fx:id="txtOpis" prefHeight="75.0" prefWidth="173.0" />
+            <TextArea fx:id="txtOpis" prefHeight="142.0" prefWidth="174.0" />
          </content>
       </ScrollPane>
    </children>

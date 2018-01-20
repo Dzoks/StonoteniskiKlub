@@ -10,28 +10,28 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="480.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="480.0" prefWidth="500.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<ImageView fx:id="imgSlika" fitHeight="200.0" fitWidth="200.0" layoutX="21.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
-		<Label layoutX="265.0" layoutY="36.0" text="Ime:" />
-		<TextField fx:id="txtIme" layoutX="291.0" layoutY="32.0" prefHeight="25.0" prefWidth="175.0" />
-		<TextField fx:id="txtPrezime" layoutX="291.0" layoutY="69.0" prefHeight="25.0" prefWidth="175.0" />
-		<Label layoutX="243.0" layoutY="73.0" text="Prezime:" />
-		<TextField fx:id="txtImeRoditelja" layoutX="291.0" layoutY="108.0" prefHeight="25.0" prefWidth="175.0" />
-		<Label layoutX="221.0" layoutY="112.0" text="Ime roditelja:" />
-		<TextField fx:id="txtJMB" layoutX="291.0" layoutY="149.0" prefHeight="25.0" prefWidth="175.0" />
-		<Label layoutX="264.0" layoutY="153.0" text="JMB:" />
-		<TextField fx:id="tfBrojTelefona" layoutX="291.0" layoutY="231.0" prefHeight="25.0" prefWidth="140.0" />
-		<Label layoutX="221.0" layoutY="235.0" text="Broj telefona:" />
-		<Button fx:id="btnDodajBrojTelefona" layoutX="441.0" layoutY="231.0" mnemonicParsing="false" text="+" />
-		<DatePicker fx:id="dpDatumRodjenja" layoutX="292.0" layoutY="188.0" />
-		<Label layoutX="202.0" layoutY="192.0" text="Datum rođenja:" />
-		<RadioButton fx:id="rbMuskiPol" layoutX="304.0" layoutY="269.0" mnemonicParsing="false" selected="true" text="Muški">
+		<Label layoutX="268.0" layoutY="28.0" text="Ime:" />
+		<TextField fx:id="txtIme" layoutX="306.0" layoutY="24.0" prefHeight="25.0" prefWidth="175.0" />
+		<TextField fx:id="txtPrezime" layoutX="306.0" layoutY="61.0" prefHeight="25.0" prefWidth="175.0" />
+		<Label layoutX="246.0" layoutY="65.0" text="Prezime:" />
+		<TextField fx:id="txtImeRoditelja" layoutX="306.0" layoutY="100.0" prefHeight="25.0" prefWidth="175.0" />
+		<Label layoutX="224.0" layoutY="104.0" text="Ime roditelja:" />
+		<TextField fx:id="txtJMB" layoutX="306.0" layoutY="141.0" prefHeight="25.0" prefWidth="175.0" />
+		<Label layoutX="267.0" layoutY="145.0" text="JMB:" />
+		<TextField fx:id="tfBrojTelefona" layoutX="306.0" layoutY="223.0" prefHeight="25.0" prefWidth="140.0" />
+		<Label layoutX="224.0" layoutY="227.0" text="Broj telefona:" />
+		<Button fx:id="btnDodajBrojTelefona" layoutX="456.0" layoutY="223.0" mnemonicParsing="false" text="+" />
+		<DatePicker fx:id="dpDatumRodjenja" layoutX="307.0" layoutY="180.0" />
+		<Label layoutX="205.0" layoutY="184.0" text="Datum rođenja:" />
+		<RadioButton fx:id="rbMuskiPol" layoutX="304.0" layoutY="269.0" mnemonicParsing="false" selected="true" text="Muški" textFill="#f2e9e9">
 			<toggleGroup>
 				<ToggleGroup fx:id="groupPol" />
 			</toggleGroup>
 		</RadioButton>
-		<RadioButton fx:id="rbZenskiPol" layoutX="379.0" layoutY="269.0" mnemonicParsing="false" text="Ženski" toggleGroup="$groupPol" />
+		<RadioButton fx:id="rbZenskiPol" layoutX="379.0" layoutY="269.0" mnemonicParsing="false" text="Ženski" textFill="#f2e9e9" toggleGroup="$groupPol" />
 		<Label layoutX="261.0" layoutY="269.0" text="Pol:" />
 		<Button fx:id="btnDodajFotografiju" layoutX="21.0" layoutY="257.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Dodajte fotografiju" />
 		<Label layoutX="29.0" layoutY="325.0" text="Zaposlen od:" />
