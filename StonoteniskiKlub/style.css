@@ -38,17 +38,16 @@
 .table-view .column-header {
     -fx-background-color: #638EA6;
 }	
-.combo-box .cell{
+.choice-box{
 	 -fx-background-color:white;
 	 -fx-text-fill: black;
+	 -fx-color:black;
 	 
 }
 .tab-pane{
 		-fx-color: #638EA6;
 }
-.combo-box-popup .list-view .list-cell:hover {
-    -fx-text-fill: red;
-}
+
 .label{
 	-fx-text-fill:#f2e9e9;
 }
