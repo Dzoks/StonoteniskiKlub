@@ -44,7 +44,7 @@ public class ListUpdater extends Task<Void> {
 				Alert alert=new Alert(AlertType.INFORMATION);
 				alert.setContentText("Rezultati su uspješno preuzeti i ažurirani u bazi podataka");
 				alert.setHeaderText("Uspješno preuzimanje");
-				alert.setTitle("Uspješno preuzimanje");
+				alert.setTitle("Informacija");
 				alert.showAndWait();
 			});
 		} catch (Exception e) {
@@ -52,7 +52,7 @@ public class ListUpdater extends Task<Void> {
 			Platform.runLater(()->{
 				Alert alert=new Alert(AlertType.ERROR);
 				alert.setContentText("Nije uspjelo preuzimanje liste. Molimo pokušajte ponovo");
-				alert.setHeaderText("Greška");
+				alert.setHeaderText("Greška prilikom preuzimanja");
 				alert.setTitle("Greška");
 				alert.showAndWait();
 			});		}

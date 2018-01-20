@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="561.0" prefWidth="930.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.PregledClanovaController">
+<AnchorPane prefHeight="561.0" prefWidth="930.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.PregledClanovaController">
    <children>
       <TableView fx:id="twTabela" layoutX="13.0" layoutY="366.0" onMouseClicked="#prikaziDetaljeOClanu" prefHeight="177.0" prefWidth="758.0" tableMenuButtonVisible="true">
         <columns>
@@ -70,7 +70,7 @@
             <Label text="Ime roditelja:" GridPane.rowIndex="2" />
             <Label text="Telefon:" GridPane.rowIndex="5" />
             <Label text="Pol:" GridPane.rowIndex="4" />
-            <Label text="Datum rođenja" GridPane.rowIndex="3" />
+            <Label text="Datum rođenja:" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Label fx:id="lblTurniri" layoutX="614.0" layoutY="30.0" text="Sezona:" />
@@ -79,15 +79,16 @@
           <TableColumn fx:id="clnTurnir" prefWidth="75.0" text="Turnir" />
           <TableColumn fx:id="clnBodovi" prefWidth="75.0" text="Bodovi" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
-      <Label layoutX="51.0" layoutY="21.0" text="Ime:" />
-      <Label layoutX="195.0" layoutY="21.0" text="Prezime:" />
       <Label fx:id="lblBodoviTxt" layoutX="614.0" layoutY="182.0" text="Ukupno bodova:" />
       <Label fx:id="lblPozicijaTxt" layoutX="614.0" layoutY="222.0" text="Pozicija na rang listi:" />
       <Label fx:id="lblBodovi" layoutX="757.0" layoutY="182.0" text="0" />
       <Label fx:id="lblPozicija" layoutX="761.0" layoutY="222.0" text="Nepoznato" />
       <ChoiceBox fx:id="cbxSezona" layoutX="608.0" layoutY="64.0" prefHeight="25.0" prefWidth="101.0" />
       <Button layoutX="779.0" layoutY="436.0" mnemonicParsing="false" onAction="#preuzmiRezultate" prefHeight="37.0" prefWidth="126.0" text="Preuzmite rezultate" />
-      <Button layoutX="779.0" layoutY="366.0" mnemonicParsing="false" onAction="#registrujIgracaKlik" prefHeight="37.0" prefWidth="126.0" text="Registruj igraca" />
+      <Button layoutX="779.0" layoutY="366.0" mnemonicParsing="false" onAction="#registrujIgracaKlik" prefHeight="37.0" prefWidth="126.0" text="Registrujte igrača" />
    </children>
 </AnchorPane>

@@ -44,16 +44,8 @@
 	 -fx-text-color:black;
 	 
 }*/
-.combo-box{
-	-fx-background-color:transparent;
-	-fx-background:white;
-	 -fx-color: black;
-}
-.combo-box-popup {
-	-fx-background-color:transparent;
-	-fx-background:white;
-	 -fx-color: black;
-}
+
+
 .tab-pane{
 		-fx-color: #638EA6;
 }

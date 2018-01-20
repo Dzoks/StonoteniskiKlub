@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="700.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.DublPrijavaController">
+<AnchorPane prefHeight="300.0" prefWidth="700.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.DublPrijavaController">
    <children>
       <Label layoutX="24.0" layoutY="254.0" text="Kategorija:">
          <font>
@@ -39,7 +39,7 @@
                </font>
             </Label>
             <TextField id="txtPrezime1" fx:id="txtPrezime1" layoutX="85.0" layoutY="51.0" prefHeight="25.0" prefWidth="185.0" />
-            <Label layoutX="12.0" layoutY="87.0" text="JMBG:">
+            <Label layoutX="12.0" layoutY="87.0" text="JMB:">
                <font>
                   <Font size="18.0" />
                </font>
@@ -67,7 +67,7 @@
                </font>
             </Label>
             <TextField id="txtPrezime2" fx:id="txtPrezime2" layoutX="85.0" layoutY="51.0" prefHeight="25.0" prefWidth="185.0" />
-            <Label layoutX="13.0" layoutY="87.0" prefHeight="27.0" prefWidth="57.0" text="JMBG:">
+            <Label layoutX="13.0" layoutY="87.0" prefHeight="27.0" prefWidth="57.0" text="JMB:">
                <font>
                   <Font size="18.0" />
                </font>
