@@ -41,7 +41,7 @@ public class PocetniProzorRacunovodjaController extends BaseController implement
 			Scene scene = new Scene(root,800,550);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.show();
 		} catch (IOException e) {

@@ -259,7 +259,7 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			UplataZaTurnirDTO trosak = tableUplateZaTurnir.getSelectionModel().getSelectedItem();
 			controller.setUplata(trosak);

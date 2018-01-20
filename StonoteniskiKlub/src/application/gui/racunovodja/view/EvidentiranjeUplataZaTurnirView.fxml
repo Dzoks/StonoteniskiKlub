@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeUplataZaTurnirController">
+<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeUplataZaTurnirController">
    <children>
       <TableView fx:id="tableUplateZaTurnir" layoutX="17.0" layoutY="197.0" prefHeight="227.0" prefWidth="419.0">
         <columns>
@@ -30,24 +30,24 @@
       </TableView>
       <Separator layoutX="16.0" layoutY="171.0" prefHeight="0.0" prefWidth="678.0" />
       <Label fx:id="lblPrikazPo" layoutX="457.0" layoutY="206.0" text="Prikaz po:" />
-      <RadioButton fx:id="radiobtnUcesnik" layoutX="538.0" layoutY="303.0" mnemonicParsing="false" onAction="#radioUcesnik" text="Ucesniku" textFill="#f2e9e9" />
+      <RadioButton fx:id="radiobtnUcesnik" layoutX="538.0" layoutY="303.0" mnemonicParsing="false" onAction="#radioUcesnik" text="Učesniku" textFill="#f2e9e9" />
       <RadioButton fx:id="radiobtnTurnir" layoutX="539.0" layoutY="223.0" mnemonicParsing="false" onAction="#radioTurnir" text="Turniru" textFill="#f2e9e9" />
-      <Label fx:id="lblUcesnik" layoutX="461.0" layoutY="350.0" text="Ucesnik:" />
+      <Label fx:id="lblUcesnik" layoutX="461.0" layoutY="350.0" text="Učesnik:" />
       <ComboBox fx:id="comboBoxUcesnikPrikazi" layoutX="528.0" layoutY="346.0" prefWidth="150.0" />
-      <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplacenom ucescu na turniru:">
+      <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplaćenom učešću na turniru:">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font></Label>
       <Button fx:id="btnDodaj" layoutX="544.0" layoutY="119.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="149.0" text="Dodajte" />
-      <Label fx:id="lblUcesnikDodaj" layoutX="24.0" layoutY="51.0" text="Ucesnik na turniru:" />
+      <Label fx:id="lblUcesnikDodaj" layoutX="24.0" layoutY="51.0" text="Učesnik na turniru:" />
       <ComboBox fx:id="comboBoxClanUcesnik" layoutX="137.0" layoutY="47.0" prefHeight="25.0" prefWidth="150.0" />
       <Label fx:id="lblIznos" layoutX="452.0" layoutY="44.0" text="Iznos:" />
       <TextField fx:id="txtIznos" layoutX="544.0" layoutY="40.0" />
       <Label fx:id="lblKM" layoutX="700.0" layoutY="44.0" text="KM" />
       <Label fx:id="lblDatumUplate" layoutX="452.0" layoutY="84.0" text="Datum uplate:" />
       <DatePicker fx:id="datePicker" layoutX="544.0" layoutY="80.0" />
-      <Button fx:id="btnPrikazi" layoutX="529.0" layoutY="448.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="149.0" text="Pretraga" />
-      <Button fx:id="btnObrisi" layoutX="118.0" layoutY="448.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrisite" />
+      <Button fx:id="btnPrikazi" layoutX="529.0" layoutY="448.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="149.0" text="Pretražite" />
+      <Button fx:id="btnObrisi" layoutX="118.0" layoutY="448.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrišite" />
       <Button fx:id="btnIzmijeni" layoutX="224.0" layoutY="448.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijenite" />
       <Label fx:id="lblTurnirPrikazi" layoutX="461.0" layoutY="386.0" text="Turnir:" />
       <ComboBox fx:id="comboBoxTurnirPrikazi" layoutX="528.0" layoutY="391.0" prefWidth="150.0" />

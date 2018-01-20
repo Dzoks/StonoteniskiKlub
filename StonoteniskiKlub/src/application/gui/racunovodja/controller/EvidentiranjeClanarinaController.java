@@ -277,7 +277,7 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 			controller.setPrimaryStage(noviStage);//
 			noviStage.setScene(scene);//
 			noviStage.setResizable(false);//
-			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");//
+			noviStage.setTitle("Stonoteniski klub");//
 			noviStage.initModality(Modality.APPLICATION_MODAL);//
 			ClanarinaDTO clanarina = tableClanarine.getSelectionModel().getSelectedItem();
 			controller.setListaClanova(listaClanova);

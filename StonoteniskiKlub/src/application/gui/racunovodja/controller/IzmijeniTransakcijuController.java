@@ -155,7 +155,7 @@ public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
 			listaTip = DAOFactory.getDAOFactory().getTipTransakcijeDAO().SELECT_ALL();

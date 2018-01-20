@@ -220,7 +220,7 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			TroskoviOpremaDTO trosak = tableTroskoviOprema.getSelectionModel().getSelectedItem();
 			controller.setListaTroskovi(listaTroskovi);

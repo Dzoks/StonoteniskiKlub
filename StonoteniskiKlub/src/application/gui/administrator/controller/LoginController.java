@@ -73,13 +73,19 @@ public class LoginController extends BaseController {
 							e.printStackTrace();
 						}
 					} else {
-						new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK).show();
+						Alert alert=new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK);
+						alert.setTitle("Greška");
+						alert.setHeaderText("Greška prilikom prijavljivanja");
+						alert.showAndWait();
 						txtKorisnickoIme.clear();
 						txtLozinka.clear();
 					}
 				}
 			} else {
-				new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK).show();
+				Alert alert=new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK);
+				alert.setTitle("Greška");
+				alert.setHeaderText("Greška prilikom prijavljivanja");
+				alert.showAndWait();
 				txtKorisnickoIme.clear();
 				txtLozinka.clear();
 			}

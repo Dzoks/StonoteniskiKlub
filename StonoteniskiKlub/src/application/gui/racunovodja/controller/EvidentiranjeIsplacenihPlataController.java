@@ -187,7 +187,7 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL); 
 			//odavde
 			PlataDTO plata = tablePlate.getSelectionModel().getSelectedItem(); //+

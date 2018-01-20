@@ -180,7 +180,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
 			listaTip = DAOFactory.getDAOFactory().getTipTransakcijeDAO().SELECT_ALL();
@@ -233,12 +233,16 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			if(sezona!=null) {
 				trenutnaNS= DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getBySezona(sezona);
 			}else {
-				Alert alert = new Alert(AlertType.INFORMATION,"Nema podataka o trenutnom budzetu.");
+				Alert alert = new Alert(AlertType.ERROR,"Nema podataka o trenutnom budžetu.");
+				alert.setTitle("Greška");
+				alert.setHeaderText("Greška prilikom dodavanja");
 				alert.showAndWait();
 				return null;
 			}
 			if(trenutnaNS==null) {
-				Alert alert = new Alert(AlertType.INFORMATION,"Nema podataka o trenutnom budzetu.");
+				Alert alert = new Alert(AlertType.ERROR,"Nema podataka o trenutnom budžetu.");
+				alert.setTitle("Greška");
+				alert.setHeaderText("Greška prilikom dodavanja");
 				alert.showAndWait();
 				return null;
 			}
@@ -264,7 +268,9 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 				trenutnaNS.setRashodi(trenutnaNS.getRashodi()+transakcija.getIznos().get());
 			}
 			prikaziLabele(trenutnaNS);
-			Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje!");
+			Alert alert = new Alert(AlertType.INFORMATION, "Uspješno dodavanje!");
+			alert.setTitle("Informacija");
+			alert.setHeaderText("Dodavanje");
 			alert.showAndWait();
 			this.obrisiPolja();
 			return transakcija;
@@ -284,7 +290,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa finansijama");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			TransakcijaDTO transakcija = tableView.getSelectionModel().getSelectedItem();
 			controller.setListaTransakcija(listaTransakcija);
@@ -321,7 +327,9 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			if(iznos<0)
 				throw new NumberFormatException();
 		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
+			Alert alert = new Alert(AlertType.ERROR, "Niste ispravno unijeli informaciju o iznosu.");
+			alert.setTitle("Greška");
+			alert.setHeaderText("Greška prilikom dodavanja");
 			this.obrisiPolja();
 			alert.showAndWait();
 			return;
@@ -331,7 +339,9 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		if(ok) {
 			comboBoxSezona.setItems(DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getSezone());
 			comboBoxSezona.getSelectionModel().select(0);
-			Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje!");
+			Alert alert = new Alert(AlertType.INFORMATION, "Uspješno dodavanje!");
+			alert.setTitle("Informacija");
+			alert.setHeaderText("Dodavanje");
 			btnPrikazi.fire();
 			this.obrisiPolja();
 			alert.showAndWait();

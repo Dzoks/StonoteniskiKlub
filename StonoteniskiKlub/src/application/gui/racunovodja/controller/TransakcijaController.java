@@ -46,7 +46,9 @@ public class TransakcijaController extends Controller{//realizacija
 			if(iznos<0)
 				throw new NumberFormatException();
 		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
+			Alert alert = new Alert(AlertType.ERROR, "Niste ispravno unijeli informaciju o iznosu.");
+			alert.setTitle("Greška");
+			alert.setHeaderText("Greška prilikom dodavanja");
 			this.obrisiPolja();
 			alert.showAndWait();
 			return null;
@@ -72,7 +74,9 @@ public class TransakcijaController extends Controller{//realizacija
 	@Override
 		void uspjesnoDodavanje() {
 			// TODO Auto-generated method stub
-		Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje!");
+		Alert alert = new Alert(AlertType.INFORMATION, "Uspješno dodavanje!");
+		alert.setTitle("Informacija");
+		alert.setHeaderText("Dodavanje");
 		alert.showAndWait();
 		this.obrisiPolja();
 		radiobtnSve.fire();

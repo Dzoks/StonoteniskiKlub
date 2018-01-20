@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="761.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeIsplacenihPlataController">
+<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="761.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeIsplacenihPlataController">
    <children>
       <TableView fx:id="tablePlate" layoutX="26.0" layoutY="208.0" prefHeight="222.0" prefWidth="405.0">
         <columns>
@@ -49,7 +49,7 @@
       <Label fx:id="lblDatumUplate" layoutX="453.0" layoutY="70.0" prefHeight="17.0" prefWidth="83.0" text="Datum uplate:" />
       <DatePicker fx:id="datePicker" layoutX="542.0" layoutY="62.0" />
       <Button fx:id="btnPrikazi" layoutX="535.0" layoutY="449.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Pretraga" />
-      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="452.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrisite" />
+      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="452.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrišite" />
       <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="452.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijenite" />
       <Label fx:id="lblGodina" layoutX="458.0" layoutY="361.0" text="Godina:" />
       <Spinner fx:id="spinnerGodina" layoutX="529.0" layoutY="357.0" />

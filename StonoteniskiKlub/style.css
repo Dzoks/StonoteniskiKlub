@@ -38,11 +38,21 @@
 .table-view .column-header {
     -fx-background-color: #638EA6;
 }	
-.choice-box{
+/* .choice-box{
 	 -fx-background-color:white;
 	 -fx-text-fill: black;
-	 -fx-color:black;
+	 -fx-text-color:black;
 	 
+}*/
+.combo-box{
+	-fx-background-color:transparent;
+	-fx-background:white;
+	 -fx-color: black;
+}
+.combo-box-popup {
+	-fx-background-color:transparent;
+	-fx-background:white;
+	 -fx-color: black;
 }
 .tab-pane{
 		-fx-color: #638EA6;

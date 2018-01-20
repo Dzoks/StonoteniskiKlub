@@ -47,7 +47,10 @@ public class DodajNalogController extends BaseController {
 		if (!korisnickoIme.getText().isEmpty()|| !tabelaZaposleni.getSelectionModel().isEmpty()) {
 				if(dodajNalog())
 					try {
-						new Alert(AlertType.INFORMATION, new String("Korisnički nalog je uspješno dodan.".getBytes(),"UTF-8")).show();
+						Alert alert=new Alert(AlertType.INFORMATION, new String("Korisnički nalog je uspješno dodan.".getBytes(),"UTF-8"));
+						alert.setTitle("Informacija");
+						alert.setHeaderText("Dodavanje");
+						alert.showAndWait();
 					} catch (UnsupportedEncodingException e) {
 						e.printStackTrace();
 					}

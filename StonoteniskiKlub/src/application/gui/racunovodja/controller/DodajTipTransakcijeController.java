@@ -26,7 +26,9 @@ public class DodajTipTransakcijeController extends BaseController{ //popraviti p
 		String tip = txtTip.getText().trim();
 		TipTransakcijeDTO tipTransakcije = new TipTransakcijeDTO(tip);
 		DAOFactory.getDAOFactory().getTipTransakcijeDAO().INSERT(tipTransakcije);
-		Alert alert = new Alert(AlertType.INFORMATION, "Uspjesno dodavanje tipa transakcije.");
+		Alert alert = new Alert(AlertType.INFORMATION, "Uspješno dodavanje tipa transakcije.");
+		alert.setTitle("Informacija");
+		alert.setHeaderText("Dodavanje");
 		alert.showAndWait();
 		this.getPrimaryStage().close();
 	}

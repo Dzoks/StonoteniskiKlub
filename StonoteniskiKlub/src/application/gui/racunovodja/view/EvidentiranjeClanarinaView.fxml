@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeClanarinaController">
+<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeClanarinaController">
    <children>
       <TableView fx:id="tableClanarine" fixedCellSize="0.0" layoutX="17.0" layoutY="243.0" prefHeight="192.0" prefWidth="432.0">
         <columns>
@@ -31,20 +31,20 @@
       </TableView>
       <Separator layoutX="13.0" layoutY="221.0" prefHeight="1.0" prefWidth="739.0" />
       <Label fx:id="lblPrikazPo" layoutX="478.0" layoutY="248.0" text="Prikaz po:" />
-      <RadioButton fx:id="radiobtnClan" alignment="CENTER_LEFT" contentDisplay="RIGHT" layoutX="563.0" layoutY="246.0" mnemonicParsing="false" onAction="#radioClan" prefHeight="17.0" prefWidth="65.0" text="Clanu" textFill="#f2e9e9" />
+      <RadioButton fx:id="radiobtnClan" alignment="CENTER_LEFT" contentDisplay="RIGHT" layoutX="563.0" layoutY="246.0" mnemonicParsing="false" onAction="#radioClan" prefHeight="17.0" prefWidth="65.0" text="Članu" textFill="#f2e9e9" />
       <RadioButton fx:id="radiobtnMjesec" layoutX="563.0" layoutY="301.0" mnemonicParsing="false" onAction="#radioMjesec" text="Mjesecu" textFill="#f2e9e9" />
       <Label fx:id="lblMjesec" layoutX="474.0" layoutY="332.0" text="Mjesec:" />
       <Spinner fx:id="spinnerMjesecPrikazi" layoutX="553.0" layoutY="324.0" />
       <Label fx:id="lblClan" layoutX="474.0" layoutY="414.0" text="Clan:" />
       <ComboBox fx:id="comboBoxClanPrikazi" layoutX="552.0" layoutY="406.0" prefWidth="150.0" />
-      <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplacenoj clanarini:">
+      <Label layoutX="26.0" layoutY="14.0" text="Unos podataka o uplaćenoj članarini:">
          <font>
             <Font name="System Bold Italic" size="16.0" />
          </font></Label>
       <Button fx:id="btnDodaj" layoutX="557.0" layoutY="162.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="157.0" text="Dodajte" />
       <Label fx:id="lblMjesecDodaj" layoutX="27.0" layoutY="100.0" text="Mjesec:" />
       <Spinner fx:id="spinnerMjesecDodaj" layoutX="101.0" layoutY="96.0" />
-      <Label fx:id="lblClanDodaj" layoutX="26.0" layoutY="60.0" text="Clan:" />
+      <Label fx:id="lblClanDodaj" layoutX="26.0" layoutY="60.0" text="Član:" />
       <ComboBox fx:id="comboBoxClanDodaj" layoutX="101.0" layoutY="56.0" prefWidth="150.0" />
       <Label fx:id="lblIznos" layoutX="32.0" layoutY="179.0" text="Iznos:" />
       <TextField fx:id="txtIznos" layoutX="102.0" layoutY="175.0" />
@@ -60,6 +60,6 @@
       <Label fx:id="lblOpis" layoutX="481.0" layoutY="100.0" text="Opis:" />
       <TextArea fx:id="txtOpis" layoutX="540.0" layoutY="102.0" prefHeight="37.0" prefWidth="174.0" />
       <RadioButton fx:id="radiobtnSve" alignment="CENTER_LEFT" contentDisplay="RIGHT" layoutX="563.0" layoutY="274.0" mnemonicParsing="false" onAction="#radioSve" prefHeight="17.0" prefWidth="66.0" text="Sve" textFill="#f2e9e9" />
-      <Button fx:id="btnObrisi" layoutX="87.0" layoutY="453.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrisite" />
+      <Button fx:id="btnObrisi" layoutX="87.0" layoutY="453.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrišite" />
    </children>
 </AnchorPane>

@@ -60,7 +60,10 @@ public class AdministratorController extends BaseController {
 		if (tabelaNalog.getSelectionModel().getSelectedItem() != null) {
 			KorisnickiNalogDAO.setAktivan(0,
 					((KorisnickiNalogDTO) tabelaNalog.getSelectionModel().getSelectedItem()).getNalogId());
-			new Alert(AlertType.INFORMATION, "Uspješno ste obrisali nalog.", ButtonType.OK).show();
+			Alert alert=new Alert(AlertType.INFORMATION, "Uspješno ste obrisali nalog.", ButtonType.OK);
+			alert.setTitle("Informacija");
+			alert.setHeaderText("Brisanje");
+			alert.showAndWait();
 
 			popuniTabelu();
 		} else {

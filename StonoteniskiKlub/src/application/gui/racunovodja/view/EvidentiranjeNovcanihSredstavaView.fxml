@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeNovcanihSredstavaController">
+<AnchorPane prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeNovcanihSredstavaController">
    <children>
       <TableView fx:id="tableView" layoutX="425.0" layoutY="18.0" prefHeight="196.0" prefWidth="286.0">
         <columns>
@@ -42,21 +42,21 @@
       <DatePicker fx:id="datePicker" layoutX="135.0" layoutY="139.0" prefHeight="25.0" prefWidth="150.0" />
       <Label fx:id="lblVrsta" layoutX="26.0" layoutY="178.0" text="Vrsta:" />
       <ComboBox fx:id="comboBoxVrsta" layoutX="135.0" layoutY="178.0" prefWidth="150.0" />
-      <Button fx:id="btnDodaj" layoutX="135.0" layoutY="289.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="150.0" text="Dodaj" />
-      <Button layoutX="494.0" layoutY="249.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="88.0" text="Obrisi" />
-      <Button layoutX="619.0" layoutY="249.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="70.0" text="Izmijeni" />
+      <Button fx:id="btnDodaj" layoutX="135.0" layoutY="289.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="150.0" text="Dodajte" />
+      <Button layoutX="494.0" layoutY="249.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="88.0" text="Obrišite" />
+      <Button layoutX="619.0" layoutY="249.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="70.0" text="Izmijenite" />
       <Label layoutX="425.0" layoutY="327.0" text="Sezona:" />
-      <Label alignment="CENTER_RIGHT" layoutX="426.0" layoutY="373.0" prefHeight="17.0" prefWidth="88.0" text="Usvojeni budzet:" />
+      <Label alignment="CENTER_RIGHT" layoutX="426.0" layoutY="373.0" prefHeight="17.0" prefWidth="109.0" text="Usvojeni budžet:" />
       <Label fx:id="lblUsvojeniBudzet" layoutX="597.0" layoutY="373.0" text="vrijednostUsvojeniBudzet" textFill="RED" />
-      <Label contentDisplay="RIGHT" layoutX="426.0" layoutY="398.0" prefHeight="17.0" prefWidth="88.0" text="Priodi:" />
+      <Label contentDisplay="RIGHT" layoutX="426.0" layoutY="398.0" prefHeight="17.0" prefWidth="88.0" text="Prihodi:" />
       <Label contentDisplay="RIGHT" layoutX="426.0" layoutY="432.0" prefHeight="17.0" prefWidth="102.0" text="Rashodi:" />
-      <Label layoutX="425.0" layoutY="457.0" prefHeight="17.0" prefWidth="158.0" text="Trenutna novcana sredstva:" />
+      <Label layoutX="425.0" layoutY="457.0" prefHeight="17.0" prefWidth="158.0" text="Trenutna novčana sredstva:" />
       <Label fx:id="lblPrihodi" layoutX="597.0" layoutY="398.0" prefHeight="17.0" prefWidth="134.0" text="vrijednostPrihodi" textFill="RED" />
       <Label fx:id="lblRashodi" layoutX="597.0" layoutY="432.0" text="vrijednostRashodi" textFill="RED" />
       <Label fx:id="lblNovcanaSredstva" layoutX="597.0" layoutY="456.0" prefHeight="17.0" prefWidth="95.0" text="vrijednostNS" textFill="RED" />
-      <Button fx:id="btnPrikazi" layoutX="619.0" layoutY="323.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="70.0" text="Prikazi" />
+      <Button fx:id="btnPrikazi" layoutX="619.0" layoutY="323.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="70.0" text="Prikažite" />
       <ComboBox fx:id="comboBoxSezona" layoutX="494.0" layoutY="323.0" prefHeight="25.0" prefWidth="88.0" />
-      <Label layoutX="31.0" layoutY="327.0" text="Unos podataka o usvojenom budzetu za sezonu:">
+      <Label layoutX="31.0" layoutY="327.0" text="Unos podataka o usvojenom budžetu za sezonu:">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font></Label>
@@ -64,8 +64,8 @@
       <Label layoutX="33.0" layoutY="364.0" text="Iznos:" />
       <TextField fx:id="txtSezona" layoutX="124.0" layoutY="417.0" />
       <TextField fx:id="txtIznosBudzet" layoutX="124.0" layoutY="369.0" />
-      <Button fx:id="btnDodajBudzet" layoutX="124.0" layoutY="455.0" mnemonicParsing="false" onAction="#dodajBudzet" prefHeight="25.0" prefWidth="149.0" text="Dodaj" />
-      <Label layoutX="41.0" layoutY="18.0" text="Unos podataka o izvrsenoj transakciji:">
+      <Button fx:id="btnDodajBudzet" layoutX="124.0" layoutY="455.0" mnemonicParsing="false" onAction="#dodajBudzet" prefHeight="25.0" prefWidth="149.0" text="Dodajte" />
+      <Label layoutX="41.0" layoutY="18.0" text="Unos podataka o izvršenoj transakciji:">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="396.0" prefWidth="571.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.administrator.controller.AdministratorController">
+<AnchorPane prefHeight="396.0" prefWidth="571.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.administrator.controller.AdministratorController">
    <children>
       <TableView fx:id="tabelaNalog" layoutX="19.0" layoutY="18.0" prefHeight="323.0" prefWidth="530.0" stylesheets="@../../../../../style.css">
         <columns>
@@ -24,8 +24,8 @@
          </styleClass>
       </TableView>
       <Button layoutX="291.0" layoutY="357.0" mnemonicParsing="false" onAction="#dodajNalogKlik" prefHeight="25.0" prefWidth="112.0" text="Dodajte nalog" />
-      <Button fx:id="obrisiNalogDugme" layoutX="38.0" layoutY="357.0" mnemonicParsing="false" onAction="#obrisiNalogKlik" prefHeight="25.0" prefWidth="112.0" text="Obriši nalog" />
-      <Button layoutX="166.0" layoutY="357.0" mnemonicParsing="false" onAction="#osvjeziDugmeKlik" prefHeight="25.0" prefWidth="112.0" text="Osvježi" />
+      <Button fx:id="obrisiNalogDugme" layoutX="38.0" layoutY="357.0" mnemonicParsing="false" onAction="#obrisiNalogKlik" prefHeight="25.0" prefWidth="112.0" text="Obrišite nalog" />
+      <Button layoutX="166.0" layoutY="357.0" mnemonicParsing="false" onAction="#osvjeziDugmeKlik" prefHeight="25.0" prefWidth="112.0" text="Osvježite" />
       <Button layoutX="418.0" layoutY="357.0" mnemonicParsing="false" onAction="#odjaviSeKlik" prefHeight="25.0" prefWidth="112.0" text="Odjavite se" />
    </children>
 </AnchorPane>

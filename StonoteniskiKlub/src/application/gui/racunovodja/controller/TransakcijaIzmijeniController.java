@@ -35,7 +35,9 @@ public class TransakcijaIzmijeniController extends IzmijeniController{ //realiza
 			if(iznos<0)
 				throw new NumberFormatException();
 		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Niste ispravno unijeli informaciju o iznosu.");
+			Alert alert = new Alert(AlertType.ERROR, "Niste ispravno unijeli informaciju o iznosu.");
+			alert.setTitle("Greška");
+			alert.setHeaderText("Greška prilikom izmjene");
 			alert.showAndWait();
 			return null;
 		}
