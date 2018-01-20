@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
@@ -59,3 +60,66 @@
       <Label layoutX="434.0" layoutY="615.0" text="KM" />
    </children>
 </AnchorPane>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="669.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.ObracunavanjePlateController">
+   <children>
+      <Label layoutX="45.0" layoutY="20.0" text="Obracun plate:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="43.0" layoutY="69.0" text="Zaposleni:" />
+      <ComboBox fx:id="comboBoxZaposleni" layoutX="121.0" layoutY="65.0" prefWidth="150.0" />
+      <Label layoutX="43.0" layoutY="123.0" text="Koeficijent:" />
+      <Label layoutX="42.0" layoutY="168.0" text="Cijena rada:" />
+      <TextField fx:id="txtKoeficijent" layoutX="122.0" layoutY="119.0" />
+      <TextField fx:id="txtCijenaRada" layoutX="122.0" layoutY="164.0" />
+      <Label layoutX="45.0" layoutY="215.0" text="Bolovanje:" />
+      <TextField fx:id="txtBolovanje" layoutX="122.0" layoutY="211.0" />
+      <Label layoutX="278.0" layoutY="215.0" text="dana" />
+      <Label layoutX="43.0" layoutY="321.0" text="Doprinosi za PIO: " />
+      <Label layoutX="43.0" layoutY="358.0" text="Doprinos za zdravstveno osiguranje:" />
+      <Label layoutX="43.0" layoutY="401.0" text="Doprinos za zaposljavanje:" />
+      <Label layoutX="43.0" layoutY="442.0" text="Doprinos za djeciju zastitu:" />
+      <Label layoutX="43.0" layoutY="481.0" text="Porez na platu:" />
+      <Label layoutX="43.0" layoutY="537.0" text="Doprinosi:" />
+      <Label layoutX="41.0" layoutY="573.0" text="Bruto iznos:" />
+      <Label layoutX="41.0" layoutY="603.0" text="Neto iznos za isplatu:" />
+      <Separator layoutX="33.0" layoutY="298.0" prefHeight="1.0" prefWidth="442.0" />
+      <Separator layoutX="39.0" layoutY="523.0" prefHeight="3.0" prefWidth="436.0" />
+      <Separator layoutX="254.0" layoutY="310.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="0.0" />
+      <Separator layoutX="335.0" layoutY="310.0" orientation="VERTICAL" prefHeight="200.0" />
+      <Label fx:id="lblPIOPostotak" layoutX="279.0" layoutY="321.0" text="18.5%" />
+      <Label fx:id="lblZOPostotak" layoutX="281.0" layoutY="358.0" text="12.0%" />
+      <Label fx:id="lblDoprinosiZaposljavanjePostotak" layoutX="281.0" layoutY="401.0" text="1.0%" />
+      <Label fx:id="lblDjecijaZastitaPostotak" layoutX="281.0" layoutY="442.0" text="1.5%" />
+      <Label fx:id="lblPorezPostotak" layoutX="280.0" layoutY="481.0" text="10%" />
+      <Label fx:id="lblDoprinosiUkupno" layoutX="386.0" layoutY="549.0" text="-" textFill="RED" />
+      <Label fx:id="lblBruto" layoutX="386.0" layoutY="585.0" text="-" textFill="RED" />
+      <Label fx:id="lblNeto" layoutX="386.0" layoutY="612.0" text="-" textFill="RED" />
+      <Label fx:id="lblPIO" layoutX="386.0" layoutY="321.0" text="-" textFill="RED" />
+      <Label fx:id="lblZO" layoutX="386.0" layoutY="358.0" text="-" textFill="RED" />
+      <Label fx:id="lblDoprinosZaposljavanje" layoutX="386.0" layoutY="401.0" text="-" textFill="RED" />
+      <Label fx:id="lblDjecijaZastita" layoutX="386.0" layoutY="442.0" text="-" textFill="RED" />
+      <Label fx:id="lblPorez" layoutX="386.0" layoutY="481.0" text="-" textFill="RED" />
+      <Label layoutX="434.0" layoutY="321.0" text="KM" />
+      <Label layoutX="434.0" layoutY="358.0" text="KM" />
+      <Label layoutX="434.0" layoutY="401.0" text="KM" />
+      <Label layoutX="434.0" layoutY="442.0" text="KM" />
+      <Label layoutX="434.0" layoutY="481.0" text="KM" />
+      <Button fx:id="btnObracunaj" layoutX="126.0" layoutY="254.0" mnemonicParsing="false" onAction="#obracunaj" prefHeight="25.0" prefWidth="142.0" text="Obracunajte" />
+      <Label layoutX="434.0" layoutY="549.0" text="KM" />
+      <Label layoutX="434.0" layoutY="585.0" text="KM" />
+      <Label layoutX="434.0" layoutY="615.0" text="KM" />
+   </children>
+</AnchorPane>
+>>>>>>> Stashed changes
