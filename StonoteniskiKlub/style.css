@@ -45,6 +45,10 @@
 }
 .choice-box .menu-item > .label { -fx-text-fill: black; }
 
+.date-picker-popup > * > .spinner > .label{
+	-fx-text-fill: black;
+}
+
 .combo-box{
 	-fx-color: #638EA6;	
 }
