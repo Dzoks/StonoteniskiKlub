@@ -58,6 +58,5 @@
          </content>
       </ScrollPane>
       <RadioButton fx:id="radiobtnSve" layoutX="569.0" layoutY="263.0" mnemonicParsing="false" onAction="#radioSve" text="Sve" textFill="#f2e9e9" />
-      <Button fx:id="odjaviteSe" layoutX="629.0" layoutY="16.0" mnemonicParsing="false" onAction="#odjaviteSe" text="Odjavite se" />
    </children>
 </AnchorPane>

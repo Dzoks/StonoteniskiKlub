@@ -55,6 +55,5 @@
             <TextArea fx:id="txtOpis" prefHeight="67.0" prefWidth="321.0" />
          </content>
       </ScrollPane>
-      <Button layoutX="598.0" layoutY="24.0" mnemonicParsing="false" onAction="#odjaviteSe" text="Odjavite se" />
    </children>
 </AnchorPane>

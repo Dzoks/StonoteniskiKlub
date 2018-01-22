@@ -56,6 +56,5 @@
       <Label fx:id="lblOpis" layoutX="26.0" layoutY="101.0" text="Opis:" />
       <TextArea fx:id="txtOpis" layoutX="115.0" layoutY="104.0" prefHeight="65.0" prefWidth="316.0" />
       <RadioButton fx:id="radiobtnSve" layoutX="533.0" layoutY="280.0" mnemonicParsing="false" onAction="#radioSve" prefHeight="17.0" prefWidth="75.0" text="Sve" textFill="#f2e9e9" />
-      <Button layoutX="616.0" layoutY="24.0" mnemonicParsing="false" onAction="#odjaviteSe" text="Odjavite se" />
    </children>
 </AnchorPane>
