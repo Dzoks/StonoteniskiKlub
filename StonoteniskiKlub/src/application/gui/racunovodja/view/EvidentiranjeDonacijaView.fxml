@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeDonacijaController">
+<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeDonacijaController">
    <children>
       <TableView fx:id="tableDonacije" layoutX="37.0" layoutY="94.0" prefHeight="375.0" prefWidth="448.0">
         <columns>
@@ -36,5 +36,6 @@
          </font>
       </Label>
       <Separator layoutX="17.0" layoutY="54.0" prefHeight="2.0" prefWidth="756.0" />
+      <Button layoutX="663.0" layoutY="16.0" mnemonicParsing="false" onAction="#odjaviteSe" text="Odjavite se" />
    </children>
 </AnchorPane>

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeClanarinaController">
+<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeClanarinaController">
    <children>
       <TableView fx:id="tableClanarine" fixedCellSize="0.0" layoutX="17.0" layoutY="243.0" prefHeight="192.0" prefWidth="432.0">
         <columns>
@@ -61,5 +61,6 @@
       <TextArea fx:id="txtOpis" layoutX="540.0" layoutY="102.0" prefHeight="37.0" prefWidth="174.0" />
       <RadioButton fx:id="radiobtnSve" alignment="CENTER_LEFT" contentDisplay="RIGHT" layoutX="563.0" layoutY="274.0" mnemonicParsing="false" onAction="#radioSve" prefHeight="17.0" prefWidth="66.0" text="Sve" textFill="#f2e9e9" />
       <Button fx:id="btnObrisi" layoutX="87.0" layoutY="453.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrišite" />
+      <Button layoutX="636.0" layoutY="14.0" mnemonicParsing="false" onAction="#odjaviteSe" text="Odjavite se" />
    </children>
 </AnchorPane>

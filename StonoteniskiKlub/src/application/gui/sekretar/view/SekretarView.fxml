@@ -21,6 +21,9 @@
            <Tab id="skupstineTab" fx:id="skupstineTab" text="Skupštine">
              <fx:include source="RadSaSkupstinamaView.fxml" />
           </Tab>
+           <Tab id="narudzbeTab" fx:id="narudzbeTab" text="Narudžbe">
+             <fx:include source="NarudzbaGlavniView.fxml" />
+          </Tab>
         </tabs>
       </TabPane>
    </children>

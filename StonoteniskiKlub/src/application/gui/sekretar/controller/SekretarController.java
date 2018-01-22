@@ -19,7 +19,8 @@ public class SekretarController extends BaseController{
 
 	@FXML
 	private Tab skupstineTab;
-
+	@FXML
+	private Tab narudzbeTab;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub

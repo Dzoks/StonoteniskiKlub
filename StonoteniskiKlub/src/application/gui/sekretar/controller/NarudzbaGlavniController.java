@@ -66,6 +66,14 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 	@FXML
 	private TableColumn<Narudzba, String> status;
 	
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		btnIzmjeni.setDisable(true);

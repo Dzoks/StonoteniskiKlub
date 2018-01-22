@@ -1,5 +1,6 @@
 package application.gui.racunovodja.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
 import application.model.dto.TroskoviOpremaDTO;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -72,6 +74,14 @@ public class EvidentiranjeDonacijaController extends BaseController{
 		postaviKolone();
 		tableDonacije.setItems(listaDonacija);
 	}
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 	private void postaviKolone() {
 		tableColumnIznos.setCellValueFactory(new PropertyValueFactory<DonacijaDTO,Double>("novcaniIznos"));
 		tableColumnOpis.setCellValueFactory(new PropertyValueFactory<DonacijaDTO,String>("opisTransakcije"));

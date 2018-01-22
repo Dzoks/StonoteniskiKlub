@@ -29,6 +29,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -130,7 +131,14 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 	private ObservableList<ClanarinaDTO> lista = FXCollections.observableArrayList(); //za pretragu
 
 	
-
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 	
 	@Override
 	public void metoda() {

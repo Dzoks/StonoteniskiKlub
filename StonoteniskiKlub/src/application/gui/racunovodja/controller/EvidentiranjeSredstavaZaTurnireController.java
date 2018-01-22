@@ -27,6 +27,7 @@ import application.model.dto.TurnirDTO;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -136,6 +137,14 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaDecora
 		tableTroskoviTurnir.getSelectionModel().select(0);
 	
 	}
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 
 	public void radioSve() {
 		comboBoxTurnirPrikazi.setDisable(true);

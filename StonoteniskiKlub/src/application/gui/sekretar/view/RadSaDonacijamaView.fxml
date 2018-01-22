@@ -49,5 +49,6 @@
 		<Separator layoutX="14.0" layoutY="266.0" prefHeight="0.0" prefWidth="600.0" />
 		<Separator layoutX="407.0" layoutY="267.0" orientation="VERTICAL" prefHeight="207.0" prefWidth="6.0" />
 		<Button fx:id="btnPretraga" layoutX="288.0" layoutY="449.0" mnemonicParsing="false" onAction="#pretraga" prefHeight="25.0" prefWidth="102.0" text="Pretražite" />
+      <Button layoutX="537.0" layoutY="14.0" mnemonicParsing="false" onAction="#odjaviteSe" text="Odjavite se" />
 	</children>
 </AnchorPane>

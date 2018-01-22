@@ -151,7 +151,14 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		dodajKonteksniMeni();
 
 	}
-
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 	public void dodajKonteksniMeni() {
 		ContextMenu cm = new ContextMenu();
 		MenuItem postaviUNeaktivno = new MenuItem("Postavite u neaktivno");

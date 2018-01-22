@@ -219,7 +219,14 @@ public class PregledClanovaController extends BaseController implements Initiali
 		tblTurniri.setVisible(uslov);
 		cbxSezona.setVisible(uslov);
 	}
-
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 	public void idiNaPregledOpreme() {
 		Stage noviStage = new Stage();
 

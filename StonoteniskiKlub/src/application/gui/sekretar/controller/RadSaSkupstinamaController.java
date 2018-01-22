@@ -75,6 +75,14 @@ public class RadSaSkupstinamaController extends BaseController {
 			TextUtility.setTextFlow(taTekst, stavke);
 		}
 	}
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 
 	// Event Listener on RadioButton[#rbDnevniRed].onAction
 	@FXML

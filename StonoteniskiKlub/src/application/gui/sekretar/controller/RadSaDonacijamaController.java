@@ -1,5 +1,6 @@
 package application.gui.sekretar.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -69,6 +70,14 @@ public class RadSaDonacijamaController extends BaseController {
 		populateComboBoxes();
 		bindDisable();
 	}
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 
 	@FXML
 	public void updateOpis(MouseEvent event) {

@@ -25,6 +25,7 @@ import application.model.dto.ZaposleniDTO;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -155,6 +156,15 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 		BooleanBinding binding = radiobtnSve.selectedProperty().not().and(radiobtnZaposleni.selectedProperty().not()).and(radiobtnMjesec.selectedProperty().not());
 		btnPrikazi.disableProperty().bind(binding);
 	}
+	
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 	
 	private void popuniComboBox() {
 		comboBoxZaposleniDodaj.setItems(listaZaposlenih);

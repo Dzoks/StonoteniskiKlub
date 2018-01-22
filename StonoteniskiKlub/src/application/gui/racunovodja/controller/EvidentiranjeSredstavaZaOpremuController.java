@@ -165,6 +165,14 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 		if(!listaNarudzba.isEmpty())
 			comboBoxDistributer.getSelectionModel().select(0);
 	}
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 	private void postaviKolone() {
 		tableColumnNarudzba.setCellValueFactory(new PropertyValueFactory<TroskoviOpremaDTO, String>("narudzba"));
 		tableColumnDistributer.setCellValueFactory(new PropertyValueFactory<TroskoviOpremaDTO, String>("distributer"));

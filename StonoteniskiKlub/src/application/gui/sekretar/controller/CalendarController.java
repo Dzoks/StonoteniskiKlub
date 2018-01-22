@@ -41,6 +41,14 @@ public class CalendarController extends BaseController {
 	@FXML
 	private Button btnDodajDogadjaj;
 
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 	@FXML
 	public void dodajDogadjaj(ActionEvent event) {
 		if (selectedDate != null) {

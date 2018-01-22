@@ -106,6 +106,14 @@ public class RadSaSponzorimaController extends BaseController {
 		}
 		tblSponzori.setItems(filtered);
 	}
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 
 	// Event Listener on Button[#btnPretrazi].onAction
 	@FXML

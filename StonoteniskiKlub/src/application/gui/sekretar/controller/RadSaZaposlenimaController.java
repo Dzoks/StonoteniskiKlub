@@ -75,7 +75,14 @@ public class RadSaZaposlenimaController extends BaseController {
 	public void deselect(MouseEvent event) {
 		tblZaposleni.getSelectionModel().clearSelection();
 	}
-
+	  @FXML
+	    void odjaviteSe(ActionEvent event) {
+	    	try {
+				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
 	// Event Listener on TableView[#tblZaposleni].onMouseClicked
 	@FXML
 	public void prikaziSliku(MouseEvent event) {
