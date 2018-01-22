@@ -45,6 +45,10 @@
 }
 .choice-box .menu-item > .label { -fx-text-fill: black; }
 
+.date-picker-popup > * > .spinner > .label{
+	-fx-text-fill: black;
+}
+
 .combo-box{
 	-fx-color: #638EA6;	
 }
@@ -83,6 +87,12 @@
 .tab:selected 
 {
 -fx-background-color:  #3e4e63;
+-fx-background-insets: 0, 1 1 0 1;
+-fx-background-radius: 5 5 0 0, 4 4 0 0;
+}
+.tab:hover{
+  
+    -fx-background-color:  #3e4e63;
 -fx-background-insets: 0, 1 1 0 1;
 -fx-background-radius: 5 5 0 0, 4 4 0 0;
 }

@@ -61,6 +61,5 @@
       <TextArea fx:id="txtOpis" layoutX="540.0" layoutY="102.0" prefHeight="37.0" prefWidth="174.0" />
       <RadioButton fx:id="radiobtnSve" alignment="CENTER_LEFT" contentDisplay="RIGHT" layoutX="563.0" layoutY="274.0" mnemonicParsing="false" onAction="#radioSve" prefHeight="17.0" prefWidth="66.0" text="Sve" textFill="#f2e9e9" />
       <Button fx:id="btnObrisi" layoutX="87.0" layoutY="453.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrišite" />
-      <Button layoutX="636.0" layoutY="14.0" mnemonicParsing="false" onAction="#odjaviteSe" text="Odjavite se" />
    </children>
 </AnchorPane>
