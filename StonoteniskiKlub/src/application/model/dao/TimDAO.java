@@ -46,11 +46,12 @@ public class TimDAO {
 			
 			ps = ConnectionPool.prepareStatement(c, query, false,pom);
 			rs = ps.executeQuery();
-			while (rs.next())
+			while (rs.next()){
 				retVal.add(new UcesnikPrijavaDTO(rs.getInt("OSOBA_Id"), rs.getString("Ime"), rs.getString("Prezime"), 
 						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"),
 						rs.getInt("UCESNIK1_PRIJAVA_Id"),rs.getInt("TURNIR_Id"),rs.getInt("TURNIR_KATEGORIJA_Id"),
 						rs.getDate("Datum")));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

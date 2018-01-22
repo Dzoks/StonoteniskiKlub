@@ -23,42 +23,34 @@ public class TimDTO {
 		return this.id;
 	}
 	
-
 	public final int getId() {
 		return this.idProperty().get();
 	}
 	
-
 	public final void setId(final int id) {
 		this.idProperty().set(id);
 	}
 	
-
 	public final IntegerProperty idPrvogUcesnikaProperty() {
 		return this.idPrvogUcesnika;
 	}
 	
-
 	public final int getIdPrvogUcesnika() {
 		return this.idPrvogUcesnikaProperty().get();
 	}
 	
-
 	public final void setIdPrvogUcesnika(final int idPrvogUcesnika) {
 		this.idPrvogUcesnikaProperty().set(idPrvogUcesnika);
 	}
 	
-
 	public final IntegerProperty idDrugogUcesnikaProperty() {
 		return this.idDrugogUcesnika;
 	}
 	
-
 	public final int getIdDrugogUcesnika() {
 		return this.idDrugogUcesnikaProperty().get();
 	}
 	
-
 	public final void setIdDrugogUcesnika(final int idDrugogUcesnika) {
 		this.idDrugogUcesnikaProperty().set(idDrugogUcesnika);
 	}

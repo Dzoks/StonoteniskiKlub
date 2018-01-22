@@ -37,7 +37,6 @@ public class TurnirDTO {
 		this.naziv = new SimpleStringProperty(naziv);
 		this.datum = new SimpleObjectProperty<Date>(datum);
 		this.zatvoren = zavrsen==true ? new SimpleStringProperty("Da") : new SimpleStringProperty("Ne");
-
 		konvertovanDatum=TurniriController.konvertujIzSQLDate(datum.toString());
 	}
 

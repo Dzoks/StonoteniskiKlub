@@ -13,73 +13,18 @@ import application.model.dto.UcesnikPrijavaDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-//import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
 
 public class UcesnikPrijavaDAO {
 	private final static String SQL_GET_BY_JMB = "select * from UCESNIK_PRIJAVA u left join OSOBA o on u.OSOBA_Id=o.Id where o.JMB=?"
 			+ " order by u.TURNIR_KATEGORIJA_Id desc limit 1";
-//	private final static String SQL_GET_BY_ID = "select * from UCESNIK_PRIJAVA u left join OSOBA o on u.OSOBA_Id=o.Id where u.Id=?";
 	private final static String SQL_INSERT = "{call prijaviUcesnika(?,?,?,?,?,?,?,?,?)}";
-//	private final static String SQL_SELECT_ALL = "select * from UCESNIK_PRIJAVA u inner join OSOBA o on u.OSOBA_Id = o.Id "
-//			+ "where u.TURNIR_Id=? and u.TURNIR_KATEGORIJA_Id=?";
 	public static final String SQL_UPDATE="update UCESNIK_PRIJAVA u inner join OSOBA o on u.OSOBA_Id = o.Id set o.Ime=?,"
 			+ "o.Prezime=?,o.DatumRodjenja=? where u.Id=?";
 	private final static String SQL_ADD_NEW = "{call dodajPrijavu(?,?,?,?,?)}";
 	private final static String SQL_SELECT_ALL1="select * from UCESNIK_PRIJAVA u inner join OSOBA o where u.OSOBA_Id=o.Id";
-//	
-//	public static ObservableList<UcesnikPrijavaDTO> getAll(Integer idTurnira,Integer idKategorije) {
-//		ObservableList<UcesnikPrijavaDTO> retVal = FXCollections.observableArrayList();
-//		Connection c = null;
-//		PreparedStatement ps = null;
-//		ResultSet rs = null;
-//		try {
-//			c = ConnectionPool.getInstance().checkOut();
-//			String query = SQL_SELECT_ALL;
-//			Object pom[] = { idTurnira,idKategorije };
-//			
-//			ps = ConnectionPool.prepareStatement(c, query, false,pom);
-//			rs = ps.executeQuery();
-//			while (rs.next())
-//				retVal.add(new UcesnikPrijavaDTO(rs.getInt("OSOBA_Id"), rs.getString("Ime"), rs.getString("Prezime"), 
-//						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"),
-//						rs.getInt("Id"),rs.getInt("TURNIR_Id"),rs.getInt("TURNIR_KATEGORIJA_Id"),
-//						rs.getDate("Datum")));
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			ConnectionPool.close(rs, ps);
-//			ConnectionPool.getInstance().checkIn(c);
-//		}
-//		return retVal;
-//	}
-//	
-//	public static UcesnikPrijavaDTO getById(int id){
-//		UcesnikPrijavaDTO retVal=new UcesnikPrijavaDTO();
-//		Connection c=null;
-//		PreparedStatement ps=null;
-//		ResultSet rs=null;	
-//		try {
-//			c=ConnectionPool.getInstance().checkOut();
-//			String query=SQL_GET_BY_ID;
-//			Object pom[] = { id };
-//			
-//			ps=ConnectionPool.prepareStatement(c, query, false, pom);
-//			rs=ps.executeQuery();
-//			if(rs.next()){
-//				retVal=new UcesnikPrijavaDTO(rs.getInt("OSOBA_Id"), rs.getString("Ime"), rs.getString("Prezime"), 
-//						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"), 
-//						id, rs.getInt("TURNIR_Id"), rs.getInt("TURNIR_KATEGORIJA_Id"),rs.getDate("Datum"));
-//			}			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}finally {
-//			ConnectionPool.close(rs, ps);
-//			ConnectionPool.getInstance().checkIn(c);
-//		}		
-//		return retVal;
-//	}
-	
+	private final static String SQL_DOES_EXIST="select count(*) from UCESNIK_PRIJAVA u inner join OSOBA o on u.OSOBA_Id=o.Id "
+			+ "where o.JMB=? and u.TURNIR_Id=? and u.TURNIR_KATEGORIJA_Id=?";
+
 	public static UcesnikPrijavaDTO getByJmb(String jmb){
 		UcesnikPrijavaDTO retVal=new UcesnikPrijavaDTO();
 		Connection c=null;
@@ -197,13 +142,36 @@ public class UcesnikPrijavaDAO {
 						rs.getString("JMB"), rs.getString("Pol").charAt(0), rs.getDate("DatumRodjenja"), 
 						rs.getInt("Id"), rs.getInt("TURNIR_Id"), rs.getInt("TURNIR_KATEGORIJA_Id"),rs.getDate("Datum")));
 			}
-			} catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			ConnectionPool.close(rs, s);
 			ConnectionPool.getInstance().checkIn(c);
 		}
-
+		return retVal;
+	}
+	
+	public static boolean doesExist(String jmb,Integer idTurnira,Integer idKategorije){
+		boolean retVal=false;
+		Connection c=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;		
+		try {
+			c=ConnectionPool.getInstance().checkOut();
+			String query=SQL_DOES_EXIST;
+			Object pom[] = { jmb,idTurnira,idKategorije };
+			
+			ps=ConnectionPool.prepareStatement(c, query, false, pom);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				retVal=rs.getInt(1)>0;
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionPool.close(rs, ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}		
 		return retVal;
 	}
 }

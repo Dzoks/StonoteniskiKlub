@@ -40,8 +40,6 @@ public class SinglPrijavaController extends BaseController{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public void inicijalizuj(Integer idTurnira,Integer idKategorije){
@@ -87,8 +85,8 @@ public class SinglPrijavaController extends BaseController{
 			if(txtJmbg.getText().length()!=13 || !txtJmbg.getText().matches("[0-9]*")){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Greška");
-				alert.setHeaderText("Pogrešan JMBG!");
-				alert.setContentText("Potrebno je unijeti JMBG dužine od 13 brojeva.");
+				alert.setHeaderText("Pogrešan JMB!");
+				alert.setContentText("Potrebno je unijeti JMB dužine od 13 brojeva.");
 				alert.show();
 			}
 			else{
@@ -100,31 +98,40 @@ public class SinglPrijavaController extends BaseController{
 					alert.show();
 				}
 				else{
-					if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg.getText(), idTurnira, idKategorije)){
-						if(TimDAO.insertSingle(UcesnikPrijavaDAO.addNew(idTurnira,
-								idKategorije, DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg.getText()).getId(), Date.valueOf(LocalDate.now())))){
-							primaryStage.close();
-						}
-						else{
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Greška");
-							alert.setHeaderText("Nešto nije u redu!");
-							alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
-							alert.show();
-						}
+					if(UcesnikPrijavaDAO.doesExist(txtJmbg.getText(), idTurnira, idKategorije)){
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Greška");
+						alert.setHeaderText("Prijava nije moguća!");
+						alert.setContentText("Ovaj učesnik je već prijavljen na ovaj turnir!");
+						alert.show();
 					}
 					else{
-						if(TimDAO.insertSingle(UcesnikPrijavaDAO.insert(txtJmbg.getText(), txtIme.getText(), txtPrezime.getText(),
-								idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja.getValue()), 
-										idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
-							primaryStage.close();
+						if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg.getText(), idTurnira, idKategorije)){
+							if(TimDAO.insertSingle(UcesnikPrijavaDAO.addNew(idTurnira,idKategorije, 
+									DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg.getText()).getId(), Date.valueOf(LocalDate.now())))){
+								primaryStage.close();
+							}
+							else{
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("Greška");
+								alert.setHeaderText("Nešto nije u redu!");
+								alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+								alert.show();
+							}
 						}
 						else{
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Greška");
-							alert.setHeaderText("Nešto nije u redu!");
-							alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
-							alert.show();
+							if(TimDAO.insertSingle(UcesnikPrijavaDAO.insert(txtJmbg.getText(), txtIme.getText(), txtPrezime.getText(),
+									idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja.getValue()), 
+											idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
+								primaryStage.close();
+							}
+							else{
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("Greška");
+								alert.setHeaderText("Nešto nije u redu!");
+								alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+								alert.show();
+							}
 						}
 					}
 				}
@@ -144,8 +151,8 @@ public class SinglPrijavaController extends BaseController{
 			if(txtJmbg.getText().length()!=13 || !txtJmbg.getText().matches("[0-9]*")){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Greška");
-				alert.setHeaderText("Pogrešan JMBG!");
-				alert.setContentText("Potrebno je unijeti JMBG dužine od 13 brojeva.");
+				alert.setHeaderText("Pogrešan JMB!");
+				alert.setContentText("Potrebno je unijeti JMB dužine od 13 brojeva.");
 				alert.show();
 			}
 			else{

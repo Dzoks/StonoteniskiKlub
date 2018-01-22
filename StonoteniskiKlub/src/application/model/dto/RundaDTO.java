@@ -21,27 +21,22 @@ public class RundaDTO {
 		return this.idZrijeba;
 	}
 	
-
 	public final int getIdZrijeba() {
 		return this.idZrijebaProperty().get();
 	}
 	
-
 	public final void setIdZrijeba(final int idZrijeba) {
 		this.idZrijebaProperty().set(idZrijeba);
 	}
 	
-
 	public final IntegerProperty brojRundeProperty() {
 		return this.brojRunde;
 	}
 	
-
 	public final int getBrojRunde() {
 		return this.brojRundeProperty().get();
 	}
 	
-
 	public final void setBrojRunde(final int brojRunde) {
 		this.brojRundeProperty().set(brojRunde);
 	}

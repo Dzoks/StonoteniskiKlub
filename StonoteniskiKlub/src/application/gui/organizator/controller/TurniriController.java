@@ -218,7 +218,7 @@ public class TurniriController extends BaseController{
 		}
 	}
 	
-	public static String konvertujIzSQLDate(String sqlDatum){
+	public static String konvertujIzSQLDate(String sqlDatum){	//pomocna metoda za prikaz datuma u tabelama
 		String datum;
 		String[]niz=sqlDatum.split("-");
 		datum=niz[2]+"."+niz[1]+"."+niz[0]+".";

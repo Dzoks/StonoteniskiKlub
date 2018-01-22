@@ -137,14 +137,7 @@ public class SinglTurnirController extends BaseController{
 	}
 	
 	public void izmjeniIgraca(){
-		if(ZrijebDAO.doesExist(idTurnira, idKategorije)){
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Nije dozvoljena izmjena!");
-			alert.setContentText("Nije moguće mijenjati podatke o igračima nakon izvršenog žrijebanja za dati turnir.");
-			alert.show();
-		}
-		else{
+		if(!ZrijebDAO.doesExist(idTurnira, idKategorije)){
 			Stage noviStage=new Stage();
 			try {
 				FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/organizator/view/SinglPrijavaView.fxml"));
@@ -162,6 +155,14 @@ public class SinglTurnirController extends BaseController{
 				e.printStackTrace();
 			}
 			popuniTabelu();
+			tblIgraci.refresh();
+		}
+		else{
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Greška");
+			alert.setHeaderText("Nije dozvoljena izmjena!");
+			alert.setContentText("Nije moguće mijenjati podatke o igračima nakon izvršenog žrijebanja za dati turnir.");
+			alert.show();
 		}
 	}
 	
