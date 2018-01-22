@@ -26,4 +26,5 @@ public class SekretarController extends BaseController{
 		// TODO Auto-generated method stub
 		
 	}
+	
 }

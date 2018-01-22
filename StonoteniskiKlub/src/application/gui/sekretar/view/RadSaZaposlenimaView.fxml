@@ -34,6 +34,5 @@
       <Button fx:id="btnAzuriraj" layoutX="50.0" layoutY="324.0" mnemonicParsing="false" onAction="#azuriraj" prefHeight="25.0" prefWidth="116.0" text="Ažurirajte" />
       <Button fx:id="btnObrisi" layoutX="50.0" layoutY="376.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="116.0" text="Obrišite" />
       <Button fx:id="btnPregledZaposlenja" layoutX="50.0" layoutY="425.0" mnemonicParsing="false" onAction="#pregledajZaposlenja" text="Pregled zaposlenja" />
-      <Button layoutX="646.0" layoutY="14.0" mnemonicParsing="false" onAction="#odjaviteSe" prefHeight="23.0" prefWidth="88.0" text="Odjavite se" />
    </children>
 </AnchorPane>

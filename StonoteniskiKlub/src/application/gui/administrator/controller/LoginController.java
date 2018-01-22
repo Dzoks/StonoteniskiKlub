@@ -47,33 +47,39 @@ public class LoginController extends BaseController {
 							KorisnickiNalogDAO.getHashByUsername(txtKorisnickoIme.getText()))) {
 						try {
 							String uloga = KorisnickiNalogDAO.getUloga(txtKorisnickoIme.getText());
+							BaseController bc = null;
 							switch (uloga) {
 							case "Administrator":
-								BaseController.changeScene("/application/gui/administrator/view/AdministratorView.fxml",
-										primaryStage);
+								bc = BaseController.changeScene(
+										"/application/gui/administrator/view/AdministratorView.fxml", primaryStage);
+								bc.setUsername(txtKorisnickoIme.getText());
 								break;
 							case "Organizator turnira":
-								BaseController.changeScene("/application/gui/organizator/view/TurniriView.fxml",
+								bc = BaseController.changeScene("/application/gui/organizator/view/TurniriView.fxml",
 										primaryStage);
+								bc.setUsername(txtKorisnickoIme.getText());
 								break;
 							case "Trener":
-								BaseController.changeScene("/application/gui/trener/view/OpremaGlavniView.fxml",
+								bc = BaseController.changeScene("/application/gui/trener/view/OpremaGlavniView.fxml",
 										primaryStage);
+								bc.setUsername(txtKorisnickoIme.getText());
 								break;
 							case "Računovođa":
-								BaseController.changeScene("/application/gui/racunovodja/view/RacunovodjaView.fxml",
-										primaryStage);
+								bc = BaseController.changeScene(
+										"/application/gui/racunovodja/view/RacunovodjaView.fxml", primaryStage);
+								bc.setUsername(txtKorisnickoIme.getText());
 								break;
 							case "Sekretar":
-								BaseController.changeScene("/application/gui/sekretar/view/SekretarView.fxml",
+								bc = BaseController.changeScene("/application/gui/sekretar/view/SekretarView.fxml",
 										primaryStage);
+								bc.setUsername(txtKorisnickoIme.getText());
 								break;
 							}
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 					} else {
-						Alert alert=new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK);
+						Alert alert = new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK);
 						alert.setTitle("Greška");
 						alert.setHeaderText("Greška prilikom prijavljivanja");
 						alert.showAndWait();
@@ -82,7 +88,7 @@ public class LoginController extends BaseController {
 					}
 				}
 			} else {
-				Alert alert=new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK);
+				Alert alert = new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK);
 				alert.setTitle("Greška");
 				alert.setHeaderText("Greška prilikom prijavljivanja");
 				alert.showAndWait();
