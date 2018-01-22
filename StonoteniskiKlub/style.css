@@ -86,6 +86,12 @@
 -fx-background-insets: 0, 1 1 0 1;
 -fx-background-radius: 5 5 0 0, 4 4 0 0;
 }
+.tab:hover{
+  
+    -fx-background-color:  #3e4e63;
+-fx-background-insets: 0, 1 1 0 1;
+-fx-background-radius: 5 5 0 0, 4 4 0 0;
+}
 .tab-pane *.tab-header-background 
 {
 -fx-background-color: -fx-outer-border, -fx-inner-border, derive(-fx-color, -20%);
