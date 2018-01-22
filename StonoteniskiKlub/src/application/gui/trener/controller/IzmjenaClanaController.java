@@ -21,6 +21,7 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.ClanDTO;
 import application.model.dto.OsobaDTO;
+import application.util.AlertDisplay;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -166,36 +167,24 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 		}
 		
 		if(!jmb.matches("[0-9]*") || !(jmb.length() == 13)) {
-			Alert alert=new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) nije dobro unesen.", ButtonType.OK);
-			alert.setHeaderText("Greška prilikom unosa matičnog broja");
-			alert.setTitle("Greška");
-			alert.showAndWait();
+			AlertDisplay.showError("Izmjena", "Jedinstveni matični broj (JMB) nije dobro unesen.");
 			return;
 		}
 		OsobaDTO osoba = DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(jmb);
 		if(osoba != null && osoba.getId() != clan.getId()) {
-			Alert alert=new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) već postoji u bazi podataka. Pokušajte ponovo.", ButtonType.OK);
-			alert.setHeaderText("Greška prilikom unosa matičnog broja");
-			alert.setTitle("Greška");
-			alert.showAndWait();
+			AlertDisplay.showError("Izmjena", "Jedinstveni matični broj (JMB) već postoji u bazi podataka. Pokušajte ponovo.");
 			return;
 		}
 		
 		for(String tel : telefoni) {
 			int id = DAOFactory.getDAOFactory().getOsobaDAO().getIdByTelefon(tel);
 			if(id!=0 && id!=clan.getId()) {
-				Alert alert=new Alert(AlertType.ERROR, "Broj: " + tel + " pripada nekom drugom.", ButtonType.OK);
-				alert.setHeaderText("Greška prilikom unosa telefona");
-				alert.setTitle("Greška");
-				alert.showAndWait();
+				AlertDisplay.showError("Izmjena", "Broj: " + tel + " pripada nekom drugom.");
 				return;
 			}
 		}
 		if(telefoni.size() == 0) {
-			Alert alert=new Alert(AlertType.ERROR, "Bar jedan broj telefona mora biti unesen.", ButtonType.OK);
-			alert.setHeaderText("Greška prilikom unosa telefona");
-			alert.setTitle("Greška");
-			alert.showAndWait();
+			AlertDisplay.showError("Izmjena", "Bar jedan broj telefona mora biti unesen.");
 			return;
 		}
 		
@@ -250,10 +239,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			txtTelefon.clear();
 		}
 		else {
-			Alert alert=new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK);
-			alert.setHeaderText("Greška prilikom unosa telefona");
-			alert.setTitle("Greška");
-			alert.showAndWait();
+			AlertDisplay.showError("Izmjena", "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.");
 		}
 	}
 	

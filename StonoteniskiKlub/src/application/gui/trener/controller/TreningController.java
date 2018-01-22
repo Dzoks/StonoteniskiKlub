@@ -70,6 +70,7 @@ public class TreningController extends BaseController {
 	public void addNew(ActionEvent event) throws IOException {
 		Stage stage = new Stage();
 		stage.setResizable(false);
+		stage.setTitle("Stonoteniski klub");
 		stage.initModality(Modality.WINDOW_MODAL);
 		DodajTreningController controller = (DodajTreningController) BaseController
 				.changeScene("/application/gui/trener/view/DodajTreningView.fxml", stage);

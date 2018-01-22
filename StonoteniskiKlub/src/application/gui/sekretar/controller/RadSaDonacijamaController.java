@@ -127,7 +127,7 @@ public class RadSaDonacijamaController extends BaseController {
 		boolean odKolicina = InputValidator.allEntered(tfOdKolicina.getText());
 		boolean doKolicina = InputValidator.allEntered(tfDoKolicina.getText());
 		if ((rbNovcane.isSelected() && !odNovac && !doNovac) || (rbOprema.isSelected() && !odKolicina && !doKolicina)) {
-			AlertDisplay.showInformation("Greška", "Greška prilikom pretrage", "Unesite odgovarajuće parametre pretrage!");
+			AlertDisplay.showError("Pretraga", "Unesite odgovarajuće parametre pretrage!");
 		} else {
 			if (rbNovcane.isSelected()) {
 				String odText = tfOdNovac.getText();

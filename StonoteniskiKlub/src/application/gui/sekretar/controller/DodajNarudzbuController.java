@@ -10,6 +10,7 @@ import application.model.dao.DAOFactory;
 import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
 import application.model.dto.OpremaTip;
+import application.util.AlertDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -135,7 +136,7 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 	
 	public void dodajKonteksniMeni() {
 		ContextMenu cm = new ContextMenu();
-	    MenuItem obrisiStavku = new MenuItem("Obrisi stavku");
+	    MenuItem obrisiStavku = new MenuItem("Obrišite stavku");
 	    obrisiStavku.setOnAction(new EventHandler<ActionEvent>() {
 	    	
 	        @Override
@@ -239,9 +240,7 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 			
 			popuniTabelu();
 		}catch(NumberFormatException e) {
-			Alert alert=new Alert(AlertType.ERROR, "Cijena nije u dobrom formatu.", ButtonType.OK);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Greška prilikom provjere cijene");
+			AlertDisplay.showError("Provjera", "Cijena nije u dobrom formatu.");
 		}
 	}
 	

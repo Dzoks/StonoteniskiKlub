@@ -25,6 +25,7 @@ import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import application.model.dto.RegistracijaDTO;
 import application.model.helper.Rezultat;
+import application.util.AlertDisplay;
 import application.util.ListUpdater;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -329,14 +330,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 		
 		// provjriti da li je AKTIVAN, ako nije ERROR
 		if(!clan.isAktivan()) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Greška prilikom iščlanjivanja");
-			alert.setContentText("Odabrani član nije aktivan. Nemoguće je izvršiti njegovo iščlanjivanje.");
-			alert.getButtonTypes().clear();
-			alert.getButtonTypes().add(ButtonType.OK);
-			alert.getButtonTypes().add(ButtonType.CANCEL);
-			alert.show();
+			AlertDisplay.showError("Iščlanjivanje", "Odabrani član nije aktivan. Nemoguće je izvršiti njegovo iščlanjivanje.");
 			return;
 		}
 		
@@ -408,6 +402,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 	void otvoriTreninge(ActionEvent event) {
 		Stage trening = new Stage();
 		TreningController controller = null;
+		trening.setTitle("Stonoteniski klub");
 		try {
 			controller = (TreningController) BaseController.changeScene("/application/gui/trener/view/TreningView.fxml",
 					trening);

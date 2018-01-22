@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import application.gui.controller.BaseController;
 import application.model.dao.KorisnickiNalogDAO;
+import application.util.AlertDisplay;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -79,19 +80,13 @@ public class LoginController extends BaseController {
 							e.printStackTrace();
 						}
 					} else {
-						Alert alert = new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK);
-						alert.setTitle("Greška");
-						alert.setHeaderText("Greška prilikom prijavljivanja");
-						alert.showAndWait();
+						AlertDisplay.showError("Prijavljivanje","Pogrešno korisničko ime ili lozinka.");
 						txtKorisnickoIme.clear();
 						txtLozinka.clear();
 					}
 				}
 			} else {
-				Alert alert = new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK);
-				alert.setTitle("Greška");
-				alert.setHeaderText("Greška prilikom prijavljivanja");
-				alert.showAndWait();
+				AlertDisplay.showError("Prijavljivanje","Pogrešno korisničko ime ili lozinka.");
 				txtKorisnickoIme.clear();
 				txtLozinka.clear();
 			}

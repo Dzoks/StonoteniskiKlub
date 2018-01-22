@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.KorisnickiNalogDAO;
 import application.model.dto.KorisnickiNalogDTO;
+import application.util.AlertDisplay;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,13 +61,10 @@ public class AdministratorController extends BaseController {
 		if (tabelaNalog.getSelectionModel().getSelectedItem() != null) {
 			KorisnickiNalogDAO.setAktivan(0,
 					((KorisnickiNalogDTO) tabelaNalog.getSelectionModel().getSelectedItem()).getNalogId());
-			Alert alert=new Alert(AlertType.INFORMATION, "Uspješno ste obrisali nalog.", ButtonType.OK);
-			alert.setTitle("Informacija");
-			alert.setHeaderText("Brisanje");
-			alert.showAndWait();
-
+			AlertDisplay.showInformation("Brisanje", "Uspješno ste obrisali nalog.");
 			popuniTabelu();
 		} else {
+			// Nikad se ne izvršava
 			new Alert(AlertType.ERROR, "Odaberite korisnički nalog koji želite obrisati.", ButtonType.OK).show();
 		}
 	}

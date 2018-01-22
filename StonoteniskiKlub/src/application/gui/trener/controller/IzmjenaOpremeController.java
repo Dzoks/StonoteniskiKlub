@@ -145,7 +145,7 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
 			

@@ -12,6 +12,7 @@ import application.model.dao.KorisnickiNalogTipDAO;
 import application.model.dto.KorisnickiNalogDTO;
 import application.model.dto.KorisnickiNalogTipDTO;
 import application.model.dto.ZaposleniDTO;
+import application.util.AlertDisplay;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,16 +47,9 @@ public class DodajNalogController extends BaseController {
 	public void dodajteNalogKlik(ActionEvent event) {
 		if (!korisnickoIme.getText().isEmpty()|| !tabelaZaposleni.getSelectionModel().isEmpty()) {
 				if(dodajNalog())
-					try {
-						Alert alert=new Alert(AlertType.INFORMATION, new String("Korisnički nalog je uspješno dodan.".getBytes(),"UTF-8"));
-						alert.setTitle("Informacija");
-						alert.setHeaderText("Dodavanje");
-						alert.showAndWait();
-					} catch (UnsupportedEncodingException e) {
-						e.printStackTrace();
-					}
+						AlertDisplay.showInformation("Dodavanje", "Korisnički nalog je uspješno dodan.");
 				else {
-					new Alert(AlertType.INFORMATION, "Korisničko ime već postoji.").show();
+					AlertDisplay.showError("Dodavanje", "Korisničko ime već postoji.");
 				}
 				korisnickoIme.clear();
 		} else {
@@ -65,7 +59,6 @@ public class DodajNalogController extends BaseController {
 				new Alert(AlertType.ERROR, "Odaberite tip naloga.").show();
 		}
 	}
-
 	private boolean dodajNalog() {
 		Integer ulogaId=ulogaChoiceBox.getSelectionModel().getSelectedItem().getId();
 		Integer zaposleniId=null;

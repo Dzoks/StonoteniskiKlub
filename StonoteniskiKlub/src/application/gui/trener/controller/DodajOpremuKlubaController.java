@@ -12,6 +12,7 @@ import application.model.dto.DonacijaStavka;
 import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
 import application.model.dto.OpremaKluba;
+import application.util.AlertDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -188,7 +189,7 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 	
 	public void dodajKonteksniMeni() {
 		ContextMenu cm = new ContextMenu();
-	    MenuItem obrisiStavku = new MenuItem("Obriši stavku");
+	    MenuItem obrisiStavku = new MenuItem("Obrišite stavku");
 	    obrisiStavku.setOnAction(new EventHandler<ActionEvent>() {
 	    	
 	        @Override
@@ -393,10 +394,7 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 				primaryStage.close();
 			}
 			else {
-				
-				Alert alert=new Alert(AlertType.ERROR, "Količina stavki se ne poklapa sa ukupnom količinom donacije.");
-				alert.setHeaderText("Greška u količini");
-				alert.setTitle("Greška");
+				AlertDisplay.showError("Dodavanje", "Količina stavki se ne poklapa sa ukupnom količinom donacije.");
 			}
 		}
 	}

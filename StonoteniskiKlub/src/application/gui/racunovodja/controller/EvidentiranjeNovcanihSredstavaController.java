@@ -34,6 +34,7 @@ import application.model.dto.ClanarinaDTO;
 import application.model.dto.NovcanaSredstvaDTO;
 import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
+import application.util.AlertDisplay;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -240,17 +241,12 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			if(sezona!=null) {
 				trenutnaNS= DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getBySezona(sezona);
 			}else {
-				Alert alert = new Alert(AlertType.ERROR,"Nema podataka o trenutnom budžetu.");
-				alert.setTitle("Greška");
-				alert.setHeaderText("Greška prilikom dodavanja");
-				alert.showAndWait();
+				AlertDisplay.showError("Dodavanje", "Nema podataka o trenutnom budžetu.");
 				return null;
 			}
 			if(trenutnaNS==null) {
-				Alert alert = new Alert(AlertType.ERROR,"Nema podataka o trenutnom budžetu.");
-				alert.setTitle("Greška");
-				alert.setHeaderText("Greška prilikom dodavanja");
-				alert.showAndWait();
+				AlertDisplay.showError("Dodavanje", "Nema podataka o trenutnom budžetu.");
+
 				return null;
 			}
 		}
@@ -275,10 +271,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 				trenutnaNS.setRashodi(trenutnaNS.getRashodi()+transakcija.getIznos().get());
 			}
 			prikaziLabele(trenutnaNS);
-			Alert alert = new Alert(AlertType.INFORMATION, "Uspješno dodavanje!");
-			alert.setTitle("Informacija");
-			alert.setHeaderText("Dodavanje");
-			alert.showAndWait();
+			AlertDisplay.showInformation("Dodavanje", "Uspješno dodavanje");
 			this.obrisiPolja();
 			return transakcija;
 		}
@@ -334,11 +327,10 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			if(iznos<0)
 				throw new NumberFormatException();
 		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.ERROR, "Niste ispravno unijeli informaciju o iznosu.");
-			alert.setTitle("Greška");
-			alert.setHeaderText("Greška prilikom dodavanja");
 			this.obrisiPolja();
-			alert.showAndWait();
+			AlertDisplay.showError("Dodavanje", "Niste ispravno unijeli informaciju o iznosu.");
+
+		
 			return;
 		}
 		NovcanaSredstvaDTO ns = new NovcanaSredstvaDTO(sezona, iznos, new Double(0), new Double(0));
@@ -346,13 +338,11 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		if(ok) {
 			comboBoxSezona.setItems(DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getSezone());
 			comboBoxSezona.getSelectionModel().select(0);
-			Alert alert = new Alert(AlertType.INFORMATION, "Uspješno dodavanje!");
-			alert.setTitle("Informacija");
-			alert.setHeaderText("Dodavanje");
+			
 			btnPrikazi.fire();
 			this.obrisiPolja();
-			alert.showAndWait();
 			obrisiPoljaBudzet();
+			AlertDisplay.showInformation("Dodavanje", "Uspješno dodavanje!");
 		}
 		
 		

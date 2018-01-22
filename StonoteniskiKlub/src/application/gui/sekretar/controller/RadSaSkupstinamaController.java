@@ -106,7 +106,7 @@ public class RadSaSkupstinamaController extends BaseController {
 	@FXML
 	public void pretrazi(ActionEvent event) {
 		if (!InputValidator.allEntered(dpOd.getValue()) && !InputValidator.allEntered(dpDo.getValue())) {
-			AlertDisplay.showInformation("Greška", "Greška prilikom pretrage", "Niste unijeli parametre pretrage.");
+			AlertDisplay.showError("Pretraga", "Niste unijeli parametre pretrage.");
 		} else {
 			int type = 0;
 			ObservableList<SkupstinaDTO> filtered = FXCollections.observableArrayList();
@@ -157,7 +157,7 @@ public class RadSaSkupstinamaController extends BaseController {
 				e.printStackTrace();
 			}
 		} else {
-			AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Izvještaj vec postoji.");
+			AlertDisplay.showError("Dodavanje", "Izvještaj već postoji.");
 		}
 	}
 

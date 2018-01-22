@@ -11,6 +11,7 @@ import application.model.dao.TurnirDAO;
 import application.model.dao.ZrijebDAO;
 import application.model.dto.TurnirDTO;
 import application.model.dto.UcesnikPrijavaDTO;
+import application.util.AlertDisplay;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -68,7 +69,7 @@ public class SinglTurnirController extends BaseController{
 		TurnirDTO turnir=TurnirDAO.getById(idTurnira);
 		lblNaziv.setText(turnir.getNaziv());
 		lblDatum.setText(TurniriController.konvertujIzSQLDate(turnir.getDatum().toString()));
-		primaryStage.setTitle(idKategorije<3?"Singl turnir":"Dubl turnir");
+		primaryStage.setTitle("Stonoteniski klub");
 		lblKategorija.setText(KategorijaTurniraDAO.getById(idKategorije).toString());
 		btnIzmjeni.disableProperty().bind(tblIgraci.getSelectionModel().selectedItemProperty().isNull());
 		popuniTabelu();
@@ -85,11 +86,7 @@ public class SinglTurnirController extends BaseController{
 	
 	public void prijaviIgraca(){
 		if(ZrijebDAO.doesExist(idTurnira, idKategorije)){
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Nije dozvoljeno prijavljivanje!");
-			alert.setContentText("Nije moguće prijaviti igrača nakon izvršenog žrijebanja za dati turnir.");
-			alert.show();
+			AlertDisplay.showError("Prijava", "Nije moguće prijaviti igrača nakon izvršenog žrijebanja za dati turnir.");
 		}
 		else{
 			if(tblIgraci.getItems().size()<32){
@@ -114,7 +111,7 @@ public class SinglTurnirController extends BaseController{
 						Scene scene = new Scene(root);
 						noviStage.setScene(scene);
 						noviStage.setResizable(false);
-						noviStage.setTitle("Dubl prijava");
+						noviStage.setTitle("Stonoteniski klub");
 						noviStage.initModality(Modality.APPLICATION_MODAL);
 						DublPrijavaController controller=loader.<DublPrijavaController>getController();
 						controller.setPrimaryStage(noviStage);
@@ -127,22 +124,15 @@ public class SinglTurnirController extends BaseController{
 				popuniTabelu();
 			}
 			else{
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Greška");
-				alert.setHeaderText("Nije dozvoljeno prijavljivanje!");
-				alert.setContentText("Nije moguće prijaviti novog igrača, jer je prijavljen maksimalan broj igrača.");
-				alert.show();
+				AlertDisplay.showError("Prijava", "Nije moguće prijaviti novog igrača, jer je prijavljen maksimalan broj igrača.");
+				
 			}
 		}
 	}
 	
 	public void izmjeniIgraca(){
 		if(ZrijebDAO.doesExist(idTurnira, idKategorije)){
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Nije dozvoljena izmjena!");
-			alert.setContentText("Nije moguće mijenjati podatke o igračima nakon izvršenog žrijebanja za dati turnir.");
-			alert.show();
+			AlertDisplay.showError("Izmjena", "Nije moguće mijenjati podatke o igračima nakon izvršenog žrijebanja za dati turnir.");
 		}
 		else{
 			Stage noviStage=new Stage();
@@ -152,7 +142,7 @@ public class SinglTurnirController extends BaseController{
 				Scene scene = new Scene(root);
 				noviStage.setScene(scene);
 				noviStage.setResizable(false);
-				noviStage.setTitle("Izmjena prijava");
+				noviStage.setTitle("Stonoteniski klub");
 				noviStage.initModality(Modality.APPLICATION_MODAL);
 				SinglPrijavaController controller=loader.<SinglPrijavaController>getController();
 				controller.setPrimaryStage(noviStage);
@@ -175,7 +165,7 @@ public class SinglTurnirController extends BaseController{
 					Scene scene = new Scene(root);
 					noviStage.setScene(scene);
 					noviStage.setResizable(false);
-					noviStage.setTitle("Žrijeb");
+					noviStage.setTitle("Stonoteniski klub");
 					noviStage.initModality(Modality.APPLICATION_MODAL);
 					SinglZrijebController controller=loader.<SinglZrijebController>getController();
 					controller.setPrimaryStage(noviStage);
@@ -188,7 +178,7 @@ public class SinglTurnirController extends BaseController{
 					Scene scene = new Scene(root);
 					noviStage.setScene(scene);
 					noviStage.setResizable(false);
-					noviStage.setTitle("Žrijeb");
+					noviStage.setTitle("Stonoteniski klub");
 					noviStage.initModality(Modality.APPLICATION_MODAL);
 					DublZrijebController controller=loader.<DublZrijebController>getController();
 					controller.setPrimaryStage(noviStage);
@@ -201,12 +191,8 @@ public class SinglTurnirController extends BaseController{
 		}
 		else{
 			if(tblIgraci.getItems().size()<16){
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Greška");
-				alert.setHeaderText("Nije moguće izvršiti žrijebanje!");
-				alert.setContentText("Minimalan potreban broj prijavljenih igrača na turniru je 16. "
+				AlertDisplay.showError("Žrijeb","Minimalan potreban broj prijavljenih igrača na turniru je 16. "
 						+ "Nije moguće kreiranje žrijeba za turnir na koji je prijavleno manje igrača.");
-				alert.show();
 			}
 			else{
 				ButtonType buttonTypeDa=new ButtonType("Da");
@@ -226,7 +212,7 @@ public class SinglTurnirController extends BaseController{
 							Scene scene = new Scene(root);
 							noviStage.setScene(scene);
 							noviStage.setResizable(false);
-							noviStage.setTitle("Žrijeb");
+							noviStage.setTitle("Stonoteniski Klub");
 							noviStage.initModality(Modality.APPLICATION_MODAL);
 							SinglZrijebController controller=loader.<SinglZrijebController>getController();
 							controller.setPrimaryStage(noviStage);
@@ -239,7 +225,7 @@ public class SinglTurnirController extends BaseController{
 							Scene scene = new Scene(root);
 							noviStage.setScene(scene);
 							noviStage.setResizable(false);
-							noviStage.setTitle("Žrijeb");
+							noviStage.setTitle("Stonoteniski klub");
 							noviStage.initModality(Modality.APPLICATION_MODAL);
 							DublZrijebController controller=loader.<DublZrijebController>getController();
 							controller.setPrimaryStage(noviStage);

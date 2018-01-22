@@ -11,6 +11,7 @@ import application.model.dto.DistributerOpreme;
 import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
 import application.model.dto.OpremaTip;
+import application.util.AlertDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -250,10 +251,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 			popuniTabelu();
 			
 		}catch(NumberFormatException e) {
-			Alert alert=new Alert(AlertType.ERROR, "Cijena nije u dobrom formatu.", ButtonType.OK);
-			alert.setTitle("Greška");
-			alert.setTitle("Greška prilikom dodavanja cijene");
-			alert.showAndWait();
+			AlertDisplay.showError("Provjera", "Cijena nije u dobrom formatu.");
 		}
 	}
 	

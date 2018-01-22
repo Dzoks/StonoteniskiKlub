@@ -155,7 +155,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 				|| (tip == DODAVANJE_ZAPOSLENOG && !InputValidator.allEntered(txtIme.getText(), txtPrezime.getText(),
 						txtImeRoditelja.getText(), txtJMB.getText(), dpDatumRodjenja.getValue(),
 						dpZaposlenOd.getValue(), txtPlata.getText()))) {
-			AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Niste unijeli sve podatke!");
+			AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke!");
 		} else {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			Date datumRodjenja = null;
@@ -193,7 +193,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 				}
 				DAOFactory.getDAOFactory().getOsobaDAO().update(zaposleniZaAzurirati);
 				parent.zamijeni(zaposleniZaAzurirati);
-				AlertDisplay.showInformation("Informacija", "Ažuriranje zaposlenog", "Zaposleni uspješno ažuriran.");
+				AlertDisplay.showInformation("Izmjena", "Zaposleni uspješno ažuriran.");
 				for(String telefon : noviTelefoni){
 					DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleniZaAzurirati);
 				}
@@ -204,9 +204,9 @@ public class DodavanjeZaposlenogController extends BaseController {
 						Double.parseDouble(txtPlata.getText()));
 				if (DAOFactory.getDAOFactory().getZaposlenjeDAO().insert(zaposleniZaAzurirati, zaposlenje)) {
 					zaposleniZaAzurirati.getZaposljenja().add(zaposlenje);
-					AlertDisplay.showInformation("Informacija", "Dodavanje zaposlenja", "Zaposlenje uspješno dodano");
+					AlertDisplay.showInformation("Dodavanje", "Zaposlenje uspješno dodano");
 				} else {
-					AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Nešto nije u redu.");
+					AlertDisplay.showError("Dodavanje", "Nešto nije u redu.");
 				}
 			} else {
 				if (InputValidator.validateJMB(txtJMB.getText())) {
@@ -230,20 +230,20 @@ public class DodavanjeZaposlenogController extends BaseController {
 						if (DAOFactory.getDAOFactory().getZaposleniDAO().insert(zaposleni, zaposlenje, tip)) {
 							zaposleni.setZaposljenja(FXCollections.observableArrayList());
 							zaposleni.getZaposljenja().add(zaposlenje);
-							AlertDisplay.showInformation("Informacija", "Dodavanje zaposlenog", "Zaposleni uspješno dodan.");
+							AlertDisplay.showInformation("Dodavanje", "Zaposleni uspješno dodan.");
 							parent.dodajZaposlenog(zaposleni);
 							for(String telefon : noviTelefoni){
 								DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleni);
 							}
 						} else {
-							AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Nešto nije u redu");
+							AlertDisplay.showError("Dodavanje", "Nešto nije u redu");
 						}
 
 					} else {
-						AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Pogrešan format podatka za platu.");
+						AlertDisplay.showError("Dodavanje", "Pogrešan format podatka za platu.");
 					}
 				} else {
-					AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Pogrešan format JMB-a.");
+					AlertDisplay.showError("Dodavanje", "Pogrešan format JMB-a.");
 				}
 			}
 		}

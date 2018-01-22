@@ -77,7 +77,7 @@ public class DublZrijebController extends BaseController{
 		this.idTurnira=idTurnira;
 		this.idKategorije=idKategorije;
 		this.idZrijeba=ZrijebDAO.getZrijeb(idTurnira, idKategorije).getId();
-		primaryStage.setTitle("Žrijeb");
+		primaryStage.setTitle("Stonoteniski klub");
 		lblPobjedniciIme.setVisible(false);
 		lblPobjednici.setVisible(false);
 		lblUpozorenje.setText("*Napomena: Svi uneseni rezultati moraju biti oblika A-B, pri čemu su A i B brojevi od 0 do 4.\n"

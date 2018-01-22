@@ -107,12 +107,12 @@ public class DodavanjeSkupstineController extends BaseController {
 						parentController.addItem(skupstina);
 					}
 					parentController.refresh();
-					AlertDisplay.showInformation("Informacija", "Dodavanje skupštine", "Uspješno dodavanje");
+					AlertDisplay.showInformation("Dodavanje", "Uspješno dodavanje");
 			}
 			Stage stage = (Stage) btnSacuvaj.getScene().getWindow();
 			stage.close();
 		} else {
-			AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Niste unijeli datum održavanja skupštine.");
+			AlertDisplay.showInformation("Dodavanje", "Niste unijeli datum održavanja skupštine.");
 		}
 	}
 

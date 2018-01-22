@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.model.dto.TransakcijaDTO;
+import application.util.AlertDisplay;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -46,11 +47,8 @@ public class TransakcijaController extends Controller{//realizacija
 			if(iznos<0)
 				throw new NumberFormatException();
 		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.ERROR, "Niste ispravno unijeli informaciju o iznosu.");
-			alert.setTitle("Greška");
-			alert.setHeaderText("Greška prilikom dodavanja");
 			this.obrisiPolja();
-			alert.showAndWait();
+			AlertDisplay.showError("Dodavanje", "Niste ispravno unijeli informaciju o iznosu.");
 			return null;
 		}
 		String opis = txtOpis.getText();

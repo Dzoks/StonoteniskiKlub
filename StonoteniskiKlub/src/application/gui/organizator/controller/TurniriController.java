@@ -12,6 +12,7 @@ import application.model.dao.TurnirDAO;
 import application.model.dao.ZrijebDAO;
 import application.model.dto.KategorijaTurniraDTO;
 import application.model.dto.TurnirDTO;
+import application.util.AlertDisplay;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -117,12 +118,8 @@ public class TurniriController extends BaseController{
 	
 	public void urediTurnir(){
 		if(cbKategorija.getSelectionModel().isEmpty()){
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Potrebno je izabrati kategoriju!");
-			alert.setContentText("Nije moguće pristupiti turniru, dok niste prethodno izabrali kategoriju turnira sa kojom"
+			AlertDisplay.showError("Izmjena", "Nije moguće pristupiti turniru, dok niste prethodno izabrali kategoriju turnira sa kojom"
 					+ " želite da radite.");
-			alert.show();
 		}
 		else{
 			try {
@@ -138,9 +135,7 @@ public class TurniriController extends BaseController{
 	public void pregledajTurnir(){
 		if(cbKategorija.getSelectionModel().isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Potrebno je izabrati kategoriju!");
-			alert.setContentText("Nije moguće pristupiti turniru, dok niste prethodno izabrali kategoriju turnira sa kojom"
+			AlertDisplay.showError("Pregled", "Nije moguće pristupiti turniru, dok niste prethodno izabrali kategoriju turnira sa kojom"
 					+ " želite da radite.");
 			alert.show();
 		}
@@ -156,7 +151,7 @@ public class TurniriController extends BaseController{
 						Scene scene = new Scene(root);
 						noviStage.setScene(scene);
 						noviStage.setResizable(false);
-						noviStage.setTitle("Žrijeb");
+						noviStage.setTitle("Stonoteniski klub");
 						SinglZrijebController controller=loader.<SinglZrijebController>getController();
 						controller.setPrimaryStage(noviStage);
 						controller.inicijalizuj(tblTurniri.getSelectionModel().getSelectedItem().getId(),
@@ -169,7 +164,7 @@ public class TurniriController extends BaseController{
 						Scene scene = new Scene(root);
 						noviStage.setScene(scene);
 						noviStage.setResizable(false);
-						noviStage.setTitle("Žrijeb");
+						noviStage.setTitle("Stonoteniski klub");
 						DublZrijebController controller=loader.<DublZrijebController>getController();
 						controller.setPrimaryStage(noviStage);
 						controller.inicijalizuj(tblTurniri.getSelectionModel().getSelectedItem().getId(),
@@ -181,11 +176,7 @@ public class TurniriController extends BaseController{
 				}
 			}
 			else{
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Obavještenje");
-				alert.setHeaderText("Nema traženog žrijeba!");
-				alert.setContentText("Ne postoji žrijeb za dati turnir u ovoj kategoriji, jer se u njoj nije igralo.");
-				alert.show();
+				AlertDisplay.showInformation("Pregled", "Ne postoji žrijeb za dati turnir u ovoj kategoriji, jer se u njoj nije igralo.");
 			}
 		}
 	}
@@ -199,20 +190,13 @@ public class TurniriController extends BaseController{
 			dpDatum.setValue(null);
 			}
 			else{
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Greška");
-				alert.setHeaderText("Nepravilan unos!");
-				alert.setContentText("Nije moguće dodati turnir čiji je datum prije današnjeg.");
-				alert.show();
+				AlertDisplay.showError("Dodavanje", "Nije moguće dodati turnir čiji je datum prije današnjeg.");
 				txtNaziv.clear();
 				dpDatum.setValue(null);
 			}
 		else{
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Nepravilan unos!");
-			alert.setContentText("Nije moguće dodati turnir sa nazivom dužim od 45 karaktera.");
-			alert.show();
+
+			AlertDisplay.showError("Dodavanje", "Nije moguće dodati turnir sa nazivom dužim od 45 karaktera.");
 			txtNaziv.clear();
 			dpDatum.setValue(null);
 		}

@@ -13,6 +13,7 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dao.TipTransakcijeDAO;
 import application.model.dto.TipTransakcijeDTO;
+import application.util.AlertDisplay;
 import javafx.event.ActionEvent;
 
 public class DodajTipTransakcijeController extends BaseController{ //popraviti polja
@@ -26,10 +27,7 @@ public class DodajTipTransakcijeController extends BaseController{ //popraviti p
 		String tip = txtTip.getText().trim();
 		TipTransakcijeDTO tipTransakcije = new TipTransakcijeDTO(tip);
 		DAOFactory.getDAOFactory().getTipTransakcijeDAO().INSERT(tipTransakcije);
-		Alert alert = new Alert(AlertType.INFORMATION, "Uspješno dodavanje tipa transakcije.");
-		alert.setTitle("Informacija");
-		alert.setHeaderText("Dodavanje");
-		alert.showAndWait();
+		AlertDisplay.showInformation("Dodavanje",  "Uspješno dodavanje tipa transakcije.");
 		this.getPrimaryStage().close();
 	}
 	@Override

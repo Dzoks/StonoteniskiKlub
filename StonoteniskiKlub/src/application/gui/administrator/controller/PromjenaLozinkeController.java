@@ -8,6 +8,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import application.gui.controller.BaseController;
 import application.model.dao.KorisnickiNalogDAO;
+import application.util.AlertDisplay;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -26,10 +27,7 @@ public class PromjenaLozinkeController extends BaseController {
 		if(!lozinkaTxt.getText().isEmpty()&& !lozinkaPonovoTxt.getText().isEmpty()) {
 			if(lozinkaPonovoTxt.getText().equals(lozinkaTxt.getText())) {
 				KorisnickiNalogDAO.setLozinka(hashPassword(lozinkaTxt.getText()).getBytes(), LoginController.korisnickoIme);
-				Alert alert=new Alert(AlertType.INFORMATION, "Lozinka je uspješno postavljena.");
-				alert.setTitle("Informacija");
-				alert.setHeaderText("Dodavanje");
-				alert.showAndWait();
+				AlertDisplay.showInformation("Dodavanje", "Lozinka je uspješno postavljena.");
 				try {
 					BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml",
 							primaryStage);
@@ -39,10 +37,7 @@ public class PromjenaLozinkeController extends BaseController {
 				}
 
 			}else {
-				Alert alert=new Alert(AlertType.ERROR, "Lozinke se ne podudaraju. Pokušajte ponovo.");
-				alert.setTitle("Greška");
-				alert.setHeaderText("Greška prilikom dodavanja");
-				alert.showAndWait();
+				AlertDisplay.showError("Dodavanje", "Lozinke se ne podudaraju. Pokušajte ponovo.");
 				lozinkaPonovoTxt.clear();
 				lozinkaTxt.clear();
 

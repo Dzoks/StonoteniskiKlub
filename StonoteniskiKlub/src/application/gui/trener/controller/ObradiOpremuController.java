@@ -9,6 +9,7 @@ import application.model.dto.Clan;
 import application.model.dto.NarudzbaStavka;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaKluba;
+import application.util.AlertDisplay;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -67,10 +68,7 @@ public class ObradiOpremuController extends BaseController implements Initializa
 		}
 		else {
 			if(listClanovi.getSelectionModel().getSelectedItems().size() != spinnerPristiglo.getValue().intValue()) {
-				Alert alert=new Alert(AlertType.ERROR, "Broj odabranih ljudi mora biti " + spinnerPristiglo.getValue() + ".", ButtonType.OK);
-				alert.setTitle("Greška");
-				alert.setHeaderText("Greška prilikom dodavanja");
-				alert.showAndWait();
+				AlertDisplay.showError("Dodavanje", "Broj odabranih ljudi mora biti " + spinnerPristiglo.getValue() + ".");
 				return false;
 			}
 			ObservableList<Clan> listaClanova = listClanovi.getSelectionModel().getSelectedItems();

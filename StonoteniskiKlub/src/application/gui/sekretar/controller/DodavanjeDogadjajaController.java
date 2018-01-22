@@ -72,12 +72,11 @@ public class DodavanjeDogadjajaController extends BaseController {
 			int result = DAOFactory.getDAOFactory().getDogadjajDAO().insert(dogadjaj);
 			if (result > 0) {
 				parentController.dodajDogadjajUKalendar(dogadjaj);
-				AlertDisplay.showInformation("Informacija", "Dodavanje događaja", "Dodavanje događaja uspješno.");
+				AlertDisplay.showInformation("Dodavanje", "Dodavanje događaja uspješno.");
 			} else if (result == -1) {
-				AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja",
-						"Događaj se preklapa sa drugim događajem u istom terminu.");
+				AlertDisplay.showError("Dodavanje", "Događaj se preklapa sa drugim događajem u istom terminu.");
 			} else if (result == -2) {
-				AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Vrijeme kraja događaja mora biti nakon vremena početka.");
+				AlertDisplay.showError("Dodavanje", "Vrijeme kraja događaja mora biti nakon vremena početka.");
 			}
 		}
 	}

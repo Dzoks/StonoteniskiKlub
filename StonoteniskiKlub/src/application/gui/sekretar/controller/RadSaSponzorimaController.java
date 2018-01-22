@@ -131,7 +131,7 @@ public class RadSaSponzorimaController extends BaseController {
 				tblSponzori.setItems(result);
 			}
 		} else {
-			AlertDisplay.showInformation("Greška", "Greška prilikom pretrage", "Unesite pojam za pretragu!");
+			AlertDisplay.showError("Pretraga", "Unesite pojam za pretragu!");
 		}
 	}
 

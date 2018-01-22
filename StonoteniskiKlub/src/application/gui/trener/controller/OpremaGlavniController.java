@@ -9,6 +9,7 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaKluba;
+import application.util.AlertDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -165,7 +166,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		MenuItem postaviUAktivno = new MenuItem("Postavite u aktivno");
 		MenuItem pogledajOpis = new MenuItem("Pogledajte opis");
 		MenuItem pogledajOpisDonacije = new MenuItem("Pogledajte opis donacije");
-		MenuItem izmjeniOpis = new MenuItem("Izmjenite opis");
+		MenuItem izmjeniOpis = new MenuItem("Izmijenite opis");
 		MenuItem obrisiOpremuKluba = new MenuItem("Obrišite opremu");
 		MenuItem obrisiOpremuClana = new MenuItem("Obrišite opremu");
 
@@ -311,9 +312,9 @@ public class OpremaGlavniController extends BaseController implements Initializa
 				}
 
 				if (selektovanaOprema != null) {
-					Alert alert=new Alert(AlertType.INFORMATION, "Sponzor - " + DAOFactory.getDAOFactory().getSponzorDAO()
-							.getById(selektovanaOprema.getIdSponzora()).getNaziv(), ButtonType.OK);
-					alert.showAndWait();
+
+					AlertDisplay.showInformation("Pregled", "Sponzor - " + DAOFactory.getDAOFactory().getSponzorDAO()
+							.getById(selektovanaOprema.getIdSponzora()).getNaziv());
 				}
 			}
 

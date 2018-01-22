@@ -45,7 +45,7 @@ public class SinglPrijavaController extends BaseController{
 	}
 	
 	public void inicijalizuj(Integer idTurnira,Integer idKategorije){
-		primaryStage.setTitle("Singl prijava");
+		primaryStage.setTitle("Stonoteniski klub");
 		this.idTurnira=idTurnira;
 		this.idKategorije=idKategorije;
 		btnSacuvajIzmjene.setVisible(false);

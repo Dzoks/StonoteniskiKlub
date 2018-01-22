@@ -115,7 +115,7 @@ public class RadSaUgovorimaController extends BaseController {
 		boolean dDo = InputValidator.allEntered(dpDatumDo.getValue());
 		ObservableList<UgovorDTO> tableList = tblUgovori.getItems();
 		if (!dOd && !dDo) {
-			AlertDisplay.showInformation("Greška", "Greška prilikom pretrage", "Niste unijeli datom.");
+			AlertDisplay.showError("Pretraga", "Niste unijeli datum.");
 		} else if (dOd && dDo) {
 			ObservableList<UgovorDTO> filtered = FXCollections.observableArrayList();
 			for (UgovorDTO ugovor : tableList) {
@@ -165,7 +165,7 @@ public class RadSaUgovorimaController extends BaseController {
 				e.printStackTrace();
 			}
 		} else{
-			AlertDisplay.showInformation("Rezultat", "", "Nema donacija u ugovoru.");//ŠTA OVDJE TREBA BITI??? Dzoks
+			AlertDisplay.showInformation("Pregled", "Nema donacija u ugovoru.");//ŠTA OVDJE TREBA BITI??? Dzoks
 		}
 	}
 
