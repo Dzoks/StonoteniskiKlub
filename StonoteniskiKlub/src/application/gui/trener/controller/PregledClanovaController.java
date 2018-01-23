@@ -380,6 +380,30 @@ public class PregledClanovaController extends BaseController implements Initiali
 		DAOFactory.getDAOFactory().getClanDAO().setAktivan(false, clan.getId());
 		DAOFactory.getDAOFactory().getClanstvoDAO().update(clan.getId());
 	}
+	
+	public void izdavanjePotvrda() {
+		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
+		if(clan == null)
+			return;
+		try {
+			Stage stage = new Stage();
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getClassLoader().getResource("application/gui/trener/view/IzdavanjePotvrdaView.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			IzdavanjePotvrdaController control = loader.<IzdavanjePotvrdaController>getController();
+			control.setClan(clan);
+			control.setPrimaryStage(stage);
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.setTitle("Izdavanje potvrda");
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.show();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void pretragaClanova() {
 		String ime = txtIme.getText();

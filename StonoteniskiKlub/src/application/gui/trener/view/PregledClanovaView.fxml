@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="561.0" prefWidth="930.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.PregledClanovaController">
+<AnchorPane prefHeight="561.0" prefWidth="930.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.PregledClanovaController">
    <children>
       <TableView fx:id="twTabela" layoutX="13.0" layoutY="366.0" onMouseClicked="#prikaziDetaljeOClanu" prefHeight="177.0" prefWidth="758.0" tableMenuButtonVisible="true">
         <columns>
@@ -34,6 +34,7 @@
                 <MenuItem fx:id="miIzmjeni" mnemonicParsing="false" onAction="#izmjeniClana" text="Izmjenite" />
                   <MenuItem fx:id="miIsclani" mnemonicParsing="false" onAction="#izvrsiIsclanjivanje" text="Iščlanite" />
                   <MenuItem fx:id="miTreninzi" mnemonicParsing="false" onAction="#otvoriTreninge" text="Pregledajte treninge" />
+                  <MenuItem mnemonicParsing="false" onAction="#izdavanjePotvrda" text="Izdajte potvrdu" />
               </items>
             </ContextMenu>
          </contextMenu>
