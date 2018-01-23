@@ -33,6 +33,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.ClanDTO;
+import application.util.AlertDisplay;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,6 +41,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -178,11 +180,8 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			    }
 			}
 			
-			Alert alert = new Alert(AlertType.CONFIRMATION, "Da li ste sigurni da želite da nastavite?", ButtonType.YES, ButtonType.NO);
-			alert.setTitle("Informacija");
-			alert.setHeaderText("");
-			Optional<ButtonType> temp1 = alert.showAndWait();
-			if(temp1.get().equals(ButtonType.YES)) {
+			Optional<ButtonType> temp1 = AlertDisplay.showConfirmation("Potvrde","Da li ste sigurni da želite da nastavite? ");
+			if(temp1.get().getButtonData().equals(ButtonData.YES)) {
 				if (job.printDialog()) {
 					job.print();
 				}

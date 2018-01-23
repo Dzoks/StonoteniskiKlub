@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
@@ -814,16 +815,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 				public void handle(WindowEvent we) {
 					we.consume();
-					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da sačuvate izmjene?", ButtonType.YES,
-							ButtonType.NO);
-					alert.setTitle("Informacija");
-					alert.setHeaderText("");
-					Optional<ButtonType> rezultat = alert.showAndWait();
+					Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Izmjena", "Da li želite da sačuvate izmjene?");
 
-					if (ButtonType.YES.equals(rezultat.get())) {
+					if (ButtonData.YES.equals(rezultat.get().getButtonData())) {
 						controller.azurirajUBazi();
 						noviStage.close();
-					} else if (ButtonType.NO.equals(rezultat.get())) {
+					} else if (ButtonData.NO.equals(rezultat.get().getButtonData())) {
 						noviStage.close();
 					}
 
@@ -862,16 +859,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 				public void handle(WindowEvent we) {
 					we.consume();
-					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sačuvate izmjene?", ButtonType.YES,
-							ButtonType.NO);
-					alert.setTitle("Informacija");
-					alert.setHeaderText("");
-					Optional<ButtonType> rezultat = alert.showAndWait();
+					Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Izmjena", "Da li želite da sačuvate izmjene?");
 
-					if (ButtonType.YES.equals(rezultat.get())) {
+					if (ButtonData.YES.equals(rezultat.get().getButtonData())) {
 						controller.azurirajUBazi();
 						noviStage.close();
-					} else if (ButtonType.NO.equals(rezultat.get())) {
+					} else if (ButtonData.NO.equals(rezultat.get().getButtonData())) {
 						noviStage.close();
 					}
 
@@ -931,16 +924,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 				public void handle(WindowEvent we) {
 					we.consume();
-					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da sačuvate izmjene?", ButtonType.YES,
-							ButtonType.NO);
-					alert.setTitle("Informacija");
-					alert.setHeaderText("");
-					Optional<ButtonType> rezultat = alert.showAndWait();
+					Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Izmjena", "Da li želite da sačuvate izmjene?");
 
-					if (ButtonType.YES.equals(rezultat.get())) {
+					if (ButtonData.YES.equals(rezultat.get().getButtonData())) {
 						controller.azurirajUBazi();
 						noviStage.close();
-					} else if (ButtonType.NO.equals(rezultat.get())) {
+					} else if (ButtonData.NO.equals(rezultat.get().getButtonData())) {
 						noviStage.close();
 					}
 

@@ -46,6 +46,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -337,16 +338,9 @@ public class PregledClanovaController extends BaseController implements Initiali
 		// provjeriti da li je uplatio sve clanarine do tad, ako nije ERROR
 		List<ClanarinaDTO> list = DAOFactory.getDAOFactory().getClanarinaDAO().selectByClanID(clan.getId());
 		if(list.size() == 0) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Upozorenje");
-			alert.setHeaderText("Upozorenje prilikom iščlanjivanja");
-			alert.setContentText("Odabrani član nije uplatio ni jednu članarinu. "
+			Optional<ButtonType> tmp = AlertDisplay.showWarning("Iščlanjivanje","Odabrani član nije uplatio ni jednu članarinu. "
 					+ " Da li želite da nastavite?");
-			alert.getButtonTypes().clear();
-			alert.getButtonTypes().add(ButtonType.YES);
-			alert.getButtonTypes().add(ButtonType.NO);
-			Optional<ButtonType> tmp = alert.showAndWait();
-			if(tmp.isPresent() && tmp.get() == ButtonType.NO) {
+			if(tmp.isPresent() && tmp.get().getButtonData() == ButtonData.NO) {
 				return;
 			}
 		}
@@ -357,18 +351,11 @@ public class PregledClanovaController extends BaseController implements Initiali
 					max = list.get(i);
 			}
 			DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Upozorenje");
-			alert.setHeaderText("Upozorenje prilikom učlanjivanja");
-			alert.setContentText("Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec "
+			Optional<ButtonType> tmp = AlertDisplay.showWarning("Iščlanjivanje", "Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec "
 					+ max.getNazivMjeseca() +
 					", godine " + max.getGodina().getValue() + ". "
 					+ " Da li želite da nastavite?");
-			alert.getButtonTypes().clear();
-			alert.getButtonTypes().add(ButtonType.YES);
-			alert.getButtonTypes().add(ButtonType.NO);
-			Optional<ButtonType> tmp = alert.showAndWait();
-			if(tmp.isPresent() && tmp.get() == ButtonType.NO) {
+			if(tmp.isPresent() && tmp.get().getButtonData() == ButtonData.NO) {
 				return;
 			}
 		}
@@ -396,7 +383,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.setResizable(false);
-			stage.setTitle("Izdavanje potvrda");
+			stage.setTitle("Stonoteniski klub");
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.show();
 

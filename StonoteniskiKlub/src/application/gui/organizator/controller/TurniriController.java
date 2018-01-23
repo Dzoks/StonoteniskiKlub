@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
@@ -101,14 +102,9 @@ public class TurniriController extends BaseController{
 	}
 	
 	public void zatvoriTurnir(){
-		ButtonType buttonTypeDa=new ButtonType("Da");
-		ButtonType buttonTypeNe=new ButtonType("Ne");
-		Alert alert = new Alert(AlertType.CONFIRMATION,"Ukoliko zatvorite izabrani turnir,"
-				+ " nećete biti u mogućnosti da ponovo radite na tom turniru!",buttonTypeDa,buttonTypeNe,ButtonType.CANCEL);
-		alert.setHeaderText("Da li ste sigurni da želite zatvoriti izabrani turnir?");
-		alert.setTitle("Obavještenje");
-		Optional<ButtonType> result = alert.showAndWait();
-		if(result.get().equals(buttonTypeDa)){
+		Optional<ButtonType> result =AlertDisplay.showConfirmation("Zatvaranje", "Ukoliko zatvorite izabrani turnir,"
+				+ " nećete biti u mogućnosti da ponovo radite na tom turniru!"+" Da li ste sigurni da želite zatvoriti izabrani turnir?");
+		if(result.get().getButtonData().equals(ButtonData.YES)){
 			DAOFactory.getDAOFactory().getTurnirDAO().zatvori(tblTurniri.getSelectionModel().getSelectedItem().getId());
 			popuniTabelu();
 			btnUredi.setDisable(true);

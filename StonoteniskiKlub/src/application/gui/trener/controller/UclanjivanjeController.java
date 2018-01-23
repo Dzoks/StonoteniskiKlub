@@ -12,7 +12,10 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import org.bouncycastle.crypto.tls.AlertDescription;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
@@ -26,6 +29,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
@@ -161,11 +165,8 @@ public class UclanjivanjeController extends BaseController implements Initializa
 		if(!"".equals(txtIme.getText()) || !"".equals(txtImeRoditelja.getText()) 
 				|| !"".equals(txtJMB.getText()) || !"".equals(txtPrezime.getText()) 
 				|| !(listaTelefona.size()==0) || slikaOdabrana) {
-			Alert alert = new Alert(AlertType.WARNING, "Uneseni podaci će biti izgubljeni. Da li želite da nastavite?", ButtonType.YES, ButtonType.NO);
-			alert.setTitle("Upozorenje");
-			alert.setHeaderText("");
-			alert.showAndWait();
-			if(ButtonType.YES.equals(alert.getResult())) {
+			Optional<ButtonType> result=AlertDisplay.showWarning("Dodavanje","Uneseni podaci će biti izgubljeni. Da li želite da nastavite?");
+			if(ButtonData.YES.equals(result.get().getButtonData())) {
 				primaryStage.close();
 				return;
 			}

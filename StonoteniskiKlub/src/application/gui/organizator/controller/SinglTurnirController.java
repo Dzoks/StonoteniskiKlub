@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -202,8 +203,10 @@ public class SinglTurnirController extends BaseController{
 						+ " nećete biti u mogućnosti da ponovo prijavite igrače za taj turnir!",buttonTypeDa,buttonTypeNe,ButtonType.CANCEL);
 				alert.setHeaderText("Da li ste sigurni da želite izvršiti žrijebanje za izabrani turnir?");
 				alert.setTitle("Obavještenje");
-				Optional<ButtonType> result = alert.showAndWait();
-				if(result.get().equals(buttonTypeDa)){
+				
+				Optional<ButtonType> result = AlertDisplay.showConfirmation("Žrijeb", "Ukoliko izvršite žrijebanje za izabrani turnir,"
+						+ " nećete biti u mogućnosti da ponovo prijavite igrače za taj turnir!"+"Da li ste sigurni da želite izvršiti žrijebanje za izabrani turnir?");
+				if(result.get().getButtonData().equals(ButtonData.YES)){
 					btnPrijavi.setDisable(true);
 					Stage noviStage=new Stage();
 					try {

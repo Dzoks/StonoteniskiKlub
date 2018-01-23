@@ -26,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -348,15 +349,13 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 					
 			          public void handle(WindowEvent we) {
 			        	  we.consume();
-			              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da zapamtite dodavanje?", ButtonType.YES, ButtonType.NO);
-			              alert.setHeaderText("");
-			              Optional<ButtonType> rezultat = alert.showAndWait();
-			              if(ButtonType.YES.equals(rezultat.get())) {
+			              Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Dodavanje", "Da li želite da zapamtite dodavanje?");
+			              if(ButtonData.YES.equals(rezultat.get().getButtonData())) {
 			            	  if(controller.ubaciUBazu()) {
 			            		  noviStage.close();
 			            	  }
 			              }
-			              else if(ButtonType.NO.equals(rezultat.get())) {
+			              else if(ButtonData.NO.equals(rezultat.get().getButtonData())) {
 			            	  noviStage.close();
 			              }
 			              

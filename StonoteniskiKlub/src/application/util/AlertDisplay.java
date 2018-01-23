@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 
 public class AlertDisplay {
@@ -25,18 +26,31 @@ public class AlertDisplay {
 		Alert alert=createAlert(headerText, contentText);
 		alert.setAlertType(AlertType.ERROR);
 		alert.setTitle("Greška");
+		ButtonType okButton=new ButtonType("U redu", ButtonData.OK_DONE);
+		alert.getButtonTypes().clear();
+		alert.getButtonTypes().add(okButton);
 		alert.showAndWait();
 	}
 	public static Optional<ButtonType> showConfirmation(String headerText,String contentText) {
 		Alert alert=createAlert(headerText, contentText);
 		alert.setTitle("Potvrda");
 		alert.setAlertType(AlertType.CONFIRMATION);
+		ButtonType yesButton=new ButtonType("Da", ButtonData.YES);
+		ButtonType noButton=new ButtonType("Ne", ButtonData.NO);
+		alert.getButtonTypes().clear();
+		alert.getButtonTypes().add(yesButton);
+		alert.getButtonTypes().add(noButton);
 		return alert.showAndWait();
 	}
-	public static void showWarning(String headerText,String contentText) {
+	public static Optional<ButtonType> showWarning(String headerText,String contentText) {
 		Alert alert=createAlert(headerText, contentText);
 		alert.setAlertType(AlertType.WARNING);
 		alert.setTitle("Upozorenje");
-		alert.showAndWait();
+		ButtonType yesButton=new ButtonType("Da", ButtonData.YES);
+		ButtonType noButton=new ButtonType("Ne", ButtonData.NO);
+		alert.getButtonTypes().clear();
+		alert.getButtonTypes().add(yesButton);
+		alert.getButtonTypes().add(noButton);
+		return alert.showAndWait();
 	}
 }

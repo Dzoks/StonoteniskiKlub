@@ -9,6 +9,7 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
+import application.util.AlertDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -19,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -123,16 +125,13 @@ public class DodajOpremuClanaController extends BaseController{
 				
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
-		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da zapamtite dodavanje?", ButtonType.YES, ButtonType.NO);
-		              alert.setTitle("Upozorenje");
-		              alert.setHeaderText("");
-		              Optional<ButtonType> rezultat = alert.showAndWait();
-		              if(ButtonType.YES.equals(rezultat.get())) {
+		              Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Dodavanje", "Da li želite da zapamtite dodavanje?");
+		              if(ButtonData.YES.equals(rezultat.get().getButtonData())) {
 		            	  if(controller.ubaciUBazu()) {
 		            		  noviStage.close();
 		            	  }
 		              }
-		              else if(ButtonType.NO.equals(rezultat.get())) {
+		              else if(ButtonData.NO.equals(rezultat.get().getButtonData())) {
 		            	  noviStage.close();
 		              }
 		              
