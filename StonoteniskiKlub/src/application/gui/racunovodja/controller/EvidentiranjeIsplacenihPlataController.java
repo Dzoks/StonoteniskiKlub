@@ -2,23 +2,11 @@ package application.gui.racunovodja.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.ClanarinaDAO;
 import application.model.dao.DAOFactory;
-import application.model.dao.NovcanaSredstvaDAO;
-import application.model.dao.PlataDAO;
-import application.model.dao.TipTransakcijeDAO;
-import application.model.dao.TransakcijaDAO;
-import application.model.dao.ZaposleniDAO;
-import application.model.dto.ClanDTO;
-import application.model.dto.ClanarinaDTO;
 import application.model.dto.PlataDTO;
 import application.model.dto.TransakcijaDTO;
 import application.model.dto.ZaposleniDTO;
@@ -29,31 +17,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Label;
-
-import javafx.scene.control.ComboBox;
-
-import javafx.scene.control.TextArea;
-
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.RadioButton;
-
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableView;
-
-import javafx.scene.control.DatePicker;
-
-import javafx.scene.control.TableColumn;
 
 public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater{
 	@FXML

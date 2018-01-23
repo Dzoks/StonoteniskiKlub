@@ -6,13 +6,8 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.mysql.MySQLKategorijaTurniraDAO;
-import application.model.dao.mysql.MySQLTimDAO;
-import application.model.dao.mysql.MySQLUcesnikPrijavaDAO;
 import application.util.AlertDisplay;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;

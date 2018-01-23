@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import com.mysql.jdbc.Statement;
-
 import application.model.dao.UcesnikPrijavaDAO;
 import application.model.dto.UcesnikPrijavaDTO;
 import application.util.ConnectionPool;

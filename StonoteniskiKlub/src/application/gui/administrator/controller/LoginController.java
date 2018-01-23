@@ -12,7 +12,6 @@ import com.jfoenix.controls.JFXTextField;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.mysql.MySQLKorisnickiNalogDAO;
 import application.util.AlertDisplay;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

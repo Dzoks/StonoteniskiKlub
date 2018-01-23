@@ -8,13 +8,10 @@ import java.util.ResourceBundle;
 
 import application.model.dao.DAOFactory;
 import application.model.dao.RegistracijaDAO;
-import application.model.dao.mysql.MySQLKategorijaDAO;
 import application.model.dto.KategorijaDTO;
 import application.model.dto.RegistracijaDTO;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 public class ListUpdater extends Task<Void> {
 
@@ -42,20 +39,12 @@ public class ListUpdater extends Task<Void> {
 			folder.delete();
 			
 			Platform.runLater(()->{
-				Alert alert=new Alert(AlertType.INFORMATION);
-				alert.setContentText("Rezultati su uspješno preuzeti i ažurirani u bazi podataka");
-				alert.setHeaderText("Uspješno preuzimanje");
-				alert.setTitle("Informacija");
-				alert.showAndWait();
+				AlertDisplay.showConfirmation("Preuzimanje", "Rezultati su uspješno preuzeti i ažurirani u bazi podataka");
 			});
 		} catch (Exception e) {
 			
 			Platform.runLater(()->{
-				Alert alert=new Alert(AlertType.ERROR);
-				alert.setContentText("Nije uspjelo preuzimanje liste. Molimo pokušajte ponovo");
-				alert.setHeaderText("Greška prilikom preuzimanja");
-				alert.setTitle("Greška");
-				alert.showAndWait();
+				AlertDisplay.showError("Preuzimanje", "Nije uspjelo preuzimanje liste. Molimo pokušajte ponovo");
 			});		}
 			return null;
 	}

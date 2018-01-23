@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.mysql.MySQLKorisnickiNalogDAO;
 import application.model.dto.KorisnickiNalogDTO;
 import application.util.AlertDisplay;
 import javafx.collections.ObservableList;

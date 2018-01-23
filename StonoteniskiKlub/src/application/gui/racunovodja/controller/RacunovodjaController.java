@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Tab;
 
 public class RacunovodjaController extends BaseController

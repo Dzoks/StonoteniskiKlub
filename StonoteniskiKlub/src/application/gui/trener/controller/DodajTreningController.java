@@ -8,8 +8,6 @@ import application.gui.controller.BaseController;
 import application.model.dto.TreningDTO;
 import application.util.AlertDisplay;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;

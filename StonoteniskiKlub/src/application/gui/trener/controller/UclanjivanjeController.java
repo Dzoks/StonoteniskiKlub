@@ -15,8 +15,6 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import org.bouncycastle.crypto.tls.AlertDescription;
-
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.ClanDTO;
@@ -27,10 +25,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
@@ -261,7 +257,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 		AlertDisplay.showInformation("Dodavanje", "Novi član uspješno dodat.");
 		primaryStage.close();
 	}
-	
+
 	public ClanDTO getClan() {
 		return retClan;
 	}

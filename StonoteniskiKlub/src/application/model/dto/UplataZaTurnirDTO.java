@@ -2,10 +2,7 @@ package application.model.dto;
 
 import java.util.Date;
 
-import com.sun.javafx.beans.IDProperty;
-
 import application.model.dao.DAOFactory;
-import application.model.dao.mysql.MySQLTurnirDAO;
 import javafx.beans.property.StringProperty;
 
 public class UplataZaTurnirDTO extends TransakcijaDTO{

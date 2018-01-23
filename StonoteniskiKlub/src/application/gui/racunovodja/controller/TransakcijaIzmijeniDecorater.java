@@ -1,8 +1,6 @@
 package application.gui.racunovodja.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -10,7 +8,6 @@ import application.model.dto.TransakcijaDTO;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class TransakcijaIzmijeniDecorater extends IzmijeniController{//delegacija
 	

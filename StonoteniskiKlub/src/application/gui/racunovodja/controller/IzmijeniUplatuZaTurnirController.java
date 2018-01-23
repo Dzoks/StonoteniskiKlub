@@ -1,40 +1,17 @@
 package application.gui.racunovodja.controller;
 
 import java.net.URL;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
 
-import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.NovcanaSredstvaDAO;
-import application.model.dao.TroskoviTurnirDAO;
-import application.model.dao.UplataZaTurnirDAO;
-import application.model.dao.mysql.MySQLUcesnikPrijavaDAO;
 import application.model.dto.TransakcijaDTO;
-import application.model.dto.TroskoviTurnirDTO;
-import application.model.dto.TurnirDTO;
 import application.model.dto.UcesnikPrijavaDTO;
 import application.model.dto.UplataZaTurnirDTO;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
-
 import javafx.scene.control.ScrollPane;
-
-import javafx.scene.control.ComboBox;
-
-import javafx.scene.control.TextArea;
-
-import javafx.scene.control.DatePicker;
 
 public class IzmijeniUplatuZaTurnirController extends TransakcijaIzmijeniDecorater{
 	@FXML

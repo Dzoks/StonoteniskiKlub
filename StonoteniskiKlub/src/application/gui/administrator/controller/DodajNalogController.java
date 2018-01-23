@@ -1,14 +1,11 @@
 package application.gui.administrator.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.mysql.MySQLKorisnickiNalogDAO;
-import application.model.dao.mysql.MySQLKorisnickiNalogTipDAO;
 import application.model.dto.KorisnickiNalogDTO;
 import application.model.dto.KorisnickiNalogTipDTO;
 import application.model.dto.ZaposleniDTO;

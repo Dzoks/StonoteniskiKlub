@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.swing.plaf.synth.SynthSpinnerUI;
-
 import application.gui.controller.BaseController;
 import application.model.dto.TransakcijaDTO;
 import javafx.fxml.FXML;

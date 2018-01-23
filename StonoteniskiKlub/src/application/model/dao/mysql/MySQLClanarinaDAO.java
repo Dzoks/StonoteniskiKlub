@@ -12,7 +12,6 @@ import java.util.List;
 import application.model.dao.ClanarinaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
-import application.model.dto.ClanstvoDTO;
 import application.util.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

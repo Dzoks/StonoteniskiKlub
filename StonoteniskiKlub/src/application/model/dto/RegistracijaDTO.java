@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 import application.model.dao.DAOFactory;
-import application.model.dao.mysql.MySQLKategorijaDAO;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
