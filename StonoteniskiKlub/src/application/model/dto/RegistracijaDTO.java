@@ -3,7 +3,8 @@ package application.model.dto;
 import java.time.LocalDate;
 import java.util.HashMap;
 
-import application.model.dao.KategorijaDAO;
+import application.model.dao.DAOFactory;
+import application.model.dao.mysql.MySQLKategorijaDAO;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -33,7 +34,7 @@ public class RegistracijaDTO {
 	}
 
 	public String toString() {
-		return Sezona.get()+" - "+KategorijaDAO.getById(KATEGORIJA_Id.get()).getNaziv();
+		return Sezona.get()+" - "+DAOFactory.getDAOFactory().getKategorijaDAO().getById(KATEGORIJA_Id.get()).getNaziv();
 	}
 	public RegistracijaDTO() {
 		CLAN_Id = new SimpleIntegerProperty();

@@ -5,7 +5,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.KorisnickiNalogDAO;
+import application.model.dao.DAOFactory;
+import application.model.dao.mysql.MySQLKorisnickiNalogDAO;
 import application.model.dto.KorisnickiNalogDTO;
 import application.util.AlertDisplay;
 import javafx.collections.ObservableList;
@@ -59,7 +60,7 @@ public class AdministratorController extends BaseController {
 	@FXML
 	public void obrisiNalogKlik(ActionEvent event) {
 		if (tabelaNalog.getSelectionModel().getSelectedItem() != null) {
-			KorisnickiNalogDAO.setAktivan(0,
+			DAOFactory.getDAOFactory().getKorisnickiNalogDAO().setAktivan(0,
 					((KorisnickiNalogDTO) tabelaNalog.getSelectionModel().getSelectedItem()).getNalogId());
 			AlertDisplay.showInformation("Brisanje", "Uspješno ste obrisali nalog.");
 			popuniTabelu();
@@ -86,7 +87,7 @@ public class AdministratorController extends BaseController {
 		kolonaPrezime.setCellValueFactory(new PropertyValueFactory<KorisnickiNalogDTO, String>("prezime"));
 		kolonaKorisnickoIme.setCellValueFactory(new PropertyValueFactory<KorisnickiNalogDTO, String>("korisnickoIme"));
 
-		ObservableList<KorisnickiNalogDTO> listaNaloga = KorisnickiNalogDAO.selectAll();
+		ObservableList<KorisnickiNalogDTO> listaNaloga = DAOFactory.getDAOFactory().getKorisnickiNalogDAO().selectAll();
 
 		tabelaNalog.setItems(listaNaloga);
 		// obrisiNalogDugme.disableProperty().bind(Bindings.isEmpty(tabelaNalog.getSelectionModel().getSelectedItems()));

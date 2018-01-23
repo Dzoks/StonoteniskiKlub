@@ -5,10 +5,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.KategorijaTurniraDAO;
-import application.model.dao.TimDAO;
-import application.model.dao.TurnirDAO;
-import application.model.dao.ZrijebDAO;
+import application.model.dao.DAOFactory;
+import application.model.dao.mysql.MySQLKategorijaTurniraDAO;
+import application.model.dao.mysql.MySQLTimDAO;
+import application.model.dao.mysql.MySQLTurnirDAO;
+import application.model.dao.mysql.MySQLZrijebDAO;
 import application.model.dto.TurnirDTO;
 import application.model.dto.UcesnikPrijavaDTO;
 import application.util.AlertDisplay;
@@ -66,11 +67,11 @@ public class SinglTurnirController extends BaseController{
 	public void inicijalizuj(Integer idTurnira,Integer idKategorije){
 		this.idTurnira=idTurnira;
 		this.idKategorije=idKategorije;
-		TurnirDTO turnir=TurnirDAO.getById(idTurnira);
+		TurnirDTO turnir=DAOFactory.getDAOFactory().getTurnirDAO().getById(idTurnira);
 		lblNaziv.setText(turnir.getNaziv());
 		lblDatum.setText(TurniriController.konvertujIzSQLDate(turnir.getDatum().toString()));
 		primaryStage.setTitle("Stonoteniski klub");
-		lblKategorija.setText(KategorijaTurniraDAO.getById(idKategorije).toString());
+		lblKategorija.setText(DAOFactory.getDAOFactory().getKategorijaTurniraDAO().getById(idKategorije).toString());
 		btnIzmjeni.disableProperty().bind(tblIgraci.getSelectionModel().selectedItemProperty().isNull());
 		popuniTabelu();
 	}
@@ -80,12 +81,12 @@ public class SinglTurnirController extends BaseController{
 		clnPrezime.setCellValueFactory(new PropertyValueFactory<>("prezime"));
 		clnJMBG.setCellValueFactory(new PropertyValueFactory<>("jmb"));
 		clnDatumRodjenja.setCellValueFactory(new PropertyValueFactory<>("konvertovanDatumRodjenja"));
-		tblIgraci.setItems(idKategorije<3?TimDAO.getSingle(idTurnira,idKategorije):TimDAO.getDouble(idTurnira, idKategorije));
+		tblIgraci.setItems(idKategorije<3?DAOFactory.getDAOFactory().getTimDAO().getSingle(idTurnira,idKategorije):DAOFactory.getDAOFactory().getTimDAO().getDouble(idTurnira, idKategorije));
 		lblBroj.setText(String.valueOf(tblIgraci.getItems().size()));
 	}
 	
 	public void prijaviIgraca(){
-		if(ZrijebDAO.doesExist(idTurnira, idKategorije)){
+		if(DAOFactory.getDAOFactory().getZrijebDAO().doesExist(idTurnira, idKategorije)){
 			AlertDisplay.showError("Prijava", "Nije moguće prijaviti igrača nakon izvršenog žrijebanja za dati turnir.");
 		}
 		else{
@@ -131,7 +132,7 @@ public class SinglTurnirController extends BaseController{
 	}
 	
 	public void izmjeniIgraca(){
-		if(ZrijebDAO.doesExist(idTurnira, idKategorije)){
+		if(DAOFactory.getDAOFactory().getZrijebDAO().doesExist(idTurnira, idKategorije)){
 			AlertDisplay.showError("Izmjena", "Nije moguće mijenjati podatke o igračima nakon izvršenog žrijebanja za dati turnir.");
 		}
 		else{
@@ -156,7 +157,7 @@ public class SinglTurnirController extends BaseController{
 	}
 	
 	public void prikaziZrijeb(){
-		if(ZrijebDAO.doesExist(idTurnira, idKategorije)){
+		if(DAOFactory.getDAOFactory().getZrijebDAO().doesExist(idTurnira, idKategorije)){
 			Stage noviStage=new Stage();
 			try {
 				if(idKategorije<=2){

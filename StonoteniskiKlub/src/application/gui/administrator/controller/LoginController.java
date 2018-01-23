@@ -11,7 +11,8 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import application.gui.controller.BaseController;
-import application.model.dao.KorisnickiNalogDAO;
+import application.model.dao.DAOFactory;
+import application.model.dao.mysql.MySQLKorisnickiNalogDAO;
 import application.util.AlertDisplay;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,8 +36,8 @@ public class LoginController extends BaseController {
 
 		if (!txtKorisnickoIme.getText().isEmpty()) {
 			korisnickoIme = txtKorisnickoIme.getText();
-			if (KorisnickiNalogDAO.daLiPostoji(txtKorisnickoIme.getText())) {
-				if (!KorisnickiNalogDAO.daLiPostojiLozinka(txtKorisnickoIme.getText())) {
+			if (DAOFactory.getDAOFactory().getKorisnickiNalogDAO().daLiPostoji(txtKorisnickoIme.getText())) {
+				if (!DAOFactory.getDAOFactory().getKorisnickiNalogDAO().daLiPostojiLozinka(txtKorisnickoIme.getText())) {
 					try {
 						BaseController.changeScene("/application/gui/administrator/view/PromjenaLozinkeView.fxml",
 								primaryStage);
@@ -45,9 +46,9 @@ public class LoginController extends BaseController {
 					}
 				} else {
 					if (checkPassword(new String(txtLozinka.getText()),
-							KorisnickiNalogDAO.getHashByUsername(txtKorisnickoIme.getText()))) {
+							DAOFactory.getDAOFactory().getKorisnickiNalogDAO().getHashByUsername(txtKorisnickoIme.getText()))) {
 						try {
-							String uloga = KorisnickiNalogDAO.getUloga(txtKorisnickoIme.getText());
+							String uloga = DAOFactory.getDAOFactory().getKorisnickiNalogDAO().getUloga(txtKorisnickoIme.getText());
 							BaseController bc = null;
 							switch (uloga) {
 							case "Administrator":

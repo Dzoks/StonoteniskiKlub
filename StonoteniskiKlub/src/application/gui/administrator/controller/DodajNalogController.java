@@ -7,8 +7,8 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.KorisnickiNalogDAO;
-import application.model.dao.KorisnickiNalogTipDAO;
+import application.model.dao.mysql.MySQLKorisnickiNalogDAO;
+import application.model.dao.mysql.MySQLKorisnickiNalogTipDAO;
 import application.model.dto.KorisnickiNalogDTO;
 import application.model.dto.KorisnickiNalogTipDTO;
 import application.model.dto.ZaposleniDTO;
@@ -67,9 +67,9 @@ public class DodajNalogController extends BaseController {
 		
 		String ime=korisnickoIme.getText();
 		java.sql.Date sqlDate = java.sql.Date.valueOf( LocalDate.now() );
-		if(!KorisnickiNalogDAO.daLiPostoji(ime)) {
+		if(!DAOFactory.getDAOFactory().getKorisnickiNalogDAO().daLiPostoji(ime)) {
 		KorisnickiNalogDTO nalog=new KorisnickiNalogDTO(ime,null,sqlDate,true,ulogaId,zaposleniId);
-		KorisnickiNalogDAO.insert(nalog);
+		DAOFactory.getDAOFactory().getKorisnickiNalogDAO().insert(nalog);
 		return true;
 		}else {
 			return false;
@@ -88,7 +88,7 @@ public class DodajNalogController extends BaseController {
 	}
 
 	private void popuniChoiceBox() {
-		ObservableList<KorisnickiNalogTipDTO> listaTipNaloga = KorisnickiNalogTipDAO.SELECT_ALL();
+		ObservableList<KorisnickiNalogTipDTO> listaTipNaloga = DAOFactory.getDAOFactory().getKorisnickiNalogTipDAO().SELECT_ALL();
 		ulogaChoiceBox.setItems(listaTipNaloga);
 		ulogaChoiceBox.getSelectionModel().selectFirst();		
 	}

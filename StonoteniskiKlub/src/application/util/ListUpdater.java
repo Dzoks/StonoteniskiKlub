@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import application.model.dao.KategorijaDAO;
+import application.model.dao.DAOFactory;
 import application.model.dao.RegistracijaDAO;
+import application.model.dao.mysql.MySQLKategorijaDAO;
 import application.model.dto.KategorijaDTO;
 import application.model.dto.RegistracijaDTO;
 import javafx.application.Platform;
@@ -24,7 +25,7 @@ public class ListUpdater extends Task<Void> {
 			String season = bundle.getString("Sezona");
 			File folder = new File("rangListe");
 			folder.mkdir();
-			List<KategorijaDTO> categoryList = KategorijaDAO.getAll(true);
+			List<KategorijaDTO> categoryList = DAOFactory.getDAOFactory().getKategorijaDAO().getAll(true);
 			for (KategorijaDTO category : categoryList) {
 				List<RegistracijaDTO> registrationList = RegistracijaDAO.getAllBySeason(season, category);
 				if (!registrationList.isEmpty()) {

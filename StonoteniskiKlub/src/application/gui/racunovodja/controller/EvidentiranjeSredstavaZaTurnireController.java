@@ -17,7 +17,7 @@ import application.model.dao.TipTransakcijeDAO;
 import application.model.dao.TransakcijaDAO;
 import application.model.dao.TroskoviOpremaDAO;
 import application.model.dao.TroskoviTurnirDAO;
-import application.model.dao.TurnirDAO;
+import application.model.dao.mysql.MySQLTurnirDAO;
 import application.model.dto.DistributerOpreme;
 import application.model.dto.Narudzba;
 import application.model.dto.TransakcijaDTO;
@@ -158,7 +158,7 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaDecora
 		tableTroskoviTurnir.setItems(listaTroskovi);
 	}
 	private void popuniComboBox(){
-		ObservableList<TurnirDTO> listaTurnira = TurnirDAO.getAll();
+		ObservableList<TurnirDTO> listaTurnira = DAOFactory.getDAOFactory().getTurnirDAO().getAll();
 		comboBoxTurnir.setItems(listaTurnira);
 		if(!listaTurnira.isEmpty())
 			comboBoxTurnir.getSelectionModel().select(0);

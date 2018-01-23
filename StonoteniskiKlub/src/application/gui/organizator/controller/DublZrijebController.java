@@ -5,10 +5,11 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.MecDAO;
+import application.model.dao.DAOFactory;
 import application.model.dao.RundaDAO;
-import application.model.dao.TimDAO;
-import application.model.dao.ZrijebDAO;
+import application.model.dao.mysql.MySQLMecDAO;
+import application.model.dao.mysql.MySQLTimDAO;
+import application.model.dao.mysql.MySQLZrijebDAO;
 import application.model.dto.MecDTO;
 import application.model.dto.TimDTO;
 import javafx.event.EventHandler;
@@ -76,7 +77,7 @@ public class DublZrijebController extends BaseController{
 	public void inicijalizuj(Integer idTurnira,Integer idKategorije){
 		this.idTurnira=idTurnira;
 		this.idKategorije=idKategorije;
-		this.idZrijeba=ZrijebDAO.getZrijeb(idTurnira, idKategorije).getId();
+		this.idZrijeba=DAOFactory.getDAOFactory().getZrijebDAO().getZrijeb(idTurnira, idKategorije).getId();
 		primaryStage.setTitle("Stonoteniski klub");
 		lblPobjedniciIme.setVisible(false);
 		lblPobjednici.setVisible(false);
@@ -104,18 +105,18 @@ public class DublZrijebController extends BaseController{
 		btnRunda2.setVisible(false);
 		btnRunda3.setVisible(false);
 		btnRunda4.setVisible(false);
-		ZrijebDAO.insert(idTurnira, idKategorije, brojTimova);
-		this.idZrijeba=ZrijebDAO.getZrijeb(idTurnira, idKategorije).getId();
-		ArrayList<TimDTO> lista=TimDAO.getDoubleList(idTurnira, idKategorije);
+		DAOFactory.getDAOFactory().getZrijebDAO().insert(idTurnira, idKategorije, brojTimova);
+		this.idZrijeba=DAOFactory.getDAOFactory().getZrijebDAO().getZrijeb(idTurnira, idKategorije).getId();
+		ArrayList<TimDTO> lista=DAOFactory.getDAOFactory().getTimDAO().getDoubleList(idTurnira, idKategorije);
 		Random rand=new Random();
 		for(int i=0;i<brojTimova && lista.size()>0;i++){
 			TimDTO tim1=lista.remove(rand.nextInt(lista.size()));
 			if(i<(16-brojTimova)){
-				MecDAO.insertSingle(tim1.getId(), idZrijeba, 1, i+1);
+				DAOFactory.getDAOFactory().getMecDAO().insertSingle(tim1.getId(), idZrijeba, 1, i+1);
 			}
 			else{
 				TimDTO tim2=lista.remove(rand.nextInt(lista.size()));
-				MecDAO.insert(tim1.getId(), tim2.getId(), idZrijeba, 1, i+1);
+				DAOFactory.getDAOFactory().getMecDAO().insert(tim1.getId(), tim2.getId(), idZrijeba, 1, i+1);
 			}
 		}
 		popuniZrijeb();
@@ -135,7 +136,7 @@ public class DublZrijebController extends BaseController{
 	
 	public void popuniZrijeb(){
 		inicijalizujZrijeb();
-		tblRunda1.setItems(MecDAO.getAllDouble(idZrijeba, 1));
+		tblRunda1.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllDouble(idZrijeba, 1));
 		if(RundaDAO.numCompleted(idZrijeba, 1)<8){
 			tblRunda1.setEditable(true);
 			clnRezultat1.setEditable(true);
@@ -145,7 +146,7 @@ public class DublZrijebController extends BaseController{
 				public void handle(CellEditEvent<MecDTO, String> event) {
 					if(validanRezultat(event.getNewValue())){
 						event.getRowValue().setRezultat(event.getNewValue());
-						MecDAO.insertRezultat(event.getRowValue());
+						DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
 						if(RundaDAO.numCompleted(idZrijeba, 1)==8)
 							btnRunda1.setVisible(true);
 					}
@@ -159,7 +160,7 @@ public class DublZrijebController extends BaseController{
 			if(RundaDAO.numCompleted(idZrijeba, 2)==0)
 				btnRunda1.setVisible(true);
 			else{
-				tblRunda2.setItems(MecDAO.getAllDouble(idZrijeba, 2));
+				tblRunda2.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllDouble(idZrijeba, 2));
 				if(RundaDAO.numCompleted(idZrijeba, 2)<4){
 					tblRunda2.setEditable(true);
 					clnRezultat2.setEditable(true);
@@ -169,7 +170,7 @@ public class DublZrijebController extends BaseController{
 						public void handle(CellEditEvent<MecDTO, String> event) {
 							if(validanRezultat(event.getNewValue())){
 								event.getRowValue().setRezultat(event.getNewValue());
-								MecDAO.insertRezultat(event.getRowValue());
+								DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
 								if(RundaDAO.numCompleted(idZrijeba, 2)==4)
 									btnRunda2.setVisible(true);								
 							}
@@ -183,7 +184,7 @@ public class DublZrijebController extends BaseController{
 					if(RundaDAO.numCompleted(idZrijeba, 3)==0)
 						btnRunda2.setVisible(true);
 					else{
-						tblRunda3.setItems(MecDAO.getAllDouble(idZrijeba, 3));
+						tblRunda3.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllDouble(idZrijeba, 3));
 						if(RundaDAO.numCompleted(idZrijeba, 3)<2){
 							tblRunda3.setEditable(true);
 							clnRezultat3.setEditable(true);
@@ -193,7 +194,7 @@ public class DublZrijebController extends BaseController{
 								public void handle(CellEditEvent<MecDTO, String> event) {
 									if(validanRezultat(event.getNewValue())){
 										event.getRowValue().setRezultat(event.getNewValue());
-										MecDAO.insertRezultat(event.getRowValue());
+										DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
 										if(RundaDAO.numCompleted(idZrijeba, 3)==2)
 											btnRunda3.setVisible(true);									
 									}
@@ -207,7 +208,7 @@ public class DublZrijebController extends BaseController{
 							if(RundaDAO.numCompleted(idZrijeba, 4)==0)
 								btnRunda3.setVisible(true);
 							else{
-								tblRunda4.setItems(MecDAO.getAllDouble(idZrijeba, 4));
+								tblRunda4.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllDouble(idZrijeba, 4));
 								if(RundaDAO.numCompleted(idZrijeba, 4)<1){
 									tblRunda4.setEditable(true);
 									clnRezultat4.setEditable(true);
@@ -217,7 +218,7 @@ public class DublZrijebController extends BaseController{
 										public void handle(CellEditEvent<MecDTO, String> event) {
 											if(validanRezultat(event.getNewValue())){
 												event.getRowValue().setRezultat(event.getNewValue());
-												MecDAO.insertRezultat(event.getRowValue());
+												DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
 												if(RundaDAO.numCompleted(idZrijeba, 4)==1)
 													btnRunda4.setVisible(true);
 											}
@@ -228,14 +229,14 @@ public class DublZrijebController extends BaseController{
 									});
 								}
 								else{
-									ArrayList<MecDTO> lista=MecDAO.getAllList(idZrijeba, 4);
+									ArrayList<MecDTO> lista=DAOFactory.getDAOFactory().getMecDAO().getAllList(idZrijeba, 4);
 									Integer idTim;
 									MecDTO mec=lista.get(0);
 									if(Integer.valueOf(mec.getRezultat().charAt(0))>Integer.valueOf(mec.getRezultat().charAt(2)))
 										idTim=mec.getIdPrvogTima();
 									else
 										idTim=mec.getIdDrugogTima();
-									lblPobjedniciIme.setText(TimDAO.getDoubleById(idTim));
+									lblPobjedniciIme.setText(DAOFactory.getDAOFactory().getTimDAO().getDoubleById(idTim));
 									lblPobjedniciIme.setVisible(true);
 									lblPobjednici.setVisible(true);
 								}
@@ -251,7 +252,7 @@ public class DublZrijebController extends BaseController{
 		tblRunda1.setEditable(false);
 		clnRezultat1.setEditable(false);
 		btnRunda1.setVisible(false);
-		ArrayList<MecDTO> lista=MecDAO.getAllList(idZrijeba, 1);
+		ArrayList<MecDTO> lista=DAOFactory.getDAOFactory().getMecDAO().getAllList(idZrijeba, 1);
 		for(int i=0;i<8;i+=2){
 			Integer idTim1,idTim2;
 			MecDTO mec1=lista.get(i);
@@ -264,9 +265,9 @@ public class DublZrijebController extends BaseController{
 				idTim2=mec2.getIdPrvogTima();
 			else
 				idTim2=mec2.getIdDrugogTima();
-			MecDAO.insert(idTim1, idTim2, idZrijeba, 2, i/2+1);
+			DAOFactory.getDAOFactory().getMecDAO().insert(idTim1, idTim2, idZrijeba, 2, i/2+1);
 		}
-		tblRunda2.setItems(MecDAO.getAllDouble(idZrijeba, 2));
+		tblRunda2.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllDouble(idZrijeba, 2));
 		tblRunda2.setEditable(true);
 		clnRezultat2.setEditable(true);
 		clnRezultat2.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -275,7 +276,7 @@ public class DublZrijebController extends BaseController{
 			public void handle(CellEditEvent<MecDTO, String> event) {
 				if(validanRezultat(event.getNewValue())){
 					event.getRowValue().setRezultat(event.getNewValue());
-					MecDAO.insertRezultat(event.getRowValue());
+					DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
 					if(RundaDAO.numCompleted(idZrijeba, 2)==4)
 						btnRunda2.setVisible(true);
 				}
@@ -290,7 +291,7 @@ public class DublZrijebController extends BaseController{
 		tblRunda2.setEditable(false);
 		clnRezultat2.setEditable(false);
 		btnRunda2.setVisible(false);
-		ArrayList<MecDTO> lista=MecDAO.getAllList(idZrijeba, 2);
+		ArrayList<MecDTO> lista=DAOFactory.getDAOFactory().getMecDAO().getAllList(idZrijeba, 2);
 		for(int i=0;i<4;i+=2){
 			Integer idTim1,idTim2;
 			MecDTO mec1=lista.get(i);
@@ -304,9 +305,9 @@ public class DublZrijebController extends BaseController{
 			else
 				idTim2=mec2.getIdDrugogTima();
 			
-			MecDAO.insert(idTim1, idTim2, idZrijeba, 3, i/2+1);
+			DAOFactory.getDAOFactory().getMecDAO().insert(idTim1, idTim2, idZrijeba, 3, i/2+1);
 		}
-		tblRunda3.setItems(MecDAO.getAllDouble(idZrijeba, 3));
+		tblRunda3.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllDouble(idZrijeba, 3));
 		tblRunda3.setEditable(true);
 		clnRezultat3.setEditable(true);
 		clnRezultat3.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -315,7 +316,7 @@ public class DublZrijebController extends BaseController{
 			public void handle(CellEditEvent<MecDTO, String> event) {
 				if(validanRezultat(event.getNewValue())){
 					event.getRowValue().setRezultat(event.getNewValue());
-					MecDAO.insertRezultat(event.getRowValue());
+					DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
 					if(RundaDAO.numCompleted(idZrijeba, 3)==2)
 						btnRunda3.setVisible(true);
 				}
@@ -330,7 +331,7 @@ public class DublZrijebController extends BaseController{
 		tblRunda3.setEditable(false);
 		clnRezultat3.setEditable(false);
 		btnRunda3.setVisible(false);
-		ArrayList<MecDTO> lista=MecDAO.getAllList(idZrijeba, 3);
+		ArrayList<MecDTO> lista=DAOFactory.getDAOFactory().getMecDAO().getAllList(idZrijeba, 3);
 		for(int i=0;i<2;i+=2){
 			Integer idTim1,idTim2;
 			MecDTO mec1=lista.get(i);
@@ -344,9 +345,9 @@ public class DublZrijebController extends BaseController{
 			else
 				idTim2=mec2.getIdDrugogTima();
 			
-			MecDAO.insert(idTim1, idTim2, idZrijeba, 4, i/2+1);
+			DAOFactory.getDAOFactory().getMecDAO().insert(idTim1, idTim2, idZrijeba, 4, i/2+1);
 		}		
-		tblRunda4.setItems(MecDAO.getAllDouble(idZrijeba, 4));
+		tblRunda4.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllDouble(idZrijeba, 4));
 		tblRunda4.setEditable(true);
 		clnRezultat4.setEditable(true);
 		clnRezultat4.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -355,7 +356,7 @@ public class DublZrijebController extends BaseController{
 			public void handle(CellEditEvent<MecDTO, String> event) {
 				if(validanRezultat(event.getNewValue())){
 					event.getRowValue().setRezultat(event.getNewValue());
-					MecDAO.insertRezultat(event.getRowValue());
+					DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
 					btnRunda4.setVisible(true);
 				}
 				else{
@@ -369,14 +370,14 @@ public class DublZrijebController extends BaseController{
 		tblRunda4.setEditable(false);
 		clnRezultat4.setEditable(false);
 		btnRunda4.setVisible(false);
-		ArrayList<MecDTO> lista=MecDAO.getAllList(idZrijeba, 4);
+		ArrayList<MecDTO> lista=DAOFactory.getDAOFactory().getMecDAO().getAllList(idZrijeba, 4);
 		Integer idTim;
 		MecDTO mec=lista.get(0);
 		if(Integer.valueOf(mec.getRezultat().charAt(0))>Integer.valueOf(mec.getRezultat().charAt(2)))
 			idTim=mec.getIdPrvogTima();
 		else
 			idTim=mec.getIdDrugogTima();	
-		lblPobjedniciIme.setText(TimDAO.getDoubleById(idTim));
+		lblPobjedniciIme.setText(DAOFactory.getDAOFactory().getTimDAO().getDoubleById(idTim));
 		lblPobjedniciIme.setVisible(true);
 		lblPobjednici.setVisible(true);
 	}

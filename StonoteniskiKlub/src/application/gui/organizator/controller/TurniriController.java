@@ -7,9 +7,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.KategorijaTurniraDAO;
-import application.model.dao.TurnirDAO;
-import application.model.dao.ZrijebDAO;
+import application.model.dao.DAOFactory;
+import application.model.dao.mysql.MySQLKategorijaTurniraDAO;
+import application.model.dao.mysql.MySQLTurnirDAO;
+import application.model.dao.mysql.MySQLZrijebDAO;
 import application.model.dto.KategorijaTurniraDTO;
 import application.model.dto.TurnirDTO;
 import application.util.AlertDisplay;
@@ -59,7 +60,7 @@ public class TurniriController extends BaseController{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		btnDodaj.disableProperty().bind(txtNaziv.textProperty().isEmpty().or(dpDatum.valueProperty().isNull()));
 		cbKategorija.disableProperty().bind(tblTurniri.getSelectionModel().selectedItemProperty().isNull());
-		cbKategorija.setItems(KategorijaTurniraDAO.getAll());
+		cbKategorija.setItems(DAOFactory.getDAOFactory().getKategorijaTurniraDAO().getAll());
 		btnUredi.setDisable(true);
 		btnPregledaj.setDisable(true);
 		btnZatvori.setDisable(true);
@@ -88,7 +89,7 @@ public class TurniriController extends BaseController{
 		clnNaziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
 		clnDatum.setCellValueFactory(new PropertyValueFactory<>("konvertovanDatum"));
 		clnZatvoren.setCellValueFactory(new PropertyValueFactory<>("zatvoren"));
-		tblTurniri.setItems(TurnirDAO.getAll());
+		tblTurniri.setItems(DAOFactory.getDAOFactory().getTurnirDAO().getAll());
 	}
 	
 	public void odjaviSe() {
@@ -108,7 +109,7 @@ public class TurniriController extends BaseController{
 		alert.setTitle("Obavještenje");
 		Optional<ButtonType> result = alert.showAndWait();
 		if(result.get().equals(buttonTypeDa)){
-			TurnirDAO.zatvori(tblTurniri.getSelectionModel().getSelectedItem().getId());
+			DAOFactory.getDAOFactory().getTurnirDAO().zatvori(tblTurniri.getSelectionModel().getSelectedItem().getId());
 			popuniTabelu();
 			btnUredi.setDisable(true);
 			btnPregledaj.setDisable(true);
@@ -140,7 +141,7 @@ public class TurniriController extends BaseController{
 			alert.show();
 		}
 		else{
-			if(ZrijebDAO.doesExist(tblTurniri.getSelectionModel().getSelectedItem().getId(),
+			if(DAOFactory.getDAOFactory().getZrijebDAO().doesExist(tblTurniri.getSelectionModel().getSelectedItem().getId(),
 					cbKategorija.getSelectionModel().getSelectedItem().getId())){
 				Stage noviStage=new Stage();
 				try {
@@ -184,7 +185,7 @@ public class TurniriController extends BaseController{
 	public void dodajTurnir(){
 		if(txtNaziv.getText().length()<=45)
 			if(dpDatum.getValue().isAfter(LocalDate.now())){
-			TurnirDAO.insert(txtNaziv.getText(), Date.valueOf(dpDatum.getValue()));
+				DAOFactory.getDAOFactory().getTurnirDAO().insert(txtNaziv.getText(), Date.valueOf(dpDatum.getValue()));
 			popuniTabelu();
 			txtNaziv.clear();
 			dpDatum.setValue(null);

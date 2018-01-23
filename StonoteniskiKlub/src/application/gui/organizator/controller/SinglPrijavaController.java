@@ -6,9 +6,9 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.KategorijaTurniraDAO;
-import application.model.dao.TimDAO;
-import application.model.dao.UcesnikPrijavaDAO;
+import application.model.dao.mysql.MySQLKategorijaTurniraDAO;
+import application.model.dao.mysql.MySQLTimDAO;
+import application.model.dao.mysql.MySQLUcesnikPrijavaDAO;
 import application.model.dto.UcesnikPrijavaDTO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -49,7 +49,7 @@ public class SinglPrijavaController extends BaseController{
 		this.idTurnira=idTurnira;
 		this.idKategorije=idKategorije;
 		btnSacuvajIzmjene.setVisible(false);
-		lblKategorija.setText(KategorijaTurniraDAO.getById(idKategorije).getKategorija());
+		lblKategorija.setText(DAOFactory.getDAOFactory().getKategorijaTurniraDAO().getById(idKategorije).getKategorija());
 		btnSacuvaj.disableProperty().bind(txtIme.textProperty().isEmpty()
 				.or(txtPrezime.textProperty().isEmpty()
 						.or(txtJmbg.textProperty().isEmpty()
@@ -62,7 +62,7 @@ public class SinglPrijavaController extends BaseController{
 		this.idKategorije=idKategorije;
 		this.idPrijave=ucesnik.getIdPrijave();
 		btnSacuvaj.setVisible(false);
-		lblKategorija.setText(KategorijaTurniraDAO.getById(idKategorije).getKategorija());
+		lblKategorija.setText(DAOFactory.getDAOFactory().getKategorijaTurniraDAO().getById(idKategorije).getKategorija());
 		btnSacuvajIzmjene.disableProperty().bind(txtIme.textProperty().isEmpty()
 				.or(txtPrezime.textProperty().isEmpty()
 						.or(txtJmbg.textProperty().isEmpty()
@@ -101,7 +101,7 @@ public class SinglPrijavaController extends BaseController{
 				}
 				else{
 					if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg.getText(), idTurnira, idKategorije)){
-						if(TimDAO.insertSingle(UcesnikPrijavaDAO.addNew(idTurnira,
+						if(DAOFactory.getDAOFactory().getTimDAO().insertSingle(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().addNew(idTurnira,
 								idKategorije, DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg.getText()).getId(), Date.valueOf(LocalDate.now())))){
 							primaryStage.close();
 						}
@@ -114,7 +114,7 @@ public class SinglPrijavaController extends BaseController{
 						}
 					}
 					else{
-						if(TimDAO.insertSingle(UcesnikPrijavaDAO.insert(txtJmbg.getText(), txtIme.getText(), txtPrezime.getText(),
+						if(DAOFactory.getDAOFactory().getTimDAO().insertSingle(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().insert(txtJmbg.getText(), txtIme.getText(), txtPrezime.getText(),
 								idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja.getValue()), 
 										idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
 							primaryStage.close();
@@ -157,7 +157,7 @@ public class SinglPrijavaController extends BaseController{
 					alert.show();
 				}
 				else{
-					if(UcesnikPrijavaDAO.izmjeniUcesnika(idPrijave, txtIme.getText(),
+					if(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().izmjeniUcesnika(idPrijave, txtIme.getText(),
 							txtPrezime.getText(),Date.valueOf(dpDatumRodjenja.getValue()))){
 						primaryStage.close();
 					}

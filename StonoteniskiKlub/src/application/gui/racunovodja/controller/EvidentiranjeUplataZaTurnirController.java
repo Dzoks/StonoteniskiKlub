@@ -26,9 +26,9 @@ import application.model.dao.DAOFactory;
 import application.model.dao.NovcanaSredstvaDAO;
 import application.model.dao.TipTransakcijeDAO;
 import application.model.dao.TransakcijaDAO;
-import application.model.dao.TurnirDAO;
-import application.model.dao.UcesnikPrijavaDAO;
 import application.model.dao.UplataZaTurnirDAO;
+import application.model.dao.mysql.MySQLTurnirDAO;
+import application.model.dao.mysql.MySQLUcesnikPrijavaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import application.model.dto.TransakcijaDTO;
@@ -193,13 +193,13 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 		tableColumnNazivTurnira.setCellValueFactory(new PropertyValueFactory<UplataZaTurnirDTO, String>("nazivTurnira"));
 	}
 	private void popuniComboBox() {
-		listaUcesnika = UcesnikPrijavaDAO.SELECT_ALL();
+		listaUcesnika = DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().SELECT_ALL();
 		//listaUcesnika = DAOFactory.getDAOFactory().
 		comboBoxClanUcesnik.setItems(listaUcesnika);
 		comboBoxClanUcesnik.getSelectionModel().selectFirst();
 		comboBoxUcesnikPrikazi.setItems(listaUcesnika);
 		comboBoxUcesnikPrikazi.getSelectionModel().selectFirst();
-		listaTurnira = TurnirDAO.getAll();
+		listaTurnira = DAOFactory.getDAOFactory().getTurnirDAO().getAll();
 		comboBoxTurnirPrikazi.setItems(listaTurnira);
 		comboBoxTurnirPrikazi.getSelectionModel().select(0);
 	}

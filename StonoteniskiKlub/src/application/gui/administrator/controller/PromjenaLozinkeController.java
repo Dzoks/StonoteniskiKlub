@@ -7,7 +7,8 @@ import java.util.ResourceBundle;
 import org.mindrot.jbcrypt.BCrypt;
 
 import application.gui.controller.BaseController;
-import application.model.dao.KorisnickiNalogDAO;
+import application.model.dao.DAOFactory;
+import application.model.dao.mysql.MySQLKorisnickiNalogDAO;
 import application.util.AlertDisplay;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class PromjenaLozinkeController extends BaseController {
 	public void dugmeOkKlik(ActionEvent event) {
 		if(!lozinkaTxt.getText().isEmpty()&& !lozinkaPonovoTxt.getText().isEmpty()) {
 			if(lozinkaPonovoTxt.getText().equals(lozinkaTxt.getText())) {
-				KorisnickiNalogDAO.setLozinka(hashPassword(lozinkaTxt.getText()).getBytes(), LoginController.korisnickoIme);
+				DAOFactory.getDAOFactory().getKorisnickiNalogDAO().setLozinka(hashPassword(lozinkaTxt.getText()).getBytes(), LoginController.korisnickoIme);
 				AlertDisplay.showInformation("Dodavanje", "Lozinka je uspješno postavljena.");
 				try {
 					BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml",
