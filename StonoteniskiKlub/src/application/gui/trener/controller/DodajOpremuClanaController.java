@@ -36,8 +36,6 @@ public class DodajOpremuClanaController extends BaseController{
 	@FXML
 	private TableView<NarudzbaStavka> tblNarudzbe;
 	@FXML
-	private TableColumn<NarudzbaStavka, Integer> id;
-	@FXML
 	private TableColumn<NarudzbaStavka, String> tipOpreme;
 	@FXML
 	private TableColumn<NarudzbaStavka, String> proizvodjacOpreme;
@@ -77,7 +75,6 @@ public class DodajOpremuClanaController extends BaseController{
 	}
 	
 	public void popuniTabelu(ObservableList<NarudzbaStavka> listaStavkiNarudzbe) {
-		id.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, Integer>("idNarudzbe"));
 		tipOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, String>("tipOpreme"));
 		proizvodjacOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, String>("tipProizvodjac"));
 		modelOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, String>("tipModel"));

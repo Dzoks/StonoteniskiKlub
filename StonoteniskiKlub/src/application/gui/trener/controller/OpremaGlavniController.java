@@ -59,8 +59,6 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	@FXML
 	private TableView<OpremaKluba> tblOpremaKluba;
 	@FXML
-	private TableColumn<OpremaKluba, Integer> idKlub;
-	@FXML
 	private TableColumn<OpremaKluba, String> tipKlub;
 	@FXML
 	private TableColumn<OpremaKluba, String> proizvodjacKlub;
@@ -72,8 +70,6 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	private TableColumn<OpremaKluba, String> doniranaKlub;
 	@FXML
 	private TableView<OpremaClana> tblOpremaClana;
-	@FXML
-	private TableColumn<OpremaClana, Integer> idClan;
 	@FXML
 	private TableColumn<OpremaClana, String> tipClan;
 	@FXML
