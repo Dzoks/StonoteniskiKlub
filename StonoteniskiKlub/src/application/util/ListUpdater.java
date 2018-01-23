@@ -7,7 +7,7 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import application.model.dao.DAOFactory;
-import application.model.dao.RegistracijaDAO;
+import application.model.dao.mysql.MySQLRegistracijaDAO;
 import application.model.dto.KategorijaDTO;
 import application.model.dto.RegistracijaDTO;
 import javafx.application.Platform;
@@ -24,7 +24,7 @@ public class ListUpdater extends Task<Void> {
 			folder.mkdir();
 			List<KategorijaDTO> categoryList = DAOFactory.getDAOFactory().getKategorijaDAO().getAll(true);
 			for (KategorijaDTO category : categoryList) {
-				List<RegistracijaDTO> registrationList = RegistracijaDAO.getAllBySeason(season, category);
+				List<RegistracijaDTO> registrationList = DAOFactory.getDAOFactory().getRegistracijaDAO().getAllBySeason(season, category);
 				if (!registrationList.isEmpty()) {
 					File xlsFile = Downloader.preuzmiListu(category.getLink(), category.getNaziv());
 					Integer[] indexes = Parser.pocetniIndeksiTabele(xlsFile);
@@ -33,7 +33,7 @@ public class ListUpdater extends Task<Void> {
 							registrationList);
 					Files.delete(xlsFile.toPath());
 					for (RegistracijaDTO registration : updatedRegistrations)
-						RegistracijaDAO.update(registration);
+						DAOFactory.getDAOFactory().getRegistracijaDAO().update(registration);
 				}
 			}
 			folder.delete();

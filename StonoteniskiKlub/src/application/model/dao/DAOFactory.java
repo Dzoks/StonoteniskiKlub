@@ -81,4 +81,10 @@ public abstract class DAOFactory {
 	public abstract UcesnikPrijavaDAO getUcesnikPrijavaDAO();
 	
 	public abstract ZrijebDAO getZrijebDAO();
+	
+	public abstract RegistracijaDAO getRegistracijaDAO();
+	
+	public abstract RundaDAO getRundaDAO();
+	
+	public abstract TreningDAO getTreningDAO();
 }

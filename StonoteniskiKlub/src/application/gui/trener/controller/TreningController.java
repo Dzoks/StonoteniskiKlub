@@ -7,7 +7,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.TreningDAO;
+import application.model.dao.DAOFactory;
+import application.model.dao.mysql.MySQLTreningDAO;
 import application.model.dto.TreningDTO;
 import application.util.AlertDisplay;
 import javafx.beans.value.ChangeListener;
@@ -50,7 +51,7 @@ public class TreningController extends BaseController {
 
 	public void setClan(Integer CLAN_Id) {
 		this.CLAN_Id = CLAN_Id;
-		lista = TreningDAO.selectByMember(CLAN_Id);
+		lista = DAOFactory.getDAOFactory().getTreningDAO().selectByMember(CLAN_Id);
 		listTrening.setItems(lista);
 	}
 
@@ -84,7 +85,7 @@ public class TreningController extends BaseController {
 		if (controller.getTrening() != null) {
 			TreningDTO noviTrening = controller.getTrening();
 			noviTrening.setCLAN_Id(CLAN_Id);
-			TreningDAO.insert(noviTrening);
+			DAOFactory.getDAOFactory().getTreningDAO().insert(noviTrening);
 			lista.add(noviTrening);
 		}
 	}
@@ -94,7 +95,7 @@ public class TreningController extends BaseController {
 		TreningDTO trening = listTrening.getSelectionModel().getSelectedItem();
 		trening.setOpis(areaOpis.getText());
 		areaOpis.setEditable(false);
-		TreningDAO.update(trening);
+		DAOFactory.getDAOFactory().getTreningDAO().update(trening);
 
 	}
 
@@ -126,7 +127,7 @@ public class TreningController extends BaseController {
 		  	if (ButtonData.YES==result.get().getButtonData()) {
 			TreningDTO trening = listTrening.getSelectionModel().getSelectedItem();
 			lista.remove(trening);
-			TreningDAO.deactivate(trening);
+			DAOFactory.getDAOFactory().getTreningDAO().deactivate(trening);
 		  	}
 
 	    }

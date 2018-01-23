@@ -22,12 +22,15 @@ import application.model.dao.OpremaKlubaDAO;
 import application.model.dao.OpremaTipDAO;
 import application.model.dao.OsobaDAO;
 import application.model.dao.PlataDAO;
+import application.model.dao.RegistracijaDAO;
+import application.model.dao.RundaDAO;
 import application.model.dao.SkupstinaDAO;
 import application.model.dao.SponzorDAO;
 import application.model.dao.StavkaSkupstinaDAO;
 import application.model.dao.TimDAO;
 import application.model.dao.TipTransakcijeDAO;
 import application.model.dao.TransakcijaDAO;
+import application.model.dao.TreningDAO;
 import application.model.dao.TroskoviOpremaDAO;
 import application.model.dao.TroskoviTurnirDAO;
 import application.model.dao.TurnirDAO;
@@ -208,5 +211,17 @@ public class MySQLDAOFactory extends DAOFactory{
 	@Override
 	public ZrijebDAO getZrijebDAO() {
 		return new MySQLZrijebDAO();
+	}
+	@Override
+	public RegistracijaDAO getRegistracijaDAO() {
+		return new MySQLRegistracijaDAO();
+	}
+	@Override
+	public RundaDAO getRundaDAO() {
+		return new MySQLRundaDAO();
+	}
+	@Override
+	public TreningDAO getTreningDAO() {
+		return new MySQLTreningDAO();
 	}
 }

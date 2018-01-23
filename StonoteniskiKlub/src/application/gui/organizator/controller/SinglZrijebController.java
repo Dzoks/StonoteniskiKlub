@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.RundaDAO;
+import application.model.dao.mysql.MySQLRundaDAO;
 import application.model.dto.MecDTO;
 import application.model.dto.TimDTO;
 import javafx.event.EventHandler;
@@ -146,7 +146,7 @@ public class SinglZrijebController extends BaseController{
 	public void popuniZrijeb(){
 		inicijalizujZrijeb();
 		tblRunda1.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllSingle(idZrijeba, 1));
-		if(RundaDAO.numCompleted(idZrijeba, 1)<16){
+		if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 1)<16){
 			tblRunda1.setEditable(true);
 			clnRezultat1.setEditable(true);
 			clnRezultat1.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -156,7 +156,7 @@ public class SinglZrijebController extends BaseController{
 					if(validanRezultat(event.getNewValue())){
 						event.getRowValue().setRezultat(event.getNewValue());
 						DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
-						if(RundaDAO.numCompleted(idZrijeba, 1)==16)
+						if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 1)==16)
 							btnRunda1.setVisible(true);
 					}
 					else{
@@ -166,11 +166,11 @@ public class SinglZrijebController extends BaseController{
 			});
 		}
 		else{
-			if(RundaDAO.numCompleted(idZrijeba, 2)==0)
+			if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 2)==0)
 				btnRunda1.setVisible(true);
 			else{
 				tblRunda2.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllSingle(idZrijeba, 2));
-				if(RundaDAO.numCompleted(idZrijeba, 2)<8){
+				if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 2)<8){
 					tblRunda2.setEditable(true);
 					clnRezultat2.setEditable(true);
 					clnRezultat2.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -180,7 +180,7 @@ public class SinglZrijebController extends BaseController{
 							if(validanRezultat(event.getNewValue())){
 								event.getRowValue().setRezultat(event.getNewValue());
 								DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
-								if(RundaDAO.numCompleted(idZrijeba, 2)==8)
+								if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 2)==8)
 									btnRunda2.setVisible(true);
 							}
 							else{
@@ -190,11 +190,11 @@ public class SinglZrijebController extends BaseController{
 					});
 				}
 				else{
-					if(RundaDAO.numCompleted(idZrijeba, 3)==0)
+					if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 3)==0)
 						btnRunda2.setVisible(true);
 					else{
 						tblRunda3.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllSingle(idZrijeba, 3));
-						if(RundaDAO.numCompleted(idZrijeba, 3)<4){
+						if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 3)<4){
 							tblRunda3.setEditable(true);
 							clnRezultat3.setEditable(true);
 							clnRezultat3.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -204,7 +204,7 @@ public class SinglZrijebController extends BaseController{
 									if(validanRezultat(event.getNewValue())){
 										event.getRowValue().setRezultat(event.getNewValue());
 										DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
-										if(RundaDAO.numCompleted(idZrijeba, 3)==4)
+										if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 3)==4)
 											btnRunda3.setVisible(true);
 									}
 									else{
@@ -214,11 +214,11 @@ public class SinglZrijebController extends BaseController{
 							});
 						}
 						else{
-							if(RundaDAO.numCompleted(idZrijeba, 4)==0)
+							if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 4)==0)
 								btnRunda3.setVisible(true);
 							else{
 								tblRunda4.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllSingle(idZrijeba, 4));
-								if(RundaDAO.numCompleted(idZrijeba, 4)<2){
+								if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 4)<2){
 									tblRunda4.setEditable(true);
 									clnRezultat4.setEditable(true);
 									clnRezultat4.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -228,7 +228,7 @@ public class SinglZrijebController extends BaseController{
 											if(validanRezultat(event.getNewValue())){
 												event.getRowValue().setRezultat(event.getNewValue());
 												DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
-												if(RundaDAO.numCompleted(idZrijeba, 4)==2)
+												if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 4)==2)
 													btnRunda4.setVisible(true);
 											}
 											else{
@@ -238,11 +238,11 @@ public class SinglZrijebController extends BaseController{
 									});
 								}
 								else{
-									if(RundaDAO.numCompleted(idZrijeba, 5)==0)
+									if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 5)==0)
 										btnRunda4.setVisible(true);
 									else{
 										tblRunda5.setItems(DAOFactory.getDAOFactory().getMecDAO().getAllSingle(idZrijeba, 5));
-										if(RundaDAO.numCompleted(idZrijeba, 5)<1){
+										if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 5)<1){
 											tblRunda5.setEditable(true);
 											clnRezultat5.setEditable(true);
 											clnRezultat5.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -252,7 +252,7 @@ public class SinglZrijebController extends BaseController{
 													if(validanRezultat(event.getNewValue())){
 														event.getRowValue().setRezultat(event.getNewValue());
 														DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
-														if(RundaDAO.numCompleted(idZrijeba, 5)==1)
+														if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 5)==1)
 															btnRunda5.setVisible(true);
 													}
 													else{
@@ -312,7 +312,7 @@ public class SinglZrijebController extends BaseController{
 				if(validanRezultat(event.getNewValue())){
 					event.getRowValue().setRezultat(event.getNewValue());
 					DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
-					if(RundaDAO.numCompleted(idZrijeba, 2)==8)
+					if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 2)==8)
 						btnRunda2.setVisible(true);
 				}
 				else{
@@ -352,7 +352,7 @@ public class SinglZrijebController extends BaseController{
 				if(validanRezultat(event.getNewValue())){
 					event.getRowValue().setRezultat(event.getNewValue());
 					DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
-					if(RundaDAO.numCompleted(idZrijeba, 3)==4)
+					if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 3)==4)
 						btnRunda3.setVisible(true);
 				}
 				else{
@@ -392,7 +392,7 @@ public class SinglZrijebController extends BaseController{
 				if(validanRezultat(event.getNewValue())){
 					event.getRowValue().setRezultat(event.getNewValue());
 					DAOFactory.getDAOFactory().getMecDAO().insertRezultat(event.getRowValue());
-					if(RundaDAO.numCompleted(idZrijeba, 4)==2)
+					if(DAOFactory.getDAOFactory().getRundaDAO().numCompleted(idZrijeba, 4)==2)
 						btnRunda4.setVisible(true);
 				}
 				else{

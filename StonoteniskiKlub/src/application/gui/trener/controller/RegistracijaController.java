@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.RegistracijaDAO;
+import application.model.dao.mysql.MySQLRegistracijaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.KategorijaDTO;
 import application.model.dto.RegistracijaDTO;
@@ -64,7 +64,7 @@ public class RegistracijaController extends BaseController {
 			RegistracijaDTO registracijaDTO = new RegistracijaDTO(this.clan.getId(),
 					cbSezona.getSelectionModel().getSelectedItem(),
 					cbKategorija.getSelectionModel().getSelectedItem().getId(), dpDatum.getValue(), null, clan);
-			if(RegistracijaDAO.insert(registracijaDTO)){
+			if(DAOFactory.getDAOFactory().getRegistracijaDAO().insert(registracijaDTO)){
 				DAOFactory.getDAOFactory().getClanDAO().setRegistrovan(true, this.clan.getId());
 				AlertDisplay.showInformation("Registracija", "Registracija uspješna.");
 			}

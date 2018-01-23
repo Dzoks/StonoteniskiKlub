@@ -19,7 +19,7 @@ import java.util.Set;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.RegistracijaDAO;
+import application.model.dao.mysql.MySQLRegistracijaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import application.model.dto.RegistracijaDTO;
@@ -430,7 +430,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			return;
 		// Provjera da li je igrac
 		if (clan.isRegistrovan()) {
-			cbxSezona.setItems(RegistracijaDAO.getAllByMember(clan));
+			cbxSezona.setItems(DAOFactory.getDAOFactory().getRegistracijaDAO().getAllByMember(clan));
 			setVidljivostZaIgraca(true);
 		}else {
 			setVidljivostZaIgraca(false);
