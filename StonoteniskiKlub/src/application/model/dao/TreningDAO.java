@@ -13,6 +13,24 @@ import javafx.collections.ObservableList;
 
 public class TreningDAO {
 
+	public static boolean deactivate(TreningDTO trening) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		try {
+			c = ConnectionPool.getInstance().checkOut();
+			ps = c.prepareStatement("update TRENING set Aktivan=? where Id=?;");
+			ps.setBoolean(1,false);
+			ps.setInt(2, trening.getId());
+			ps.executeUpdate();
+			return true;
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			ConnectionPool.close( ps);
+			ConnectionPool.getInstance().checkIn(c);
+		}
+	}
 	public static ObservableList<TreningDTO> selectByMember(Integer CLAN_Id) {
 		ObservableList<TreningDTO> list = FXCollections.observableArrayList();
 		Connection c = null;
@@ -21,12 +39,12 @@ public class TreningDAO {
 
 		try {
 			c = ConnectionPool.getInstance().checkOut();
-			ps = c.prepareStatement("select * from TRENING where CLAN_Id=?;");
+			ps = c.prepareStatement("select * from TRENING where CLAN_Id=? and Aktivan=true;");
 			ps.setInt(1, CLAN_Id);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				list.add(new TreningDTO(rs.getInt("Id"), rs.getString("Opis"), CLAN_Id,
-						rs.getDate("Datum").toLocalDate()));
+						rs.getDate("Datum").toLocalDate(),rs.getBoolean("Aktivan")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

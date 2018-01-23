@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="350.0" prefWidth="600.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.TreningController">
+<AnchorPane prefHeight="350.0" prefWidth="600.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.TreningController">
    <children>
       <Label layoutX="27.0" layoutY="14.0" text="Pretraga po:" />
       <Label layoutX="27.0" layoutY="55.0" text="Godina:" />
@@ -33,5 +33,6 @@
       <Button fx:id="btnIzmjenOpis" layoutX="481.0" layoutY="250.0" mnemonicParsing="false" onAction="#editTrening" text="Izmjenite opis" />
       <Button fx:id="btnDodajTrening" layoutX="446.0" layoutY="309.0" mnemonicParsing="false" onAction="#addNew" text="Dodajte novi trening" />
       <Button fx:id="btnSacuvajOpis" layoutX="354.0" layoutY="250.0" mnemonicParsing="false" onAction="#saveEdit" text="Sačuvajte opis" />
+      <Button fx:id="btnObrisi" layoutX="274.0" layoutY="308.0" mnemonicParsing="false" onAction="#obrisi" text="Obrišite trening" />
    </children>
 </AnchorPane>

@@ -3,21 +3,25 @@ package application.gui.trener.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.TreningDAO;
 import application.model.dto.TreningDTO;
+import application.util.AlertDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -38,6 +42,8 @@ public class TreningController extends BaseController {
 	private Button btnDodajTrening;
 	@FXML
 	private Button btnSacuvajOpis;
+	@FXML
+    private Button btnObrisi;
 
 	private Integer CLAN_Id;
 	private ObservableList<TreningDTO> lista;
@@ -97,6 +103,7 @@ public class TreningController extends BaseController {
 		lblDatum.setText("");
 		btnSacuvajOpis.visibleProperty().bind(areaOpis.editableProperty());
 		btnIzmjenOpis.disableProperty().bind(listTrening.getSelectionModel().selectedItemProperty().isNull());
+		btnObrisi.disableProperty().bind(listTrening.getSelectionModel().selectedItemProperty().isNull());
 		listTrening.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreningDTO>() {
 
 			@Override
@@ -113,4 +120,14 @@ public class TreningController extends BaseController {
 		});
 
 	}
+	  @FXML
+	    void obrisi(ActionEvent event) {
+		  	Optional<ButtonType> result=AlertDisplay.showConfirmation("Brisanje", "Da li ste sigurni da želite da obrišete trening?");
+		  	if (ButtonData.YES==result.get().getButtonData()) {
+			TreningDTO trening = listTrening.getSelectionModel().getSelectedItem();
+			lista.remove(trening);
+			TreningDAO.deactivate(trening);
+		  	}
+
+	    }
 }
