@@ -25,6 +25,7 @@ import application.model.dto.ClanarinaDTO;
 import application.model.dto.RegistracijaDTO;
 import application.model.helper.Rezultat;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.ListUpdater;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -224,6 +225,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	public void idiNaPregledOpreme() {
@@ -240,6 +242,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			noviStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -257,6 +260,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			noviStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -286,6 +290,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 				listaClanova.add(clan);
 		} catch (Exception e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -318,6 +323,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -386,6 +392,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -418,7 +425,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			trening.setResizable(false);
 			trening.show();
 		} catch (IOException e) {
-
+			new ErrorLogger().log(e);
 			e.printStackTrace();
 		}
 	}
@@ -465,6 +472,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
     @FXML
@@ -477,7 +485,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			stage.setResizable(false);
 			stage.show();
 		} catch (IOException e) {
-
+			new ErrorLogger().log(e);
 			e.printStackTrace();
 		}
 	}

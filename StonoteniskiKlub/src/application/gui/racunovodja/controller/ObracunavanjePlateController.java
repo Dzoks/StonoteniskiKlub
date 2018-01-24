@@ -26,6 +26,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.ZaposleniDTO;
+import application.util.ErrorLogger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -206,6 +207,7 @@ public class ObracunavanjePlateController extends BaseController{
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 }

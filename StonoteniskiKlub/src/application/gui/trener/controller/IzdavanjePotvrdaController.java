@@ -35,6 +35,7 @@ import application.model.dao.DAOFactory;
 import application.model.dto.ClanDTO;
 import application.util.AlertDisplay;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -174,7 +175,7 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			    try {
 			        Desktop.getDesktop().open(file);
 			    } catch (IOException ex) {
-			        // no application registered for PDFs
+			    	new ErrorLogger().log(ex);
 			    }
 			}
 			
@@ -197,6 +198,7 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 				primaryStage.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	
@@ -212,6 +214,7 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			return blob;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 			return null;
 		}
 	}

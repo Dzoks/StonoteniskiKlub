@@ -14,6 +14,7 @@ import application.model.dto.OpremaTip;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -148,6 +149,7 @@ public class DodavanjeUgovoraController extends BaseController {
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 				UgovorDTO ugovor = new UgovorDTO(null, datumOd, datumDo, taOpisUgovora.getText(), null);
 				if(DAOFactory.getDAOFactory().getUgovorDAO().insert(sponzor, ugovor)){

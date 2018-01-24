@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.DogadjajDTO;
+import application.util.ErrorLogger;
 import application.util.TextUtility;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -47,6 +48,7 @@ public class CalendarController extends BaseController {
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	@FXML
@@ -68,6 +70,7 @@ public class CalendarController extends BaseController {
 				newStage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 		}
 	}

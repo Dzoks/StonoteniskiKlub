@@ -10,6 +10,7 @@ import application.model.dto.NovcanaSredstvaDTO;
 import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -125,6 +126,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	// Event Listener on Button[#btnDodaj].onAction
@@ -171,6 +173,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}//initialize
 		
 	}	
@@ -283,6 +286,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 		prikaziLabele(trenutnaNS);
 	}
@@ -303,8 +307,6 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		}catch(NumberFormatException ex) {
 			this.obrisiPolja();
 			AlertDisplay.showError("Dodavanje", "Niste ispravno unijeli informaciju o iznosu.");
-
-		
 			return;
 		}
 		NovcanaSredstvaDTO ns = new NovcanaSredstvaDTO(sezona, iznos, new Double(0), new Double(0));

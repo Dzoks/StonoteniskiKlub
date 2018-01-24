@@ -13,6 +13,7 @@ import java.util.List;
 import application.model.dao.OsobaDAO;
 import application.model.dto.OsobaDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 
 public class MySQLOsobaDAO implements OsobaDAO {
 	private static final String SQL_GET_BY_JMB = "SELECT * FROM OSOBA WHERE JMB=?";
@@ -25,13 +26,11 @@ public class MySQLOsobaDAO implements OsobaDAO {
 	private static final String SQL_UPDATE = "UPDATE OSOBA SET IME=?, PREZIME=?, IMERODITELJA=?, POL=?, JMB=?, DATUMRODJENJA=?, FOTOGRAFIJA=? WHERE ID=?";
 	private static final String SQL_SELECT_ALL_TIPOVI_POTVRDE = "SELECT * FROM POTVRDA_TIP";
 	private static final String SQL_INSERT_POTVRDA = "INSERT INTO potvrda VALUES (?, ?, ?, ?, ?)";
-	private final static String SQL_DOES_EXIST="{call postojiJmb(?,?,?,?)}";
-	
-	
+	private final static String SQL_DOES_EXIST = "{call postojiJmb(?,?,?,?)}";
+
 	public void insertPotvrda(int idClana, int idTipa, Date datum, Blob tekst) {
 		PreparedStatement ps = null;
 		Connection c = null;
-	
 
 		try {
 			c = ConnectionPool.getInstance().checkOut();
@@ -44,12 +43,13 @@ public class MySQLOsobaDAO implements OsobaDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
 	}
-	
+
 	public List<String> getTipoviPotvrde() {
 		List<String> retVal = new ArrayList<String>();
 		Connection c = null;
@@ -59,7 +59,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_SELECT_ALL_TIPOVI_POTVRDE;
-			Object pom[] = { };
+			Object pom[] = {};
 
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			rs = ps.executeQuery();
@@ -67,6 +67,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 				retVal.add(rs.getString("Tip"));
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
@@ -74,7 +75,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 
 		return retVal;
 	}
-	
+
 	public OsobaDTO getByJmb(String jmb) {
 		OsobaDTO osoba = null;
 		Connection c = null;
@@ -96,6 +97,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 				osoba.setTelefoni(getTelefoni(osoba.getId()));
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
@@ -121,6 +123,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 				retVal.add(rs.getString("BrojTelefona"));
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
@@ -146,6 +149,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 				id = rs.getInt("OSOBA_Id");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
@@ -168,7 +172,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 			ps.executeUpdate();
 
 			Object temp[] = {};
-			ps.close();//OVO JE DODANO JER DOLAZI DO CURENJA, DZOKS
+			ps.close();// OVO JE DODANO JER DOLAZI DO CURENJA, DZOKS
 			ps = ConnectionPool.prepareStatement(c, SQL_SELECT_IDENTITY, false, temp);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
@@ -176,12 +180,13 @@ public class MySQLOsobaDAO implements OsobaDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
 	}
-	
+
 	public void update(OsobaDTO osoba) {
 		PreparedStatement ps = null;
 		Connection c = null;
@@ -189,15 +194,14 @@ public class MySQLOsobaDAO implements OsobaDAO {
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_UPDATE;
-			Object pom[] = { osoba.getIme(), osoba.getPrezime(), osoba.getImeRoditelja(),
-					osoba.getPol().toString(), osoba.getJmb(), osoba.getDatumRodjenja(), osoba.getSlika(), osoba.getId() };
+			Object pom[] = { osoba.getIme(), osoba.getPrezime(), osoba.getImeRoditelja(), osoba.getPol().toString(),
+					osoba.getJmb(), osoba.getDatumRodjenja(), osoba.getSlika(), osoba.getId() };
 
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
 			ConnectionPool.getInstance().checkIn(c);
@@ -224,6 +228,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
 			ConnectionPool.getInstance().checkIn(c);
@@ -245,30 +250,32 @@ public class MySQLOsobaDAO implements OsobaDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
 			ConnectionPool.getInstance().checkIn(c);
 		}
 	}
-	
-	public boolean doesExist(String jmb,Integer idTurnira,Integer idKategorije) {
-		boolean retVal=false;
+
+	public boolean doesExist(String jmb, Integer idTurnira, Integer idKategorije) {
+		boolean retVal = false;
 		Connection c = null;
-		java.sql.CallableStatement cst=null;
-		
+		java.sql.CallableStatement cst = null;
+
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			String query = SQL_DOES_EXIST;
-			cst=c.prepareCall(query);
+			cst = c.prepareCall(query);
 			cst.setString(1, jmb);
 			cst.setInt(2, idTurnira);
 			cst.setInt(3, idKategorije);
 			cst.registerOutParameter(4, Types.BOOLEAN);
 			cst.execute();
-			retVal=cst.getBoolean(4);
+			retVal = cst.getBoolean(4);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(cst);
 			ConnectionPool.getInstance().checkIn(c);
@@ -284,14 +291,16 @@ public class MySQLOsobaDAO implements OsobaDAO {
 		ResultSet resultSet = null;
 		try {
 			connection = ConnectionPool.getInstance().checkOut();
-			statement = ConnectionPool.prepareStatement(connection, SQL_INSERT_TELEFON, true, telefon, osoba.getId(), null);
+			statement = ConnectionPool.prepareStatement(connection, SQL_INSERT_TELEFON, true, telefon, osoba.getId(),
+					null);
 			statement.executeUpdate();
 			resultSet = statement.getGeneratedKeys();
-			if(resultSet.next()){
+			if (resultSet.next()) {
 				result = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);

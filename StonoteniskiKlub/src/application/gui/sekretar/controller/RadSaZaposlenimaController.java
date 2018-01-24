@@ -14,6 +14,7 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.ZaposleniDTO;
 import application.util.Checker;
+import application.util.ErrorLogger;
 import application.util.Finder;
 import application.util.ZaposleniImeChecker;
 import application.util.ZaposleniJMBChecker;
@@ -82,6 +83,7 @@ public class RadSaZaposlenimaController extends BaseController {
 			defaultImage = new Image(new FileInputStream("src/resources/avatar.png"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -96,6 +98,7 @@ public class RadSaZaposlenimaController extends BaseController {
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	// Event Listener on TableView[#tblZaposleni].onMouseClicked
@@ -126,6 +129,7 @@ public class RadSaZaposlenimaController extends BaseController {
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -150,6 +154,7 @@ public class RadSaZaposlenimaController extends BaseController {
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -174,6 +179,7 @@ public class RadSaZaposlenimaController extends BaseController {
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -202,6 +208,7 @@ public class RadSaZaposlenimaController extends BaseController {
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	@FXML
@@ -266,6 +273,7 @@ public class RadSaZaposlenimaController extends BaseController {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	private static List<Checker<ZaposleniDTO>> checkers = new ArrayList<Checker<ZaposleniDTO>>();

@@ -14,33 +14,21 @@ import application.model.dto.ClanDTO;
 import application.model.dto.KategorijaDTO;
 import application.model.dto.RegistracijaDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class MySQLRegistracijaDAO implements RegistracijaDAO{
+public class MySQLRegistracijaDAO implements RegistracijaDAO {
 
-	public static final String[] tournaments= {"Plasman","A","A1","B","B1","C","C1","D","D1","E","E1","F","F1","Kup","PrLiga","PlayOff","Ukupno"};
+	public static final String[] tournaments = { "Plasman", "A", "A1", "B", "B1", "C", "C1", "D", "D1", "E", "E1", "F",
+			"F1", "Kup", "PrLiga", "PlayOff", "Ukupno" };
 	private static final String SQL_GETALL_MEMBER = "select * from REGISTRACIJA where CLAN_Id=?;";
 	private static final String SQL_GETALL_SEASON = "select * from REGISTRACIJA where Sezona=? and KATEGORIJA_Id=?;";
-	private static final String SQL_UPDATE= "update REGISTRACIJA set Datum=?,"
-			+ "Plasman=?,"
-			+ "A=?,"
-			+ "A1=?,"
-			+ "B=?,"
-			+ "B1=?,"
-			+ "C=?,"
-			+ "C1=?,"
-			+ "D=?,"
-			+ "D1=?,"
-			+ "E=?,"
-			+ "E1=?,"
-			+ "F=?,"
-			+ "F1=?,"
-			+ "Kup=?,"
-			+ "`Pr.Liga`=?,"
-			+ "`Play-off`=?,"
-			+ "Ukupno=? where Sezona=? and CLAN_Id=? and KATEGORIJA_Id=?;";
+	private static final String SQL_UPDATE = "update REGISTRACIJA set Datum=?," + "Plasman=?," + "A=?," + "A1=?,"
+			+ "B=?," + "B1=?," + "C=?," + "C1=?," + "D=?," + "D1=?," + "E=?," + "E1=?," + "F=?," + "F1=?," + "Kup=?,"
+			+ "`Pr.Liga`=?," + "`Play-off`=?," + "Ukupno=? where Sezona=? and CLAN_Id=? and KATEGORIJA_Id=?;";
 	private static String SQL_INSERT = "insert into REGISTRACIJA (Sezona, Datum, KATEGORIJA_Id, CLAN_Id) values(?,?,?,?)";
+
 	public ObservableList<RegistracijaDTO> getAllByMember(ClanDTO member) {
 		ObservableList<RegistracijaDTO> list = FXCollections.observableArrayList();
 		Connection c = null;
@@ -62,6 +50,7 @@ public class MySQLRegistracijaDAO implements RegistracijaDAO{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
@@ -87,11 +76,13 @@ public class MySQLRegistracijaDAO implements RegistracijaDAO{
 				for (int i = 6; i <= rs.getMetaData().getColumnCount(); i++)
 					hashMap.put(rs.getMetaData().getColumnName(i), rs.getInt(i));
 				list.add(new RegistracijaDTO(rs.getInt("CLAN_Id"), sezona, kategorija.getId(),
-						rs.getDate("Datum").toLocalDate(), hashMap, DAOFactory.getDAOFactory().getClanDAO().getById(rs.getInt("CLAN_Id"))));
+						rs.getDate("Datum").toLocalDate(), hashMap,
+						DAOFactory.getDAOFactory().getClanDAO().getById(rs.getInt("CLAN_Id"))));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);
@@ -109,9 +100,9 @@ public class MySQLRegistracijaDAO implements RegistracijaDAO{
 			ps.setInt(21, trening.getKATEGORIJA_Id());
 			ps.setString(19, trening.getSezona());
 			ps.setInt(20, trening.getCLAN_Id());
-			for (int i=0,j=2;i<tournaments.length;i++,j++) {
-				Integer point=trening.getRezultati().get(tournaments[i]);
-				if (point!=null)
+			for (int i = 0, j = 2; i < tournaments.length; i++, j++) {
+				Integer point = trening.getRezultati().get(tournaments[i]);
+				if (point != null)
 					ps.setInt(j, point);
 				else
 					ps.setNull(j, Types.INTEGER);
@@ -120,6 +111,7 @@ public class MySQLRegistracijaDAO implements RegistracijaDAO{
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 			return false;
 		} finally {
 			ConnectionPool.close(ps);
@@ -139,6 +131,7 @@ public class MySQLRegistracijaDAO implements RegistracijaDAO{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);

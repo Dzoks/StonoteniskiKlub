@@ -10,6 +10,7 @@ import application.model.dao.DAOFactory;
 import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -140,6 +141,7 @@ public class DodajOpremuClanaController extends BaseController{
 			tblNarudzbe.setItems(null);
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 }

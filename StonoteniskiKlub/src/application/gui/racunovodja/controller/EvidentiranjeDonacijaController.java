@@ -13,6 +13,7 @@ import application.model.dao.DAOFactory;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
+import application.util.ErrorLogger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,6 +74,7 @@ public class EvidentiranjeDonacijaController extends BaseController{
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	private void postaviKolone() {

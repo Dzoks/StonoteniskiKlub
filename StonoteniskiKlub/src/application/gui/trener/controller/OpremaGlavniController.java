@@ -10,6 +10,7 @@ import application.model.dao.DAOFactory;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaKluba;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -155,6 +156,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	public void dodajKonteksniMeni() {
@@ -831,6 +833,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			popuniTabele();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -875,6 +878,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			popuniTabele();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -901,6 +905,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			popuniTabele();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -939,6 +944,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			popuniTabele();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -963,6 +969,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			popuniTabele();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 }

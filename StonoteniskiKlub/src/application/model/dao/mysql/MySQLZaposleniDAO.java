@@ -16,6 +16,7 @@ import application.model.dto.ZaposleniDTO;
 import application.model.dto.ZaposleniTipDTO;
 import application.model.dto.ZaposlenjeDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -39,11 +40,13 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 				result.add(new ZaposleniDTO(resultSet.getInt("Id"), resultSet.getString("Ime"),
 						resultSet.getString("Prezime"), resultSet.getString("ImeRoditelja"), resultSet.getString("JMB"),
 						resultSet.getString("Pol").charAt(0), resultSet.getDate("DatumRodjenja"),
-						resultSet.getBlob("Fotografija"), DAOFactory.getDAOFactory().getOsobaDAO().getTelefoni(resultSet.getInt("Id")),
+						resultSet.getBlob("Fotografija"),
+						DAOFactory.getDAOFactory().getOsobaDAO().getTelefoni(resultSet.getInt("Id")),
 						resultSet.getBoolean("Aktivan"), zDAO.selectAllById(resultSet.getInt("Id"))));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -83,14 +86,15 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 			statement.registerOutParameter("pId", Types.INTEGER);
 			statement.execute();
 			id = statement.getInt("pId");
-			if(!id.equals(Integer.valueOf(-1))){
+			if (!id.equals(Integer.valueOf(-1))) {
 				result = true;
 				zaposleni.setId(id);
 			}
 			System.out.println(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally{
+			new ErrorLogger().log(e);
+		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);
 		}
@@ -112,11 +116,13 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 				result.add(new ZaposleniDTO(resultSet.getInt("Id"), resultSet.getString("Ime"),
 						resultSet.getString("Prezime"), resultSet.getString("ImeRoditelja"), resultSet.getString("JMB"),
 						resultSet.getString("Pol").charAt(0), resultSet.getDate("DatumRodjenja"),
-						resultSet.getBlob("Fotografija"), DAOFactory.getDAOFactory().getOsobaDAO().getTelefoni(resultSet.getInt("Id")),
-						true, zDAO.selectAllById(resultSet.getInt("Id"))));
+						resultSet.getBlob("Fotografija"),
+						DAOFactory.getDAOFactory().getOsobaDAO().getTelefoni(resultSet.getInt("Id")), true,
+						zDAO.selectAllById(resultSet.getInt("Id"))));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);

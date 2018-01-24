@@ -10,6 +10,7 @@ import java.sql.Statement;
 import application.model.dao.SkupstinaDAO;
 import application.model.dto.SkupstinaDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -35,6 +36,7 @@ public class MySQLSkupstinaDAO implements SkupstinaDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -60,6 +62,7 @@ public class MySQLSkupstinaDAO implements SkupstinaDAO {
 			result = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);

@@ -13,6 +13,7 @@ import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
 import application.model.dto.OpremaKluba;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -363,6 +364,7 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 				tblNarudzbe.setItems(null);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 		}
 		else {

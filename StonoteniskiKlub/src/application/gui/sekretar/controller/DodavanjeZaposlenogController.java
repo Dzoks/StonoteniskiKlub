@@ -21,6 +21,7 @@ import application.model.dto.ZaposleniTipDTO;
 import application.model.dto.ZaposlenjeDTO;
 import application.util.AlertDisplay;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -95,6 +96,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 			imgFotografija.setImage(defaultImage);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -134,6 +136,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 				imgFotografija.setImage(new Image(new FileInputStream(file)));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 		}
 	}
@@ -173,6 +176,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 				}
 			} catch (ParseException e1) {
 				e1.printStackTrace();
+				new ErrorLogger().log(e1);
 			}
 			if (tip == AZURIRANJE_ZAPOSLENOG) {
 				this.zaposleniZaAzurirati.setIme(txtIme.getText());
@@ -190,6 +194,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 				DAOFactory.getDAOFactory().getOsobaDAO().update(zaposleniZaAzurirati);
 				parent.zamijeni(zaposleniZaAzurirati);
@@ -222,6 +227,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 								slika = convertImageToBlob(fotografijaLik);
 							} catch (IOException e) {
 								e.printStackTrace();
+								new ErrorLogger().log(e);
 							}
 						}
 						ZaposleniDTO zaposleni = new ZaposleniDTO(null, txtIme.getText(), txtPrezime.getText(),
@@ -280,6 +286,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 				imgFotografija.setImage(new Image(zaposleniZaAzurirati.getSlika().getBinaryStream()));
 			} catch (SQLException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 		}
 		if (zaposleniZaAzurirati.getPol().equals("M")) {
@@ -321,6 +328,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 			return blob;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 			return null;
 		}
 	}

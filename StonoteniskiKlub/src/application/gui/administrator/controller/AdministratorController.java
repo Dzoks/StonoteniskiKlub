@@ -8,6 +8,7 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.KorisnickiNalogDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,6 +42,7 @@ public class AdministratorController extends BaseController {
     	try {
 			BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 		} catch (IOException e) {
+			new ErrorLogger().log(e);
 			e.printStackTrace();
 		}
     }
@@ -52,6 +54,7 @@ public class AdministratorController extends BaseController {
 			BaseController.changeScene("/application/gui/administrator/view/DodajNalogView.fxml", stage);
 			stage.show();
 		} catch (IOException e) {
+			new ErrorLogger().log(e);
 			e.printStackTrace();
 		}
 	}

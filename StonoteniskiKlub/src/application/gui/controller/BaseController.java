@@ -2,6 +2,7 @@ package application.gui.controller;
 
 import java.io.IOException;
 
+import application.util.ErrorLogger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -45,6 +46,7 @@ public abstract class BaseController implements Initializable{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 }

@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTextField;
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -41,6 +42,7 @@ public class LoginController extends BaseController {
 						BaseController.changeScene("/application/gui/administrator/view/PromjenaLozinkeView.fxml",
 								primaryStage);
 					} catch (IOException e) {
+						new ErrorLogger().log(e);
 						e.printStackTrace();
 					}
 				} else {
@@ -77,6 +79,7 @@ public class LoginController extends BaseController {
 								break;
 							}
 						} catch (IOException e) {
+							new ErrorLogger().log(e);
 							e.printStackTrace();
 						}
 					} else {
