@@ -131,10 +131,8 @@ public class TurniriController extends BaseController{
 	
 	public void pregledajTurnir(){
 		if(cbKategorija.getSelectionModel().isEmpty()){
-			Alert alert = new Alert(AlertType.ERROR);
 			AlertDisplay.showError("Pregled", "Nije moguće pristupiti turniru, dok niste prethodno izabrali kategoriju turnira sa kojom"
 					+ " želite da radite.");
-			alert.show();
 		}
 		else{
 			if(DAOFactory.getDAOFactory().getZrijebDAO().doesExist(tblTurniri.getSelectionModel().getSelectedItem().getId(),

@@ -197,14 +197,7 @@ public class SinglTurnirController extends BaseController{
 				AlertDisplay.showError("Žrijeb","Minimalan potreban broj prijavljenih igrača na turniru je 16. "
 						+ "Nije moguće kreiranje žrijeba za turnir na koji je prijavleno manje igrača.");
 			}
-			else{
-				ButtonType buttonTypeDa=new ButtonType("Da");
-				ButtonType buttonTypeNe=new ButtonType("Ne");
-				Alert alert = new Alert(AlertType.CONFIRMATION,"Ukoliko izvršite žrijebanje za izabrani turnir,"
-						+ " nećete biti u mogućnosti da ponovo prijavite igrače za taj turnir!",buttonTypeDa,buttonTypeNe,ButtonType.CANCEL);
-				alert.setHeaderText("Da li ste sigurni da želite izvršiti žrijebanje za izabrani turnir?");
-				alert.setTitle("Obavještenje");
-				
+			else{				
 				Optional<ButtonType> result = AlertDisplay.showConfirmation("Žrijeb", "Ukoliko izvršite žrijebanje za izabrani turnir,"
 						+ " nećete biti u mogućnosti da ponovo prijavite igrače za taj turnir!"+"Da li ste sigurni da želite izvršiti žrijebanje za izabrani turnir?");
 				if(result.get().getButtonData().equals(ButtonData.YES)){
