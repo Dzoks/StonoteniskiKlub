@@ -12,6 +12,7 @@ import application.model.dao.SponzorDAO;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -93,6 +94,7 @@ public class DodavanjeSponzoraController extends BaseController {
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 				SponzorDTO sponzor = new SponzorDTO(null, txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(),
 						null, null);
@@ -107,12 +109,12 @@ public class DodavanjeSponzoraController extends BaseController {
 					}
 					noviTelefoni.clear();
 					sponzor.setTelefoni(lstTelefoni.getItems());
-					AlertDisplay.showInformation("Informacija", "Dodavanje sponzora", "Sponzor uspješno dodat.");
+					AlertDisplay.showInformation("Dodavanje", "Sponzor uspješno dodat.");
 				} else {
-					AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Dodavanje nije uspjelo.");
+					AlertDisplay.showError("Dodavanje", "Dodavanje nije uspjelo.");
 				}
 			} else {
-				AlertDisplay.showInformation("Greska", "Greška prilikom dodavanja", "Niste unijeli sve podatke.");
+				AlertDisplay.showError("Dodavanja", "Niste unijeli sve podatke.");
 			}
 		}else{
 			if(InputValidator.allEntered(txtAdresa.getText(), txtNaziv.getText(), txtMail.getText())){
@@ -126,10 +128,10 @@ public class DodavanjeSponzoraController extends BaseController {
 				}
 				parent.zamijeni(trenutniSponzor);
 				noviTelefoni.clear();
-				AlertDisplay.showInformation("Informacija", "Izmjena sponzora", "Sponzor uspješno ažuriran.");
+				AlertDisplay.showInformation("Izmjena", "Sponzor uspješno ažuriran.");
 				parent.refresh();
 			}else {
-				AlertDisplay.showInformation("Greška", "Greška prilikom izmjene", "Niste unijeli sve podatke.");
+				AlertDisplay.showError("Izmjena", "Niste unijeli sve podatke.");
 			}
 		}
 		for(String telefon: uklonjeniTelefoni){

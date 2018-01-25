@@ -1,11 +1,5 @@
 package application.gui.racunovodja.controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-import javafx.scene.image.WritableImage;
-
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -17,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
-
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.printing.PDFPageable;
@@ -32,14 +25,16 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.ZaposleniDAO;
 import application.model.dto.ZaposleniDTO;
+import application.util.ErrorLogger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-
-import javafx.scene.control.Label;
-
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.WritableImage;
 
 public class ObracunavanjePlateController extends BaseController{
 	private static final Double doprinosPIO = 18.5;
@@ -212,6 +207,7 @@ public class ObracunavanjePlateController extends BaseController{
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 }

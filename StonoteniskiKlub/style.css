@@ -12,6 +12,12 @@
 	-fx-background-image: url("user.png");
 	   -fx-background-repeat: no-repeat;
 }
+.context-menu .menu-item .label {
+  -fx-text-fill: black;
+}
+.context-menu .menu-item:focused .label {
+  -fx-text-fill: white;
+}
 .password{
 	-fx-background-image: url("key-icon.png");
 	   -fx-background-repeat: no-repeat;
@@ -44,6 +50,10 @@
 	-fx-color: #638EA6;	
 }
 .choice-box .menu-item > .label { -fx-text-fill: black; }
+
+.date-picker-popup > * > .spinner > .label{
+	-fx-text-fill: black;
+}
 
 .combo-box{
 	-fx-color: #638EA6;	
@@ -86,10 +96,21 @@
 -fx-background-insets: 0, 1 1 0 1;
 -fx-background-radius: 5 5 0 0, 4 4 0 0;
 }
+.tab:hover{
+  
+    -fx-background-color:  #3e4e63;
+-fx-background-insets: 0, 1 1 0 1;
+-fx-background-radius: 5 5 0 0, 4 4 0 0;
+}
 .tab-pane *.tab-header-background 
 {
 -fx-background-color: -fx-outer-border, -fx-inner-border, derive(-fx-color, -20%);
 -fx-effect: innershadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 0);
+}
+
+.hbox{
+	-fx-background-color:#4B6D7E;
+	
 }
 	
 	

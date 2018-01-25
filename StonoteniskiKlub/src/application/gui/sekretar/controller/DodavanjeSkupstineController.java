@@ -12,6 +12,7 @@ import application.model.dao.StavkaSkupstinaDAO;
 import application.model.dto.SkupstinaDTO;
 import application.model.dto.StavkaSkupstinaDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.InputValidator;
 import application.util.TextUtility;
 import javafx.collections.FXCollections;
@@ -70,6 +71,7 @@ public class DodavanjeSkupstineController extends BaseController {
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -107,12 +109,12 @@ public class DodavanjeSkupstineController extends BaseController {
 						parentController.addItem(skupstina);
 					}
 					parentController.refresh();
-					AlertDisplay.showInformation("Informacija", "Dodavanje skupštine", "Uspješno dodavanje");
+					AlertDisplay.showInformation("Dodavanje", "Uspješno dodavanje");
 			}
 			Stage stage = (Stage) btnSacuvaj.getScene().getWindow();
 			stage.close();
 		} else {
-			AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Niste unijeli datum održavanja skupštine.");
+			AlertDisplay.showInformation("Dodavanje", "Niste unijeli datum održavanja skupštine.");
 		}
 	}
 

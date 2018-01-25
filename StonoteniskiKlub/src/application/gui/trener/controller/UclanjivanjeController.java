@@ -12,20 +12,22 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.ClanDTO;
 import application.model.dto.OsobaDTO;
+import application.util.AlertDisplay;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
@@ -141,9 +143,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			txtTelefon.clear();
 		}
 		else {
-			Alert alert=new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Greška prilikom dodavanja");
+			AlertDisplay.showError("Dodavanje", "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.");
 		}
 	}
 	
@@ -162,11 +162,8 @@ public class UclanjivanjeController extends BaseController implements Initializa
 		if(!"".equals(txtIme.getText()) || !"".equals(txtImeRoditelja.getText()) 
 				|| !"".equals(txtJMB.getText()) || !"".equals(txtPrezime.getText()) 
 				|| !(listaTelefona.size()==0) || slikaOdabrana) {
-			Alert alert = new Alert(AlertType.WARNING, "Uneseni podaci će biti izgubljeni. Da li želite da nastavite?", ButtonType.YES, ButtonType.NO);
-			alert.setTitle("Upozorenje");
-			alert.setHeaderText("");
-			alert.showAndWait();
-			if(ButtonType.YES.equals(alert.getResult())) {
+			Optional<ButtonType> result=AlertDisplay.showWarning("Dodavanje","Uneseni podaci će biti izgubljeni. Da li želite da nastavite?");
+			if(ButtonData.YES.equals(result.get().getButtonData())) {
 				primaryStage.close();
 				return;
 			}
@@ -187,6 +184,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			return blob;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 			return null;
 		}
 	}
@@ -199,10 +197,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 		
 		if(!jmb.matches("[0-9]*") || !(jmb.length() == 13)) {
 			
-			Alert alert=new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) nije dobro unesen.", ButtonType.OK);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Greška prilikom dodavanja");
-			alert.showAndWait();
+			AlertDisplay.showError("Dodavanje","Jedinstveni matični broj (JMB) nije dobro unesen." );
 			return;
 		}
 		
@@ -220,21 +215,14 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			if(clan != null) {
 //				ako postoji i aktivan je, ne mozemo ga dodati
 				if(clan.isAktivan()) {
-					Alert alert=new Alert(AlertType.ERROR, "Greška prilikom dodavanja člana. Član već postoji.", ButtonType.OK);
-					alert.setTitle("Greška");
-					alert.setHeaderText("Greška prilikom dodavanja");
-					alert.showAndWait();
+					AlertDisplay.showError("Dodavanje", "Greška prilikom dodavanja člana. Član već postoji.");
 					return;
 				}
 //				ako postoji unos u bazi, a nije aktivan, dodati novo clanstvo u tabeli CLANSTVO od danasnjeg datuma
 //				i azurirati fleg aktivan
 				DAOFactory.getDAOFactory().getClanDAO().setAktivan(true, clan.getId());
 				DAOFactory.getDAOFactory().getClanstvoDAO().insert(clan.getId());
-				
-				Alert alert=new Alert(AlertType.INFORMATION, "Bivši član je ponovo aktivan. Neke informacije je možda potrebno izmjeniti.", ButtonType.OK);
-				alert.setTitle("Informacija");
-				alert.setHeaderText("Dodavanje člana");
-				alert.showAndWait();
+				AlertDisplay.showInformation("Dodavanje", "Bivši član je ponovo aktivan. Neke informacije je možda potrebno izmjeniti.");
 				primaryStage.close();
 				return;
 			}
@@ -248,10 +236,8 @@ public class UclanjivanjeController extends BaseController implements Initializa
 //			MOZDA TREBA OBRISATI
 			DAOFactory.getDAOFactory().getClanDAO().insert(clan);
 			DAOFactory.getDAOFactory().getClanstvoDAO().insert(clan.getId());
-			Alert alert=new Alert(AlertType.INFORMATION, "Novi član. Neke informacije je možda potrebno izmjeniti.", ButtonType.OK);
-			alert.setTitle("Informacija");
-			alert.setHeaderText("Dodavanje člana");
-			alert.showAndWait();
+			AlertDisplay.showInformation("Dodavanje", "Novi član. Neke informacije je možda potrebno izmjeniti.");
+
 			primaryStage.close();
 			return;
 		}
@@ -268,15 +254,13 @@ public class UclanjivanjeController extends BaseController implements Initializa
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 			return;
 		}
-		Alert alert=new Alert(AlertType.INFORMATION, "Novi član uspiješno dodat.", ButtonType.OK);
-		alert.setTitle("Informacija");
-		alert.setHeaderText("Dodavanje člana");
-		alert.showAndWait();
+		AlertDisplay.showInformation("Dodavanje", "Novi član uspješno dodat.");
 		primaryStage.close();
 	}
-	
+
 	public ClanDTO getClan() {
 		return retClan;
 	}

@@ -1,49 +1,28 @@
 package application.gui.racunovodja.controller;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.NovcanaSredstvaDAO;
-import application.model.dao.TipTransakcijeDAO;
-import application.model.dao.TransakcijaDAO;
-import application.model.dao.TroskoviTurnirDAO;
 import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
-import application.model.dto.TroskoviTurnirDTO;
-import application.model.dto.TurnirDTO;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-
-import javafx.scene.control.Label;
-
-import javafx.scene.control.ScrollPane;
-
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-
-import javafx.scene.control.TextArea;
-
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 	@FXML
@@ -164,6 +143,7 @@ public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}//initialize
 	}
 }

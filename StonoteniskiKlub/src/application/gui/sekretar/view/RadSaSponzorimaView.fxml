@@ -31,15 +31,14 @@
       </RadioButton>
       <RadioButton fx:id="rbAktivni" layoutX="83.0" layoutY="27.0" mnemonicParsing="false" onAction="#prikaziAktivne" text="Aktivni" textFill="#f2e9e9" toggleGroup="$grpSvi" />
       <RadioButton fx:id="rbNeaktivni" layoutX="153.0" layoutY="27.0" mnemonicParsing="false" onAction="#prikaziNeaktivne" text="Neaktivni" textFill="#f2e9e9" toggleGroup="$grpSvi" />
-      <Button fx:id="btnPretrazi" layoutX="581.0" layoutY="24.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretražite" />
-      <TextField fx:id="txtPretraga" layoutX="425.0" layoutY="24.0" />
-      <ComboBox fx:id="cbPretraga" layoutX="316.0" layoutY="24.0" prefWidth="100.0" />
-      <Label layoutX="241.0" layoutY="28.0" text="Pretražite po:" />
+      <Button fx:id="btnPretrazi" layoutX="678.0" layoutY="24.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretražite" />
+      <TextField fx:id="txtPretraga" layoutX="522.0" layoutY="24.0" />
+      <ComboBox fx:id="cbPretraga" layoutX="413.0" layoutY="24.0" prefWidth="100.0" />
+      <Label layoutX="338.0" layoutY="28.0" text="Pretražite po:" />
       <Button fx:id="btnUgovori" layoutX="34.0" layoutY="535.0" mnemonicParsing="false" onAction="#pregledajUgovore" prefHeight="25.0" prefWidth="124.0" text="Pregledajte ugovore" />
       <Button fx:id="btnDodajSponzora" layoutX="612.0" layoutY="535.0" mnemonicParsing="false" onAction="#dodajSponzora" prefHeight="25.0" prefWidth="124.0" text="Dodajte sponzora" />
       <Button fx:id="btnAzuriraj" layoutX="175.0" layoutY="535.0" mnemonicParsing="false" onAction="#azuriraj" prefHeight="25.0" prefWidth="124.0" text="Ažurirajte" />
       <Button fx:id="btnObrisi" layoutX="321.0" layoutY="535.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="124.0" text="Obrišite " />
       <Button fx:id="btnDodajUgovor" layoutX="467.0" layoutY="535.0" mnemonicParsing="false" onAction="#dodajUgovor" prefHeight="25.0" prefWidth="124.0" text="Dodajte ugovor" />
-      <Button layoutX="674.0" layoutY="23.0" mnemonicParsing="false" onAction="#odjaviteSe" text="Odjavite se" />
    </children>
 </AnchorPane>

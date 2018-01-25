@@ -10,6 +10,7 @@ import application.model.dto.Clan;
 import application.model.dto.Oprema;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaTip;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -145,7 +146,7 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
 			noviStage.setResizable(false);
-			noviStage.setTitle("Stonoteniski klub - rad sa opremom");
+			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			noviStage.showAndWait();
 			
@@ -157,6 +158,7 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 

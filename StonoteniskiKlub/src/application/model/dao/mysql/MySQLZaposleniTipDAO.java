@@ -9,6 +9,7 @@ import java.sql.Statement;
 import application.model.dao.ZaposleniTipDAO;
 import application.model.dto.ZaposleniTipDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -32,6 +33,7 @@ public class MySQLZaposleniTipDAO implements ZaposleniTipDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -45,16 +47,17 @@ public class MySQLZaposleniTipDAO implements ZaposleniTipDAO {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
-		try{
+		try {
 			connection = ConnectionPool.getInstance().checkOut();
-			statement =  ConnectionPool.prepareStatement(connection, SQL_SELECT_TIP, false, id);
+			statement = ConnectionPool.prepareStatement(connection, SQL_SELECT_TIP, false, id);
 			resultSet = statement.executeQuery();
-			while(resultSet.next()){
+			while (resultSet.next()) {
 				result = new ZaposleniTipDTO(id, resultSet.getString("Tip"));
 			}
-		} catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally{
+			new ErrorLogger().log(e);
+		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
 		}

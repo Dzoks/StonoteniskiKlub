@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -8,10 +9,29 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="700.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.TurniriController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.TurniriController">
+   <children>
+      <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="594.0" styleClass="hbox" stylesheets="@../../../../../style.css">
+         <children>
+            <Label fx:id="lblUsername" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="156.0">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Label>
+            <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#odjaviteSe" stylesheets="@../../../../../style.css" text="Odjavite se">
+               <HBox.margin>
+                  <Insets bottom="5.0" right="10.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+    
+<AnchorPane prefHeight="450.0" prefWidth="700.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TableView fx:id="tblTurniri" layoutX="14.0" layoutY="14.0" onMousePressed="#selektovan" prefHeight="300.0" prefWidth="500.0">
         <columns>
@@ -34,11 +54,6 @@
          </font>
       </Button>
       <Button fx:id="btnZatvori" layoutX="550.0" layoutY="275.0" mnemonicParsing="false" onAction="#zatvoriTurnir" prefHeight="40.0" prefWidth="115.0" text="Zatvorite">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnOdjaviSe" layoutX="548.0" layoutY="389.0" mnemonicParsing="false" onAction="#odjaviSe" prefHeight="40.0" prefWidth="115.0" text="Odjavite se">
          <font>
             <Font size="18.0" />
          </font>
@@ -77,3 +92,5 @@
       <ChoiceBox fx:id="cbKategorija" layoutX="530.0" layoutY="44.0" prefHeight="30.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
+   </children>
+</VBox>

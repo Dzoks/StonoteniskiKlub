@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -20,11 +19,13 @@ import java.util.Set;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.RegistracijaDAO;
+import application.model.dao.mysql.MySQLRegistracijaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import application.model.dto.RegistracijaDTO;
 import application.model.helper.Rezultat;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.ListUpdater;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -36,16 +37,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -54,7 +55,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.scene.control.TableCell;
 
 public class PregledClanovaController extends BaseController implements Initializable {
 
@@ -225,6 +225,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	public void idiNaPregledOpreme() {
@@ -241,6 +242,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			noviStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -258,6 +260,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			noviStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -287,6 +290,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 				listaClanova.add(clan);
 		} catch (Exception e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -319,6 +323,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -329,30 +334,16 @@ public class PregledClanovaController extends BaseController implements Initiali
 		
 		// provjriti da li je AKTIVAN, ako nije ERROR
 		if(!clan.isAktivan()) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Greška prilikom iščlanjivanja");
-			alert.setContentText("Odabrani član nije aktivan. Nemoguće je izvršiti njegovo iščlanjivanje.");
-			alert.getButtonTypes().clear();
-			alert.getButtonTypes().add(ButtonType.OK);
-			alert.getButtonTypes().add(ButtonType.CANCEL);
-			alert.show();
+			AlertDisplay.showError("Iščlanjivanje", "Odabrani član nije aktivan. Nemoguće je izvršiti njegovo iščlanjivanje.");
 			return;
 		}
 		
 		// provjeriti da li je uplatio sve clanarine do tad, ako nije ERROR
 		List<ClanarinaDTO> list = DAOFactory.getDAOFactory().getClanarinaDAO().selectByClanID(clan.getId());
 		if(list.size() == 0) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Upozorenje");
-			alert.setHeaderText("Upozorenje prilikom iščlanjivanja");
-			alert.setContentText("Odabrani član nije uplatio ni jednu članarinu. "
+			Optional<ButtonType> tmp = AlertDisplay.showWarning("Iščlanjivanje","Odabrani član nije uplatio ni jednu članarinu. "
 					+ " Da li želite da nastavite?");
-			alert.getButtonTypes().clear();
-			alert.getButtonTypes().add(ButtonType.YES);
-			alert.getButtonTypes().add(ButtonType.NO);
-			Optional<ButtonType> tmp = alert.showAndWait();
-			if(tmp.isPresent() && tmp.get() == ButtonType.NO) {
+			if(tmp.isPresent() && tmp.get().getButtonData() == ButtonData.NO) {
 				return;
 			}
 		}
@@ -363,18 +354,11 @@ public class PregledClanovaController extends BaseController implements Initiali
 					max = list.get(i);
 			}
 			DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Upozorenje");
-			alert.setHeaderText("Upozorenje prilikom učlanjivanja");
-			alert.setContentText("Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec "
+			Optional<ButtonType> tmp = AlertDisplay.showWarning("Iščlanjivanje", "Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec "
 					+ max.getNazivMjeseca() +
 					", godine " + max.getGodina().getValue() + ". "
 					+ " Da li želite da nastavite?");
-			alert.getButtonTypes().clear();
-			alert.getButtonTypes().add(ButtonType.YES);
-			alert.getButtonTypes().add(ButtonType.NO);
-			Optional<ButtonType> tmp = alert.showAndWait();
-			if(tmp.isPresent() && tmp.get() == ButtonType.NO) {
+			if(tmp.isPresent() && tmp.get().getButtonData() == ButtonData.NO) {
 				return;
 			}
 		}
@@ -385,6 +369,31 @@ public class PregledClanovaController extends BaseController implements Initiali
 		clan.setAktivan(false);
 		DAOFactory.getDAOFactory().getClanDAO().setAktivan(false, clan.getId());
 		DAOFactory.getDAOFactory().getClanstvoDAO().update(clan.getId());
+	}
+	
+	public void izdavanjePotvrda() {
+		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
+		if(clan == null)
+			return;
+		try {
+			Stage stage = new Stage();
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getClassLoader().getResource("application/gui/trener/view/IzdavanjePotvrdaView.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			IzdavanjePotvrdaController control = loader.<IzdavanjePotvrdaController>getController();
+			control.setClan(clan);
+			control.setPrimaryStage(stage);
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.setTitle("Stonoteniski klub");
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.show();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		}
 	}
 
 	public void pretragaClanova() {
@@ -408,6 +417,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 	void otvoriTreninge(ActionEvent event) {
 		Stage trening = new Stage();
 		TreningController controller = null;
+		trening.setTitle("Stonoteniski klub");
 		try {
 			controller = (TreningController) BaseController.changeScene("/application/gui/trener/view/TreningView.fxml",
 					trening);
@@ -415,7 +425,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			trening.setResizable(false);
 			trening.show();
 		} catch (IOException e) {
-
+			new ErrorLogger().log(e);
 			e.printStackTrace();
 		}
 	}
@@ -427,7 +437,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			return;
 		// Provjera da li je igrac
 		if (clan.isRegistrovan()) {
-			cbxSezona.setItems(RegistracijaDAO.getAllByMember(clan));
+			cbxSezona.setItems(DAOFactory.getDAOFactory().getRegistracijaDAO().getAllByMember(clan));
 			setVidljivostZaIgraca(true);
 		}else {
 			setVidljivostZaIgraca(false);
@@ -462,6 +472,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
     @FXML
@@ -474,7 +485,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			stage.setResizable(false);
 			stage.show();
 		} catch (IOException e) {
-
+			new ErrorLogger().log(e);
 			e.printStackTrace();
 		}
 	}

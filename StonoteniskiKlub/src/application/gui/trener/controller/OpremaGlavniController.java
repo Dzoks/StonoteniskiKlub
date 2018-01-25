@@ -9,6 +9,8 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaKluba;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -21,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -58,8 +61,6 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	@FXML
 	private TableView<OpremaKluba> tblOpremaKluba;
 	@FXML
-	private TableColumn<OpremaKluba, Integer> idKlub;
-	@FXML
 	private TableColumn<OpremaKluba, String> tipKlub;
 	@FXML
 	private TableColumn<OpremaKluba, String> proizvodjacKlub;
@@ -71,8 +72,6 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	private TableColumn<OpremaKluba, String> doniranaKlub;
 	@FXML
 	private TableView<OpremaClana> tblOpremaClana;
-	@FXML
-	private TableColumn<OpremaClana, Integer> idClan;
 	@FXML
 	private TableColumn<OpremaClana, String> tipClan;
 	@FXML
@@ -157,6 +156,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	public void dodajKonteksniMeni() {
@@ -165,7 +165,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 		MenuItem postaviUAktivno = new MenuItem("Postavite u aktivno");
 		MenuItem pogledajOpis = new MenuItem("Pogledajte opis");
 		MenuItem pogledajOpisDonacije = new MenuItem("Pogledajte opis donacije");
-		MenuItem izmjeniOpis = new MenuItem("Izmjenite opis");
+		MenuItem izmjeniOpis = new MenuItem("Izmijenite opis");
 		MenuItem obrisiOpremuKluba = new MenuItem("Obrišite opremu");
 		MenuItem obrisiOpremuClana = new MenuItem("Obrišite opremu");
 
@@ -311,9 +311,9 @@ public class OpremaGlavniController extends BaseController implements Initializa
 				}
 
 				if (selektovanaOprema != null) {
-					Alert alert=new Alert(AlertType.INFORMATION, "Sponzor - " + DAOFactory.getDAOFactory().getSponzorDAO()
-							.getById(selektovanaOprema.getIdSponzora()).getNaziv(), ButtonType.OK);
-					alert.showAndWait();
+
+					AlertDisplay.showInformation("Pregled", "Sponzor - " + DAOFactory.getDAOFactory().getSponzorDAO()
+							.getById(selektovanaOprema.getIdSponzora()).getNaziv());
 				}
 			}
 
@@ -817,16 +817,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 				public void handle(WindowEvent we) {
 					we.consume();
-					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da sačuvate izmjene?", ButtonType.YES,
-							ButtonType.NO);
-					alert.setTitle("Informacija");
-					alert.setHeaderText("");
-					Optional<ButtonType> rezultat = alert.showAndWait();
+					Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Izmjena", "Da li želite da sačuvate izmjene?");
 
-					if (ButtonType.YES.equals(rezultat.get())) {
+					if (ButtonData.YES.equals(rezultat.get().getButtonData())) {
 						controller.azurirajUBazi();
 						noviStage.close();
-					} else if (ButtonType.NO.equals(rezultat.get())) {
+					} else if (ButtonData.NO.equals(rezultat.get().getButtonData())) {
 						noviStage.close();
 					}
 
@@ -837,6 +833,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			popuniTabele();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -865,16 +862,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 				public void handle(WindowEvent we) {
 					we.consume();
-					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da sačuvate izmjene?", ButtonType.YES,
-							ButtonType.NO);
-					alert.setTitle("Informacija");
-					alert.setHeaderText("");
-					Optional<ButtonType> rezultat = alert.showAndWait();
+					Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Izmjena", "Da li želite da sačuvate izmjene?");
 
-					if (ButtonType.YES.equals(rezultat.get())) {
+					if (ButtonData.YES.equals(rezultat.get().getButtonData())) {
 						controller.azurirajUBazi();
 						noviStage.close();
-					} else if (ButtonType.NO.equals(rezultat.get())) {
+					} else if (ButtonData.NO.equals(rezultat.get().getButtonData())) {
 						noviStage.close();
 					}
 
@@ -885,6 +878,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			popuniTabele();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -911,6 +905,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			popuniTabele();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -934,16 +929,12 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 				public void handle(WindowEvent we) {
 					we.consume();
-					Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da sačuvate izmjene?", ButtonType.YES,
-							ButtonType.NO);
-					alert.setTitle("Informacija");
-					alert.setHeaderText("");
-					Optional<ButtonType> rezultat = alert.showAndWait();
+					Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Izmjena", "Da li želite da sačuvate izmjene?");
 
-					if (ButtonType.YES.equals(rezultat.get())) {
+					if (ButtonData.YES.equals(rezultat.get().getButtonData())) {
 						controller.azurirajUBazi();
 						noviStage.close();
-					} else if (ButtonType.NO.equals(rezultat.get())) {
+					} else if (ButtonData.NO.equals(rezultat.get().getButtonData())) {
 						noviStage.close();
 					}
 
@@ -953,6 +944,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			popuniTabele();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -977,6 +969,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			popuniTabele();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 }

@@ -2,15 +2,21 @@ package application.gui.controller;
 
 import java.io.IOException;
 
+import application.util.ErrorLogger;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public abstract class BaseController implements Initializable{
 
 	protected Stage primaryStage;
+	
+	@FXML
+	protected Label lblUsername;
 
 	public Stage getPrimaryStage() {
 		return primaryStage;
@@ -28,5 +34,19 @@ public abstract class BaseController implements Initializable{
 		control.getPrimaryStage().setScene(new Scene(pane));
 		control.primaryStage.setOnCloseRequest(event->{});
 		return control;
+	}
+	
+	public void setUsername(String username) {
+		lblUsername.setText("Zdravo, "+username);
+	}
+	@FXML
+	public void odjaviteSe() {
+		try {
+			changeScene("/application/gui/administrator/view/LoginView.fxml",primaryStage);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		}
 	}
 }

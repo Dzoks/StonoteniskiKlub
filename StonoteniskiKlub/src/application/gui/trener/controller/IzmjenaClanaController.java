@@ -21,16 +21,15 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.ClanDTO;
 import application.model.dto.OsobaDTO;
+import application.util.AlertDisplay;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
@@ -166,36 +165,24 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 		}
 		
 		if(!jmb.matches("[0-9]*") || !(jmb.length() == 13)) {
-			Alert alert=new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) nije dobro unesen.", ButtonType.OK);
-			alert.setHeaderText("Greška prilikom unosa matičnog broja");
-			alert.setTitle("Greška");
-			alert.showAndWait();
+			AlertDisplay.showError("Izmjena", "Jedinstveni matični broj (JMB) nije dobro unesen.");
 			return;
 		}
 		OsobaDTO osoba = DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(jmb);
 		if(osoba != null && osoba.getId() != clan.getId()) {
-			Alert alert=new Alert(AlertType.ERROR, "Jedinstveni matični broj (JMB) već postoji u bazi podataka. Pokušajte ponovo.", ButtonType.OK);
-			alert.setHeaderText("Greška prilikom unosa matičnog broja");
-			alert.setTitle("Greška");
-			alert.showAndWait();
+			AlertDisplay.showError("Izmjena", "Jedinstveni matični broj (JMB) već postoji u bazi podataka. Pokušajte ponovo.");
 			return;
 		}
 		
 		for(String tel : telefoni) {
 			int id = DAOFactory.getDAOFactory().getOsobaDAO().getIdByTelefon(tel);
 			if(id!=0 && id!=clan.getId()) {
-				Alert alert=new Alert(AlertType.ERROR, "Broj: " + tel + " pripada nekom drugom.", ButtonType.OK);
-				alert.setHeaderText("Greška prilikom unosa telefona");
-				alert.setTitle("Greška");
-				alert.showAndWait();
+				AlertDisplay.showError("Izmjena", "Broj: " + tel + " pripada nekom drugom.");
 				return;
 			}
 		}
 		if(telefoni.size() == 0) {
-			Alert alert=new Alert(AlertType.ERROR, "Bar jedan broj telefona mora biti unesen.", ButtonType.OK);
-			alert.setHeaderText("Greška prilikom unosa telefona");
-			alert.setTitle("Greška");
-			alert.showAndWait();
+			AlertDisplay.showError("Izmjena", "Bar jedan broj telefona mora biti unesen.");
 			return;
 		}
 		
@@ -212,7 +199,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			try {
 				clan.setSlika(convertImageToBlob());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				new ErrorLogger().log(e);
 				e.printStackTrace();
 			}
 		}
@@ -234,6 +221,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			return blob;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 			return null;
 		}
 	}
@@ -250,10 +238,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			txtTelefon.clear();
 		}
 		else {
-			Alert alert=new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK);
-			alert.setHeaderText("Greška prilikom unosa telefona");
-			alert.setTitle("Greška");
-			alert.showAndWait();
+			AlertDisplay.showError("Izmjena", "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.");
 		}
 	}
 	
@@ -286,6 +271,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 				ivSlika.setImage(new Image(getClass().getResourceAsStream("/resources/avatar.png")));
 			}
 		} catch (SQLException e) {
+			new ErrorLogger().log(e);
 			e.printStackTrace();
 		}
 	}

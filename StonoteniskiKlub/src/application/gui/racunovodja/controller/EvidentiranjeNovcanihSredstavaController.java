@@ -1,58 +1,34 @@
 package application.gui.racunovodja.controller;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.ClanDAO;
-import application.model.dao.ClanarinaDAO;
 import application.model.dao.DAOFactory;
-import application.model.dao.NovcanaSredstvaDAO;
-import application.model.dao.TipTransakcijeDAO;
-import application.model.dao.TransakcijaDAO;
-import application.model.dto.ClanDTO;
-import application.model.dto.ClanarinaDTO;
 import application.model.dto.NovcanaSredstvaDTO;
 import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-
-import javafx.scene.control.Label;
-
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-
-import javafx.scene.control.TextArea;
-
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableView;
-
-import javafx.scene.control.DatePicker;
-
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecorater{ //sezona popraviti
 	@FXML
@@ -150,6 +126,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	// Event Listener on Button[#btnDodaj].onAction
@@ -196,6 +173,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}//initialize
 		
 	}	
@@ -240,17 +218,12 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			if(sezona!=null) {
 				trenutnaNS= DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getBySezona(sezona);
 			}else {
-				Alert alert = new Alert(AlertType.ERROR,"Nema podataka o trenutnom budžetu.");
-				alert.setTitle("Greška");
-				alert.setHeaderText("Greška prilikom dodavanja");
-				alert.showAndWait();
+				AlertDisplay.showError("Dodavanje", "Nema podataka o trenutnom budžetu.");
 				return null;
 			}
 			if(trenutnaNS==null) {
-				Alert alert = new Alert(AlertType.ERROR,"Nema podataka o trenutnom budžetu.");
-				alert.setTitle("Greška");
-				alert.setHeaderText("Greška prilikom dodavanja");
-				alert.showAndWait();
+				AlertDisplay.showError("Dodavanje", "Nema podataka o trenutnom budžetu.");
+
 				return null;
 			}
 		}
@@ -275,10 +248,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 				trenutnaNS.setRashodi(trenutnaNS.getRashodi()+transakcija.getIznos().get());
 			}
 			prikaziLabele(trenutnaNS);
-			Alert alert = new Alert(AlertType.INFORMATION, "Uspješno dodavanje!");
-			alert.setTitle("Informacija");
-			alert.setHeaderText("Dodavanje");
-			alert.showAndWait();
+			AlertDisplay.showInformation("Dodavanje", "Uspješno dodavanje");
 			this.obrisiPolja();
 			return transakcija;
 		}
@@ -316,6 +286,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 		prikaziLabele(trenutnaNS);
 	}
@@ -334,11 +305,8 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			if(iznos<0)
 				throw new NumberFormatException();
 		}catch(NumberFormatException ex) {
-			Alert alert = new Alert(AlertType.ERROR, "Niste ispravno unijeli informaciju o iznosu.");
-			alert.setTitle("Greška");
-			alert.setHeaderText("Greška prilikom dodavanja");
 			this.obrisiPolja();
-			alert.showAndWait();
+			AlertDisplay.showError("Dodavanje", "Niste ispravno unijeli informaciju o iznosu.");
 			return;
 		}
 		NovcanaSredstvaDTO ns = new NovcanaSredstvaDTO(sezona, iznos, new Double(0), new Double(0));
@@ -346,13 +314,11 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		if(ok) {
 			comboBoxSezona.setItems(DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getSezone());
 			comboBoxSezona.getSelectionModel().select(0);
-			Alert alert = new Alert(AlertType.INFORMATION, "Uspješno dodavanje!");
-			alert.setTitle("Informacija");
-			alert.setHeaderText("Dodavanje");
+			
 			btnPrikazi.fire();
 			this.obrisiPolja();
-			alert.showAndWait();
 			obrisiPoljaBudzet();
+			AlertDisplay.showInformation("Dodavanje", "Uspješno dodavanje!");
 		}
 		
 		

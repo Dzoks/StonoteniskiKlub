@@ -1,4 +1,4 @@
-package application.gui.sekretar.controller;
+package application.gui.trener.controller;
 
 import java.awt.Desktop;
 import java.awt.print.PrinterJob;
@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -32,13 +33,14 @@ import com.itextpdf.text.pdf.PdfWriter;
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.ClanDTO;
+import application.util.AlertDisplay;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -55,26 +57,17 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 	private static final String FONT = "times.ttf";
 	private static final String FONTBOLD = "timesbd.ttf";
 	private static int idTipa;
+	private ClanDTO clan;
 	
-	
-	
-
-	// clan bi trebao da se preuzme nekako iz prethodne forme tako da sam ovo uzeo
-	// samo za testiranje
-	// Potreban samo radi ID
-	ClanDTO clan = DAOFactory.getDAOFactory().getClanDAO().getById(1);
-	
-	
-	
-
 	ObservableList<String> listaTipova = FXCollections.observableArrayList(DAOFactory.getDAOFactory().getOsobaDAO().getTipoviPotvrde());
-	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cbVrstaPotvrde.setItems(listaTipova);
-		
-		
+	}
+	
+	public void setClan(ClanDTO c) {
+		clan = c;
 	}
 	
 	public void odaberiTip() {
@@ -85,30 +78,30 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 		String danasnjiDatum = df.format(today);
 		
 		
-		if("Uclanjivanje".equals(odabraniTip)) {
-			txtSadrzaj.setText("Potvrđujemo da je " + imeClana + " postao član Stonoteniskog kluba \"BORAC\" Banja Luka "
+		if("Učlanjivanje".equals(odabraniTip)) {
+			txtSadrzaj.setText("Potvrđujemo da je " + imeClana + " postao/la član Stonoteniskog kluba \"BORAC\" Banja Luka "
 					+ "na datum " + danasnjiDatum);
-			idTipa = listaTipova.indexOf("Uclanjivanje") + 1;
+			idTipa = listaTipova.indexOf(odabraniTip) + 1;
 			return;
 		}
-		if("Isclanjivanje".equals(odabraniTip)) {
-			txtSadrzaj.setText("Potvrđujemo da je IME (IME RODITELJA) PREZIME izvršio iščlanjivanje is Stonoteniskog kluba \"BORAC\" Banja Luka "
+		if("Iščlanjivanje".equals(odabraniTip)) {
+			txtSadrzaj.setText("Potvrđujemo da je " + imeClana + " PREZIME izvršio/la iščlanjivanje is Stonoteniskog kluba \"BORAC\" Banja Luka "
 					+ "na datum " + danasnjiDatum + " i od tada nije više član gore pomenutog kluba.");
-			idTipa = listaTipova.indexOf("Isclanjivanje") + 1;
+			idTipa = listaTipova.indexOf(odabraniTip) + 1;
 			return;
 		}
 		if("Pravdanje".equals(odabraniTip)) {
 			txtSadrzaj.setText("\n\nU nadi da ćete prihvatiti našu potvrdu i opravdati izostanak sa nastave, unaprijed "
 					+ "se zahvaljujemo i srdačno Vas pozdravljamo.");
-			idTipa = listaTipova.indexOf("Pravdanje") + 1;
+			idTipa = listaTipova.indexOf(odabraniTip) + 1;
 			return;
 		}
-		if("Aktivan clan".equals(odabraniTip)) {
+		if("Aktivan član".equals(odabraniTip)) {
 			txtSadrzaj.setText("Stonoteniski klub \"Borac Raiffeisen Bank\" ovim pute potvrđuje da je " + imeClana + ", "
-					+ "aktivan član našeg kluba i da je u protekloj godini postigao više zapaženih rezultata na svim takmičenjima "
+					+ "aktivan član našeg kluba i da je u protekloj godini postigao/la više zapaženih rezultata na svim takmičenjima "
 					+ "u Republici Srpskoj i Bosni i Hercegovini.\n"
 					+ "Potvrda se izdaje u svrhu ");
-			idTipa = listaTipova.indexOf("Aktivan clan") + 1;
+			idTipa = listaTipova.indexOf(odabraniTip) + 1;
 			return;
 		}
 		txtSadrzaj.setText("");
@@ -152,7 +145,7 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
 			Date today = Calendar.getInstance().getTime();
 			String reportDate = df.format(today);
-			p.add("Banja Luka, " + reportDate + " dog.                                             Stonoteniski klub\n");
+			p.add("Banja Luka, " + reportDate + " god.                                             Stonoteniski klub\n");
 			
 			
 			temp = new Paragraph("\"BORAC\"                        ", font);
@@ -182,14 +175,12 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			    try {
 			        Desktop.getDesktop().open(file);
 			    } catch (IOException ex) {
-			        // no application registered for PDFs
+			    	new ErrorLogger().log(ex);
 			    }
 			}
 			
-			Alert alert = new Alert(AlertType.CONFIRMATION, "Da li ste sigurni da želite da nastavite?", ButtonType.YES, ButtonType.NO);
-			alert.setTitle("Informacija");
-			alert.setHeaderText("");
-			if(alert.showAndWait().equals(ButtonType.YES)) {
+			Optional<ButtonType> temp1 = AlertDisplay.showConfirmation("Potvrde","Da li ste sigurni da želite da nastavite? ");
+			if(temp1.get().getButtonData().equals(ButtonData.YES)) {
 				if (job.printDialog()) {
 					job.print();
 				}
@@ -203,9 +194,11 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			
 			
 			file.delete();
-
+			if(temp1.get().equals(ButtonType.YES)) 
+				primaryStage.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	
@@ -221,6 +214,7 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			return blob;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 			return null;
 		}
 	}

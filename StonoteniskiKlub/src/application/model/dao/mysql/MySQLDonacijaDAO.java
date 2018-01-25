@@ -13,6 +13,7 @@ import application.model.dto.OpremaTip;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -56,6 +57,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -93,6 +95,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -131,12 +134,13 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			statement.execute();
 			Integer redniBroj = -1;
 			redniBroj = statement.getInt("pRedniBroj");
-			if(!redniBroj.equals(Integer.valueOf(-1))){
+			if (!redniBroj.equals(Integer.valueOf(-1))) {
 				result = true;
 				donacija.setRedniBroj(redniBroj);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);
@@ -155,22 +159,25 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally{
+			new ErrorLogger().log(e);
+		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);
 		}
 	}
-	public void setIdTransakcije(DonacijaDTO donacija, int id) {//Helena dodala
+
+	public void setIdTransakcije(DonacijaDTO donacija, int id) {// Helena dodala
 		Connection connection = null;
 		PreparedStatement statement = null;
 		try {
 			connection = ConnectionPool.getInstance().checkOut();
-			statement = ConnectionPool.prepareStatement(connection, SQL_UPDATE_TRANSAKCIJA_ID, false,
-					id,donacija.getSponzor().getId(), donacija.getUgovor().getRedniBroj(), donacija.getRedniBroj());
+			statement = ConnectionPool.prepareStatement(connection, SQL_UPDATE_TRANSAKCIJA_ID, false, id,
+					donacija.getSponzor().getId(), donacija.getUgovor().getRedniBroj(), donacija.getRedniBroj());
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally{
+			new ErrorLogger().log(e);
+		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);
 		}

@@ -9,6 +9,7 @@ import java.sql.Statement;
 import application.model.dao.DogadjajTipDAO;
 import application.model.dto.DogadjajTipDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -32,7 +33,7 @@ public class MySQLDogadjajTipDAO implements DogadjajTipDAO{
 				result.add(new DogadjajTipDTO(resultSet.getInt("Id"), resultSet.getString("Tip")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace();new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -54,7 +55,7 @@ public class MySQLDogadjajTipDAO implements DogadjajTipDAO{
 				result = new DogadjajTipDTO(resultSet.getInt("Id"), resultSet.getString("Tip"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace();new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -89,7 +90,7 @@ public class MySQLDogadjajTipDAO implements DogadjajTipDAO{
 				result = true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace();new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);

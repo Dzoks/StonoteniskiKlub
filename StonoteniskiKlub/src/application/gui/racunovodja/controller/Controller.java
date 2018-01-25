@@ -1,17 +1,16 @@
 package application.gui.racunovodja.controller;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dto.TransakcijaDTO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public abstract class Controller extends BaseController{
 	

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="561.0" prefWidth="930.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.PregledClanovaController">
+<AnchorPane prefHeight="561.0" prefWidth="930.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.PregledClanovaController">
    <children>
       <TableView fx:id="twTabela" layoutX="13.0" layoutY="366.0" onMouseClicked="#prikaziDetaljeOClanu" prefHeight="177.0" prefWidth="758.0" tableMenuButtonVisible="true">
         <columns>
@@ -34,6 +34,7 @@
                 <MenuItem fx:id="miIzmjeni" mnemonicParsing="false" onAction="#izmjeniClana" text="Izmjenite" />
                   <MenuItem fx:id="miIsclani" mnemonicParsing="false" onAction="#izvrsiIsclanjivanje" text="Iščlanite" />
                   <MenuItem fx:id="miTreninzi" mnemonicParsing="false" onAction="#otvoriTreninge" text="Pregledajte treninge" />
+                  <MenuItem mnemonicParsing="false" onAction="#izdavanjePotvrda" text="Izdajte potvrdu" />
               </items>
             </ContextMenu>
          </contextMenu>
@@ -42,7 +43,7 @@
       <TextField fx:id="txtIme" layoutX="14.0" layoutY="327.0" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="137.0" />
       <TextField fx:id="txtPrezime" layoutX="158.0" layoutY="327.0" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="137.0" />
       <Button layoutX="303.0" layoutY="327.0" mnemonicParsing="false" onAction="#pretragaClanova" prefHeight="31.0" prefWidth="88.0" text="Pretražite" />
-      <Button layoutX="779.0" layoutY="461.0" mnemonicParsing="false" onAction="#uclanjivanje" prefHeight="31.0" prefWidth="126.0" text="Učlanjivanje" />
+      <Button layoutX="779.0" layoutY="500.0" mnemonicParsing="false" onAction="#uclanjivanje" prefHeight="31.0" prefWidth="126.0" text="Učlanjivanje" />
       <ImageView fx:id="ivFotografija" fitHeight="289.0" fitWidth="256.0" layoutX="332.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
       <GridPane layoutX="15.0" layoutY="14.0" prefHeight="289.0" prefWidth="296.0">
         <columnConstraints>
@@ -88,8 +89,7 @@
       <Label fx:id="lblBodovi" layoutX="757.0" layoutY="182.0" text="0" />
       <Label fx:id="lblPozicija" layoutX="761.0" layoutY="222.0" text="Nepoznato" />
       <ChoiceBox fx:id="cbxSezona" layoutX="608.0" layoutY="64.0" prefHeight="25.0" prefWidth="101.0" />
-      <Button layoutX="779.0" layoutY="416.0" mnemonicParsing="false" onAction="#preuzmiRezultate" prefHeight="31.0" prefWidth="126.0" text="Preuzmite rezultate" />
-      <Button layoutX="779.0" layoutY="373.0" mnemonicParsing="false" onAction="#registrujIgracaKlik" prefHeight="31.0" prefWidth="126.0" text="Registrujte igrača" />
-      <Button layoutX="779.0" layoutY="504.0" mnemonicParsing="false" onAction="#odjaviteSe" prefHeight="31.0" prefWidth="126.0" text="Odjavite se" />
+      <Button layoutX="779.0" layoutY="439.0" mnemonicParsing="false" onAction="#preuzmiRezultate" prefHeight="31.0" prefWidth="126.0" text="Preuzmite rezultate" />
+      <Button layoutX="779.0" layoutY="380.0" mnemonicParsing="false" onAction="#registrujIgracaKlik" prefHeight="31.0" prefWidth="126.0" text="Registrujte igrača" />
    </children>
 </AnchorPane>

@@ -5,8 +5,6 @@ import java.sql.Date;
 import application.gui.organizator.controller.TurniriController;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class UcesnikPrijavaDTO extends OsobaDTO{
 	private IntegerProperty idPrijave;

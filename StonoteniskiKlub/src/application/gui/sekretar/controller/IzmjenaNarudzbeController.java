@@ -11,6 +11,8 @@ import application.model.dto.DistributerOpreme;
 import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
 import application.model.dto.OpremaTip;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,10 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -250,10 +249,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 			popuniTabelu();
 			
 		}catch(NumberFormatException e) {
-			Alert alert=new Alert(AlertType.ERROR, "Cijena nije u dobrom formatu.", ButtonType.OK);
-			alert.setTitle("Greška");
-			alert.setTitle("Greška prilikom dodavanja cijene");
-			alert.showAndWait();
+			AlertDisplay.showError("Provjera", "Cijena nije u dobrom formatu.");
 		}
 	}
 	
@@ -285,6 +281,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	
@@ -310,6 +307,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	

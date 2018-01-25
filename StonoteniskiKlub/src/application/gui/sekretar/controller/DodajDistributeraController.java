@@ -5,12 +5,10 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dto.DistributerOpreme;
+import application.util.AlertDisplay;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
 public class DodajDistributeraController extends BaseController implements Initializable{
@@ -40,10 +38,8 @@ public class DodajDistributeraController extends BaseController implements Initi
 		}
 		else {
 			
-			Alert alert=new Alert(AlertType.ERROR, "Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX.", ButtonType.OK);
-			alert.setTitle("Greška");
-			alert.setTitle("Greška prilikom dodavanja");
-			alert.showAndWait();
+
+			AlertDisplay.showError("Dodavanje","Broj telefona nije u dobrom formatu. Format je XXX/XXX-XXX." );
 		}
 	}
 	

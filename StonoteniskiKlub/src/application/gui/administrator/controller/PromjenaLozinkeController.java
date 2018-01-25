@@ -7,7 +7,9 @@ import java.util.ResourceBundle;
 import org.mindrot.jbcrypt.BCrypt;
 
 import application.gui.controller.BaseController;
-import application.model.dao.KorisnickiNalogDAO;
+import application.model.dao.DAOFactory;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -25,24 +27,19 @@ public class PromjenaLozinkeController extends BaseController {
 	public void dugmeOkKlik(ActionEvent event) {
 		if(!lozinkaTxt.getText().isEmpty()&& !lozinkaPonovoTxt.getText().isEmpty()) {
 			if(lozinkaPonovoTxt.getText().equals(lozinkaTxt.getText())) {
-				KorisnickiNalogDAO.setLozinka(hashPassword(lozinkaTxt.getText()).getBytes(), LoginController.korisnickoIme);
-				Alert alert=new Alert(AlertType.INFORMATION, "Lozinka je uspješno postavljena.");
-				alert.setTitle("Informacija");
-				alert.setHeaderText("Dodavanje");
-				alert.showAndWait();
+				DAOFactory.getDAOFactory().getKorisnickiNalogDAO().setLozinka(hashPassword(lozinkaTxt.getText()).getBytes(), LoginController.korisnickoIme);
+				AlertDisplay.showInformation("Dodavanje", "Lozinka je uspješno postavljena.");
 				try {
 					BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml",
 							primaryStage);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 
 			}else {
-				Alert alert=new Alert(AlertType.ERROR, "Lozinke se ne podudaraju. Pokušajte ponovo.");
-				alert.setTitle("Greška");
-				alert.setHeaderText("Greška prilikom dodavanja");
-				alert.showAndWait();
+				AlertDisplay.showError("Dodavanje", "Lozinke se ne podudaraju. Pokušajte ponovo.");
 				lozinkaPonovoTxt.clear();
 				lozinkaTxt.clear();
 
@@ -61,6 +58,7 @@ public class PromjenaLozinkeController extends BaseController {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	@Override

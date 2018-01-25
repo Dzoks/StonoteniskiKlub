@@ -38,19 +38,18 @@ public class ConnectionPool {
 			usedConnections = new ArrayList<Connection>();
 
 			for (int i = 0; i < preconnectCount; i++) {
-				Connection conn = DriverManager.getConnection(jdbcURL,
-						username, password);
+				Connection conn = DriverManager.getConnection(jdbcURL, username, password);
 				freeConnections.add(conn);
 			}
 			connectCount = preconnectCount;
 		} catch (Exception e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
 	private void readConfiguration() {
-		ResourceBundle bundle = PropertyResourceBundle
-				.getBundle("application.util.ConnectionPool");
+		ResourceBundle bundle = PropertyResourceBundle.getBundle("application.util.ConnectionPool");
 		jdbcURL = bundle.getString("jdbcURL");
 		username = bundle.getString("username");
 		password = bundle.getString("password");
@@ -58,14 +57,12 @@ public class ConnectionPool {
 		maxIdleConnections = 10;
 		maxConnections = 10;
 		try {
-			preconnectCount = Integer.parseInt(bundle
-					.getString("preconnectCount"));
-			maxIdleConnections = Integer.parseInt(bundle
-					.getString("maxIdleConnections"));
-			maxConnections = Integer.parseInt(bundle
-					.getString("maxConnections"));
+			preconnectCount = Integer.parseInt(bundle.getString("preconnectCount"));
+			maxIdleConnections = Integer.parseInt(bundle.getString("maxIdleConnections"));
+			maxConnections = Integer.parseInt(bundle.getString("maxConnections"));
 		} catch (Exception e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -86,6 +83,7 @@ public class ConnectionPool {
 					usedConnections.add(conn);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 			}
 		}
@@ -104,14 +102,17 @@ public class ConnectionPool {
 					c.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 			}
 			notify();
 		}
 	}
-	
-	public static PreparedStatement prepareStatement(Connection c, String sql, boolean retGenKeys, Object... values) throws SQLException {
-		PreparedStatement ps = c.prepareStatement(sql, retGenKeys ? Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS);
+
+	public static PreparedStatement prepareStatement(Connection c, String sql, boolean retGenKeys, Object... values)
+			throws SQLException {
+		PreparedStatement ps = c.prepareStatement(sql,
+				retGenKeys ? Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS);
 		for (int i = 0; i < values.length; i++)
 			ps.setObject(i + 1, values[i]);
 		return ps;
@@ -123,6 +124,7 @@ public class ConnectionPool {
 				s.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	}
 
@@ -132,6 +134,7 @@ public class ConnectionPool {
 				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	}
 

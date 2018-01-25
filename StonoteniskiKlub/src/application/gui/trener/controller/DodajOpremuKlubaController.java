@@ -12,6 +12,8 @@ import application.model.dto.DonacijaStavka;
 import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
 import application.model.dto.OpremaKluba;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,9 +24,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -81,8 +82,6 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 	@FXML
 	private TableView<NarudzbaStavka> tblNarudzbe;
 	@FXML
-	private TableColumn<NarudzbaStavka, Integer> id;
-	@FXML
 	private TableColumn<NarudzbaStavka, String> tipOpreme;
 	@FXML
 	private TableColumn<NarudzbaStavka, String> proizvodjacOpreme;
@@ -126,7 +125,6 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 	}
 	
 	public void popuniTabelu(ObservableList<NarudzbaStavka> listaStavkiNarudzbe) {
-		id.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, Integer>("idNarudzbe"));
 		tipOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, String>("tipOpreme"));
 		proizvodjacOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, String>("tipProizvodjac"));
 		modelOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, String>("tipModel"));
@@ -188,7 +186,7 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 	
 	public void dodajKonteksniMeni() {
 		ContextMenu cm = new ContextMenu();
-	    MenuItem obrisiStavku = new MenuItem("Obriši stavku");
+	    MenuItem obrisiStavku = new MenuItem("Obrišite stavku");
 	    obrisiStavku.setOnAction(new EventHandler<ActionEvent>() {
 	    	
 	        @Override
@@ -350,15 +348,13 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 					
 			          public void handle(WindowEvent we) {
 			        	  we.consume();
-			              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da zapamtite dodavanje?", ButtonType.YES, ButtonType.NO);
-			              alert.setHeaderText("");
-			              Optional<ButtonType> rezultat = alert.showAndWait();
-			              if(ButtonType.YES.equals(rezultat.get())) {
+			              Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Dodavanje", "Da li želite da zapamtite dodavanje?");
+			              if(ButtonData.YES.equals(rezultat.get().getButtonData())) {
 			            	  if(controller.ubaciUBazu()) {
 			            		  noviStage.close();
 			            	  }
 			              }
-			              else if(ButtonType.NO.equals(rezultat.get())) {
+			              else if(ButtonData.NO.equals(rezultat.get().getButtonData())) {
 			            	  noviStage.close();
 			              }
 			              
@@ -368,6 +364,7 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 				tblNarudzbe.setItems(null);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 		}
 		else {
@@ -393,10 +390,7 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 				primaryStage.close();
 			}
 			else {
-				
-				Alert alert=new Alert(AlertType.ERROR, "Količina stavki se ne poklapa sa ukupnom količinom donacije.");
-				alert.setHeaderText("Greška u količini");
-				alert.setTitle("Greška");
+				AlertDisplay.showError("Dodavanje", "Količina stavki se ne poklapa sa ukupnom količinom donacije.");
 			}
 		}
 	}

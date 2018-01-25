@@ -3,8 +3,10 @@ package application.model.dto;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,7 +18,7 @@ public class TreningDTO {
 	private StringProperty Opis;
 	private IntegerProperty CLAN_Id;
 	private ObjectProperty<LocalDate> Datum;
-	
+	private BooleanProperty Aktivan;
 	
 	@Override
 	public String toString() {
@@ -76,15 +78,33 @@ public class TreningDTO {
 		Opis = new SimpleStringProperty();
 		CLAN_Id = new SimpleIntegerProperty();
 		Datum = new SimpleObjectProperty<LocalDate>();
+		Aktivan=new SimpleBooleanProperty();
+
 	}
 	public TreningDTO(Integer id, String opis, Integer cLAN_Id,
-			LocalDate datum) {
+			LocalDate datum,Boolean aktivan) {
 		
 		Id = new SimpleIntegerProperty(id);
 		Opis = new SimpleStringProperty(opis);
 		CLAN_Id = new SimpleIntegerProperty(cLAN_Id);
 		Datum = new SimpleObjectProperty<LocalDate>(datum);
+		Aktivan=new SimpleBooleanProperty(aktivan);
 	}
+
+	public final BooleanProperty AktivanProperty() {
+		return this.Aktivan;
+	}
+	
+
+	public final boolean isAktivan() {
+		return this.AktivanProperty().get();
+	}
+	
+
+	public final void setAktivan(final boolean Aktivan) {
+		this.AktivanProperty().set(Aktivan);
+	}
+	
 	
 	
 }

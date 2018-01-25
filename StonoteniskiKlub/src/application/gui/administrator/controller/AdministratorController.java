@@ -5,8 +5,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.KorisnickiNalogDAO;
+import application.model.dao.DAOFactory;
 import application.model.dto.KorisnickiNalogDTO;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,6 +42,7 @@ public class AdministratorController extends BaseController {
     	try {
 			BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 		} catch (IOException e) {
+			new ErrorLogger().log(e);
 			e.printStackTrace();
 		}
     }
@@ -51,6 +54,7 @@ public class AdministratorController extends BaseController {
 			BaseController.changeScene("/application/gui/administrator/view/DodajNalogView.fxml", stage);
 			stage.show();
 		} catch (IOException e) {
+			new ErrorLogger().log(e);
 			e.printStackTrace();
 		}
 	}
@@ -58,15 +62,12 @@ public class AdministratorController extends BaseController {
 	@FXML
 	public void obrisiNalogKlik(ActionEvent event) {
 		if (tabelaNalog.getSelectionModel().getSelectedItem() != null) {
-			KorisnickiNalogDAO.setAktivan(0,
+			DAOFactory.getDAOFactory().getKorisnickiNalogDAO().setAktivan(0,
 					((KorisnickiNalogDTO) tabelaNalog.getSelectionModel().getSelectedItem()).getNalogId());
-			Alert alert=new Alert(AlertType.INFORMATION, "Uspješno ste obrisali nalog.", ButtonType.OK);
-			alert.setTitle("Informacija");
-			alert.setHeaderText("Brisanje");
-			alert.showAndWait();
-
+			AlertDisplay.showInformation("Brisanje", "Uspješno ste obrisali nalog.");
 			popuniTabelu();
 		} else {
+			// Nikad se ne izvršava
 			new Alert(AlertType.ERROR, "Odaberite korisnički nalog koji želite obrisati.", ButtonType.OK).show();
 		}
 	}
@@ -88,7 +89,7 @@ public class AdministratorController extends BaseController {
 		kolonaPrezime.setCellValueFactory(new PropertyValueFactory<KorisnickiNalogDTO, String>("prezime"));
 		kolonaKorisnickoIme.setCellValueFactory(new PropertyValueFactory<KorisnickiNalogDTO, String>("korisnickoIme"));
 
-		ObservableList<KorisnickiNalogDTO> listaNaloga = KorisnickiNalogDAO.selectAll();
+		ObservableList<KorisnickiNalogDTO> listaNaloga = DAOFactory.getDAOFactory().getKorisnickiNalogDAO().selectAll();
 
 		tabelaNalog.setItems(listaNaloga);
 		// obrisiNalogDugme.disableProperty().bind(Bindings.isEmpty(tabelaNalog.getSelectionModel().getSelectedItems()));

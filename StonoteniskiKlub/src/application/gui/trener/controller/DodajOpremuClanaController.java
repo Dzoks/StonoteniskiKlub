@@ -9,6 +9,8 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -16,9 +18,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -35,8 +36,6 @@ public class DodajOpremuClanaController extends BaseController{
 	private ComboBox<Narudzba> comboBoxNarudzba;
 	@FXML
 	private TableView<NarudzbaStavka> tblNarudzbe;
-	@FXML
-	private TableColumn<NarudzbaStavka, Integer> id;
 	@FXML
 	private TableColumn<NarudzbaStavka, String> tipOpreme;
 	@FXML
@@ -77,7 +76,6 @@ public class DodajOpremuClanaController extends BaseController{
 	}
 	
 	public void popuniTabelu(ObservableList<NarudzbaStavka> listaStavkiNarudzbe) {
-		id.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, Integer>("idNarudzbe"));
 		tipOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, String>("tipOpreme"));
 		proizvodjacOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, String>("tipProizvodjac"));
 		modelOpreme.setCellValueFactory(new PropertyValueFactory<NarudzbaStavka, String>("tipModel"));
@@ -126,16 +124,13 @@ public class DodajOpremuClanaController extends BaseController{
 				
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
-		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da zapamtite dodavanje?", ButtonType.YES, ButtonType.NO);
-		              alert.setTitle("Upozorenje");
-		              alert.setHeaderText("");
-		              Optional<ButtonType> rezultat = alert.showAndWait();
-		              if(ButtonType.YES.equals(rezultat.get())) {
+		              Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Dodavanje", "Da li želite da zapamtite dodavanje?");
+		              if(ButtonData.YES.equals(rezultat.get().getButtonData())) {
 		            	  if(controller.ubaciUBazu()) {
 		            		  noviStage.close();
 		            	  }
 		              }
-		              else if(ButtonType.NO.equals(rezultat.get())) {
+		              else if(ButtonData.NO.equals(rezultat.get().getButtonData())) {
 		            	  noviStage.close();
 		              }
 		              
@@ -146,6 +141,7 @@ public class DodajOpremuClanaController extends BaseController{
 			tblNarudzbe.setItems(null);
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 }

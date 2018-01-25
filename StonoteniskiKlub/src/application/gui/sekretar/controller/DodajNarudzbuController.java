@@ -10,6 +10,8 @@ import application.model.dao.DAOFactory;
 import application.model.dto.Narudzba;
 import application.model.dto.NarudzbaStavka;
 import application.model.dto.OpremaTip;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -20,10 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -135,7 +134,7 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 	
 	public void dodajKonteksniMeni() {
 		ContextMenu cm = new ContextMenu();
-	    MenuItem obrisiStavku = new MenuItem("Obrisi stavku");
+	    MenuItem obrisiStavku = new MenuItem("Obrišite stavku");
 	    obrisiStavku.setOnAction(new EventHandler<ActionEvent>() {
 	    	
 	        @Override
@@ -239,9 +238,7 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 			
 			popuniTabelu();
 		}catch(NumberFormatException e) {
-			Alert alert=new Alert(AlertType.ERROR, "Cijena nije u dobrom formatu.", ButtonType.OK);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Greška prilikom provjere cijene");
+			AlertDisplay.showError("Provjera", "Cijena nije u dobrom formatu.");
 		}
 	}
 	
@@ -268,6 +265,7 @@ public class DodajNarudzbuController extends BaseController implements Initializ
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	

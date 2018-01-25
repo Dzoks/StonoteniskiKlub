@@ -11,6 +11,7 @@ import application.model.dao.StavkaSkupstinaDAO;
 import application.model.dto.SkupstinaDTO;
 import application.model.dto.StavkaSkupstinaDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.InputValidator;
 import application.util.TextUtility;
 import javafx.collections.FXCollections;
@@ -81,6 +82,7 @@ public class RadSaSkupstinamaController extends BaseController {
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 
@@ -106,7 +108,7 @@ public class RadSaSkupstinamaController extends BaseController {
 	@FXML
 	public void pretrazi(ActionEvent event) {
 		if (!InputValidator.allEntered(dpOd.getValue()) && !InputValidator.allEntered(dpDo.getValue())) {
-			AlertDisplay.showInformation("Greška", "Greška prilikom pretrage", "Niste unijeli parametre pretrage.");
+			AlertDisplay.showError("Pretraga", "Niste unijeli parametre pretrage.");
 		} else {
 			int type = 0;
 			ObservableList<SkupstinaDTO> filtered = FXCollections.observableArrayList();
@@ -155,9 +157,10 @@ public class RadSaSkupstinamaController extends BaseController {
 				newStage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 		} else {
-			AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Izvještaj vec postoji.");
+			AlertDisplay.showError("Dodavanje", "Izvještaj već postoji.");
 		}
 	}
 
@@ -180,6 +183,7 @@ public class RadSaSkupstinamaController extends BaseController {
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	@FXML
@@ -192,6 +196,12 @@ public class RadSaSkupstinamaController extends BaseController {
 
 	public void refresh() {
 		tblSkupstine.refresh();
+		if(rbIzvjestaj.isSelected()){
+			SkupstinaDTO skupstina = tblSkupstine.getSelectionModel().getSelectedItem();
+			if (skupstina != null) {
+				TextUtility.setTextFlow(taTekst, skupstina.getStavkeIzvjestaja());
+			}
+		}
 	}
 
 	private void buildTable() {

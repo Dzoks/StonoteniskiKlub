@@ -12,6 +12,7 @@ import application.model.dto.DonacijaDTO;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.GUIBuilder;
 import application.util.InputValidator;
 import javafx.collections.FXCollections;
@@ -112,6 +113,7 @@ public class RadSaSponzorimaController extends BaseController {
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 
@@ -131,7 +133,7 @@ public class RadSaSponzorimaController extends BaseController {
 				tblSponzori.setItems(result);
 			}
 		} else {
-			AlertDisplay.showInformation("Greška", "Greška prilikom pretrage", "Unesite pojam za pretragu!");
+			AlertDisplay.showError("Pretraga", "Unesite pojam za pretragu!");
 		}
 	}
 
@@ -153,6 +155,7 @@ public class RadSaSponzorimaController extends BaseController {
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -177,6 +180,7 @@ public class RadSaSponzorimaController extends BaseController {
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -202,6 +206,7 @@ public class RadSaSponzorimaController extends BaseController {
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 
@@ -228,6 +233,7 @@ public class RadSaSponzorimaController extends BaseController {
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 

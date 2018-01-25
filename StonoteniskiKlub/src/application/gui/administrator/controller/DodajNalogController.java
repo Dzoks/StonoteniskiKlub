@@ -1,17 +1,15 @@
 package application.gui.administrator.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.KorisnickiNalogDAO;
-import application.model.dao.KorisnickiNalogTipDAO;
 import application.model.dto.KorisnickiNalogDTO;
 import application.model.dto.KorisnickiNalogTipDTO;
 import application.model.dto.ZaposleniDTO;
+import application.util.AlertDisplay;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,16 +44,9 @@ public class DodajNalogController extends BaseController {
 	public void dodajteNalogKlik(ActionEvent event) {
 		if (!korisnickoIme.getText().isEmpty()|| !tabelaZaposleni.getSelectionModel().isEmpty()) {
 				if(dodajNalog())
-					try {
-						Alert alert=new Alert(AlertType.INFORMATION, new String("Korisnički nalog je uspješno dodan.".getBytes(),"UTF-8"));
-						alert.setTitle("Informacija");
-						alert.setHeaderText("Dodavanje");
-						alert.showAndWait();
-					} catch (UnsupportedEncodingException e) {
-						e.printStackTrace();
-					}
+						AlertDisplay.showInformation("Dodavanje", "Korisnički nalog je uspješno dodan.");
 				else {
-					new Alert(AlertType.INFORMATION, "Korisničko ime već postoji.").show();
+					AlertDisplay.showError("Dodavanje", "Korisničko ime već postoji.");
 				}
 				korisnickoIme.clear();
 		} else {
@@ -65,7 +56,6 @@ public class DodajNalogController extends BaseController {
 				new Alert(AlertType.ERROR, "Odaberite tip naloga.").show();
 		}
 	}
-
 	private boolean dodajNalog() {
 		Integer ulogaId=ulogaChoiceBox.getSelectionModel().getSelectedItem().getId();
 		Integer zaposleniId=null;
@@ -74,9 +64,9 @@ public class DodajNalogController extends BaseController {
 		
 		String ime=korisnickoIme.getText();
 		java.sql.Date sqlDate = java.sql.Date.valueOf( LocalDate.now() );
-		if(!KorisnickiNalogDAO.daLiPostoji(ime)) {
+		if(!DAOFactory.getDAOFactory().getKorisnickiNalogDAO().daLiPostoji(ime)) {
 		KorisnickiNalogDTO nalog=new KorisnickiNalogDTO(ime,null,sqlDate,true,ulogaId,zaposleniId);
-		KorisnickiNalogDAO.insert(nalog);
+		DAOFactory.getDAOFactory().getKorisnickiNalogDAO().insert(nalog);
 		return true;
 		}else {
 			return false;
@@ -95,7 +85,7 @@ public class DodajNalogController extends BaseController {
 	}
 
 	private void popuniChoiceBox() {
-		ObservableList<KorisnickiNalogTipDTO> listaTipNaloga = KorisnickiNalogTipDAO.SELECT_ALL();
+		ObservableList<KorisnickiNalogTipDTO> listaTipNaloga = DAOFactory.getDAOFactory().getKorisnickiNalogTipDAO().SELECT_ALL();
 		ulogaChoiceBox.setItems(listaTipNaloga);
 		ulogaChoiceBox.getSelectionModel().selectFirst();		
 	}

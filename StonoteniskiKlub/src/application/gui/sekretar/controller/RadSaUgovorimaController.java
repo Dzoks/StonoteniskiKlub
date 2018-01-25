@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.GUIBuilder;
 import application.util.InputValidator;
 import javafx.collections.FXCollections;
@@ -60,6 +61,7 @@ public class RadSaUgovorimaController extends BaseController {
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	@Override
@@ -110,12 +112,13 @@ public class RadSaUgovorimaController extends BaseController {
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 		boolean dOd = InputValidator.allEntered(dpDatumOd.getValue());
 		boolean dDo = InputValidator.allEntered(dpDatumDo.getValue());
 		ObservableList<UgovorDTO> tableList = tblUgovori.getItems();
 		if (!dOd && !dDo) {
-			AlertDisplay.showInformation("Greška", "Greška prilikom pretrage", "Niste unijeli datom.");
+			AlertDisplay.showError("Pretraga", "Niste unijeli datum.");
 		} else if (dOd && dDo) {
 			ObservableList<UgovorDTO> filtered = FXCollections.observableArrayList();
 			for (UgovorDTO ugovor : tableList) {
@@ -163,9 +166,10 @@ public class RadSaUgovorimaController extends BaseController {
 				newStage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 		} else{
-			AlertDisplay.showInformation("Rezultat", "", "Nema donacija u ugovoru.");//ŠTA OVDJE TREBA BITI??? Dzoks
+			AlertDisplay.showInformation("Pregled", "Nema donacija u ugovoru.");//ŠTA OVDJE TREBA BITI??? Dzoks
 		}
 	}
 

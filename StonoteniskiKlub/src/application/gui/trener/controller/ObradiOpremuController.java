@@ -9,13 +9,11 @@ import application.model.dto.Clan;
 import application.model.dto.NarudzbaStavka;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaKluba;
+import application.util.AlertDisplay;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Spinner;
@@ -67,10 +65,7 @@ public class ObradiOpremuController extends BaseController implements Initializa
 		}
 		else {
 			if(listClanovi.getSelectionModel().getSelectedItems().size() != spinnerPristiglo.getValue().intValue()) {
-				Alert alert=new Alert(AlertType.ERROR, "Broj odabranih ljudi mora biti " + spinnerPristiglo.getValue() + ".", ButtonType.OK);
-				alert.setTitle("Greška");
-				alert.setHeaderText("Greška prilikom dodavanja");
-				alert.showAndWait();
+				AlertDisplay.showError("Dodavanje", "Broj odabranih ljudi mora biti " + spinnerPristiglo.getValue() + ".");
 				return false;
 			}
 			ObservableList<Clan> listaClanova = listClanovi.getSelectionModel().getSelectedItems();

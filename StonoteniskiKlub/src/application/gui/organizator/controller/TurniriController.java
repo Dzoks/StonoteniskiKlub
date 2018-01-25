@@ -7,17 +7,18 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
-import application.model.dao.KategorijaTurniraDAO;
-import application.model.dao.TurnirDAO;
-import application.model.dao.ZrijebDAO;
+import application.model.dao.DAOFactory;
 import application.model.dto.KategorijaTurniraDTO;
 import application.model.dto.TurnirDTO;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -58,7 +59,7 @@ public class TurniriController extends BaseController{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		btnDodaj.disableProperty().bind(txtNaziv.textProperty().isEmpty().or(dpDatum.valueProperty().isNull()));
 		cbKategorija.disableProperty().bind(tblTurniri.getSelectionModel().selectedItemProperty().isNull());
-		cbKategorija.setItems(KategorijaTurniraDAO.getAll());
+		cbKategorija.setItems(DAOFactory.getDAOFactory().getKategorijaTurniraDAO().getAll());
 		btnUredi.setDisable(true);
 		btnPregledaj.setDisable(true);
 		btnZatvori.setDisable(true);
@@ -87,7 +88,7 @@ public class TurniriController extends BaseController{
 		clnNaziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
 		clnDatum.setCellValueFactory(new PropertyValueFactory<>("konvertovanDatum"));
 		clnZatvoren.setCellValueFactory(new PropertyValueFactory<>("zatvoren"));
-		tblTurniri.setItems(TurnirDAO.getAll());
+		tblTurniri.setItems(DAOFactory.getDAOFactory().getTurnirDAO().getAll());
 	}
 	
 	public void odjaviSe() {
@@ -95,19 +96,15 @@ public class TurniriController extends BaseController{
 			changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	
 	public void zatvoriTurnir(){
-		ButtonType buttonTypeDa=new ButtonType("Da");
-		ButtonType buttonTypeNe=new ButtonType("Ne");
-		Alert alert = new Alert(AlertType.CONFIRMATION,"Ukoliko zatvorite izabrani turnir,"
-				+ " nećete biti u mogućnosti da ponovo radite na tom turniru!",buttonTypeDa,buttonTypeNe,ButtonType.CANCEL);
-		alert.setHeaderText("Da li ste sigurni da želite zatvoriti izabrani turnir?");
-		alert.setTitle("Obavještenje");
-		Optional<ButtonType> result = alert.showAndWait();
-		if(result.get().equals(buttonTypeDa)){
-			TurnirDAO.zatvori(tblTurniri.getSelectionModel().getSelectedItem().getId());
+		Optional<ButtonType> result =AlertDisplay.showConfirmation("Zatvaranje", "Ukoliko zatvorite izabrani turnir,"
+				+ " nećete biti u mogućnosti da ponovo radite na tom turniru!"+" Da li ste sigurni da želite zatvoriti izabrani turnir?");
+		if(result.get().getButtonData().equals(ButtonData.YES)){
+			DAOFactory.getDAOFactory().getTurnirDAO().zatvori(tblTurniri.getSelectionModel().getSelectedItem().getId());
 			popuniTabelu();
 			btnUredi.setDisable(true);
 			btnPregledaj.setDisable(true);
@@ -117,12 +114,8 @@ public class TurniriController extends BaseController{
 	
 	public void urediTurnir(){
 		if(cbKategorija.getSelectionModel().isEmpty()){
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Potrebno je izabrati kategoriju!");
-			alert.setContentText("Nije moguće pristupiti turniru, dok niste prethodno izabrali kategoriju turnira sa kojom"
+			AlertDisplay.showError("Izmjena", "Nije moguće pristupiti turniru, dok niste prethodno izabrali kategoriju turnira sa kojom"
 					+ " želite da radite.");
-			alert.show();
 		}
 		else{
 			try {
@@ -131,6 +124,7 @@ public class TurniriController extends BaseController{
 						cbKategorija.getSelectionModel().getSelectedItem().getId());
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 		}
 	}
@@ -138,14 +132,12 @@ public class TurniriController extends BaseController{
 	public void pregledajTurnir(){
 		if(cbKategorija.getSelectionModel().isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Potrebno je izabrati kategoriju!");
-			alert.setContentText("Nije moguće pristupiti turniru, dok niste prethodno izabrali kategoriju turnira sa kojom"
+			AlertDisplay.showError("Pregled", "Nije moguće pristupiti turniru, dok niste prethodno izabrali kategoriju turnira sa kojom"
 					+ " želite da radite.");
 			alert.show();
 		}
 		else{
-			if(ZrijebDAO.doesExist(tblTurniri.getSelectionModel().getSelectedItem().getId(),
+			if(DAOFactory.getDAOFactory().getZrijebDAO().doesExist(tblTurniri.getSelectionModel().getSelectedItem().getId(),
 					cbKategorija.getSelectionModel().getSelectedItem().getId())){
 				Stage noviStage=new Stage();
 				try {
@@ -156,7 +148,7 @@ public class TurniriController extends BaseController{
 						Scene scene = new Scene(root);
 						noviStage.setScene(scene);
 						noviStage.setResizable(false);
-						noviStage.setTitle("Žrijeb");
+						noviStage.setTitle("Stonoteniski klub");
 						SinglZrijebController controller=loader.<SinglZrijebController>getController();
 						controller.setPrimaryStage(noviStage);
 						controller.inicijalizuj(tblTurniri.getSelectionModel().getSelectedItem().getId(),
@@ -169,7 +161,7 @@ public class TurniriController extends BaseController{
 						Scene scene = new Scene(root);
 						noviStage.setScene(scene);
 						noviStage.setResizable(false);
-						noviStage.setTitle("Žrijeb");
+						noviStage.setTitle("Stonoteniski klub");
 						DublZrijebController controller=loader.<DublZrijebController>getController();
 						controller.setPrimaryStage(noviStage);
 						controller.inicijalizuj(tblTurniri.getSelectionModel().getSelectedItem().getId(),
@@ -178,14 +170,11 @@ public class TurniriController extends BaseController{
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 			}
 			else{
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Obavještenje");
-				alert.setHeaderText("Nema traženog žrijeba!");
-				alert.setContentText("Ne postoji žrijeb za dati turnir u ovoj kategoriji, jer se u njoj nije igralo.");
-				alert.show();
+				AlertDisplay.showInformation("Pregled", "Ne postoji žrijeb za dati turnir u ovoj kategoriji, jer se u njoj nije igralo.");
 			}
 		}
 	}
@@ -193,26 +182,19 @@ public class TurniriController extends BaseController{
 	public void dodajTurnir(){
 		if(txtNaziv.getText().length()<=45)
 			if(dpDatum.getValue().isAfter(LocalDate.now())){
-			TurnirDAO.insert(txtNaziv.getText(), Date.valueOf(dpDatum.getValue()));
+				DAOFactory.getDAOFactory().getTurnirDAO().insert(txtNaziv.getText(), Date.valueOf(dpDatum.getValue()));
 			popuniTabelu();
 			txtNaziv.clear();
 			dpDatum.setValue(null);
 			}
 			else{
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Greška");
-				alert.setHeaderText("Nepravilan unos!");
-				alert.setContentText("Nije moguće dodati turnir čiji je datum prije današnjeg.");
-				alert.show();
+				AlertDisplay.showError("Dodavanje", "Nije moguće dodati turnir čiji je datum prije današnjeg.");
 				txtNaziv.clear();
 				dpDatum.setValue(null);
 			}
 		else{
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Nepravilan unos!");
-			alert.setContentText("Nije moguće dodati turnir sa nazivom dužim od 45 karaktera.");
-			alert.show();
+
+			AlertDisplay.showError("Dodavanje", "Nije moguće dodati turnir sa nazivom dužim od 45 karaktera.");
 			txtNaziv.clear();
 			dpDatum.setValue(null);
 		}

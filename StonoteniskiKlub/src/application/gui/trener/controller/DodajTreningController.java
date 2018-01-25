@@ -6,9 +6,8 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dto.TreningDTO;
+import application.util.AlertDisplay;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -37,11 +36,7 @@ public class DodajTreningController extends BaseController{
 		btnAdd.setOnAction(e->{
 			LocalDate datum=dateDatum.getValue();
 			if (datum.isAfter(LocalDate.now())) {
-				Alert error=new Alert(AlertType.ERROR);
-				error.setTitle("Greška");
-				error.setContentText("Datum treninga ne smije biti u budućnosti");
-				error.setHeaderText("Greška u datumu");
-				error.showAndWait();
+				AlertDisplay.showError("Dodavanje", "Datum treninga ne smije biti u budućnosti");
 				return;
 			}
 			trening=new TreningDTO();

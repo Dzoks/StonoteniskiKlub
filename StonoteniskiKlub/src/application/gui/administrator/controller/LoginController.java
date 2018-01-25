@@ -11,7 +11,9 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import application.gui.controller.BaseController;
-import application.model.dao.KorisnickiNalogDAO;
+import application.model.dao.DAOFactory;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -34,58 +36,60 @@ public class LoginController extends BaseController {
 
 		if (!txtKorisnickoIme.getText().isEmpty()) {
 			korisnickoIme = txtKorisnickoIme.getText();
-			if (KorisnickiNalogDAO.daLiPostoji(txtKorisnickoIme.getText())) {
-				if (!KorisnickiNalogDAO.daLiPostojiLozinka(txtKorisnickoIme.getText())) {
+			if (DAOFactory.getDAOFactory().getKorisnickiNalogDAO().daLiPostoji(txtKorisnickoIme.getText())) {
+				if (!DAOFactory.getDAOFactory().getKorisnickiNalogDAO().daLiPostojiLozinka(txtKorisnickoIme.getText())) {
 					try {
 						BaseController.changeScene("/application/gui/administrator/view/PromjenaLozinkeView.fxml",
 								primaryStage);
 					} catch (IOException e) {
+						new ErrorLogger().log(e);
 						e.printStackTrace();
 					}
 				} else {
 					if (checkPassword(new String(txtLozinka.getText()),
-							KorisnickiNalogDAO.getHashByUsername(txtKorisnickoIme.getText()))) {
+							DAOFactory.getDAOFactory().getKorisnickiNalogDAO().getHashByUsername(txtKorisnickoIme.getText()))) {
 						try {
-							String uloga = KorisnickiNalogDAO.getUloga(txtKorisnickoIme.getText());
+							String uloga = DAOFactory.getDAOFactory().getKorisnickiNalogDAO().getUloga(txtKorisnickoIme.getText());
+							BaseController bc = null;
 							switch (uloga) {
 							case "Administrator":
-								BaseController.changeScene("/application/gui/administrator/view/AdministratorView.fxml",
-										primaryStage);
+								bc = BaseController.changeScene(
+										"/application/gui/administrator/view/AdministratorView.fxml", primaryStage);
+								bc.setUsername(txtKorisnickoIme.getText());
 								break;
 							case "Organizator turnira":
-								BaseController.changeScene("/application/gui/organizator/view/TurniriView.fxml",
+								bc = BaseController.changeScene("/application/gui/organizator/view/TurniriView.fxml",
 										primaryStage);
+								bc.setUsername(txtKorisnickoIme.getText());
 								break;
 							case "Trener":
-								BaseController.changeScene("/application/gui/trener/view/OpremaGlavniView.fxml",
+								bc = BaseController.changeScene("/application/gui/trener/view/OpremaGlavniView.fxml",
 										primaryStage);
+								bc.setUsername(txtKorisnickoIme.getText());
 								break;
 							case "Računovođa":
-								BaseController.changeScene("/application/gui/racunovodja/view/RacunovodjaView.fxml",
-										primaryStage);
+								bc = BaseController.changeScene(
+										"/application/gui/racunovodja/view/RacunovodjaView.fxml", primaryStage);
+								bc.setUsername(txtKorisnickoIme.getText());
 								break;
 							case "Sekretar":
-								BaseController.changeScene("/application/gui/sekretar/view/SekretarView.fxml",
+								bc = BaseController.changeScene("/application/gui/sekretar/view/SekretarView.fxml",
 										primaryStage);
+								bc.setUsername(txtKorisnickoIme.getText());
 								break;
 							}
 						} catch (IOException e) {
+							new ErrorLogger().log(e);
 							e.printStackTrace();
 						}
 					} else {
-						Alert alert=new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK);
-						alert.setTitle("Greška");
-						alert.setHeaderText("Greška prilikom prijavljivanja");
-						alert.showAndWait();
+						AlertDisplay.showError("Prijavljivanje","Pogrešno korisničko ime ili lozinka.");
 						txtKorisnickoIme.clear();
 						txtLozinka.clear();
 					}
 				}
 			} else {
-				Alert alert=new Alert(AlertType.ERROR, "Pogrešno korisničko ime ili lozinka.", ButtonType.OK);
-				alert.setTitle("Greška");
-				alert.setHeaderText("Greška prilikom prijavljivanja");
-				alert.showAndWait();
+				AlertDisplay.showError("Prijavljivanje","Pogrešno korisničko ime ili lozinka.");
 				txtKorisnickoIme.clear();
 				txtLozinka.clear();
 			}

@@ -14,6 +14,7 @@ import application.model.dto.OpremaTip;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -110,7 +111,7 @@ public class DodavanjeUgovoraController extends BaseController {
 				donacije.add(donacija);
 				lstDonacije.setItems(donacije);
 			} else {
-				AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Niste unijeli sve podatke o donaciji");
+				AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke o donaciji");
 			}
 		}
 
@@ -148,6 +149,7 @@ public class DodavanjeUgovoraController extends BaseController {
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 				UgovorDTO ugovor = new UgovorDTO(null, datumOd, datumDo, taOpisUgovora.getText(), null);
 				if(DAOFactory.getDAOFactory().getUgovorDAO().insert(sponzor, ugovor)){
@@ -160,14 +162,14 @@ public class DodavanjeUgovoraController extends BaseController {
 							DAOFactory.getDAOFactory().getDonacijaDAO().insert(sponzor, ugovor, donacija);
 						}
 					}
-					AlertDisplay.showInformation("Informacija", "Dodavanje ugovora", "Ugovor uspješno dodan.");
+					AlertDisplay.showInformation("Dodavanje", "Ugovor uspješno dodan.");
 				}
 				
 			} else {
-				AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Niste dodali donaciju!");
+				AlertDisplay.showError("Dodavanje", "Niste dodali donaciju!");
 			}
 		} else {
-			AlertDisplay.showInformation("Greška", "Greška prilikom dodavanja", "Niste unijeli podatke o ugovoru!");
+			AlertDisplay.showError("Dodavanje", "Niste unijeli podatke o ugovoru!");
 		}
 	}
 

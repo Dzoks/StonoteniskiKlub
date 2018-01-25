@@ -14,6 +14,8 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.DistributerOpreme;
 import application.model.dto.Narudzba;
+import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -24,9 +26,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
@@ -72,6 +73,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	@Override
@@ -209,6 +211,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 				narudzba = new Narudzba(DAOFactory.getDAOFactory().getNarudzbaDAO().SELECT_NEXT_ID(), df.parse(trenutniDatumString), opremaKluba, false, comboBoxDistributer.getSelectionModel().getSelectedItem().getId());
 			} catch (ParseException e1) {
 				e1.printStackTrace();
+				new ErrorLogger().log(e1);
 			}
   		  	controller.setNarudzba(narudzba);
 			
@@ -217,15 +220,12 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 				
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
-		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li zelite da zapamtite narudzbu?", ButtonType.YES, ButtonType.NO);
-		              alert.setTitle("Informacija");
-		              alert.setHeaderText("");
-		              Optional<ButtonType> rezultat = alert.showAndWait();
-		              if(ButtonType.YES.equals(rezultat.get())) {
+		              Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Dodavanje", "Da li želite da zapamtite narudžbu?");
+		              if(ButtonData.YES.equals(rezultat.get().getButtonData())) {
 		            	  controller.ubaciUBazu();
 		            	  noviStage.close();
 		              }
-		              else if(ButtonType.NO.equals(rezultat.get())) {
+		              else if(ButtonData.NO.equals(rezultat.get().getButtonData())) {
 		            	  noviStage.close();
 		              }
 		              
@@ -234,6 +234,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			popuniTabelu();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	
@@ -270,15 +271,12 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 				
 		          public void handle(WindowEvent we) {
 		        	  we.consume();
-		              Alert alert = new Alert(AlertType.CONFIRMATION, "Da li želite da sačuvate izmjene?", ButtonType.YES, ButtonType.NO);
-		              alert.setTitle("Informacija");
-		              alert.setHeaderText("");
-		              Optional<ButtonType> rezultat = alert.showAndWait();
-		              if(ButtonType.YES.equals(rezultat.get())) {
+		              Optional<ButtonType> rezultat = AlertDisplay.showConfirmation("Izmjena", "Da li želite da sačuvate izmjene?");
+		              if(ButtonData.YES.equals(rezultat.get().getButtonData())) {
 		            	  controller.azurirajUBazi();
 		            	  noviStage.close();
 		              }
-		              else if(ButtonType.NO.equals(rezultat.get())) {
+		              else if(ButtonData.NO.equals(rezultat.get().getButtonData())) {
 		            	  noviStage.close();
 		              }
 		              
@@ -287,6 +285,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			popuniTabelu();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	
@@ -313,6 +312,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	
@@ -333,6 +333,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			noviStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 }

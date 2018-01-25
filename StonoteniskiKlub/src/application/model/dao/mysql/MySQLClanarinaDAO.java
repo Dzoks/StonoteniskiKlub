@@ -12,8 +12,8 @@ import java.util.List;
 import application.model.dao.ClanarinaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
-import application.model.dto.ClanstvoDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -42,6 +42,7 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
 			ConnectionPool.close(rs, s);
@@ -79,6 +80,7 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 			System.out.println("Id clanarine je "+clanarina.getId());
 		}catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
 			ConnectionPool.close(cs);
@@ -106,6 +108,7 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 			cs.executeQuery();
 		}catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
 			ConnectionPool.close(cs);
@@ -131,6 +134,7 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
 			ConnectionPool.getInstance().checkIn(c);

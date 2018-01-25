@@ -3,8 +3,6 @@ package application.util;
 import java.util.Iterator;
 import java.util.Map;
 
-import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 

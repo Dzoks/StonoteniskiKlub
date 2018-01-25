@@ -13,25 +13,19 @@ import application.model.dao.DAOFactory;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
-import application.model.dto.TroskoviOpremaDTO;
+import application.util.ErrorLogger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
-
-import javafx.scene.control.Label;
-
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.layout.AnchorPane;
-
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TableColumn;
+import javafx.scene.layout.AnchorPane;
 
 public class EvidentiranjeDonacijaController extends BaseController{
 	@FXML
@@ -80,6 +74,7 @@ public class EvidentiranjeDonacijaController extends BaseController{
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	private void postaviKolone() {
