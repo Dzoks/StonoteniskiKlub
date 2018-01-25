@@ -76,7 +76,9 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaDecora
 	private	ObservableList<TroskoviTurnirDTO> lista = FXCollections.observableArrayList();
 
 	public void obrisi() {
-		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(tableTroskoviTurnir.getSelectionModel().getSelectedItem().getId());
+		TroskoviTurnirDTO temp = tableTroskoviTurnir.getSelectionModel().getSelectedItem();
+		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(temp.getId());
+		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(-temp.getIznos().get());
 		listaTroskovi.remove(tableTroskoviTurnir.getSelectionModel().getSelectedItem());
 		if(!radiobtnSve.isSelected()) {
 			lista.remove(tableTroskoviTurnir.getSelectionModel().getSelectedItem());
@@ -107,6 +109,9 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaDecora
 		BooleanBinding binding = radiobtnSve.selectedProperty().not().and(radiobtnTurnir.selectedProperty().not());
 		btnPrikazi.disableProperty().bind(binding);
 		tableTroskoviTurnir.getSelectionModel().select(0);
+		BooleanBinding bindingObrisi = tableTroskoviTurnir.getSelectionModel().selectedItemProperty().isNull();
+		btnObrisi.disableProperty().bind(bindingObrisi);
+		btnIzmijeni.disableProperty().bind(bindingObrisi);
 	
 	}
 	  @FXML

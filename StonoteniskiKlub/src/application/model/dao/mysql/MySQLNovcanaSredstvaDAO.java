@@ -95,7 +95,7 @@ public class MySQLNovcanaSredstvaDAO implements NovcanaSredstvaDAO{
 		}
 		return ns;
 	}
-	public boolean INSERT(NovcanaSredstvaDTO ns) {//TREBA BITI BOOLEAN
+	public boolean INSERT(NovcanaSredstvaDTO ns) {
 		Connection c = null;
 		java.sql.CallableStatement cs = null;
 		
@@ -140,8 +140,6 @@ public class MySQLNovcanaSredstvaDAO implements NovcanaSredstvaDAO{
 			}
 			return true;
 		}else {
-			Alert alert = new Alert(AlertType.INFORMATION,"Nije moguce dodati transakciju, jer trenutni budzet nije unesen.");
-			alert.showAndWait();
 			return false;
 		}
 		
@@ -163,8 +161,6 @@ public class MySQLNovcanaSredstvaDAO implements NovcanaSredstvaDAO{
 			}
 			return true;
 		}else {
-			Alert alert = new Alert(AlertType.INFORMATION,"Nije moguce dodati transakciju, jer trenutni budzet nije unesen.");
-			alert.showAndWait();
 			return false;
 		}
 	}

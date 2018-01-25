@@ -70,6 +70,7 @@ public class MySQLPlataDAO implements PlataDAO{
 			cs.executeQuery();
 			plata.setId(cs.getInt("outId"));
 		}catch (SQLException e) {
+			e.printStackTrace();
 			Alert alert = new Alert(AlertType.INFORMATION, "Neuspjesno dodavanje!");
 			alert.showAndWait();
 			return false;

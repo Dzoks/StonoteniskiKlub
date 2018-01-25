@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeNovcanihSredstavaController">
+<AnchorPane prefHeight="500.0" prefWidth="745.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeNovcanihSredstavaController">
    <children>
       <TableView fx:id="tableView" layoutX="425.0" layoutY="55.0" prefHeight="159.0" prefWidth="286.0">
         <columns>
@@ -43,8 +43,8 @@
       <Label fx:id="lblVrsta" layoutX="26.0" layoutY="178.0" text="Vrsta:" />
       <ComboBox fx:id="comboBoxVrsta" layoutX="135.0" layoutY="178.0" prefWidth="150.0" />
       <Button fx:id="btnDodaj" layoutX="135.0" layoutY="289.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="150.0" text="Dodajte" />
-      <Button layoutX="494.0" layoutY="249.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="88.0" text="Obrišite" />
-      <Button layoutX="619.0" layoutY="249.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="70.0" text="Izmijenite" />
+      <Button fx:id="btnObrisi" layoutX="494.0" layoutY="249.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="88.0" text="Obrišite" />
+      <Button fx:id="btnIzmijeni" layoutX="619.0" layoutY="249.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="70.0" text="Izmijenite" />
       <Label layoutX="425.0" layoutY="327.0" text="Sezona:" />
       <Label alignment="CENTER_RIGHT" layoutX="426.0" layoutY="373.0" prefHeight="17.0" prefWidth="109.0" text="Usvojeni budžet:" />
       <Label fx:id="lblUsvojeniBudzet" layoutX="597.0" layoutY="373.0" text="vrijednostUsvojeniBudzet" textFill="RED" />

@@ -53,6 +53,7 @@ public class TransakcijaController extends Controller{//realizacija
 		}
 		String opis = txtOpis.getText();
 		LocalDate localDate = datePicker.getValue();
+		System.out.println("localdate "+localDate);
 		Instant instant = null;
 		Date datum = null;
 		if(localDate!=null) {
