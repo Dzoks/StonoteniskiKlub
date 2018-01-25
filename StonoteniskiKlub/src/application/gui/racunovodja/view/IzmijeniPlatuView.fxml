@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="344.0" prefWidth="342.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniPlatuController">
+<AnchorPane prefHeight="344.0" prefWidth="342.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniPlatuController">
    <children>
       <Label fx:id="lblDatumUplate" layoutX="27.0" layoutY="42.0" text="Datum uplate:" />
       <DatePicker fx:id="datePicker" layoutX="127.0" layoutY="38.0" />

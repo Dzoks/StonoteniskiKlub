@@ -91,13 +91,10 @@ public class DodavanjeZaposlenogController extends BaseController {
 	public void initialize(URL location, ResourceBundle resources) {
 		populateComboBoxes();
 		bindDisable();
-		try {
-			defaultImage = new Image(new FileInputStream("src/resources/avatar.png"));
+
+			defaultImage = new Image(getClass().getResourceAsStream("/avatar.png"));
 			imgFotografija.setImage(defaultImage);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			new ErrorLogger().log(e);
-		}
+
 	}
 
 	// Event Listener on Button[#btnDodajBrojTelefona].onAction

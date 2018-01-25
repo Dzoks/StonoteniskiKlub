@@ -6,9 +6,11 @@ import application.util.ErrorLogger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public abstract class BaseController implements Initializable{
@@ -32,6 +34,9 @@ public abstract class BaseController implements Initializable{
 		BaseController control = loader.<BaseController>getController();
 		control.setPrimaryStage(primaryStage);
 		control.getPrimaryStage().setScene(new Scene(pane));
+		Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setX((primScreenBounds.getWidth() -  primaryStage.getWidth()) / 2); 
+        primaryStage.setY((primScreenBounds.getHeight() -  primaryStage.getHeight()) / 4);  
 		control.primaryStage.setOnCloseRequest(event->{});
 		return control;
 	}

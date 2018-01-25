@@ -19,7 +19,6 @@ import java.util.Set;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.mysql.MySQLRegistracijaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.ClanarinaDTO;
 import application.model.dto.RegistracijaDTO;
@@ -174,7 +173,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 		listaClanova.addAll(DAOFactory.getDAOFactory().getClanDAO().selectAll());
 		twTabela.setItems(listaClanova);
 
-		ivFotografija.setImage(new Image(getClass().getResourceAsStream("/resources/avatar.png")));
+		ivFotografija.setImage(new Image(getClass().getResourceAsStream("/avatar.png")));
 
 		// registracija
 		setVidljivostZaIgraca(false);
@@ -468,7 +467,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			if (blob != null) {
 				ivFotografija.setImage(new Image(blob.getBinaryStream()));
 			} else {
-				ivFotografija.setImage(new Image(getClass().getResourceAsStream("/resources/avatar.png")));
+				ivFotografija.setImage(new Image(getClass().getResourceAsStream("/avatar.png")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

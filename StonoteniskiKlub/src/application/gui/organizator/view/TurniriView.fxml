@@ -16,14 +16,14 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.TurniriController">
    <children>
-      <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="594.0" styleClass="hbox" stylesheets="@../../../../../style.css">
+      <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="594.0" styleClass="hbox" stylesheets="/style.css">
          <children>
             <Label fx:id="lblUsername" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="156.0">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#odjaviteSe" stylesheets="@../../../../../style.css" text="Odjavite se">
+            <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#odjaviteSe" stylesheets="/style.css" text="Odjavite se">
                <HBox.margin>
                   <Insets bottom="5.0" right="10.0" top="5.0" />
                </HBox.margin>
@@ -31,7 +31,7 @@
          </children>
       </HBox>
     
-<AnchorPane prefHeight="450.0" prefWidth="700.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="450.0" prefWidth="700.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TableView fx:id="tblTurniri" layoutX="14.0" layoutY="14.0" onMousePressed="#selektovan" prefHeight="300.0" prefWidth="500.0">
         <columns>

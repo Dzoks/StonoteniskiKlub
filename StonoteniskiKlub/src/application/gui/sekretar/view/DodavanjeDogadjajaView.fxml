@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="377.0" prefWidth="330.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodavanjeDogadjajaController">
+<AnchorPane prefHeight="377.0" prefWidth="330.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodavanjeDogadjajaController">
 	<children>
 		<Label layoutX="14.0" layoutY="14.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Datum: " />
 		<JFXTimePicker fx:id="tpPocetak" defaultColor="#e4dbdb" layoutX="125.0" layoutY="147.0" />

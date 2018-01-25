@@ -1,7 +1,5 @@
 package application.gui.sekretar.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Blob;
@@ -79,12 +77,7 @@ public class RadSaZaposlenimaController extends BaseController {
 		populateTable();
 		populateComboBox();
 		bindDisable();
-		try {
-			defaultImage = new Image(new FileInputStream("src/resources/avatar.png"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			new ErrorLogger().log(e);
-		}
+		defaultImage = new Image(getClass().getResourceAsStream("/avatar.png"));
 	}
 
 	// Event Listener on AnchorPane.onMouseClicked
@@ -204,7 +197,7 @@ public class RadSaZaposlenimaController extends BaseController {
 			controller.setZaposleni(zaposleni);
 			newStage.setScene(scene);
 			newStage.setResizable(false);
-			newStage.setTitle("Stonoteniski klub - pregled zaposlenja"); 
+			newStage.setTitle("Stonoteniski klub"); 
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

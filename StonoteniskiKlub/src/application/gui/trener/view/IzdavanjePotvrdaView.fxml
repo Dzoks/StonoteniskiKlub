@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="584.0" prefWidth="787.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzdavanjePotvrdaController">
+<AnchorPane prefHeight="584.0" prefWidth="787.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzdavanjePotvrdaController">
    <children>
       <Button layoutX="694.0" layoutY="539.0" mnemonicParsing="false" onAction="#stampaj" text="Štampanje" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
       <TextArea fx:id="txtSadrzaj" layoutX="20.0" layoutY="138.0" prefHeight="327.0" prefWidth="740.0" wrapText="true" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />

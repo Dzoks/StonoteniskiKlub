@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="385.0" prefWidth="500.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.RegistracijaController">
+<AnchorPane prefHeight="385.0" prefWidth="500.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.RegistracijaController">
 	<children>
 		<ImageView fx:id="imgSlika" fitHeight="236.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
 			<image>
-				<Image url="@../../../../../resources/avatar.png" />
+				<Image url="/avatar.png" />
 			</image>
 		</ImageView>
 		<Label alignment="CENTER_RIGHT" layoutX="234.0" layoutY="21.0" prefHeight="17.0" prefWidth="85.0" text="Ime:" />

@@ -12,11 +12,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="479.0" prefWidth="511.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodavanjeZaposlenogController">
+<AnchorPane prefHeight="479.0" prefWidth="511.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.DodavanjeZaposlenogController">
 	<children>
 		<ImageView fx:id="imgFotografija" fitHeight="216.0" fitWidth="194.0" layoutX="13.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../resources/avatar.png" />
+            <Image url="/avatar.png" />
          </image></ImageView>
 		<Label alignment="CENTER_RIGHT" layoutX="233.0" layoutY="21.0" prefHeight="17.0" prefWidth="83.0" text="Ime:" />
 		<TextField fx:id="txtIme" layoutX="322.0" layoutY="17.0" prefHeight="25.0" prefWidth="175.0" />

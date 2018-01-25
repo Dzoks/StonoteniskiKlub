@@ -10,7 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane onMouseClicked="#deselect" prefHeight="588.0" prefWidth="770.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaZaposlenimaController">
+<AnchorPane onMouseClicked="#deselect" prefHeight="588.0" prefWidth="770.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaZaposlenimaController">
    <children>
       <TableView fx:id="tblZaposleni" layoutX="230.0" layoutY="50.0" onMouseClicked="#prikaziSliku" prefHeight="498.0" prefWidth="505.0" tableMenuButtonVisible="true">
         <columns>
@@ -29,7 +29,7 @@
       </TableView>
       <ImageView fx:id="imgFotografija" fitHeight="255.0" fitWidth="188.0" layoutX="14.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../resources/avatar.png" />
+            <Image url="/avatar.png" />
          </image>
       </ImageView>
       <Button fx:id="btnDodajZaposlenog" layoutX="47.0" layoutY="523.0" mnemonicParsing="false" onAction="#dodajZaposlenog" text="Dodajte zaposlenog" />

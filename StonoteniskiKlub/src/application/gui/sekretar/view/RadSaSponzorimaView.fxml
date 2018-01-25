@@ -10,7 +10,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane onMouseClicked="#deselect" prefHeight="588.0" prefWidth="770.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaSponzorimaController">
+<AnchorPane onMouseClicked="#deselect" prefHeight="588.0" prefWidth="770.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaSponzorimaController">
    <children>
       <TableView fx:id="tblSponzori" layoutX="14.0" layoutY="69.0" prefHeight="437.0" prefWidth="738.0">
          <columns>

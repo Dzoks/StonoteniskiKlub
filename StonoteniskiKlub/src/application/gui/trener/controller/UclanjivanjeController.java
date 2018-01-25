@@ -131,7 +131,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 	}
 	
 	public void obrisiFotografiju() {
-		ivSlika.setImage(new Image(getClass().getResourceAsStream("/resources/avatar.png")));
+		ivSlika.setImage(new Image(getClass().getResourceAsStream("/avatar.png")));
 		slikaOdabrana = false;
 		fotografija = null;
 	}

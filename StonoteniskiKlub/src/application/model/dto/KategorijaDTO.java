@@ -57,6 +57,9 @@ public class KategorijaDTO {
 		this.LinkProperty().set(Link);
 	}
 	
+	public String toString() {
+		return getNaziv();
+	}
 	
 	
 }

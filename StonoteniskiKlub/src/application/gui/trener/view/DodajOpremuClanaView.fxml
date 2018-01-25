@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="259.0" prefWidth="761.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.DodajOpremuClanaController">
+<AnchorPane prefHeight="259.0" prefWidth="761.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.DodajOpremuClanaController">
    <children>
       <Label layoutX="20.0" layoutY="18.0" text="Narudžba:" />
       <ComboBox fx:id="comboBoxNarudzba" layoutX="82.0" layoutY="14.0" prefHeight="25.0" prefWidth="186.0" />

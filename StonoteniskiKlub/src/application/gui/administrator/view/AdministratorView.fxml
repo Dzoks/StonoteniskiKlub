@@ -12,14 +12,14 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="561.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.administrator.controller.AdministratorController">
    <children>
-      <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="594.0" styleClass="hbox" stylesheets="@../../../../../style.css">
+      <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="594.0" styleClass="hbox" stylesheets="/style.css">
          <children>
             <Label fx:id="lblUsername" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="156.0">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#odjaviteSe" stylesheets="@../../../../../style.css" text="Odjavite se">
+            <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#odjaviteSe" stylesheets="/style.css" text="Odjavite se">
                <HBox.margin>
                   <Insets bottom="5.0" right="10.0" top="5.0" />
                </HBox.margin>
@@ -27,9 +27,9 @@
          </children>
       </HBox>
     
-<AnchorPane prefHeight="396.0" prefWidth="607.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="396.0" prefWidth="607.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tabelaNalog" layoutX="19.0" layoutY="18.0" prefHeight="323.0" prefWidth="530.0" stylesheets="@../../../../../style.css">
+      <TableView fx:id="tabelaNalog" layoutX="19.0" layoutY="18.0" prefHeight="323.0" prefWidth="530.0" stylesheets="/style.css">
         <columns>
           <TableColumn fx:id="kolonaKorisnickoIme" prefWidth="135.0" text="Korisničko ime" />
           <TableColumn fx:id="kolonaUloga" prefWidth="135.0" text="Uloga" />

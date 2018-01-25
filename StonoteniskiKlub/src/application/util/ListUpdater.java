@@ -7,7 +7,6 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import application.model.dao.DAOFactory;
-import application.model.dao.mysql.MySQLRegistracijaDAO;
 import application.model.dto.KategorijaDTO;
 import application.model.dto.RegistracijaDTO;
 import javafx.application.Platform;
@@ -18,7 +17,7 @@ public class ListUpdater extends Task<Void> {
 	@Override
 	protected Void call() {
 		try {
-			ResourceBundle bundle = PropertyResourceBundle.getBundle("application.util.RangLista");
+			ResourceBundle bundle = PropertyResourceBundle.getBundle("Properties");
 			String season = bundle.getString("Sezona");
 			File folder = new File("rangListe");
 			folder.mkdir();

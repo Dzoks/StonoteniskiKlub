@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.swing.plaf.synth.SynthSpinnerUI;
-
 import application.model.dao.DAOFactory;
 import application.model.dto.TransakcijaDTO;
 import application.model.dto.TurnirDTO;

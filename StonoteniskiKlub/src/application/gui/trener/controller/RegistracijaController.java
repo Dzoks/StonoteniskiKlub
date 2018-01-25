@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.mysql.MySQLRegistracijaDAO;
 import application.model.dto.ClanDTO;
 import application.model.dto.KategorijaDTO;
 import application.model.dto.RegistracijaDTO;

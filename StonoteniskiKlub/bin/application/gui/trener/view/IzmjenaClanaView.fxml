@@ -11,7 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="598.0" prefWidth="653.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjenaClanaController">
+<AnchorPane prefHeight="598.0" prefWidth="653.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjenaClanaController">
    <children>
       <TextField fx:id="txtIme" layoutX="413.0" layoutY="49.0" prefHeight="31.0" prefWidth="218.0" />
       <TextField fx:id="txtPrezime" layoutX="413.0" layoutY="94.0" prefHeight="31.0" prefWidth="218.0" />

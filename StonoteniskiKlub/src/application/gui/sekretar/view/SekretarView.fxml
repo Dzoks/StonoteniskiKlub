@@ -11,21 +11,21 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.SekretarController">
    <children>
-      <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="716.0" styleClass="hbox" stylesheets="@../../../../../style.css">
+      <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="716.0" styleClass="hbox" stylesheets="/style.css">
          <children>
             <Label fx:id="lblUsername" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="156.0">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#odjaviteSe" stylesheets="@../../../../../style.css" text="Odjavite se">
+            <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#odjaviteSe" stylesheets="/style.css" text="Odjavite se">
                <HBox.margin>
                   <Insets bottom="5.0" right="10.0" top="5.0" />
                </HBox.margin>
             </Button>
          </children>
       </HBox>
-      <AnchorPane prefHeight="603.0" prefWidth="770.0" styleClass="body" stylesheets="@../../../../../style.css">
+      <AnchorPane prefHeight="603.0" prefWidth="770.0" styleClass="body" stylesheets="/style.css">
          <children>
             <TabPane prefHeight="600.0" prefWidth="770.0" style="-fx-border-color: transparent;" styleClass="hbox" tabClosingPolicy="UNAVAILABLE">
                <tabs>

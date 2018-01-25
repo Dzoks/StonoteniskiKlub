@@ -146,7 +146,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 	}
 	
 	public void obrisiFotografiju() {
-		ivSlika.setImage(new Image(getClass().getResourceAsStream("/resources/avatar.png")));
+		ivSlika.setImage(new Image(getClass().getResourceAsStream("/avatar.png")));
 		slikaPromijenjena = true;
 		fotografija = null;
 	}
@@ -268,7 +268,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 				ivSlika.setImage(new Image(blob.getBinaryStream()));
 			}
 			else {
-				ivSlika.setImage(new Image(getClass().getResourceAsStream("/resources/avatar.png")));
+				ivSlika.setImage(new Image(getClass().getResourceAsStream("/avatar.png")));
 			}
 		} catch (SQLException e) {
 			new ErrorLogger().log(e);

@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dao.mysql.MySQLRundaDAO;
 import application.model.dto.MecDTO;
 import application.model.dto.TimDTO;
 import javafx.event.EventHandler;
