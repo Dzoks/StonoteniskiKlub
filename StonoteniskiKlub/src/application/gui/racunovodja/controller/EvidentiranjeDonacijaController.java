@@ -15,6 +15,7 @@ import application.model.dao.DAOFactory;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
+import application.util.ErrorLogger;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

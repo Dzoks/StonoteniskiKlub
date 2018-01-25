@@ -66,7 +66,7 @@ public class MySQLTreningDAO implements TreningDAO {
 		ResultSet rs = null;
 		try {
 			c = ConnectionPool.getInstance().checkOut();
-			ps = c.prepareStatement("insert into TRENING (Opis,Datum,CLAN_Id) values (?,?,?);",
+			ps = c.prepareStatement("insert into TRENING (Opis,Datum,CLAN_Id,Aktivan) values (?,?,?,true);",
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setInt(3, trening.getCLAN_Id());
 			ps.setString(1, trening.getOpis());
