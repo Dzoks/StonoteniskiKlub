@@ -67,9 +67,7 @@ public class MySQLTroskoviTurnirDAO implements TroskoviTurnirDAO {
 			cs.registerOutParameter("outId", Types.INTEGER);
 			cs.executeQuery();
 
-			// while(rs.next())
 			troskovi.setId(cs.getInt("outId"));
-			// System.out.println("Id clanarine je "+id);
 
 		} catch (SQLException e) {
 			Alert alert = new Alert(AlertType.INFORMATION, e.getMessage());
@@ -89,7 +87,6 @@ public class MySQLTroskoviTurnirDAO implements TroskoviTurnirDAO {
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			cs = c.prepareCall(SQL_UPDATE);
-			System.out.println(trosak.getId());
 			if (trosak.getId() == null)
 				cs.setNull("inId", Integer.MAX_VALUE);
 			else

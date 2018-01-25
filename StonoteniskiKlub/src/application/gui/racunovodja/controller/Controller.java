@@ -67,7 +67,6 @@ public abstract class Controller extends BaseController{
 		this.radiobtnSve = radiobtnSve;
 		this.btnPrikazi = btnPrikazi;
 	}
-	abstract void metoda();
 	abstract TransakcijaDTO dodaj();
 	abstract void obrisiPolja();
 	abstract void uspjesnoDodavanje();

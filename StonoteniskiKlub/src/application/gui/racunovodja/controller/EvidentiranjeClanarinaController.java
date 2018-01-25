@@ -112,20 +112,10 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 				new ErrorLogger().log(e);
 			}
 	    }
-	
-	@Override
-	public void metoda() {
-		super.metoda();
-		System.out.println("Clanarine metoda");
-	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		System.out.println(txtIznos);
-		System.out.println(lblOpis);
 		super.setController(new TransakcijaController(txtIznos, datePicker, txtOpis, radiobtnSve,btnPrikazi));
-		
-		metoda();
 		ToggleGroup group = new ToggleGroup();
 		radiobtnClan.setToggleGroup(group);
 		radiobtnMjesec.setToggleGroup(group);
@@ -222,7 +212,6 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 	}
 	
 	public void prikazi() {
-		System.out.println("prikazi");
 		lista = FXCollections.observableArrayList();
 		if(radiobtnClan.isSelected()) {
 			ClanDTO clan = comboBoxClanPrikazi.getValue();
@@ -233,7 +222,6 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 			}
 			tableClanarine.setItems(lista);
 		}else if(radiobtnMjesec.isSelected()) {
-			System.out.println("mjesec");
 			int mjesec = spinnerMjesecPrikazi.getValue();
 			int godina = spinnerGodina.getValue();
 			for(ClanarinaDTO cl : listaClanarina) {
@@ -249,7 +237,6 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 	}
 	public void izmijeni() {
 		Stage noviStage = new Stage();
-		System.out.println("prije loader");
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/IzmijeniClanarinuView.fxml"));
 		AnchorPane root;
 		IzmijeniClanarinuController controller=null;

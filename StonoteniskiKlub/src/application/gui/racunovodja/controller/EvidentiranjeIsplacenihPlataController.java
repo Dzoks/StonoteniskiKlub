@@ -169,7 +169,6 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 	}
 	public void izmijeni() {
 		Stage noviStage = new Stage();
-		System.out.println("prije loader");
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/IzmijeniPlatuView.fxml"));
 		AnchorPane root;
 		IzmijeniPlatuController controller=null;
@@ -183,20 +182,16 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 			noviStage.setResizable(false);
 			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL); 
-			//odavde
-			PlataDTO plata = tablePlate.getSelectionModel().getSelectedItem(); //+
-			controller.setListaPlata(listaPlata);								//+
-			//
-			System.out.println(controller);
-			//
-			controller.setTxtIznos(new String(plata.getIznos().getValue().toString())); //+
-			controller.setTxtOpis(plata.getOpis().get()); //+
-			controller.setDatePicker(plata.getDatum()); //+
-			controller.setPlata(plata);//+
-			controller.setEvidentiranjeController(this); //+
-			noviStage.showAndWait(); //+
-			tablePlate.refresh(); //+
-			//
+			PlataDTO plata = tablePlate.getSelectionModel().getSelectedItem(); 
+			controller.setListaPlata(listaPlata);								
+			controller.setTxtIznos(new String(plata.getIznos().getValue().toString())); 
+			controller.setTxtOpis(plata.getOpis().get()); 
+			controller.setDatePicker(plata.getDatum()); 
+			controller.setPlata(plata);
+			controller.setEvidentiranjeController(this); 
+			noviStage.showAndWait(); 
+			tablePlate.refresh(); 
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -258,7 +253,6 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 			}
 			tablePlate.setItems(lista);
 		}else if(radiobtnMjesec.isSelected()) {
-			System.out.println("mjesec");
 			int mjesec = spinnerMjesecPrikazi.getValue();
 			int godina = spinnerGodina.getValue();
 			for(PlataDTO pl : listaPlata) {
@@ -267,7 +261,6 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 				cal.setTime(pl.getDatum());
 				int month = cal.get(Calendar.MONTH);
 				int year = cal.get(Calendar.YEAR);
-				System.out.println(pl.getDatum());
 				if(month+1==mjesec && year==godina) { 
 					lista.add(pl);
 				}

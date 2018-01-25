@@ -161,7 +161,6 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 	@FXML
 	public void dodajTipTransakcije(ActionEvent event) {
 		Stage noviStage = new Stage();
-		System.out.println("prije loader");
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/DodajTipTransakcijeView.fxml"));
 		AnchorPane root;
 		try {
@@ -285,11 +284,9 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			controller.setTransakcija(transakcija);
 			controller.setEvidentiranjeController(this);
 			noviStage.showAndWait();
-			//postaviKolone();
-			//tableClanarine.setItems(listaClanarina);
+		
 			tableView.refresh();
 			postaviKolone();
-			//popuniTabelu();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

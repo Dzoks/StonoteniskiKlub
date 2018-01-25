@@ -169,7 +169,6 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaDecora
 	}
 	public void prikazi() {
 		lista = FXCollections.observableArrayList();
-		System.out.println("prikazi");
 		if(radiobtnSve.isSelected()) {
 			tableTroskoviTurnir.setItems(listaTroskovi);
 		}else if(radiobtnTurnir.isSelected()) {
@@ -185,7 +184,6 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaDecora
 	}
 	public void izmijeni() {
 		Stage noviStage = new Stage();
-		System.out.println("prije loader");
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/IzmijeniSredstvaZaTurnir.fxml"));
 		AnchorPane root;
 		IzmijeniSredstvaZaTurnirController controller=null;

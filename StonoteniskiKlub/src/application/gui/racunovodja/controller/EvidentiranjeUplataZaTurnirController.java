@@ -185,7 +185,6 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 	public TransakcijaDTO dodaj() {
 		
 		TransakcijaDTO transakcija = super.dodaj();
-		System.out.println(transakcija.getDatum());
 		if(transakcija==null)
 			return null;
 		
@@ -193,7 +192,6 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 		
 		String tipTransakcije = DAOFactory.getDAOFactory().getTipTransakcijeDAO().getById(4).getTip();
 		UplataZaTurnirDTO uplata = new UplataZaTurnirDTO(null, transakcija.getDatum(), transakcija.getIznos().get(), transakcija.getOpis().get(), tipTransakcije, ucesnik);
-		System.out.println(uplata);
 		boolean ok = DAOFactory.getDAOFactory().getUplataZaTurnirDAO().INSERT(uplata, ucesnik);
 		if(ok) {
 			listaUplata.add(uplata);

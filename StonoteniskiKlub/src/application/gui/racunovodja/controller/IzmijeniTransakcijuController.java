@@ -27,14 +27,12 @@ import javafx.stage.Stage;
 public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 	@FXML
 	private Label lblDatum;
-	
 	@FXML
 	private Button btnIzmijeni;
 	@FXML
 	private Button btnOtkazi;
 	@FXML
-	private Label lblIznos;
-	
+	private Label lblIznos;	
 	@FXML
 	private Label lblKM;
 	@FXML
@@ -96,7 +94,7 @@ public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 	}
 	public TransakcijaDTO izmijeni() { //dodati uticaj na budzet
 		TransakcijaDTO trans = super.izmijeni();
-		if(transakcija==null)
+		if(trans==null)
 			return null;
 		TipTransakcijeDTO tip = (TipTransakcijeDTO)comboBoxTipTransakcije.getValue();
 		
@@ -124,7 +122,6 @@ public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 	}
 	public void dodajTipTransakcije() {
 		Stage noviStage = new Stage();
-		System.out.println("prije loader");
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/DodajTipTransakcijeView.fxml"));
 		AnchorPane root;
 		try {

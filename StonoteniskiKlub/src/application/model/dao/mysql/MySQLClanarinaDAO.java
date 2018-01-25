@@ -77,7 +77,6 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 			
 			
 			clanarina.setId(cs.getInt("outId"));
-			System.out.println("Id clanarine je "+clanarina.getId());
 		}catch (SQLException e) {
 			e.printStackTrace();
 			new ErrorLogger().log(e);
@@ -94,12 +93,7 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 		try{
 			c = ConnectionPool.getInstance().checkOut();
 			cs = c.prepareCall(SQL_UPDATE);
-			System.out.println(clanarina.getId());
-			
-			System.out.println(cs);
-			System.out.println(clanarina);
 			cs.setInt("inId", clanarina.getId());
-			
 			cs.setDate("inDatum", new java.sql.Date(clanarina.getDatum().getTime()));
 			cs.setDouble("inIznos", clanarina.getIznos().doubleValue());
 			cs.setString("inOpis",clanarina.getOpis().getValue());

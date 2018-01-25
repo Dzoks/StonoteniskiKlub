@@ -73,9 +73,7 @@ public class MySQLTroskoviOpremaDAO implements TroskoviOpremaDAO {
 				return false;
 			}
 
-			// while(rs.next())
 			troskovi.setId(cs.getInt("outId"));
-			// System.out.println("Id clanarine je "+id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			new ErrorLogger().log(e);
@@ -93,7 +91,6 @@ public class MySQLTroskoviOpremaDAO implements TroskoviOpremaDAO {
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			cs = c.prepareCall(SQL_UPDATE);
-			System.out.println(trosak.getId());
 			if (trosak.getId() == null)
 				cs.setNull("inId", Integer.MAX_VALUE);
 			else

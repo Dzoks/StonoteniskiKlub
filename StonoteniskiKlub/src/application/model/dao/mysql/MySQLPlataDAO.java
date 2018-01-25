@@ -85,7 +85,6 @@ public class MySQLPlataDAO implements PlataDAO {
 		try {
 			c = ConnectionPool.getInstance().checkOut();
 			cs = c.prepareCall(SQL_UPDATE);
-			System.out.println(plata.getId());
 			if (plata.getId() == null)
 				cs.setNull("inId", Integer.MAX_VALUE); // ne valja
 			else

@@ -18,12 +18,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
-public class TransakcijaController extends Controller{//realizacija
-	//imacemo polja zajednicka
+public class TransakcijaController extends Controller{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		System.out.println("TransakcijaController initialize");
 	}
 	public TransakcijaController() {
 		super();
@@ -34,13 +32,9 @@ public class TransakcijaController extends Controller{//realizacija
 		super(txtIznos, datePicker, txtOpis, radiobtnSve, btnPrikazi);
 		// TODO Auto-generated constructor stub
 	}
-	public void metoda() {
-		System.out.println("TransakcijaController metoda");
-		System.out.println(txtIznos);
-	}
 	
 	@Override
-	public TransakcijaDTO dodaj() { //stvarno ce pokupiti vrijednosti sa zajednickih polja
+	public TransakcijaDTO dodaj() { 
 		Double iznos = null;
 		try {
 			iznos = Double.parseDouble(txtIznos.getText());
@@ -53,7 +47,6 @@ public class TransakcijaController extends Controller{//realizacija
 		}
 		String opis = txtOpis.getText();
 		LocalDate localDate = datePicker.getValue();
-		System.out.println("localdate "+localDate);
 		Instant instant = null;
 		Date datum = null;
 		if(localDate!=null) {

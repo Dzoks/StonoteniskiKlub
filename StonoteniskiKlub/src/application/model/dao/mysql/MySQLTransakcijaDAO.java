@@ -79,8 +79,6 @@ public class MySQLTransakcijaDAO implements TransakcijaDAO {
 		}
 		return id;
 	}
-	// private static final String SQL_UPDATE = "update TRANSAKCIJA set Datum=?,
-	// Iznos=?, Opis=?, TIP_TRANSAKCIJE_Id=?, jeUplata=? where Id=?";
 
 	public void UPDATE(TransakcijaDTO transakcija, TipTransakcijeDTO tip) {// ne
 																			// radi

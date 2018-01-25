@@ -178,7 +178,6 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 	}
 
 	public void prikazi() {
-		System.out.println("prikazi");
 		lista = FXCollections.observableArrayList();
 		if(radiobtnSve.isSelected()) {
 			tableTroskoviOprema.setItems(listaTroskovi);
@@ -195,7 +194,6 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 	}
 	public void izmijeni() {
 		Stage noviStage = new Stage();
-		System.out.println("prije loader");
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/IzmijeniSredstvaZaOpremu.fxml"));
 		AnchorPane root;
 		IzmijeniSredstvaZaOpremuController controller=null;

@@ -31,9 +31,6 @@ public abstract class TransakcijaDecorater extends Controller{ //delegacija
 	public void setBtnPrikazi(Button btnPrikazi) {
 		this.controller.setBtnPrikazi(btnPrikazi);
 	}
-	public void metoda() {
-		controller.metoda();
-	}
 	
 	@Override
 	public TransakcijaDTO dodaj() {

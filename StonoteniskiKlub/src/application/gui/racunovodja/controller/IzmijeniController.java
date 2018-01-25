@@ -31,11 +31,9 @@ public abstract class IzmijeniController extends BaseController{
 		// TODO Auto-generated constructor stub
 	}
 	public void setTxtIznos(String txtIznos) {
-		System.out.println(this.txtIznos);
 		this.txtIznos.setText(txtIznos);
 	}
 	public void setTxtIznos(TextField txtIznos) {
-		System.out.println("setter" + txtIznos);
 		this.txtIznos = txtIznos;
 	}
 	public void setDatePicker(DatePicker datePicker) {
