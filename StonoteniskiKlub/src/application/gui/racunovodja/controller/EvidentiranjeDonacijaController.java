@@ -117,8 +117,10 @@ public class EvidentiranjeDonacijaController extends BaseController{
 		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(iznos);
 		tableDonacije.refresh();
 	}
-	public void neObradi() {
+	public void neObradi() { //obrisati
 		DonacijaDTO donacija = tableDonacije.getSelectionModel().getSelectedItem();
+		donacija.setObradjeno(false);
+		tableDonacije.refresh();
 		Double iznos = donacija.getNovcaniIznos().doubleValue();
 		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(-iznos);
 	}

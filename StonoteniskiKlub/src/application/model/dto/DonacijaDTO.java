@@ -158,5 +158,14 @@ public class DonacijaDTO {
 			return transakcija.opisProperty();
 		return new SimpleStringProperty("");
 	}
-	
+	public StringProperty datumUplateProperty() {
+		if(transakcija!=null)
+			return transakcija.datumProperty();
+		return new SimpleStringProperty("");
+	}
+	public StringProperty nazivSponzoraProperty() {
+		if(sponzor!=null)
+			return sponzor.nazivProperty();
+		return new SimpleStringProperty("");
+	}
 }
