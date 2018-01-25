@@ -156,6 +156,9 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 		});
 		BooleanBinding binding = radiobtnSve.selectedProperty().not().and(radiobtnClan.selectedProperty().not()).and(radiobtnMjesec.selectedProperty().not());
 		btnPrikazi.disableProperty().bind(binding);
+		BooleanBinding bindingObrisi = tableClanarine.getSelectionModel().selectedItemProperty().isNull();
+		btnObrisi.disableProperty().bind(bindingObrisi);
+		btnIzmijeni.disableProperty().bind(bindingObrisi);
 	}
 	
 	public void radioClan() {
@@ -290,7 +293,9 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 		this.listaClanarina = listaClanarina;
 	}
 	public void obrisi() {
-		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(tableClanarine.getSelectionModel().getSelectedItem().getId());
+		ClanarinaDTO temp = tableClanarine.getSelectionModel().getSelectedItem();
+		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(temp.getId());
+		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(-temp.getIznos().get());
 		listaClanarina.remove(tableClanarine.getSelectionModel().getSelectedItem());
 		if(!radiobtnSve.isSelected()) {
 			lista.remove(tableClanarine.getSelectionModel().getSelectedItem());

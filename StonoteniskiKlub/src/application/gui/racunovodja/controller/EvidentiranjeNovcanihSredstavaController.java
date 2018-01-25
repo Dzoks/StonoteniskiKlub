@@ -60,6 +60,10 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 	@FXML
 	private Button btnDodajBudzet;
 	@FXML
+	private Button btnObrisi;
+	@FXML
+	private Button btnIzmijeni;
+	@FXML
 	private TextField txtIznos;
 	@FXML
 	private TextField txtIznosBudzet;
@@ -112,6 +116,9 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			if(poljaPraznaBudzet())
 				btnDodajBudzet.disableProperty().bind(bb1);
 		});
+		BooleanBinding bindingObrisi = tableView.getSelectionModel().selectedItemProperty().isNull();
+		btnObrisi.disableProperty().bind(bindingObrisi);
+		btnIzmijeni.disableProperty().bind(bindingObrisi);
 	}
 	private void obrisiPoljaBudzet() {
 		txtSezona.setText("");
@@ -204,7 +211,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		comboBoxVrsta.getSelectionModel().selectFirst();
 		comboBoxSezona.setItems(DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getSezone());
 		trenutnaNS = DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().getNSMaxId();
-		System.out.println(trenutnaNS);
+		comboBoxSezona.getSelectionModel().selectLast();
 		this.prikaziLabele(trenutnaNS);
 	}
 	public void obrisiPolja() {
@@ -324,7 +331,12 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		
 	}
 	public void obrisi() {
-		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(tableView.getSelectionModel().getSelectedItem().getId());
+		TransakcijaDTO temp = tableView.getSelectionModel().getSelectedItem();
+		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(temp.getId());
+		if(temp.getJeUplata())
+			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(-temp.getIznos().get());
+		else
+			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(-temp.getIznos().get());
 		listaTransakcija.remove(tableView.getSelectionModel().getSelectedItem());
 		tableView.refresh();
 	}

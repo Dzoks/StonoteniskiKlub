@@ -20,7 +20,7 @@ public class MySQLTransakcijaDAO implements TransakcijaDAO {
 	private static final String SQL_SELECT_ALL = "select * from prikaz_transakcija";
 	private static final String SQL_INSERT = "insert into TRANSAKCIJA values (null,?,?,?,?,?,false)";
 	private static final String SQL_UPDATE = "update TRANSAKCIJA set Datum=?, Iznos=?, Opis=?, TIP_TRANSAKCIJE_Id=?, jeUplata=? where Id=?";
-	private static final String SQL_DELETE = "update TRANSAKCIJA set Obrisano=true where Id=?";
+	private static final String SQL_DELETE = "update TRANSAKCIJA set Obrisan=true where Id=?";
 
 	public ObservableList<TransakcijaDTO> SELECT_ALL() {
 		ObservableList<TransakcijaDTO> listaTransakcija = FXCollections.observableArrayList();
@@ -68,7 +68,8 @@ public class MySQLTransakcijaDAO implements TransakcijaDAO {
 			if (rs.next()) {
 				id = rs.getInt(1);
 			}
-		} catch (SQLException e) {
+			transakcija.setId(id);
+		}catch (SQLException e) {
 			Alert alert = new Alert(AlertType.INFORMATION, "Neuspjesno dodavanje");
 			alert.showAndWait();
 			return 0;

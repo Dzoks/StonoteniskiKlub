@@ -152,4 +152,11 @@ public class DonacijaDTO {
 		}
 		return result;
 	}
+	
+	public StringProperty opisTransakcijeProperty() { //ostaviti ovo, inace Heleni puca
+		if(transakcija!=null)
+			return transakcija.opisProperty();
+		return new SimpleStringProperty("");
+	}
+	
 }

@@ -135,6 +135,9 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 		});
 		BooleanBinding binding = radiobtnSve.selectedProperty().not().and(radiobtnZaposleni.selectedProperty().not()).and(radiobtnMjesec.selectedProperty().not());
 		btnPrikazi.disableProperty().bind(binding);
+		BooleanBinding bindingObrisi = tablePlate.getSelectionModel().selectedItemProperty().isNull();
+		btnObrisi.disableProperty().bind(bindingObrisi);
+		btnIzmijeni.disableProperty().bind(bindingObrisi);
 	}
 	
 	  @FXML
@@ -277,7 +280,9 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 		tablePlate.getSelectionModel().select(0);
 	}
 	public void obrisi() {
-		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(tablePlate.getSelectionModel().getSelectedItem().getId());
+		PlataDTO temp = tablePlate.getSelectionModel().getSelectedItem();
+		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(temp.getId());
+		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(-temp.getIznos().get());
 		listaPlata.remove(tablePlate.getSelectionModel().getSelectedItem());
 		if(!radiobtnSve.isSelected()) {
 			lista.remove(tablePlate.getSelectionModel().getSelectedItem());

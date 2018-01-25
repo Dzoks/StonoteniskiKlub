@@ -50,6 +50,8 @@ public class MySQLUplataZaTurnirDAO implements UplataZaTurnirDAO{
 		try{
 			c = ConnectionPool.getInstance().checkOut();
 			cs = c.prepareCall(SQL_INSERT);
+			System.out.println(uplata);
+			System.out.println(uplata.getDatum());
 			cs.setDate("inDatum", new java.sql.Date(uplata.getDatum().getTime()));
 			cs.setDouble("inIznos", uplata.getIznos().doubleValue());
 			cs.setString("inOpis",uplata.getOpis().getValue());

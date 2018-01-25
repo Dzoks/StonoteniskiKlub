@@ -32,6 +32,7 @@ public class UcesnikPrijavaDTO extends OsobaDTO{
 		this.idTurnira = new SimpleIntegerProperty(idTurnira);
 		this.idKategorije = idKategorije == null ? null :new SimpleIntegerProperty(idKategorije); //ostaviti ovako, inace Heleni puca
 		this.datum = datum;
+		if(datumRodjenja!=null) //Helena morala dodati, jer ne vuce iz baze datumRodjenja, pa bude nullptr
 		this.konvertovanDatumRodjenja= TurniriController.konvertujIzSQLDate(datumRodjenja.toString()); //ovo ostaviti, Gaji odgovara ovako
 	}
 	

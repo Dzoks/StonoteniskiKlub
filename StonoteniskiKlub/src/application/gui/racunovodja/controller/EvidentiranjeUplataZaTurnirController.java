@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.swing.plaf.synth.SynthSpinnerUI;
+
 import application.model.dao.DAOFactory;
 import application.model.dto.TransakcijaDTO;
 import application.model.dto.TurnirDTO;
@@ -101,7 +103,9 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 	private ObservableList<UplataZaTurnirDTO> lista = FXCollections.observableArrayList();
 
 	public void obrisi() {
-		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(tableUplateZaTurnir.getSelectionModel().getSelectedItem().getId());
+		UplataZaTurnirDTO temp = tableUplateZaTurnir.getSelectionModel().getSelectedItem();
+		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(temp.getId());
+		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(-temp.getIznos().get());
 		listaUplata.remove(tableUplateZaTurnir.getSelectionModel().getSelectedItem());
 		if(!radiobtnSve.isSelected()) {
 			lista.remove(tableUplateZaTurnir.getSelectionModel().getSelectedItem());
@@ -134,7 +138,10 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 		});
 		BooleanBinding binding = radiobtnSve.selectedProperty().not().and(radiobtnTurnir.selectedProperty().not()).and(radiobtnUcesnik.selectedProperty().not());
 		btnPrikazi.disableProperty().bind(binding);
-	}
+		BooleanBinding bindingObrisi = tableUplateZaTurnir.getSelectionModel().selectedItemProperty().isNull();
+		btnObrisi.disableProperty().bind(bindingObrisi);
+		btnIzmijeni.disableProperty().bind(bindingObrisi);
+		}
 	
 	public void radioUcesnik() {
 		comboBoxUcesnikPrikazi.setDisable(false);
@@ -178,6 +185,7 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 	public TransakcijaDTO dodaj() {
 		
 		TransakcijaDTO transakcija = super.dodaj();
+		System.out.println(transakcija.getDatum());
 		if(transakcija==null)
 			return null;
 		
@@ -185,12 +193,13 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 		
 		String tipTransakcije = DAOFactory.getDAOFactory().getTipTransakcijeDAO().getById(4).getTip();
 		UplataZaTurnirDTO uplata = new UplataZaTurnirDTO(null, transakcija.getDatum(), transakcija.getIznos().get(), transakcija.getOpis().get(), tipTransakcije, ucesnik);
-		
+		System.out.println(uplata);
 		boolean ok = DAOFactory.getDAOFactory().getUplataZaTurnirDAO().INSERT(uplata, ucesnik);
 		if(ok) {
 			listaUplata.add(uplata);
 			tableUplateZaTurnir.setItems(listaUplata);
-			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(uplata.getIznos().get());
+			tableUplateZaTurnir.getSelectionModel().select(0);
+			boolean ok1 = DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(uplata.getIznos().get());
 			super.uspjesnoDodavanje();
 			return uplata;
 		}

@@ -8,12 +8,14 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import org.bouncycastle.jce.provider.BrokenPBE;
+
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
-import application.util.ErrorLogger;
+import javafx.beans.binding.BooleanBinding;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,6 +69,10 @@ public class EvidentiranjeDonacijaController extends BaseController{
 		listaDonacija = DAOFactory.getDAOFactory().getDonacijaDAO().neobradjene(true);
 		postaviKolone();
 		tableDonacije.setItems(listaDonacija);
+		BooleanBinding binding = tableDonacije.getSelectionModel().selectedItemProperty().isNull().or(datePicker.valueProperty().isNull());
+		btnObradi.disableProperty().bind(binding);
+		BooleanBinding binding2 =  tableDonacije.getSelectionModel().selectedItemProperty().isNull();
+		btnNeobradjeno.disableProperty().bind(binding2);
 	}
 	  @FXML
 	    void odjaviteSe(ActionEvent event) {

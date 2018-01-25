@@ -83,7 +83,9 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 	private ObservableList<TroskoviOpremaDTO> lista = FXCollections.observableArrayList();
 
 	public void obrisi() {
-		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(tableTroskoviOprema.getSelectionModel().getSelectedItem().getId());
+		TroskoviOpremaDTO temp = tableTroskoviOprema.getSelectionModel().getSelectedItem();
+		DAOFactory.getDAOFactory().getTransakcijaDAO().delete(temp.getId());
+		DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajRashode(-temp.getIznos().get());
 		listaTroskovi.remove(tableTroskoviOprema.getSelectionModel().getSelectedItem());
 		if(!radiobtnSve.isSelected()) {
 			lista.remove(tableTroskoviOprema.getSelectionModel().getSelectedItem());
@@ -114,6 +116,9 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 		BooleanBinding binding = radiobtnSve.selectedProperty().not().and(radiobtnDistributer.selectedProperty().not());
 		btnPrikazi.disableProperty().bind(binding);
 		tableTroskoviOprema.getSelectionModel().select(0);
+		BooleanBinding bindingObrisi = tableTroskoviOprema.getSelectionModel().selectedItemProperty().isNull();
+		btnObrisi.disableProperty().bind(bindingObrisi);
+		btnIzmijeni.disableProperty().bind(bindingObrisi);
 	}
 	
 	public void radioSve() {
