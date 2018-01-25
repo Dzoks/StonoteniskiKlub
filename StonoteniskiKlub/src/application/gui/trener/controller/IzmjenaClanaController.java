@@ -23,6 +23,7 @@ import application.model.dto.ClanDTO;
 import application.model.dto.OsobaDTO;
 import application.util.AlertDisplay;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -198,7 +199,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			try {
 				clan.setSlika(convertImageToBlob());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				new ErrorLogger().log(e);
 				e.printStackTrace();
 			}
 		}
@@ -220,6 +221,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			return blob;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 			return null;
 		}
 	}
@@ -269,6 +271,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 				ivSlika.setImage(new Image(getClass().getResourceAsStream("/resources/avatar.png")));
 			}
 		} catch (SQLException e) {
+			new ErrorLogger().log(e);
 			e.printStackTrace();
 		}
 	}

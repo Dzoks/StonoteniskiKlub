@@ -9,6 +9,7 @@ import application.model.dao.DAOFactory;
 import application.model.dto.TurnirDTO;
 import application.model.dto.UcesnikPrijavaDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -118,6 +119,7 @@ public class SinglTurnirController extends BaseController{
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 				popuniTabelu();
 			}
@@ -148,8 +150,10 @@ public class SinglTurnirController extends BaseController{
 				noviStage.showAndWait();
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 			popuniTabelu();
+			tblIgraci.refresh();
 		}
 	}
 	
@@ -185,6 +189,7 @@ public class SinglTurnirController extends BaseController{
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 		}
 		else{
@@ -234,6 +239,7 @@ public class SinglTurnirController extends BaseController{
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
+						new ErrorLogger().log(e);
 					}
 				}
 			}
@@ -245,6 +251,7 @@ public class SinglTurnirController extends BaseController{
 			changeScene("/application/gui/organizator/view/TurniriView.fxml", primaryStage);
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 }

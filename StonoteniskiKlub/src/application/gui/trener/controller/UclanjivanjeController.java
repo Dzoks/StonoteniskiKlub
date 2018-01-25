@@ -21,6 +21,7 @@ import application.model.dto.ClanDTO;
 import application.model.dto.OsobaDTO;
 import application.util.AlertDisplay;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -183,6 +184,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			return blob;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 			return null;
 		}
 	}
@@ -252,6 +254,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 			return;
 		}
 		AlertDisplay.showInformation("Dodavanje", "Novi član uspješno dodat.");

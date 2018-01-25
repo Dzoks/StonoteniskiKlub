@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="1050.0" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.DublZrijebController">
+<AnchorPane prefHeight="550.0" prefWidth="1050.0" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.organizator.controller.DublZrijebController">
    <children>
       <Label layoutX="105.0" layoutY="44.0" text="1. runda:">
          <font>
@@ -30,10 +30,10 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="tblRunda1" layoutX="5.0" layoutY="76.0" prefHeight="355.0" prefWidth="260.0">
+      <TableView fx:id="tblRunda1" layoutX="5.0" layoutY="76.0" prefHeight="334.0" prefWidth="260.0">
          <columns>
-            <TableColumn fx:id="clnMec1" prefWidth="200.0" text="Meč" />
-            <TableColumn fx:id="clnRezultat1" prefWidth="55.0" text="Rezultat" />
+            <TableColumn fx:id="clnMec1" prefWidth="202.0" text="Meč" />
+            <TableColumn fx:id="clnRezultat1" prefWidth="56.0" text="Rezultat" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -42,7 +42,7 @@
       <TableView fx:id="tblRunda4" layoutX="785.0" layoutY="225.0" prefHeight="70.0" prefWidth="260.0">
          <columns>
             <TableColumn fx:id="clnMec4" prefWidth="200.0" text="Meč" />
-            <TableColumn fx:id="clnRezultat4" prefWidth="55.0" text="Rezultat" />
+            <TableColumn fx:id="clnRezultat4" prefWidth="58.0" text="Rezultat" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -50,17 +50,17 @@
       </TableView>
       <TableView fx:id="tblRunda3" layoutX="525.0" layoutY="195.0" prefHeight="120.0" prefWidth="260.0">
          <columns>
-            <TableColumn fx:id="clnMec3" prefWidth="200.0" text="Meč" />
-            <TableColumn fx:id="clnRezultat3" prefWidth="55.0" text="Rezultat" />
+            <TableColumn fx:id="clnMec3" prefWidth="202.0" text="Meč" />
+            <TableColumn fx:id="clnRezultat3" prefWidth="56.0" text="Rezultat" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="tblRunda2" layoutX="265.0" layoutY="151.0" prefHeight="195.0" prefWidth="260.0">
+      <TableView fx:id="tblRunda2" layoutX="265.0" layoutY="151.0" prefHeight="189.0" prefWidth="260.0">
          <columns>
-            <TableColumn fx:id="clnMec2" prefWidth="200.0" text="Meč" />
-            <TableColumn fx:id="clnRezultat2" prefWidth="55.0" text="Rezultat" />
+            <TableColumn fx:id="clnMec2" prefWidth="199.0" text="Meč" />
+            <TableColumn fx:id="clnRezultat2" prefWidth="59.0" text="Rezultat" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

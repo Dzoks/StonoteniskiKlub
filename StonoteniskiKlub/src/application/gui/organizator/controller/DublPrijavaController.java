@@ -123,7 +123,6 @@ public class DublPrijavaController extends BaseController{
 						}
 						else{
 							AlertDisplay.showError("Prijava", "Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
-
 						}
 					}
 				}

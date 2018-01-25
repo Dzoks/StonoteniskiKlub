@@ -10,6 +10,7 @@ import application.model.dto.Clan;
 import application.model.dto.Oprema;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaTip;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -157,6 +158,7 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 

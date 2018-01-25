@@ -12,6 +12,7 @@ import application.model.dao.UgovorDAO;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -20,8 +21,7 @@ public class MySQLUgovorDAO implements UgovorDAO {
 	public static final String SQL_SELECT_ALL_BY_ID = "select * from UGOVOR_SPONZOR where SPONZOR_Id=?";
 	public static final String SQL_SELECT_ONE = "select * from UGOVOR_SPONZOR where SPONZOR_Id=? and RedniBroj=?";
 	public static final String SQL_INSERT = "{call dodaj_sponzorski_ugovor(?,?,?,?,?)}";
-	
-	
+
 	@Override
 	public ObservableList<UgovorDTO> selectAllById(Integer idSponzora) {
 		ObservableList<UgovorDTO> result = FXCollections.observableArrayList();
@@ -38,6 +38,7 @@ public class MySQLUgovorDAO implements UgovorDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -61,6 +62,7 @@ public class MySQLUgovorDAO implements UgovorDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -88,12 +90,13 @@ public class MySQLUgovorDAO implements UgovorDAO {
 			statement.execute();
 			Integer redniBroj = -1;
 			redniBroj = statement.getInt("pId");
-			if(!redniBroj.equals(Integer.valueOf(-1))){
+			if (!redniBroj.equals(Integer.valueOf(-1))) {
 				result = true;
 				ugovor.setRedniBroj(redniBroj);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);

@@ -17,12 +17,13 @@ import application.model.dao.DAOFactory;
 import application.model.dao.DogadjajDAO;
 import application.model.dto.DogadjajDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 
 public class MySQLDogadjajDAO implements DogadjajDAO {
 
 	private static final String SELECT_ALL_FOR_MONTH = "select * from DOGADJAJ where Pocetak between ? and ?";
 	private static final String SQL_INSERT = "{call dodaj_dogadjaj(?,?,?,?,?,?)}";
-	
+
 	@Override
 	public List<DogadjajDTO> selectAll(YearMonth yearMonth) {
 		List<DogadjajDTO> result = new ArrayList<DogadjajDTO>();
@@ -48,6 +49,7 @@ public class MySQLDogadjajDAO implements DogadjajDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -78,17 +80,18 @@ public class MySQLDogadjajDAO implements DogadjajDAO {
 			statement = connection.prepareCall(SQL_INSERT);
 			statement.setString("pOpis", dogadjaj.getOpis());
 			statement.setInt("pDogadjajTipId", dogadjaj.getTipDogadjaja().getId());
-			statement.setInt("pKorisnickiNalogId", 1);				// IZMIJENITI!!!!
+			statement.setInt("pKorisnickiNalogId", 1); // IZMIJENITI!!!!
 			statement.setTimestamp("pPocetak", Timestamp.valueOf(dogadjaj.getPocetak()));
 			statement.setTimestamp("pKraj", Timestamp.valueOf(dogadjaj.getKraj()));
 			statement.registerOutParameter("pRezId", Types.INTEGER);
 			statement.execute();
 			result = statement.getInt("pRezId");
-			if(result>0){
+			if (result > 0) {
 				dogadjaj.setId(result);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);

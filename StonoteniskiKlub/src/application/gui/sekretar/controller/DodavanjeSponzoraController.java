@@ -12,6 +12,7 @@ import application.model.dao.SponzorDAO;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -93,6 +94,7 @@ public class DodavanjeSponzoraController extends BaseController {
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 				SponzorDTO sponzor = new SponzorDTO(null, txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(),
 						null, null);

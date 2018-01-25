@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import application.model.dao.DAOFactory;
 import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -142,6 +143,7 @@ public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}//initialize
 	}
 }

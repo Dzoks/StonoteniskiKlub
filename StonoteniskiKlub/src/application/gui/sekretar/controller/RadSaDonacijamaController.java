@@ -10,6 +10,7 @@ import application.model.dao.DAOFactory;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.OpremaTip;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,6 +77,7 @@ public class RadSaDonacijamaController extends BaseController {
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 

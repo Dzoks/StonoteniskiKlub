@@ -9,6 +9,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -34,6 +35,7 @@ public class PromjenaLozinkeController extends BaseController {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 
 			}else {
@@ -56,6 +58,7 @@ public class PromjenaLozinkeController extends BaseController {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	@Override

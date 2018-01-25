@@ -15,6 +15,7 @@ import application.model.dao.DAOFactory;
 import application.model.dto.DistributerOpreme;
 import application.model.dto.Narudzba;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -72,6 +73,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	@Override
@@ -209,6 +211,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 				narudzba = new Narudzba(DAOFactory.getDAOFactory().getNarudzbaDAO().SELECT_NEXT_ID(), df.parse(trenutniDatumString), opremaKluba, false, comboBoxDistributer.getSelectionModel().getSelectedItem().getId());
 			} catch (ParseException e1) {
 				e1.printStackTrace();
+				new ErrorLogger().log(e1);
 			}
   		  	controller.setNarudzba(narudzba);
 			
@@ -231,6 +234,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			popuniTabelu();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	
@@ -281,6 +285,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			popuniTabelu();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	
@@ -307,6 +312,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	
@@ -327,6 +333,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			noviStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 }

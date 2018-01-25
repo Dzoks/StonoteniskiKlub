@@ -9,6 +9,7 @@ import application.model.dao.StavkaSkupstinaDAO;
 import application.model.dto.SkupstinaDTO;
 import application.model.dto.StavkaSkupstinaDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -36,6 +37,7 @@ public class MySQLStavkaSkupstinaDAO implements StavkaSkupstinaDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -57,7 +59,8 @@ public class MySQLStavkaSkupstinaDAO implements StavkaSkupstinaDAO {
 			result = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally{
+			new ErrorLogger().log(e);
+		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);
 		}

@@ -10,6 +10,7 @@ import application.model.dto.DistributerOpreme;
 import application.model.dto.Narudzba;
 import application.model.dto.TransakcijaDTO;
 import application.model.dto.TroskoviOpremaDTO;
+import application.util.ErrorLogger;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -148,6 +149,7 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 	    }
 	private void postaviKolone() {
@@ -224,6 +226,7 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 			
 	}

@@ -13,6 +13,7 @@ import application.model.dao.SponzorDAO;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.ConnectionPool;
+import application.util.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -26,6 +27,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 	private static final String SQL_GET_TELEFONI = "select * from TELEFON where SPONZOR_Id=?";
 	private static final String SQL_DELETE_TELEFON = "delete from TELEFON where BrojTelefona=?";
 	private static final String SQL_INSERT_TELEFON = "insert into TELEFON values(?,null,?)";
+
 	@Override
 	public ObservableList<SponzorDTO> selectAll() {
 		ObservableList<SponzorDTO> result = FXCollections.observableArrayList();
@@ -42,6 +44,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -65,6 +68,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -97,13 +101,14 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			statement.execute();
 			id = statement.getInt("pId");
 			redniBroj = statement.getInt("pRedniBroj");
-			if(!id.equals(Integer.valueOf(-1)) && !redniBroj.equals(Integer.valueOf(-1))){
+			if (!id.equals(Integer.valueOf(-1)) && !redniBroj.equals(Integer.valueOf(-1))) {
 				sponzor.setId(id);
 				ugovor.setRedniBroj(redniBroj);
 				result = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);
@@ -122,6 +127,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);
@@ -144,6 +150,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -166,6 +173,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -186,6 +194,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			result = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -204,11 +213,12 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			statement = ConnectionPool.prepareStatement(connection, SQL_INSERT_TELEFON, true, telefon, sponzor.getId());
 			statement.executeUpdate();
 			resultSet = statement.getGeneratedKeys();
-			if(resultSet.next()){
+			if (resultSet.next()) {
 				result = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);

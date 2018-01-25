@@ -12,6 +12,7 @@ import application.model.dao.StavkaSkupstinaDAO;
 import application.model.dto.SkupstinaDTO;
 import application.model.dto.StavkaSkupstinaDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import application.util.InputValidator;
 import application.util.TextUtility;
 import javafx.collections.FXCollections;
@@ -70,6 +71,7 @@ public class DodavanjeSkupstineController extends BaseController {
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 

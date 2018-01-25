@@ -11,6 +11,7 @@ import application.model.dao.DAOFactory;
 import application.model.dto.KategorijaTurniraDTO;
 import application.model.dto.TurnirDTO;
 import application.util.AlertDisplay;
+import application.util.ErrorLogger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -95,6 +96,7 @@ public class TurniriController extends BaseController{
 			changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 		} catch (IOException e) {
 			e.printStackTrace();
+			new ErrorLogger().log(e);
 		}
 	}
 	
@@ -122,6 +124,7 @@ public class TurniriController extends BaseController{
 						cbKategorija.getSelectionModel().getSelectedItem().getId());
 			} catch (IOException e) {
 				e.printStackTrace();
+				new ErrorLogger().log(e);
 			}
 		}
 	}
@@ -167,6 +170,7 @@ public class TurniriController extends BaseController{
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
+					new ErrorLogger().log(e);
 				}
 			}
 			else{
@@ -196,7 +200,7 @@ public class TurniriController extends BaseController{
 		}
 	}
 	
-	public static String konvertujIzSQLDate(String sqlDatum){
+	public static String konvertujIzSQLDate(String sqlDatum){	//pomocna metoda za prikaz datuma u tabelama
 		String datum;
 		String[]niz=sqlDatum.split("-");
 		datum=niz[2]+"."+niz[1]+"."+niz[0]+".";
