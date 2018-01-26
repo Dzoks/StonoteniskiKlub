@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="761.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeIsplacenihPlataController">
+<AnchorPane fx:id="pane" prefHeight="500.0" prefWidth="761.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.EvidentiranjeIsplacenihPlataController">
    <children>
-      <TableView fx:id="tablePlate" layoutX="26.0" layoutY="208.0" prefHeight="222.0" prefWidth="405.0">
+      <TableView fx:id="tablePlate" layoutX="26.0" layoutY="208.0" prefHeight="214.0" prefWidth="405.0">
         <columns>
           <TableColumn fx:id="tableColumnIme" prefWidth="61.0" text="Ime" />
           <TableColumn fx:id="tableColumnPrezime" prefWidth="72.0" text="Prezime" />
@@ -41,7 +41,7 @@
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font></Label>
-      <Button fx:id="btnDodaj" layoutX="541.0" layoutY="140.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="150.0" text="Dodajte" />
+      <Button fx:id="btnDodaj" layoutX="542.0" layoutY="140.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="149.0" text="Dodajte" />
       <Label fx:id="lblZaposleniDodaj" layoutX="26.0" layoutY="61.0" text="Zaposleni:" />
       <ComboBox fx:id="comboBoxZaposleniDodaj" layoutX="115.0" layoutY="62.0" prefWidth="150.0" />
       <Label fx:id="lblIznos" layoutX="453.0" layoutY="106.0" text="Iznos:" />
@@ -49,9 +49,9 @@
       <Label fx:id="lblKM" layoutX="696.0" layoutY="106.0" text="KM" />
       <Label fx:id="lblDatumUplate" layoutX="453.0" layoutY="70.0" prefHeight="17.0" prefWidth="83.0" text="Datum uplate:" />
       <DatePicker fx:id="datePicker" layoutX="542.0" layoutY="62.0" />
-      <Button fx:id="btnPrikazi" layoutX="535.0" layoutY="449.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="142.0" text="Pretraga" />
-      <Button fx:id="btnObrisi" layoutX="129.0" layoutY="452.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrišite" />
-      <Button fx:id="btnIzmijeni" layoutX="241.0" layoutY="452.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijenite" />
+      <Button fx:id="btnPrikazi" layoutX="533.0" layoutY="440.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="149.0" text="Pretraga" />
+      <Button fx:id="btnObrisi" layoutX="144.0" layoutY="440.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrišite" />
+      <Button fx:id="btnIzmijeni" layoutX="239.0" layoutY="440.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijenite" />
       <Label fx:id="lblGodina" layoutX="458.0" layoutY="361.0" text="Godina:" />
       <Spinner fx:id="spinnerGodina" layoutX="529.0" layoutY="357.0" />
       <Label fx:id="lblOpis" layoutX="26.0" layoutY="101.0" text="Opis:" />

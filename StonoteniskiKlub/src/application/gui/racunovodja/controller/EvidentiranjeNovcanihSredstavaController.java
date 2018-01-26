@@ -165,7 +165,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		AnchorPane root;
 		try {
 			root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root,300,400);
+			Scene scene = new Scene(root,199,142);
 			DodajTipTransakcijeController controller = loader.<DodajTipTransakcijeController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
@@ -268,7 +268,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 		
 		try {
 			root = (AnchorPane) loader.load();//initialize
-			Scene scene = new Scene(root,300,400);
+			Scene scene = new Scene(root,333,367);
 			controller = loader.<IzmijeniTransakcijuController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
