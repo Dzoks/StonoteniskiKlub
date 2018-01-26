@@ -5,6 +5,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
@@ -41,7 +42,7 @@
          <font>
             <Font name="System Bold Italic" size="16.0" />
          </font></Label>
-      <Button fx:id="btnDodaj" layoutX="557.0" layoutY="162.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="157.0" text="Dodajte" />
+      <Button fx:id="btnDodaj" layoutX="551.0" layoutY="175.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="157.0" text="Dodajte" />
       <Label fx:id="lblMjesecDodaj" layoutX="27.0" layoutY="100.0" text="Mjesec:" />
       <Spinner fx:id="spinnerMjesecDodaj" layoutX="101.0" layoutY="96.0" />
       <Label fx:id="lblClanDodaj" layoutX="26.0" layoutY="60.0" text="Član:" />
@@ -58,7 +59,11 @@
       <Label fx:id="lblGodinaDodaj" layoutX="27.0" layoutY="142.0" text="Godina:" />
       <Spinner fx:id="spinnerGodinaDodaj" layoutX="102.0" layoutY="138.0" />
       <Label fx:id="lblOpis" layoutX="481.0" layoutY="100.0" text="Opis:" />
-      <TextArea fx:id="txtOpis" layoutX="540.0" layoutY="102.0" prefHeight="37.0" prefWidth="174.0" />
+      <ScrollPane layoutX="540.0" layoutY="102.0">
+         <content>
+            <TextArea fx:id="txtOpis" prefHeight="60.0" prefWidth="174.0" />
+         </content>
+      </ScrollPane>
       <RadioButton fx:id="radiobtnSve" alignment="CENTER_LEFT" contentDisplay="RIGHT" layoutX="563.0" layoutY="274.0" mnemonicParsing="false" onAction="#radioSve" prefHeight="17.0" prefWidth="66.0" text="Sve" textFill="#f2e9e9" />
       <Button fx:id="btnObrisi" layoutX="87.0" layoutY="453.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrišite" />
    </children>

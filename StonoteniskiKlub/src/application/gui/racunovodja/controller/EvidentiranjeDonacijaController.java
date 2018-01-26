@@ -71,7 +71,7 @@ public class EvidentiranjeDonacijaController extends BaseController{
 		BooleanBinding binding = tableDonacije.getSelectionModel().selectedItemProperty().isNull().or(datePicker.valueProperty().isNull());
 		btnObradi.disableProperty().bind(binding);
 		BooleanBinding binding2 =  tableDonacije.getSelectionModel().selectedItemProperty().isNull();
-		btnNeobradjeno.disableProperty().bind(binding2);
+
 	}
 	  @FXML
 	    void odjaviteSe(ActionEvent event) {
