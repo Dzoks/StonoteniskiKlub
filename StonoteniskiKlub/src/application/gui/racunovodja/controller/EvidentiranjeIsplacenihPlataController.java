@@ -282,4 +282,31 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 		}
 		tablePlate.refresh();
 	}
-}
+    @FXML
+    void obracunajPlatu(ActionEvent event) {
+    	Stage noviStage = new Stage();
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/racunovodja/view/ObracunavanjePlateView.fxml"));
+		AnchorPane root;
+		ObracunavanjePlateController controller=null;
+		
+		try {
+			root = (AnchorPane) loader.load();//initialize
+			Scene scene = new Scene(root,500,669);
+			controller = loader.<ObracunavanjePlateController>getController();
+			controller.setPrimaryStage(noviStage);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub");
+			noviStage.initModality(Modality.APPLICATION_MODAL); 
+			PlataDTO plata = tablePlate.getSelectionModel().getSelectedItem(); 
+			noviStage.showAndWait(); 
+			tablePlate.refresh(); 
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		}
+	}
+    }
+
