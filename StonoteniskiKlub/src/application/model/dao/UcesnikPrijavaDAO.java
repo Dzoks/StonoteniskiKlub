@@ -13,4 +13,5 @@ public interface UcesnikPrijavaDAO {
 	public boolean izmjeniUcesnika(Integer idPrijave,String ime,String prezime,Date datum);
 	public Integer addNew(Integer idTurnira,Integer idKategorije,Integer idOsobe,Date datum);
 	public ObservableList<UcesnikPrijavaDTO> SELECT_ALL();
+	public boolean doesExist(String jmb,Integer idTurnira,Integer idKategorije);
 }
