@@ -12,7 +12,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane onMouseClicked="#deselect" prefHeight="490.0" prefWidth="630.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaDonacijamaController">
+<AnchorPane onMouseClicked="#deselect" prefHeight="490.0" prefWidth="630.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaDonacijamaController">
 	<children>
 		<ComboBox fx:id="cbTipDonacije" layoutX="14.0" layoutY="14.0" onAction="#filtrirajPoTipu" prefWidth="150.0" />
 		<TableView fx:id="tblDonacije" layoutX="14.0" layoutY="56.0" onMouseClicked="#updateOpis" prefHeight="200.0" prefWidth="600.0">
