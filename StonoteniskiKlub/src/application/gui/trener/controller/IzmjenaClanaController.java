@@ -99,7 +99,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 		
 		dpDatumRodjenja.setConverter(new StringConverter<LocalDate>()
 		{
-		    private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd.MM.yyyy.");
 
 		    @Override
 		    public String toString(LocalDate localDate)
@@ -181,10 +181,10 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 				return;
 			}
 		}
-		if(telefoni.size() == 0) {
-			AlertDisplay.showError("Izmjena", "Bar jedan broj telefona mora biti unesen.");
-			return;
-		}
+//		if(telefoni.size() == 0) {
+//			AlertDisplay.showError("Izmjena", "Bar jedan broj telefona mora biti unesen.");
+//			return;
+//		}
 		
 		DAOFactory.getDAOFactory().getOsobaDAO().deleteTelefon(clan.getId());
 		

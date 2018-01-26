@@ -11,9 +11,12 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import com.itextpdf.text.log.SysoCounter;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
@@ -88,7 +91,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 		
 		dpDatumRodjenja.setConverter(new StringConverter<LocalDate>()
 		{
-		    private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd.MM.yyyy.");
 
 		    @Override
 		    public String toString(LocalDate localDate)
@@ -196,13 +199,24 @@ public class UclanjivanjeController extends BaseController implements Initializa
 		String jmb = txtJMB.getText();
 		
 		if(!jmb.matches("[0-9]*") || !(jmb.length() == 13)) {
-			
 			AlertDisplay.showError("Dodavanje","Jedinstveni matični broj (JMB) nije dobro unesen." );
 			return;
 		}
 		
+		
 		char pol = rbMusko.isSelected()?'M':'Ž';
 		Date datumRodjenja = Date.from(dpDatumRodjenja.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		
+		LocalDate today = LocalDate.now();
+		today = today.minusYears(5);
+		
+		Date date = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		
+		if(datumRodjenja.after(date)) {
+			AlertDisplay.showError("Dodavanje","Nemoguće je dodati člana koji je mlađi od 5 godina." );
+			return;
+		}
+		
 		ArrayList<String> telefoni = new ArrayList<>();
 		for(String s: listaTelefona) {
 			telefoni.add(s);

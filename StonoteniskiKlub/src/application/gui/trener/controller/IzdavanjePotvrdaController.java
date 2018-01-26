@@ -85,7 +85,7 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			return;
 		}
 		if("Iščlanjivanje".equals(odabraniTip)) {
-			txtSadrzaj.setText("Potvrđujemo da je " + imeClana + " PREZIME izvršio/la iščlanjivanje is Stonoteniskog kluba \"BORAC\" Banja Luka "
+			txtSadrzaj.setText("Potvrđujemo da je " + imeClana + " izvršio/la iščlanjivanje is Stonoteniskog kluba \"BORAC\" Banja Luka "
 					+ "na datum " + danasnjiDatum + " i od tada nije više član gore pomenutog kluba.");
 			idTipa = listaTipova.indexOf(odabraniTip) + 1;
 			return;
@@ -105,7 +105,7 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			return;
 		}
 		txtSadrzaj.setText("");
-		idTipa = listaTipova.indexOf("Default") + 1;
+		idTipa = listaTipova.indexOf("Prazno") + 1;
 	}
 
 	private static void addEmptyLine(Paragraph paragraph, int number) {
@@ -194,7 +194,7 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			
 			
 			file.delete();
-			if(temp1.get().equals(ButtonType.YES)) 
+			if(temp1.get().getButtonData().equals(ButtonData.YES)) 
 				primaryStage.close();
 		} catch (Exception e) {
 			e.printStackTrace();

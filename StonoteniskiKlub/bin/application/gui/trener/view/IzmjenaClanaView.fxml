@@ -11,25 +11,25 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="598.0" prefWidth="653.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjenaClanaController">
+<AnchorPane prefHeight="582.0" prefWidth="653.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.trener.controller.IzmjenaClanaController">
    <children>
-      <TextField fx:id="txtIme" layoutX="413.0" layoutY="49.0" prefHeight="31.0" prefWidth="218.0" />
-      <TextField fx:id="txtPrezime" layoutX="413.0" layoutY="94.0" prefHeight="31.0" prefWidth="218.0" />
-      <TextField fx:id="txtJMB" layoutX="413.0" layoutY="136.0" prefHeight="31.0" prefWidth="218.0" />
-      <TextField fx:id="txtImeRoditelja" layoutX="413.0" layoutY="180.0" prefHeight="31.0" prefWidth="218.0" />
-      <TextField fx:id="txtTelefon" layoutX="413.0" layoutY="227.0" prefHeight="31.0" prefWidth="171.0" promptText="XXX/XXX-XXX" />
-      <Button layoutX="594.0" layoutY="227.0" mnemonicParsing="false" onAction="#sacuvajTelefon" prefHeight="31.0" prefWidth="37.0" text="-&gt;" />
-      <RadioButton fx:id="rbMusko" layoutX="414.0" layoutY="406.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" text="Muško" />
-      <RadioButton fx:id="rbZensko" layoutX="523.0" layoutY="406.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" text="Žensko" />
-      <DatePicker fx:id="dpDatumRodjenja" layoutX="412.0" layoutY="444.0" promptText="dd/MM/yyyy" showWeekNumbers="true" />
+      <TextField fx:id="txtIme" layoutX="413.0" layoutY="49.0" prefHeight="31.0" prefWidth="218.0" AnchorPane.rightAnchor="30.0" />
+      <TextField fx:id="txtPrezime" layoutX="413.0" layoutY="94.0" prefHeight="31.0" prefWidth="218.0" AnchorPane.rightAnchor="30.0" />
+      <TextField fx:id="txtJMB" layoutX="414.0" layoutY="180.0" prefHeight="31.0" prefWidth="218.0" AnchorPane.rightAnchor="30.0" />
+      <TextField fx:id="txtImeRoditelja" layoutX="413.0" layoutY="136.0" prefHeight="31.0" prefWidth="218.0" AnchorPane.rightAnchor="30.0" />
+      <TextField fx:id="txtTelefon" layoutX="405.0" layoutY="227.0" prefHeight="31.0" prefWidth="171.0" promptText="XXX/XXX-XXX" AnchorPane.rightAnchor="77.0" />
+      <Button layoutX="594.0" layoutY="227.0" mnemonicParsing="false" onAction="#sacuvajTelefon" prefHeight="31.0" prefWidth="37.0" text="-&gt;" AnchorPane.rightAnchor="30.0" />
+      <RadioButton fx:id="rbMusko" layoutX="405.0" layoutY="406.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" text="Muško" AnchorPane.rightAnchor="142.0" />
+      <RadioButton fx:id="rbZensko" layoutX="523.0" layoutY="406.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" text="Žensko" AnchorPane.rightAnchor="30.0" />
+      <DatePicker fx:id="dpDatumRodjenja" layoutX="412.0" layoutY="444.0" promptText="dd.MM.yyyy." showWeekNumbers="true" AnchorPane.rightAnchor="30.0" />
 
       <Button layoutX="40.0" layoutY="299.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="27.0" prefWidth="200.0" text="Dodajte fotografiju" />
-      <Button fx:id="btnUclani" layoutX="414.0" layoutY="528.0" mnemonicParsing="false" onAction="#sacuvajIzmjene" prefHeight="25.0" prefWidth="106.0" text="Sačuvajte" />
-      <Button layoutX="533.0" layoutY="528.0" mnemonicParsing="false" onAction="#izlaz" prefHeight="25.0" prefWidth="98.0" text="Odustanite" />
+      <Button fx:id="btnUclani" layoutX="405.0" layoutY="531.0" mnemonicParsing="false" onAction="#sacuvajIzmjene" prefHeight="25.0" prefWidth="106.0" text="Sačuvajte" AnchorPane.bottomAnchor="30.0" />
+      <Button layoutX="533.0" layoutY="528.0" mnemonicParsing="false" onAction="#izlaz" prefHeight="25.0" prefWidth="98.0" text="Odustanite" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0" />
       <ImageView fx:id="ivSlika" fitHeight="227.0" fitWidth="200.0" layoutX="40.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
       <Button layoutX="40.0" layoutY="340.0" mnemonicParsing="false" onAction="#obrisiFotografiju" prefHeight="27.0" prefWidth="200.0" text="Obrišite fotografiju" />
 
-      <ListView fx:id="lvTelefoni" layoutX="413.0" layoutY="275.0" prefHeight="106.0" prefWidth="218.0">
+      <ListView fx:id="lvTelefoni" layoutX="413.0" layoutY="275.0" prefHeight="106.0" prefWidth="218.0" AnchorPane.rightAnchor="30.0">
          <contextMenu>
             <ContextMenu>
               <items>
