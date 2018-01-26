@@ -14,7 +14,7 @@
       <ComboBox fx:id="comboBoxClan" layoutX="69.0" layoutY="47.0" prefHeight="25.0" prefWidth="216.0" />
 
       <Button fx:id="btnDodajTipOpreme" layoutX="298.0" layoutY="10.0" mnemonicParsing="false" onAction="#idiNaDodajTipOpreme" prefHeight="25.0" prefWidth="25.0" text="+" />
-      <Button fx:id="btnEvidentiraj" layoutX="203.0" layoutY="119.0" mnemonicParsing="false" onAction="#sacuvajIzmjene" prefHeight="25.0" prefWidth="82.0" text="Evidentirajte" />
+      <Button fx:id="btnEvidentiraj" layoutX="185.0" layoutY="119.0" mnemonicParsing="false" onAction="#sacuvajIzmjene" prefHeight="25.0" prefWidth="100.0" text="Evidentirajte" />
       <Label layoutX="14.0" layoutY="88.0" text="Veličina:" />
       <TextField fx:id="txtVelicina" layoutX="69.0" layoutY="84.0" prefHeight="25.0" prefWidth="216.0" promptText="" />
    </children>
