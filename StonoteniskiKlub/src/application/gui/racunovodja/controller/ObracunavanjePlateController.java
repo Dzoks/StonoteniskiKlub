@@ -1,5 +1,6 @@
 package application.gui.racunovodja.controller;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -27,6 +28,7 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.ZaposleniDTO;
 import application.util.ErrorLogger;
+import javafx.beans.binding.BooleanBinding;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -116,7 +118,7 @@ public class ObracunavanjePlateController extends BaseController{
 		lblDoprinosZaposljavanje.setText(String.format("%.2f", zaposljavanje));
 		lblBruto.setText(String.format("%.2f", bruto));
 		lblPIO.setText(String.format("%.2f", pio));
-		lblNeto.setText(netoPlata.toString());
+		lblNeto.setText(String.format("%.2f", netoPlata));
 		lblDoprinosiUkupno.setText(String.format("%.2f", new Double(pio+zo+djecijaZastita+zaposljavanje)));
 		this.stampaj(zaposleni,koeficijent,cijenaRada,bolovanjeDana,pio,zo,zaposljavanje,djecijaZastita,porez,new Double(pio+zo+djecijaZastita+zaposljavanje),bruto,netoPlata);
 	}
@@ -124,6 +126,8 @@ public class ObracunavanjePlateController extends BaseController{
 	public void initialize(URL location, ResourceBundle resources) {
 		comboBoxZaposleni.setItems(DAOFactory.getDAOFactory().getZaposleniDAO().selectAll());
 		comboBoxZaposleni.getSelectionModel().select(0); //paziti na null ptr
+		BooleanBinding binding = txtBolovanje.textProperty().isEmpty().or(txtCijenaRada.textProperty().isEmpty().or(txtKoeficijent.textProperty().isEmpty()));
+		btnObracunaj.disableProperty().bind(binding);
 	}
 	private void stampaj(ZaposleniDTO zaposleni, double koeficijent,double cijenaRada, int bolovanje,double pio, double zo,double zap, double djecijaZastita, double porez, double doprinosi, double bruto,double neto) {
 		File file = new File("tmp.pdf");

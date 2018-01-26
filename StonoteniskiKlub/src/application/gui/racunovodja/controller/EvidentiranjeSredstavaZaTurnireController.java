@@ -115,15 +115,7 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaDecora
 		btnIzmijeni.disableProperty().bind(bindingObrisi);
 	
 	}
-	  @FXML
-	    void odjaviteSe(ActionEvent event) {
-	    	try {
-				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new ErrorLogger().log(e);
-			}
-	    }
+
 
 	public void radioSve() {
 		comboBoxTurnirPrikazi.setDisable(true);

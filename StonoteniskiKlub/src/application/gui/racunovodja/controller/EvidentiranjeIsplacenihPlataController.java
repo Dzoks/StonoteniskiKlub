@@ -140,15 +140,7 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 		btnIzmijeni.disableProperty().bind(bindingObrisi);
 	}
 	
-	  @FXML
-	    void odjaviteSe(ActionEvent event) {
-	    	try {
-				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new ErrorLogger().log(e);
-			}
-	    }
+
 	
 	private void popuniComboBox() {
 		comboBoxZaposleniDodaj.setItems(listaZaposlenih);

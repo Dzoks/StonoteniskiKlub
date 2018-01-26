@@ -86,15 +86,7 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 	@FXML
 	private ScrollPane scrollPane;
 	
-	  @FXML
-	    void odjaviteSe(ActionEvent event) {
-	    	try {
-			changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new ErrorLogger().log(e);
-			}
-	    }
+
 	private ObservableList<UplataZaTurnirDTO> listaUplata;
 	private ObservableList<UcesnikPrijavaDTO> listaUcesnika;
 	private ObservableList<TurnirDTO> listaTurnira;

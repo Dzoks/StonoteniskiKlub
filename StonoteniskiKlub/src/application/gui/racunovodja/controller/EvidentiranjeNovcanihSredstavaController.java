@@ -127,15 +127,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 	private boolean poljaPraznaBudzet() {
 		return txtIznosBudzet.getText().isEmpty() || txtSezona.getText().isEmpty();
 	}
-	  @FXML
-	    void odjaviteSe(ActionEvent event) {
-	    	try {
-				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new ErrorLogger().log(e);
-			}
-	    }
+
 	// Event Listener on Button[#btnDodaj].onAction
 	public void prikazi() { //zabraniti da se doda za istu sezonu ako nije obrisano za proslu, pitanje korisniku?
 		String sezona = comboBoxSezona.getValue();

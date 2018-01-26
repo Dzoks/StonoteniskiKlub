@@ -73,15 +73,7 @@ public class EvidentiranjeDonacijaController extends BaseController{
 		BooleanBinding binding2 =  tableDonacije.getSelectionModel().selectedItemProperty().isNull();
 
 	}
-	  @FXML
-	    void odjaviteSe(ActionEvent event) {
-	    	try {
-				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new ErrorLogger().log(e);
-			}
-	    }
+
 	private void postaviKolone() {
 		tableColumnIznos.setCellValueFactory(new PropertyValueFactory<DonacijaDTO,Double>("novcaniIznos"));
 		tableColumnOpis.setCellValueFactory(new PropertyValueFactory<DonacijaDTO,String>("opisTransakcije"));
