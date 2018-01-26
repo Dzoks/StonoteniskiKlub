@@ -202,7 +202,7 @@ public class SinglTurnirController extends BaseController{
 		else{
 			if(tblIgraci.getItems().size()<16){
 				AlertDisplay.showError("Žrijeb","Minimalan potreban broj prijavljenih igrača na turniru je 16. "
-						+ "Nije moguće kreiranje žrijeba za turnir na koji je prijavleno manje igrača.");
+						+ "Nije moguće kreiranje žrijeba za turnir na koji je prijavljeno manje igrača.");
 			}
 			else{				
 				Optional<ButtonType> result = AlertDisplay.showConfirmation("Žrijeb", "Ukoliko izvršite žrijebanje za izabrani turnir,"

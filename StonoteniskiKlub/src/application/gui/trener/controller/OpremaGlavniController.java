@@ -20,8 +20,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -293,7 +291,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 				}
 
 				if (selektovanaOprema != null) {
-					new Alert(AlertType.INFORMATION, selektovanaOprema.getOpis(), ButtonType.OK).show();
+					AlertDisplay.showInformation("Pregled", selektovanaOprema.getOpis());
 				}
 			}
 
@@ -798,7 +796,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			FXMLLoader loader = new FXMLLoader(
 					getClass().getClassLoader().getResource("application/gui/trener/view/IzmjenaOpremeView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root, 273, 163);
+			Scene scene = new Scene(root, 337, 158);
 			IzmjenaOpremeController controller = loader.<IzmjenaOpremeController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
@@ -844,7 +842,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			FXMLLoader loader = new FXMLLoader(
 					getClass().getClassLoader().getResource("application/gui/trener/view/IzmjenaOpremeView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root, 273, 163);
+			Scene scene = new Scene(root, 337, 158);
 			IzmjenaOpremeController controller = loader.<IzmjenaOpremeController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);

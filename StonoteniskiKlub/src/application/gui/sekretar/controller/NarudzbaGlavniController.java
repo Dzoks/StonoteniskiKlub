@@ -59,7 +59,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 	@FXML
 	private TableColumn<Narudzba, Integer> id;
 	@FXML
-	private TableColumn<Narudzba, Date> datum;
+	private TableColumn<Narudzba, String> datum;
 	@FXML
 	private TableColumn<Narudzba, String> nazivDistributera;
 	@FXML
@@ -130,7 +130,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 	
 	public void popuniTabelu() {
 		id.setCellValueFactory(new PropertyValueFactory<Narudzba, Integer>("id"));
-		datum.setCellValueFactory(new PropertyValueFactory<Narudzba, Date>("datum"));
+		datum.setCellValueFactory(new PropertyValueFactory<Narudzba, String>("datum"));
 		nazivDistributera.setCellValueFactory(new PropertyValueFactory<Narudzba, String>("nazivDistributeraOpreme"));
 		vrsta.setCellValueFactory(new PropertyValueFactory<Narudzba, String>("vrsta"));
 		status.setCellValueFactory(new PropertyValueFactory<Narudzba, String>("status"));
@@ -195,7 +195,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			noviStage.setTitle("Stonoteniski klub");
 			noviStage.initModality(Modality.APPLICATION_MODAL);
 			
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
 			Date trenutniDatum = Calendar.getInstance().getTime(); 
 			String trenutniDatumString = df.format(trenutniDatum);
 			Boolean opremaKluba =  "Oprema kluba".equals(comboBoxVrsta.getSelectionModel().getSelectedItem());
@@ -254,7 +254,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			
 			Narudzba selektovanaNarudzba = tblNarudzbe.getSelectionModel().selectedItemProperty().get();
 			
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
 			String datumNarudzbe = df.format(selektovanaNarudzba.getDatum());
 			Boolean opremaKluba =  "Oprema kluba".equals(selektovanaNarudzba.getVrsta());
 			if(opremaKluba) {

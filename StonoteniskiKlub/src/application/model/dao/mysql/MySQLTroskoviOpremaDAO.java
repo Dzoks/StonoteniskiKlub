@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.text.ParseException;
 
 import application.model.dao.TroskoviOpremaDAO;
 import application.model.dto.Narudzba;
@@ -32,8 +33,14 @@ public class MySQLTroskoviOpremaDAO implements TroskoviOpremaDAO {
 			s = c.createStatement();
 			rs = s.executeQuery(SQL_SELECT_ALL);
 			while (rs.next()) {
-				Narudzba narudzba = new Narudzba(rs.getInt("Id"), rs.getDate("nDatum"), true, true,
-						rs.getInt("DISTRIBUTER_OPREME_Id"));
+				Narudzba narudzba = null;
+				try {
+					narudzba = new Narudzba(rs.getInt("Id"), rs.getDate("nDatum"), true, true,
+							rs.getInt("DISTRIBUTER_OPREME_Id"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+					new ErrorLogger().log(e);
+				}
 				listaTroskoviOprema.add(new TroskoviOpremaDTO(rs.getInt("TRANSAKCIJA_Id"), rs.getDate("Datum"),
 						rs.getDouble("Iznos"), rs.getString("Opis"), rs.getString("Tip"), narudzba));
 			}

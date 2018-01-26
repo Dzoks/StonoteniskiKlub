@@ -9,8 +9,6 @@ import java.util.ResourceBundle;
 
 import application.model.dto.TransakcijaDTO;
 import application.util.AlertDisplay;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -66,10 +64,7 @@ public class TransakcijaController extends Controller{
 	@Override
 		void uspjesnoDodavanje() {
 			// TODO Auto-generated method stub
-		Alert alert = new Alert(AlertType.INFORMATION, "Uspješno dodavanje!");
-		alert.setTitle("Informacija");
-		alert.setHeaderText("Dodavanje");
-		alert.showAndWait();
+		AlertDisplay.showInformation("Dodavanje", "Uspješno dodavanje.");
 		this.obrisiPolja();
 		radiobtnSve.fire();
 		btnPrikazi.fire();

@@ -11,12 +11,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import com.itextpdf.text.log.SysoCounter;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
@@ -236,7 +233,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 //				i azurirati fleg aktivan
 				DAOFactory.getDAOFactory().getClanDAO().setAktivan(true, clan.getId());
 				DAOFactory.getDAOFactory().getClanstvoDAO().insert(clan.getId());
-				AlertDisplay.showInformation("Dodavanje", "Bivši član je ponovo aktivan. Neke informacije je možda potrebno izmjeniti.");
+				AlertDisplay.showInformation("Dodavanje", "Bivši član je ponovo aktivan. Neke informacije je možda potrebno izmijeniti.");
 				primaryStage.close();
 				return;
 			}
@@ -250,7 +247,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 //			MOZDA TREBA OBRISATI
 			DAOFactory.getDAOFactory().getClanDAO().insert(clan);
 			DAOFactory.getDAOFactory().getClanstvoDAO().insert(clan.getId());
-			AlertDisplay.showInformation("Dodavanje", "Novi član. Neke informacije je možda potrebno izmjeniti.");
+			AlertDisplay.showInformation("Dodavanje", "Novi član. Neke informacije je možda potrebno izmijeniti.");
 
 			primaryStage.close();
 			return;

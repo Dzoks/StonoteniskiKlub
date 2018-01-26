@@ -44,7 +44,7 @@ public class DodajNalogController extends BaseController {
 	public void dodajteNalogKlik(ActionEvent event) {
 		if (!korisnickoIme.getText().isEmpty()|| !tabelaZaposleni.getSelectionModel().isEmpty()) {
 				if(dodajNalog())
-						AlertDisplay.showInformation("Dodavanje", "Korisnički nalog je uspješno dodan.");
+						AlertDisplay.showInformation("Dodavanje", "Korisnički nalog je uspješno dodat.");
 				else {
 					AlertDisplay.showError("Dodavanje", "Korisničko ime već postoji.");
 				}

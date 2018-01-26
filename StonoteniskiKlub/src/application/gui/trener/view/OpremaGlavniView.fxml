@@ -73,7 +73,7 @@
                            </children>
                         </Pane>
 
-                        <Button fx:id="btnIzmjeniOpremuKluba" layoutX="495.0" layoutY="497.0" mnemonicParsing="false" onAction="#idiNaIzmjeniOpremuKluba" prefHeight="28.0" prefWidth="115.0" text="Izmjenite" />
+                        <Button fx:id="btnIzmjeniOpremuKluba" layoutX="495.0" layoutY="497.0" mnemonicParsing="false" onAction="#idiNaIzmjeniOpremuKluba" prefHeight="28.0" prefWidth="115.0" text="Izmijenite" />
                      </children>
                   </AnchorPane>
             </content>
@@ -115,7 +115,7 @@
                               <Button fx:id="btnPretraziOpremaClanova" layoutX="325.0" layoutY="139.0" mnemonicParsing="false" onAction="#pretragaClan" prefHeight="28.0" prefWidth="115.0" text="Pretražite" />
                            </children>
                         </Pane>
-                        <Button fx:id="btnIzmjeniOpremuClana" layoutX="550.0" layoutY="498.0" mnemonicParsing="false" onAction="#idiNaIzmjeniOpremuClana" prefHeight="28.0" prefWidth="115.0" text="Izmjenite" />
+                        <Button fx:id="btnIzmjeniOpremuClana" layoutX="550.0" layoutY="498.0" mnemonicParsing="false" onAction="#idiNaIzmjeniOpremuClana" prefHeight="28.0" prefWidth="115.0" text="Izmijenite" />
                      </children>
                   </AnchorPane>
             </content>

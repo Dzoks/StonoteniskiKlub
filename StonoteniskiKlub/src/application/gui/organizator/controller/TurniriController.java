@@ -178,11 +178,11 @@ public class TurniriController extends BaseController{
 	
 	public void dodajTurnir(){
 		if(txtNaziv.getText().length()<=45)
-			if(dpDatum.getValue().isAfter(LocalDate.now())){
+			if(dpDatum.getValue().isAfter(LocalDate.now()) || dpDatum.getValue().isEqual(LocalDate.now())){
 				DAOFactory.getDAOFactory().getTurnirDAO().insert(txtNaziv.getText(), Date.valueOf(dpDatum.getValue()));
-			popuniTabelu();
-			txtNaziv.clear();
-			dpDatum.setValue(null);
+				popuniTabelu();
+				txtNaziv.clear();
+				dpDatum.setValue(null);
 			}
 			else{
 				AlertDisplay.showError("Dodavanje", "Nije moguće dodati turnir čiji je datum prije današnjeg.");

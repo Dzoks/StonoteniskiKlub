@@ -62,7 +62,7 @@ public class PregledNarudzbeController extends BaseController implements Initial
 	
 	public void popuniPodatke() {
 		lblDistributer.setText(narudzba.getNazivDistributeraOpreme());
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
 		String datumString = df.format(narudzba.getDatum());
 		lblDatum.setText(datumString);
 		lblId.setText(narudzba.getId().toString());

@@ -12,8 +12,6 @@ import application.util.AlertDisplay;
 import application.util.ErrorLogger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 
 public class PromjenaLozinkeController extends BaseController {
@@ -45,7 +43,8 @@ public class PromjenaLozinkeController extends BaseController {
 
 			}
 		}else {
-			new Alert(AlertType.INFORMATION, "Unesite sva polja.").show();
+			AlertDisplay.showError("Dodavanje", "Niste popunili sva polja. Pokušajte ponovo.");
+;
 
 		}
 	}

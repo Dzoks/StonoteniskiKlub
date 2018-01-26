@@ -237,7 +237,7 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 		
 		try {
 			root = (AnchorPane) loader.load();//initialize
-			Scene scene = new Scene(root,300,400);
+			Scene scene = new Scene(root,343,308);
 			controller = loader.<IzmijeniUplatuZaTurnirController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);

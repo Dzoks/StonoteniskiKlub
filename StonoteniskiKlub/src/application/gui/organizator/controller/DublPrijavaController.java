@@ -65,64 +65,76 @@ public class DublPrijavaController extends BaseController{
 		else{
 			if(txtJmbg1.getText().length()!=13 || txtJmbg2.getText().length()!=13
 					|| !txtJmbg1.getText().matches("[0-9]*") || !txtJmbg2.getText().matches("[0-9]*")){
-				AlertDisplay.showError("Prijava", "Potrebno je da obe unesene vrijednosti za JMBG budu dužine od 13 brojeva.");
+				AlertDisplay.showError("Prijava", "Potrebno je da obe unesene vrijednosti za JMB budu dužine od 13 brojeva.");
 			}
 			else{
-				if(dpDatumRodjenja1.getValue().isAfter(LocalDate.now()) || dpDatumRodjenja2.getValue().isAfter(LocalDate.now())){
-					AlertDisplay.showError("Prijava", "Nije moguće prijaviti učesnika čiji je datum rođenja poslije današnjeg.");
+				if(dpDatumRodjenja1.getValue().getYear()>(LocalDate.now().getYear()-5) || dpDatumRodjenja2.getValue().getYear()>(LocalDate.now().getYear()-5)){
+					AlertDisplay.showError("Prijava", "Nije moguće prijaviti učesnika mlađeg od 5 godina. "
+							+ "Potrebno je da je učesnik prvog dana ove godine imao punih 5 godina.");
 				}
 				else{
-					if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg1.getText(), idTurnira, idKategorije) && 
-							DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg2.getText(), idTurnira, idKategorije)){
-						if(DAOFactory.getDAOFactory().getTimDAO().insertDouble(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().addNew(idTurnira,idKategorije,
-								DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg1.getText()).getId(), Date.valueOf(LocalDate.now())),
-								DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().addNew(idTurnira,idKategorije, 
-										DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg2.getText()).getId(), Date.valueOf(LocalDate.now())))){
-							primaryStage.close();
-						}
-						else{
-							AlertDisplay.showError("Prijava", "Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
-
-							
-						}
+					if(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().doesExist(txtJmbg1.getText(), idTurnira, idKategorije) && 
+							DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().doesExist(txtJmbg2.getText(), idTurnira, idKategorije)){
+						AlertDisplay.showError("Prijava", "Oba učesnika su već prijavljena na ovaj turnir!");
 					}
-					else if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg1.getText(), idTurnira, idKategorije)){
-						if(DAOFactory.getDAOFactory().getTimDAO().insertDouble(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().addNew(idTurnira,idKategorije,
-								DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg1.getText()).getId(), Date.valueOf(LocalDate.now())),
-								DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().insert(txtJmbg2.getText(), txtIme2.getText(), txtPrezime2.getText(),
-										idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja2.getValue()),
-												idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
-							primaryStage.close();
-						}
-						else{
-							AlertDisplay.showError("Prijava", "Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
-
-						}
+					else if(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().doesExist(txtJmbg1.getText(), idTurnira, idKategorije)){
+						AlertDisplay.showError("Prijava", "Prvi učesnik je već prijavljen na ovaj turnir!");
 					}
-					else if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg2.getText(), idTurnira, idKategorije)){
-						if(DAOFactory.getDAOFactory().getTimDAO().insertDouble(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().insert(txtJmbg1.getText(), txtIme1.getText(), txtPrezime1.getText(),
-								idKategorije%2==1?"M".charAt(0):"Ž".charAt(0),Date.valueOf(dpDatumRodjenja1.getValue()), 
-										idTurnira, idKategorije, Date.valueOf(LocalDate.now())),
-								DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().addNew(idTurnira,idKategorije, 
-										DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg2.getText()).getId(), Date.valueOf(LocalDate.now())))){
-							primaryStage.close();
-						}
-						else{
-							AlertDisplay.showError("Prijava", "Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
-
-						}
+					else if(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().doesExist(txtJmbg2.getText(), idTurnira, idKategorije)){
+						AlertDisplay.showError("Prijava", "Drugi učesnik je već prijavljen na ovaj turnir!");
+					}
+					else if(txtJmbg1.getText().equals(txtJmbg2.getText())){
+						AlertDisplay.showError("Prijava", "Nije moguće prijaviti istog učesnika za dubl ekipu!");
 					}
 					else{
-						if(DAOFactory.getDAOFactory().getTimDAO().insertDouble(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().insert(txtJmbg1.getText(), txtIme1.getText(), txtPrezime1.getText(),
-								idKategorije%2==1?"M".charAt(0):"Ž".charAt(0),Date.valueOf(dpDatumRodjenja1.getValue()), 
-										idTurnira, idKategorije, Date.valueOf(LocalDate.now())), 
-								DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().insert(txtJmbg2.getText(), txtIme2.getText(), txtPrezime2.getText(),
-										idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja2.getValue()),
-												idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
-							primaryStage.close();
+						if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg1.getText(), idTurnira, idKategorije) && 
+								DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg2.getText(), idTurnira, idKategorije)){
+							if(DAOFactory.getDAOFactory().getTimDAO().insertDouble(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().addNew(idTurnira,idKategorije,
+									DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg1.getText()).getId(), Date.valueOf(LocalDate.now())),
+									DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().addNew(idTurnira,idKategorije, 
+											DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg2.getText()).getId(), Date.valueOf(LocalDate.now())))){
+								primaryStage.close();
+							}
+							else{
+								AlertDisplay.showError("Prijava", "Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+							}
+						}
+						else if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg1.getText(), idTurnira, idKategorije)){
+							if(DAOFactory.getDAOFactory().getTimDAO().insertDouble(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().addNew(idTurnira,idKategorije,
+									DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg1.getText()).getId(), Date.valueOf(LocalDate.now())),
+									DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().insert(txtJmbg2.getText(), txtIme2.getText(), txtPrezime2.getText(),
+											idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja2.getValue()),
+													idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
+								primaryStage.close();
+							}
+							else{
+								AlertDisplay.showError("Prijava", "Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+							}
+						}
+						else if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg2.getText(), idTurnira, idKategorije)){
+							if(DAOFactory.getDAOFactory().getTimDAO().insertDouble(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().insert(txtJmbg1.getText(), txtIme1.getText(), txtPrezime1.getText(),
+									idKategorije%2==1?"M".charAt(0):"Ž".charAt(0),Date.valueOf(dpDatumRodjenja1.getValue()), 
+											idTurnira, idKategorije, Date.valueOf(LocalDate.now())),
+									DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().addNew(idTurnira,idKategorije, 
+											DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(txtJmbg2.getText()).getId(), Date.valueOf(LocalDate.now())))){
+								primaryStage.close();
+							}
+							else{
+								AlertDisplay.showError("Prijava", "Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+							}
 						}
 						else{
-							AlertDisplay.showError("Prijava", "Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+							if(DAOFactory.getDAOFactory().getTimDAO().insertDouble(DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().insert(txtJmbg1.getText(), txtIme1.getText(), txtPrezime1.getText(),
+									idKategorije%2==1?"M".charAt(0):"Ž".charAt(0),Date.valueOf(dpDatumRodjenja1.getValue()), 
+											idTurnira, idKategorije, Date.valueOf(LocalDate.now())), 
+									DAOFactory.getDAOFactory().getUcesnikPrijavaDAO().insert(txtJmbg2.getText(), txtIme2.getText(), txtPrezime2.getText(),
+											idKategorije%2==1?"M".charAt(0):"Ž".charAt(0), Date.valueOf(dpDatumRodjenja2.getValue()),
+													idTurnira, idKategorije, Date.valueOf(LocalDate.now())))){
+								primaryStage.close();
+							}
+							else{
+								AlertDisplay.showError("Prijava", "Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
+							}
 						}
 					}
 				}

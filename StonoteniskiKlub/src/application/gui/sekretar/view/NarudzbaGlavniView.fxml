@@ -22,7 +22,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btnIzmjeni" layoutX="507.0" layoutY="529.0" mnemonicParsing="false" onAction="#idiNaIzmjenuNarudzbe" prefHeight="25.0" prefWidth="130.0" text="Izmjenite postojeću" />
+      <Button fx:id="btnIzmjeni" layoutX="507.0" layoutY="529.0" mnemonicParsing="false" onAction="#idiNaIzmjenuNarudzbe" prefHeight="25.0" prefWidth="130.0" text="Izmijenite postojeću" />
       <Pane layoutX="14.0" layoutY="402.0" prefHeight="163.0" prefWidth="355.0" style="-fx-border-width: 2; -fx-border-color: grey;">
          <children>
             <ComboBox fx:id="comboBoxDistributer" layoutX="84.0" layoutY="26.0" prefHeight="25.0" prefWidth="214.0" />
