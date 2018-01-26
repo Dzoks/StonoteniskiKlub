@@ -201,7 +201,7 @@ public class DodavanjeUgovoraController extends BaseController {
 							DAOFactory.getDAOFactory().getDonacijaDAO().insert(sponzor, ugovor, donacija);
 						}
 					}
-					AlertDisplay.showInformation("Dodavanje", "Ugovor uspješno dodan.");
+					AlertDisplay.showInformation("Dodavanje", "Ugovor uspješno dodat.");
 				}
 
 			} else {

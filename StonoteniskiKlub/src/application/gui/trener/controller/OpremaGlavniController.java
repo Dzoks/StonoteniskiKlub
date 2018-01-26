@@ -293,7 +293,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 				}
 
 				if (selektovanaOprema != null) {
-					new Alert(AlertType.INFORMATION, selektovanaOprema.getOpis(), ButtonType.OK).show();
+					AlertDisplay.showInformation("Pregled", selektovanaOprema.getOpis());
 				}
 			}
 

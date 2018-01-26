@@ -115,7 +115,7 @@ public class DodavanjeSponzoraController extends BaseController {
 					AlertDisplay.showError("Dodavanje", "Dodavanje nije uspjelo.");
 				}
 			} else {
-				AlertDisplay.showError("Dodavanja", "Niste unijeli sve podatke.");
+				AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke.");
 			}
 		}else{
 			if(InputValidator.allEntered(txtAdresa.getText(), txtNaziv.getText(), txtMail.getText())){

@@ -45,7 +45,8 @@ public class PromjenaLozinkeController extends BaseController {
 
 			}
 		}else {
-			new Alert(AlertType.INFORMATION, "Unesite sva polja.").show();
+			AlertDisplay.showError("Dodavanje", "Niste popunili sva polja. Pokušajte ponovo.");
+;
 
 		}
 	}

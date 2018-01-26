@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.UcesnikPrijavaDTO;
+import application.util.AlertDisplay;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -52,7 +53,7 @@ public class SinglPrijavaController extends BaseController{
 	}
 	
 	public void inicijalizujIzmjene(Integer idTurnira,Integer idKategorije,UcesnikPrijavaDTO ucesnik){
-		primaryStage.setTitle("Izmjena prijave");
+		primaryStage.setTitle("Stonoteniski klub");
 		this.idTurnira=idTurnira;
 		this.idKategorije=idKategorije;
 		this.idPrijave=ucesnik.getIdPrijave();
@@ -72,27 +73,15 @@ public class SinglPrijavaController extends BaseController{
 
 	public void sacuvaj(){
 		if(txtIme.getText().length()>45 || txtPrezime.getText().length()>45){
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Greška");
-			alert.setHeaderText("Nepravilan unos!");
-			alert.setContentText("Nije moguće prijaviti učesnika sa imenom ili prezimenom dužim od 45 karaktera.");
-			alert.show();
+			AlertDisplay.showError("Prijava", "Nije moguće prijaviti učesnika sa imenom ili prezimenom dužim od 45 karaktera.");
 		}
 		else{
 			if(txtJmbg.getText().length()!=13 || !txtJmbg.getText().matches("[0-9]*")){
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Greška");
-				alert.setHeaderText("Pogrešan JMB!");
-				alert.setContentText("Potrebno je unijeti JMB dužine od 13 brojeva.");
-				alert.show();
+				AlertDisplay.showError("Prijava","Potrebno je unijeti JMB dužine od 13 brojeva.");
 			}
 			else{
 				if(dpDatumRodjenja.getValue().isAfter(LocalDate.now())){
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Greška");
-					alert.setHeaderText("Nepravilan unos!");
-					alert.setContentText("Nije moguće prijaviti učesnika čiji je datum rođenja poslije današnjeg.");
-					alert.show();
+					AlertDisplay.showError("Prijava","Nije moguće prijaviti učesnika čiji je datum rođenja poslije današnjeg.");
 				}
 				else{
 					if(DAOFactory.getDAOFactory().getOsobaDAO().doesExist(txtJmbg.getText(), idTurnira, idKategorije)){
@@ -101,11 +90,7 @@ public class SinglPrijavaController extends BaseController{
 							primaryStage.close();
 						}
 						else{
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Greška");
-							alert.setHeaderText("Nešto nije u redu!");
-							alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
-							alert.show();
+							AlertDisplay.showError("Prijava", "Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika.");
 						}
 					}
 					else{
@@ -166,11 +151,7 @@ public class SinglPrijavaController extends BaseController{
 						primaryStage.close();
 					}
 					else{
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Greška");
-						alert.setHeaderText("Nešto nije u redu!");
-						alert.setContentText("Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika!");
-						alert.show();
+						AlertDisplay.showError("Prijava", "Uneseni podaci nisu odgovarajući, ili nije moguće prijaviti učesnika.");
 					}
 				}
 			}

@@ -236,7 +236,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 //				i azurirati fleg aktivan
 				DAOFactory.getDAOFactory().getClanDAO().setAktivan(true, clan.getId());
 				DAOFactory.getDAOFactory().getClanstvoDAO().insert(clan.getId());
-				AlertDisplay.showInformation("Dodavanje", "Bivši član je ponovo aktivan. Neke informacije je možda potrebno izmjeniti.");
+				AlertDisplay.showInformation("Dodavanje", "Bivši član je ponovo aktivan. Neke informacije je možda potrebno izmijeniti.");
 				primaryStage.close();
 				return;
 			}
@@ -250,7 +250,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 //			MOZDA TREBA OBRISATI
 			DAOFactory.getDAOFactory().getClanDAO().insert(clan);
 			DAOFactory.getDAOFactory().getClanstvoDAO().insert(clan.getId());
-			AlertDisplay.showInformation("Dodavanje", "Novi član. Neke informacije je možda potrebno izmjeniti.");
+			AlertDisplay.showInformation("Dodavanje", "Novi član. Neke informacije je možda potrebno izmijeniti.");
 
 			primaryStage.close();
 			return;

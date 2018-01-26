@@ -66,10 +66,7 @@ public class TransakcijaController extends Controller{
 	@Override
 		void uspjesnoDodavanje() {
 			// TODO Auto-generated method stub
-		Alert alert = new Alert(AlertType.INFORMATION, "Uspješno dodavanje!");
-		alert.setTitle("Informacija");
-		alert.setHeaderText("Dodavanje");
-		alert.showAndWait();
+		AlertDisplay.showInformation("Dodavanje", "Uspješno dodavanje.");
 		this.obrisiPolja();
 		radiobtnSve.fire();
 		btnPrikazi.fire();

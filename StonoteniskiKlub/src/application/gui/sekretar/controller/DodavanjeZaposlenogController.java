@@ -209,7 +209,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 						Double.parseDouble(txtPlata.getText()));
 				if (DAOFactory.getDAOFactory().getZaposlenjeDAO().insert(zaposleniZaAzurirati, zaposlenje)) {
 					zaposleniZaAzurirati.getZaposljenja().add(zaposlenje);
-					AlertDisplay.showInformation("Dodavanje", "Zaposlenje uspješno dodano");
+					AlertDisplay.showInformation("Dodavanje", "Zaposlenje uspješno dodato");
 				} else {
 					AlertDisplay.showError("Dodavanje", "Nešto nije u redu.");
 				}
@@ -236,7 +236,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 						if (DAOFactory.getDAOFactory().getZaposleniDAO().insert(zaposleni, zaposlenje, tip)) {
 							zaposleni.setZaposljenja(FXCollections.observableArrayList());
 							zaposleni.getZaposljenja().add(zaposlenje);
-							AlertDisplay.showInformation("Dodavanje", "Zaposleni uspješno dodan.");
+							AlertDisplay.showInformation("Dodavanje", "Zaposleni uspješno dodat.");
 							parent.dodajZaposlenog(zaposleni);
 							for (String telefon : noviTelefoni) {
 								DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleni);
