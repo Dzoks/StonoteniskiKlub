@@ -43,6 +43,7 @@ public abstract class BaseController implements Initializable{
 	
 	public void setUsername(String username) {
 		lblUsername.setText("Zdravo, "+username);
+		
 	}
 	@FXML
 	public void odjaviteSe() {

@@ -44,6 +44,7 @@ public class MySQLRegistracijaDAO implements RegistracijaDAO {
 				hashMap.put(rs.getMetaData().getColumnName(4), rs.getInt(4));
 				for (int i = 6; i <= rs.getMetaData().getColumnCount(); i++)
 					hashMap.put(rs.getMetaData().getColumnName(i), rs.getInt(i));
+
 				list.add(new RegistracijaDTO(member.getId(), rs.getString("Sezona"), rs.getInt("KATEGORIJA_Id"),
 						rs.getDate("Datum").toLocalDate(), hashMap, member));
 			}
@@ -71,13 +72,16 @@ public class MySQLRegistracijaDAO implements RegistracijaDAO {
 			ps.setInt(2, kategorija.getId());
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				HashMap<String, Integer> hashMap = new HashMap<>();
-				hashMap.put(rs.getMetaData().getColumnName(4), rs.getInt(4));
-				for (int i = 6; i <= rs.getMetaData().getColumnCount(); i++)
-					hashMap.put(rs.getMetaData().getColumnName(i), rs.getInt(i));
-				list.add(new RegistracijaDTO(rs.getInt("CLAN_Id"), sezona, kategorija.getId(),
-						rs.getDate("Datum").toLocalDate(), hashMap,
-						DAOFactory.getDAOFactory().getClanDAO().getById(rs.getInt("CLAN_Id"))));
+				int clanId = rs.getInt("CLAN_Id");
+				ClanDTO member = DAOFactory.getDAOFactory().getClanDAO().getById(clanId);
+				if (member.isAktivan()) {
+					HashMap<String, Integer> hashMap = new HashMap<>();
+					hashMap.put(rs.getMetaData().getColumnName(4), rs.getInt(4));
+					for (int i = 6; i <= rs.getMetaData().getColumnCount(); i++)
+						hashMap.put(rs.getMetaData().getColumnName(i), rs.getInt(i));
+					list.add(new RegistracijaDTO(rs.getInt("CLAN_Id"), sezona, kategorija.getId(),
+							rs.getDate("Datum").toLocalDate(), hashMap, member));
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -14,6 +14,9 @@ public class AlertDisplay {
 	public static void showInformation(String headerText, String contentText){
 		Alert alert = createAlert(headerText,contentText);
 		alert.setTitle("Obavještenje");
+		ButtonType okButton=new ButtonType("U redu", ButtonData.OK_DONE);
+		alert.getButtonTypes().clear();
+		alert.getButtonTypes().add(okButton);
 		alert.showAndWait();
 	}
 	private static Alert createAlert(String headerText,String contentText) {
