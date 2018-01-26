@@ -9,8 +9,6 @@ import java.util.ResourceBundle;
 
 import application.model.dto.TransakcijaDTO;
 import application.util.AlertDisplay;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;

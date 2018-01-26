@@ -11,12 +11,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import com.itextpdf.text.log.SysoCounter;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
