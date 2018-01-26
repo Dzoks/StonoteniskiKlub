@@ -9,20 +9,20 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="348.0" prefWidth="339.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniClanarinuController">
+<AnchorPane prefHeight="348.0" prefWidth="339.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniClanarinuController">
    <children>
-      <Label fx:id="lblMjesec" layoutX="17.0" layoutY="31.0" prefHeight="17.0" prefWidth="46.0" text="Mjesec:" />
-      <Label fx:id="lblGodina" layoutX="20.0" layoutY="75.0" text="Godina:" />
-      <Label fx:id="lblGodinaUplate" layoutX="18.0" layoutY="115.0" text="Datum uplate:" />
+      <Label fx:id="lblMjesec" layoutX="18.0" layoutY="31.0" prefHeight="17.0" prefWidth="55.0" text="Mjesec:" />
+      <Label fx:id="lblGodina" layoutX="20.0" layoutY="75.0" prefHeight="17.0" prefWidth="55.0" text="Godina:" />
+      <Label fx:id="lblGodinaUplate" layoutX="17.0" layoutY="115.0" prefHeight="17.0" prefWidth="92.0" text="Datum uplate:" />
       <Spinner fx:id="spinnerMjesec" layoutX="119.0" layoutY="27.0" />
       <Spinner fx:id="spinnerGodina" layoutX="119.0" layoutY="71.0" />
       <DatePicker fx:id="datePicker" layoutX="119.0" layoutY="111.0" prefHeight="25.0" prefWidth="149.0" />
-      <Button fx:id="btnIzmijeni" layoutX="141.0" layoutY="299.0" mnemonicParsing="false" onAction="#izmijeni" text="Izmijenite" />
-      <Button fx:id="btnOtkazi" layoutX="236.0" layoutY="299.0" mnemonicParsing="false" onAction="#otkazi" prefHeight="23.0" prefWidth="67.0" text="Otkažite" />
-      <Label fx:id="lblIznos" layoutX="17.0" layoutY="152.0" prefHeight="17.0" prefWidth="46.0" text="Iznos:" />
+      <Button fx:id="btnIzmijeni" layoutX="120.0" layoutY="299.0" mnemonicParsing="false" onAction="#izmijeni" text="Izmijenite" />
+      <Button fx:id="btnOtkazi" layoutX="226.0" layoutY="299.0" mnemonicParsing="false" onAction="#otkazi" prefHeight="23.0" prefWidth="67.0" text="Otkažite" />
+      <Label fx:id="lblIznos" layoutX="18.0" layoutY="152.0" prefHeight="17.0" prefWidth="46.0" text="Iznos:" />
       <TextField fx:id="txtIznos" layoutX="120.0" layoutY="148.0" />
       <Label fx:id="lblKM" layoutX="275.0" layoutY="152.0" text="KM" />
-      <Label fx:id="lblOpis" layoutX="17.0" layoutY="184.0" text="Opis:" />
+      <Label fx:id="lblOpis" layoutX="17.0" layoutY="185.0" text="Opis:" />
       <ScrollPane fx:id="scrollPane" layoutX="119.0" layoutY="193.0" prefHeight="75.0" prefWidth="174.0">
          <content>
             <TextArea fx:id="txtOpis" prefHeight="74.0" prefWidth="171.0" />
