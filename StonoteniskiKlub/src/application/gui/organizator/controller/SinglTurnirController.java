@@ -51,7 +51,16 @@ public class SinglTurnirController extends BaseController{
 	private Button btnZrijeb;
 	@FXML
 	private Button btnNazad;
+	private String username;
 	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	private Integer idTurnira;
 	private Integer idKategorije;
 	
@@ -239,7 +248,8 @@ public class SinglTurnirController extends BaseController{
 	
 	public void vratiNazad(){
 		try {
-			changeScene("/application/gui/organizator/view/TurniriView.fxml", primaryStage);
+			BaseController bc=changeScene("/application/gui/organizator/view/TurniriView.fxml", primaryStage);
+			bc.setUsername(username.split("\\,")[1]);
 		} catch (IOException e) {
 			e.printStackTrace();
 			new ErrorLogger().log(e);

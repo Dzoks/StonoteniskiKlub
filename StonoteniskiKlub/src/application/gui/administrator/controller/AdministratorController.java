@@ -53,6 +53,8 @@ public class AdministratorController extends BaseController {
 		try {
 			BaseController.changeScene("/application/gui/administrator/view/DodajNalogView.fxml", stage);
 			stage.show();
+			stage.setTitle("Stonoteniski klub");
+			stage.setResizable(false);
 		} catch (IOException e) {
 			new ErrorLogger().log(e);
 			e.printStackTrace();
