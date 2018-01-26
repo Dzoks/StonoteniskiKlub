@@ -205,7 +205,16 @@ public class RadSaDonacijamaController extends BaseController {
 			}
 		}
 	}
-
+	@FXML
+	public void prikaziNovcane(ActionEvent event){
+		cbTipDonacije.getSelectionModel().select(1);
+		cbTipDonacije.fireEvent(event);
+	}
+	@FXML
+	public void prikaziOpremu(ActionEvent event){
+		cbTipDonacije.getSelectionModel().select(2);
+		cbTipDonacije.fireEvent(event);
+	}
 	public void setDonacije(ObservableList<DonacijaDTO> donacije) {
 		this.donacije = donacije;
 		tblDonacije.setItems(donacije);

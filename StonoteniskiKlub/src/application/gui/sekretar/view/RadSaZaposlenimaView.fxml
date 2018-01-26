@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane onMouseClicked="#deselect" prefHeight="588.0" prefWidth="770.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaZaposlenimaController">
+<AnchorPane onMouseClicked="#deselect" prefHeight="588.0" prefWidth="770.0" styleClass="body" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaZaposlenimaController">
    <children>
       <TableView fx:id="tblZaposleni" layoutX="230.0" layoutY="50.0" onMouseClicked="#prikaziSliku" prefHeight="498.0" prefWidth="505.0" tableMenuButtonVisible="true">
         <columns>
@@ -27,19 +28,22 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <ImageView fx:id="imgFotografija" fitHeight="255.0" fitWidth="188.0" layoutX="14.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgFotografija" fitHeight="233.0" fitWidth="188.0" layoutX="14.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/avatar.png" />
+            <Image url="@../../../../resources/avatar.png" />
          </image>
       </ImageView>
       <Button fx:id="btnDodajZaposlenog" layoutX="47.0" layoutY="523.0" mnemonicParsing="false" onAction="#dodajZaposlenog" text="Dodajte zaposlenog" />
-      <Button fx:id="btnDodajZaposlenje" layoutX="49.0" layoutY="475.0" mnemonicParsing="false" onAction="#dodajZaposlenje" text="Dodajte zaposlenje" />
-      <Button fx:id="btnAzuriraj" layoutX="50.0" layoutY="324.0" mnemonicParsing="false" onAction="#azuriraj" prefHeight="25.0" prefWidth="116.0" text="Ažurirajte" />
-      <Button fx:id="btnObrisi" layoutX="50.0" layoutY="376.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="116.0" text="Obrišite" />
-      <Button fx:id="btnPregledZaposlenja" layoutX="50.0" layoutY="425.0" mnemonicParsing="false" onAction="#pregledajZaposlenja" text="Pregled zaposlenja" />
+      <Button fx:id="btnDodajZaposlenje" layoutX="49.0" layoutY="481.0" mnemonicParsing="false" onAction="#dodajZaposlenje" text="Dodajte zaposlenje" />
+      <Button fx:id="btnAzuriraj" layoutX="50.0" layoutY="359.0" mnemonicParsing="false" onAction="#azuriraj" prefHeight="25.0" prefWidth="116.0" text="Ažurirajte" />
+      <Button fx:id="btnObrisi" layoutX="51.0" layoutY="401.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="116.0" text="Obrišite" />
+      <Button fx:id="btnPregledZaposlenja" layoutX="49.0" layoutY="442.0" mnemonicParsing="false" onAction="#pregledajZaposlenja" text="Pregled zaposlenja" />
       <Button fx:id="btnPretrazi" layoutX="667.0" layoutY="14.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretrazite" />
       <TextField fx:id="txtVrijednost" layoutX="510.0" layoutY="14.0" />
       <Label layoutX="324.0" layoutY="18.0" text="Pretražite po:" />
-      <ComboBox fx:id="cbTipPretrage" layoutX="404.0" layoutY="13.0" onAction="#postaviUslov" prefHeight="23.0" prefWidth="98.0" />
+      <ComboBox fx:id="cbTipPretrage" layoutX="404.0" layoutY="13.0" prefHeight="23.0" prefWidth="98.0" />
+      <ComboBox fx:id="cbTip" layoutX="14.0" layoutY="13.0" onAction="#filtriraj" prefWidth="150.0" />
+      <Button fx:id="btnOsvjezi" layoutX="230.0" layoutY="13.0" mnemonicParsing="false" onAction="#osvjezi" text="Osvježite" />
+      <ListView fx:id="lstTelefoni" layoutX="14.0" layoutY="301.0" prefHeight="42.0" prefWidth="188.0" />
    </children>
 </AnchorPane>

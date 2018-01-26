@@ -1,11 +1,19 @@
 package application.util;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -19,6 +27,7 @@ import application.model.dto.DogadjajDTO;
 import application.model.dto.StavkaSkupstinaDTO;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
 
 public class TextUtility {
 	public static void setTextFlow(TextFlow textFlow, List<StavkaSkupstinaDTO> stavke) {
@@ -83,5 +92,38 @@ public class TextUtility {
 		Paragraph header = new Paragraph(headerText);
 		header.setAlignment(Element.ALIGN_CENTER);
 		document.add(header);
+	}
+	public static Map<String, String> IMAGE_EXTENSIONS = new HashMap<String, String>();
+	static {
+		IMAGE_EXTENSIONS.put("All Images", "*.*");
+		IMAGE_EXTENSIONS.put("JPG", "*.jpg");
+		IMAGE_EXTENSIONS.put("JPEG", "*.jpeg");
+		IMAGE_EXTENSIONS.put("PNG", "*.png");
+	}
+	public static FileChooser configureFileChooser(String title, Map<String, String> extensions) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle(title);
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+		for(String key : extensions.keySet()) {
+			String value = extensions.get(key);
+			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(key, value));
+		}
+		return fileChooser;
+	}
+	public static Blob convertImageToBlob(File fotografija) throws IOException {
+		if (fotografija == null)
+			return null;
+		Connection conn;
+		try {
+			conn = ConnectionPool.getInstance().checkOut();
+			Blob blob = conn.createBlob();
+
+			blob.setBytes(1, Files.readAllBytes(fotografija.toPath()));
+			return blob;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+			return null;
+		}
 	}
 }

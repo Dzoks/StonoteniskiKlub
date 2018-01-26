@@ -1,5 +1,7 @@
 package application.gui.sekretar.controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Blob;
@@ -24,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -71,13 +74,38 @@ public class RadSaZaposlenimaController extends BaseController {
 	private TextField txtVrijednost;
 	@FXML
 	private Button btnPretrazi;
+	@FXML
+	private ComboBox<String> cbTip;
+	@FXML
+	private Button btnOsvjezi;
+	@FXML
+	private ListView<String> lstTelefoni;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		buildTable();
 		populateTable();
 		populateComboBox();
 		bindDisable();
-		defaultImage = new Image(getClass().getResourceAsStream("/avatar.png"));
+		loadImage();
+	}
+
+	@FXML
+	public void filtriraj(ActionEvent event) {
+		String izbor = cbTip.getSelectionModel().getSelectedItem();
+		if ("Svi".equals(izbor)) {
+			tblZaposleni.setItems(DAOFactory.getDAOFactory().getZaposleniDAO().selectAll());
+		} else if ("Aktivni".equals(izbor)) {
+			tblZaposleni.setItems(DAOFactory.getDAOFactory().getZaposleniDAO().selectAktivni(true));
+		} else {
+			tblZaposleni.setItems(DAOFactory.getDAOFactory().getZaposleniDAO().selectAktivni(false));
+		}
+	}
+
+	@FXML
+	public void osvjezi(ActionEvent event) {
+		cbTip.getSelectionModel().select(0);
+		cbTip.fireEvent(event);
 	}
 
 	// Event Listener on AnchorPane.onMouseClicked
@@ -85,21 +113,24 @@ public class RadSaZaposlenimaController extends BaseController {
 	public void deselect(MouseEvent event) {
 		tblZaposleni.getSelectionModel().clearSelection();
 	}
-	  @FXML
-	    void odjaviteSe(ActionEvent event) {
-	    	try {
-				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new ErrorLogger().log(e);
-			}
-	    }
+
+	@FXML
+	void odjaviteSe(ActionEvent event) {
+		try {
+			BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+		} catch (IOException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		}
+	}
+
 	// Event Listener on TableView[#tblZaposleni].onMouseClicked
 	@FXML
 	public void prikaziSliku(MouseEvent event) {
 		ZaposleniDTO zap = tblZaposleni.getSelectionModel().getSelectedItem();
 		if (zap != null) {
 			setImage(zap.getSlika());
+			setTelefoni(zap);
 		}
 	}
 
@@ -197,24 +228,23 @@ public class RadSaZaposlenimaController extends BaseController {
 			controller.setZaposleni(zaposleni);
 			newStage.setScene(scene);
 			newStage.setResizable(false);
-			newStage.setTitle("Stonoteniski klub"); 
+			newStage.setTitle("Stonoteniski klub - pregled zaposlenja");
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 			new ErrorLogger().log(e);
 		}
 	}
+
 	@FXML
-	public void postaviUslov(ActionEvent event){
-		
-	}
-	@FXML
-	public void pretrazi(ActionEvent event){
+	public void pretrazi(ActionEvent event) {
 		cbTipPretrage.getSelectionModel().getSelectedItem().setTarget(txtVrijednost.getText());
-		List<ZaposleniDTO> result = Finder.findAll(tblZaposleni.getItems(), cbTipPretrage.getSelectionModel().getSelectedItem());
+		List<ZaposleniDTO> result = Finder.findAll(tblZaposleni.getItems(),
+				cbTipPretrage.getSelectionModel().getSelectedItem());
 		tblZaposleni.getItems().clear();
 		tblZaposleni.getItems().addAll(result);
 	}
+
 	public void dodajZaposlenog(ZaposleniDTO zaposleni) {
 		tblZaposleni.getItems().add(zaposleni);
 	}
@@ -227,11 +257,18 @@ public class RadSaZaposlenimaController extends BaseController {
 			tblZaposleni.getSelectionModel().select(index);
 			tblZaposleni.refresh();
 			setImage(zaposleni.getSlika());
+			setTelefoni(zaposleni);
 		}
 	}
 
 	private Image defaultImage;
 	private ObservableList<ZaposleniDTO> zaposleni;
+	private static List<String> tipovi = new ArrayList<String>();
+	static {
+		tipovi.add("Svi");
+		tipovi.add("Aktivni");
+		tipovi.add("Neaktivni");
+	}
 
 	private void buildTable() {
 		colJMB.setCellValueFactory(new PropertyValueFactory<ZaposleniDTO, String>("jmb"));
@@ -246,7 +283,7 @@ public class RadSaZaposlenimaController extends BaseController {
 
 	private void populateTable() {
 		this.zaposleni = DAOFactory.getDAOFactory().getZaposleniDAO().selectAll();
-		tblZaposleni.setItems(DAOFactory.getDAOFactory().getZaposleniDAO().selectAktivni());
+		tblZaposleni.setItems(this.zaposleni);
 	}
 
 	private void bindDisable() {
@@ -269,15 +306,36 @@ public class RadSaZaposlenimaController extends BaseController {
 			new ErrorLogger().log(e);
 		}
 	}
+
 	private static List<Checker<ZaposleniDTO>> checkers = new ArrayList<Checker<ZaposleniDTO>>();
-	static{
+	static {
 		checkers.add(new ZaposleniJMBChecker(""));
 		checkers.add(new ZaposleniImeChecker(""));
 	}
-	private void populateComboBox(){
+
+	private void populateComboBox() {
 		ObservableList<Checker<ZaposleniDTO>> cbCheckers = FXCollections.observableArrayList();
 		cbCheckers.addAll(checkers);
+		ObservableList<String> tipoviOL = FXCollections.observableArrayList();
+		tipoviOL.addAll(tipovi);
 		this.cbTipPretrage.setItems(cbCheckers);
 		this.cbTipPretrage.getSelectionModel().select(0);
+		this.cbTip.setItems(tipoviOL);
+		this.cbTip.getSelectionModel().select(0);
+	}
+
+	private void loadImage() {
+		try {
+			defaultImage = new Image(new FileInputStream("resources/avatar.png"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		}
+	}
+	private void setTelefoni(ZaposleniDTO zap){
+		lstTelefoni.getItems().clear();
+		ObservableList<String> telefoni = FXCollections.observableArrayList();
+		telefoni.addAll(zap.getTelefoni());
+		lstTelefoni.setItems(telefoni);
 	}
 }

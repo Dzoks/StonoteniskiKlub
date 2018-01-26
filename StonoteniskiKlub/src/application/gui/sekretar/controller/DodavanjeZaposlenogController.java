@@ -5,9 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.sql.Blob;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,9 +18,9 @@ import application.model.dto.ZaposleniDTO;
 import application.model.dto.ZaposleniTipDTO;
 import application.model.dto.ZaposlenjeDTO;
 import application.util.AlertDisplay;
-import application.util.ConnectionPool;
 import application.util.ErrorLogger;
 import application.util.InputValidator;
+import application.util.TextUtility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,8 +35,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 public class DodavanjeZaposlenogController extends BaseController {
 
@@ -86,50 +82,54 @@ public class DodavanjeZaposlenogController extends BaseController {
 	private Button btnUkloniTelefon;
 	@FXML
 	private Button btnUkloniFotografiju;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		populateComboBoxes();
 		bindDisable();
-
-			defaultImage = new Image(getClass().getResourceAsStream("/avatar.png"));
+		try {
+			defaultImage = new Image(new FileInputStream("resources/avatar.png"));
 			imgFotografija.setImage(defaultImage);
-
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		}
 	}
 
 	// Event Listener on Button[#btnDodajBrojTelefona].onAction
 	@FXML
 	public void dodajBrojTelefona(ActionEvent event) {
 		String brTelefona = tfBrojTelefona.getText();
-		if(InputValidator.validateTelefon(brTelefona)){
+		if (InputValidator.validateTelefon(brTelefona)) {
 			ObservableList<String> telefoni = lstTelefoni.getItems();
-			if(!telefoni.contains(brTelefona)){
+			if (!telefoni.contains(brTelefona)) {
 				telefoni.add(brTelefona);
-				if(!uklonjeniTelefoni.contains(brTelefona)){
+				if (!uklonjeniTelefoni.contains(brTelefona)) {
 					noviTelefoni.add(brTelefona);
 				}
 			}
-			if(uklonjeniTelefoni.contains(brTelefona)){
+			if (uklonjeniTelefoni.contains(brTelefona)) {
 				uklonjeniTelefoni.remove(telefoni);
 			}
 		}
 	}
+
 	@FXML
-	public void ukloniTelefon(ActionEvent event){
+	public void ukloniTelefon(ActionEvent event) {
 		String telefon = lstTelefoni.getSelectionModel().getSelectedItem();
 		lstTelefoni.getItems().remove(lstTelefoni.getSelectionModel().getSelectedIndex());
 		uklonjeniTelefoni.add(telefon);
 	}
+
 	// Event Listener on Button[#btnDodajFotografiju].onAction
 	@FXML
 	public void dodajFotografiju(ActionEvent event) {
-		imgChooser.setTitle("Izaberite fotografiju");
-		imgChooser.setSelectedExtensionFilter(new ExtensionFilter("slike", ".jpg", ".jpeg", ".bmp", ".gif"));
-		File file = imgChooser.showOpenDialog(this.primaryStage);
+		File file = TextUtility.configureFileChooser("Izaberite fotografiju", TextUtility.IMAGE_EXTENSIONS)
+				.showOpenDialog(this.primaryStage);
 		if (file != null) {
-			System.out.println(file.getAbsolutePath());
 			fotografijaLik = file;
 			try {
+				promjena = true;
 				imgFotografija.setImage(new Image(new FileInputStream(file)));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -137,21 +137,22 @@ public class DodavanjeZaposlenogController extends BaseController {
 			}
 		}
 	}
+
 	@FXML
-	public void ukloniFotografiju(ActionEvent event){
+	public void ukloniFotografiju(ActionEvent event) {
 		imgFotografija.setImage(defaultImage);
 		fotografijaLik = null;
+		promjena = true;
 	}
-	
-	
+
 	// Event Listener on Button[#btnSacuvajPodatke].onAction
 	@FXML
 	public void sacuvaj(ActionEvent event) {
 
 		if ((tip == AZURIRANJE_ZAPOSLENOG && !InputValidator.allEntered(txtIme.getText(), txtPrezime.getText(),
 				txtImeRoditelja.getText(), txtJMB.getText(), dpDatumRodjenja.getValue()))
-				|| (tip == DODAVANJE_ZAPOSLENJA && !InputValidator.allEntered(dpZaposlenOd.getValue(),
-						dpZaposlenDo.getValue(), txtPlata.getText()))
+				|| (tip == DODAVANJE_ZAPOSLENJA
+						&& !InputValidator.allEntered(dpZaposlenOd.getValue(), txtPlata.getText()))
 				|| (tip == DODAVANJE_ZAPOSLENOG && !InputValidator.allEntered(txtIme.getText(), txtPrezime.getText(),
 						txtImeRoditelja.getText(), txtJMB.getText(), dpDatumRodjenja.getValue(),
 						dpZaposlenOd.getValue(), txtPlata.getText()))) {
@@ -162,10 +163,10 @@ public class DodavanjeZaposlenogController extends BaseController {
 			Date datumOd = null;
 			Date datumDo = null;
 			try {
-				if(dpDatumRodjenja.getValue() != null){
+				if (dpDatumRodjenja.getValue() != null) {
 					datumRodjenja = formatter.parse(dpDatumRodjenja.getValue().toString());
 				}
-				if(dpZaposlenOd.getValue() != null){
+				if (dpZaposlenOd.getValue() != null) {
 					datumOd = formatter.parse(dpZaposlenOd.getValue().toString());
 				}
 				if (dpZaposlenDo.getValue() != null) {
@@ -183,20 +184,22 @@ public class DodavanjeZaposlenogController extends BaseController {
 				this.zaposleniZaAzurirati.setDatumRodjenja(datumRodjenja);
 				this.zaposleniZaAzurirati.setPol(rbMuskiPol.isSelected() ? 'M' : 'Z');
 				this.zaposleniZaAzurirati.setTelefoni(lstTelefoni.getItems());
-				try {
-					if (fotografijaLik != null) {
-						this.zaposleniZaAzurirati.setSlika(convertImageToBlob(fotografijaLik));
-					} else{
-						this.zaposleniZaAzurirati.setSlika(null);
+				if (promjena) {
+					try {
+						if (fotografijaLik != null) {
+							this.zaposleniZaAzurirati.setSlika(TextUtility.convertImageToBlob(fotografijaLik));
+						} else {
+							this.zaposleniZaAzurirati.setSlika(null);
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+						new ErrorLogger().log(e);
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
-					new ErrorLogger().log(e);
 				}
 				DAOFactory.getDAOFactory().getOsobaDAO().update(zaposleniZaAzurirati);
 				parent.zamijeni(zaposleniZaAzurirati);
 				AlertDisplay.showInformation("Izmjena", "Zaposleni uspješno ažuriran.");
-				for(String telefon : noviTelefoni){
+				for (String telefon : noviTelefoni) {
 					DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleniZaAzurirati);
 				}
 			} else if (tip == DODAVANJE_ZAPOSLENJA) {
@@ -221,21 +224,21 @@ public class DodavanjeZaposlenogController extends BaseController {
 						Blob slika = null;
 						if (fotografijaLik != null) {
 							try {
-								slika = convertImageToBlob(fotografijaLik);
+								slika = TextUtility.convertImageToBlob(fotografijaLik);
 							} catch (IOException e) {
 								e.printStackTrace();
 								new ErrorLogger().log(e);
 							}
 						}
 						ZaposleniDTO zaposleni = new ZaposleniDTO(null, txtIme.getText(), txtPrezime.getText(),
-								txtImeRoditelja.getText(), txtJMB.getText(), pol, datumRodjenja, slika, lstTelefoni.getItems(), true,
-								null);
+								txtImeRoditelja.getText(), txtJMB.getText(), pol, datumRodjenja, slika,
+								lstTelefoni.getItems(), true, null);
 						if (DAOFactory.getDAOFactory().getZaposleniDAO().insert(zaposleni, zaposlenje, tip)) {
 							zaposleni.setZaposljenja(FXCollections.observableArrayList());
 							zaposleni.getZaposljenja().add(zaposlenje);
 							AlertDisplay.showInformation("Dodavanje", "Zaposleni uspješno dodan.");
 							parent.dodajZaposlenog(zaposleni);
-							for(String telefon : noviTelefoni){
+							for (String telefon : noviTelefoni) {
 								DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleni);
 							}
 						} else {
@@ -250,12 +253,10 @@ public class DodavanjeZaposlenogController extends BaseController {
 				}
 			}
 		}
-		for(String tel : uklonjeniTelefoni){
+		for (String tel : uklonjeniTelefoni) {
 			DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(tel);
 		}
 	}
-
-	private FileChooser imgChooser = new FileChooser();
 
 	public void setParent(RadSaZaposlenimaController parent) {
 		this.parent = parent;
@@ -265,7 +266,6 @@ public class DodavanjeZaposlenogController extends BaseController {
 		this.tip = tip;
 		if (tip == AZURIRANJE_ZAPOSLENOG) {
 			disableZaposlenje();
-			;
 		} else if (tip == DODAVANJE_ZAPOSLENJA) {
 			disableZaposleni();
 		}
@@ -291,8 +291,8 @@ public class DodavanjeZaposlenogController extends BaseController {
 		} else {
 			rbZenskiPol.setSelected(false);
 		}
-		if(zaposleniZaAzurirati.getTelefoni() != null && zaposleniZaAzurirati.getTelefoni().size() > 0){
-			for(String telefon : zaposleniZaAzurirati.getTelefoni()){
+		if (zaposleniZaAzurirati.getTelefoni() != null && zaposleniZaAzurirati.getTelefoni().size() > 0) {
+			for (String telefon : zaposleniZaAzurirati.getTelefoni()) {
 				lstTelefoni.getItems().add(telefon);
 			}
 		}
@@ -306,40 +306,26 @@ public class DodavanjeZaposlenogController extends BaseController {
 
 	public void disableZaposleni() {
 		setDisabled(txtIme, txtPrezime, txtImeRoditelja, txtJMB, dpDatumRodjenja, tfBrojTelefona, btnDodajBrojTelefona,
-				btnDodajFotografiju, rbMuskiPol, rbZenskiPol);
+				btnDodajFotografiju, rbMuskiPol, rbZenskiPol, btnUkloniFotografiju, lstTelefoni);
 	}
 
 	public void disableZaposlenje() {
 		setDisabled(dpZaposlenDo, dpZaposlenOd, cmbRadnoMjesto, txtPlata);
 	}
 
-	private Blob convertImageToBlob(File fotografija) throws IOException {
-		if (fotografija == null)
-			return null;
-		Connection conn;
-		try {
-			conn = ConnectionPool.getInstance().checkOut();
-			Blob blob = conn.createBlob();
-
-			blob.setBytes(1, Files.readAllBytes(fotografija.toPath()));
-			return blob;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			new ErrorLogger().log(e);
-			return null;
-		}
-	}
-	
-	private void populateComboBoxes(){
+	private void populateComboBoxes() {
 		cmbRadnoMjesto.setItems(DAOFactory.getDAOFactory().getZaposleniTipDAO().selectAll());
 		cmbRadnoMjesto.getSelectionModel().select(0);
 	}
-	private void bindDisable(){
+
+	private void bindDisable() {
 		btnUkloniTelefon.disableProperty().bind(lstTelefoni.getSelectionModel().selectedItemProperty().isNull());
 	}
+
 	private Image defaultImage;
 	private RadSaZaposlenimaController parent;
 	private File fotografijaLik = null;
+	private boolean promjena = false;
 	private int tip;
 	private ZaposleniDTO zaposleniZaAzurirati;
 	private ObservableList<String> uklonjeniTelefoni = FXCollections.observableArrayList();

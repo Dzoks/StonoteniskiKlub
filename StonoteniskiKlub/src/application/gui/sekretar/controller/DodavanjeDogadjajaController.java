@@ -68,7 +68,8 @@ public class DodavanjeDogadjajaController extends BaseController {
 			LocalDateTime pocetak = LocalDateTime.of(datum, tpPocetak.getValue());
 			LocalDateTime kraj = LocalDateTime.of(datum, tpKraj.getValue());
 			DogadjajDTO dogadjaj = new DogadjajDTO(null, pocetak, kraj, taOpis.getText(),
-					cbTIpDogadjaja.getSelectionModel().getSelectedItem(), null);
+					cbTIpDogadjaja.getSelectionModel().getSelectedItem(),
+					null);
 			int result = DAOFactory.getDAOFactory().getDogadjajDAO().insert(dogadjaj);
 			if (result > 0) {
 				parentController.dodajDogadjajUKalendar(dogadjaj);

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.Iterator;
 
 import application.model.dao.DAOFactory;
 import application.model.dao.ZaposleniDAO;
@@ -21,9 +22,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class MySQLZaposleniDAO implements ZaposleniDAO {
-	private static final String SQL_SELECT_ALL = "select * from zaposleni z inner join osoba o on z.OSOBA_Id=o.Id";
-	private static final String SQL_SELECT_ALL_AKTIVNI = "select * from AKTIVNI_ZAPOSLENI";
-	private static final String SQL_INSERT = "{call dodaj_zaposlenog(?,?,?,?,?,?,?,?,?,?,?,?)}";
+	private static final String MY_SQL_SELECT_ALL = "select * from zaposleni z inner join osoba o on z.OSOBA_Id=o.Id where z.Aktivan=true";
+	private static final String MY_SQL_INSERT = "{call dodaj_zaposlenog(?,?,?,?,?,?,?,?,?,?,?,?)}";
 
 	@Override
 	public ObservableList<ZaposleniDTO> selectAll() {
@@ -34,7 +34,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 		try {
 			connection = ConnectionPool.getInstance().checkOut();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(SQL_SELECT_ALL);
+			resultSet = statement.executeQuery(MY_SQL_SELECT_ALL);
 			ZaposlenjeDAO zDAO = DAOFactory.getDAOFactory().getZaposlenjeDAO();
 			while (resultSet.next()) {
 				result.add(new ZaposleniDTO(resultSet.getInt("Id"), resultSet.getString("Ime"),
@@ -62,7 +62,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 		CallableStatement statement = null;
 		try {
 			connection = ConnectionPool.getInstance().checkOut();
-			statement = connection.prepareCall(SQL_INSERT);
+			statement = connection.prepareCall(MY_SQL_INSERT);
 			statement.setString("pJmb", zaposleni.getJmb());
 			statement.setString("pIme", zaposleni.getIme());
 			statement.setString("pPrezime", zaposleni.getPrezime());
@@ -102,30 +102,12 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 	}
 
 	@Override
-	public ObservableList<ZaposleniDTO> selectAktivni() {
-		ObservableList<ZaposleniDTO> result = FXCollections.observableArrayList();
-		Connection connection = null;
-		Statement statement = null;
-		ResultSet resultSet = null;
-		try {
-			connection = ConnectionPool.getInstance().checkOut();
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery(SQL_SELECT_ALL_AKTIVNI);
-			ZaposlenjeDAO zDAO = DAOFactory.getDAOFactory().getZaposlenjeDAO();
-			while (resultSet.next()) {
-				result.add(new ZaposleniDTO(resultSet.getInt("Id"), resultSet.getString("Ime"),
-						resultSet.getString("Prezime"), resultSet.getString("ImeRoditelja"), resultSet.getString("JMB"),
-						resultSet.getString("Pol").charAt(0), resultSet.getDate("DatumRodjenja"),
-						resultSet.getBlob("Fotografija"),
-						DAOFactory.getDAOFactory().getOsobaDAO().getTelefoni(resultSet.getInt("Id")), true,
-						zDAO.selectAllById(resultSet.getInt("Id"))));
+	public ObservableList<ZaposleniDTO> selectAktivni(boolean aktivan) {
+		ObservableList<ZaposleniDTO> result = selectAll();
+		for(Iterator<ZaposleniDTO> it = result.iterator() ; it.hasNext() ;){
+			if((aktivan && !it.next().isAktivan()) || (!aktivan && it.next().isAktivan())){
+				it.remove();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			new ErrorLogger().log(e);
-		} finally {
-			ConnectionPool.getInstance().checkIn(connection);
-			ConnectionPool.close(resultSet, statement);
 		}
 		return result;
 	}

@@ -1,6 +1,7 @@
 package application.model.dto;
 
 import java.sql.Blob;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -55,18 +56,17 @@ public class ZaposleniDTO extends OsobaDTO {
 	public StringProperty datumDoProperty() {
 		ZaposlenjeDTO zap = posljednjeZaposlenje();
 		return zap == null ? new SimpleStringProperty("-")
-				: zap.getDatumDo() == null ? new SimpleStringProperty("-")
-						: zap.datumDoProperty();
+				: zap.getDatumDo() == null ? new SimpleStringProperty("-") : zap.datumDoProperty();
 	}
 
 	public DoubleProperty plataProperty() {
 		ZaposlenjeDTO zap = posljednjeZaposlenje();
 		return zap == null ? new SimpleDoubleProperty(0) : zap.plataProperty();
 	}
-	
-	public StringProperty radnoMjestoProperty(){
+
+	public StringProperty radnoMjestoProperty() {
 		ZaposlenjeDTO zap = posljednjeZaposlenje();
-		return zap == null ? new SimpleStringProperty("-") :zap.tipNazivProperty();
+		return zap == null ? new SimpleStringProperty("-") : zap.tipNazivProperty();
 	}
 
 	private ZaposlenjeDTO posljednjeZaposlenje() {
@@ -76,8 +76,21 @@ public class ZaposleniDTO extends OsobaDTO {
 		}
 		return null;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		return super.equals(obj);
+	}
+
+	public boolean isAktivan() {
+		boolean result = false;
+		ZaposlenjeDTO zaposlenje = posljednjeZaposlenje();
+		Date danas = Calendar.getInstance().getTime();
+		if ((zaposlenje.getDatumDo() != null
+				&& (danas.compareTo(zaposlenje.getDatumOd()) >= 0 && danas.compareTo(zaposlenje.getDatumDo()) <= 0)) || 
+				(zaposlenje.getDatumDo() == null && (danas.compareTo(zaposlenje.getDatumOd()) >= 0))) {
+			result = true;
+		}
+		return result;
 	}
 }

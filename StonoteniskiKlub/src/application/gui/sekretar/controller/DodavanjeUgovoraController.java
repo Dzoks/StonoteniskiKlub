@@ -1,5 +1,6 @@
 package application.gui.sekretar.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.ParseException;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
+import application.gui.trener.controller.DodajTipOpremeController;
 import application.model.dao.DAOFactory;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.OpremaTip;
@@ -20,6 +22,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -31,6 +35,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class DodavanjeUgovoraController extends BaseController {
 	@FXML
@@ -67,6 +74,8 @@ public class DodavanjeUgovoraController extends BaseController {
 	private Button btnDodajDonaciju;
 	@FXML
 	private Button btnAzurirajDonaciju;
+	@FXML
+	private Button btnDodajTip;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -91,47 +100,77 @@ public class DodavanjeUgovoraController extends BaseController {
 			taOpisDonacije.setText(selected.getOpis());
 		}
 	}
-	// Event Listener on Button[#btnDodajDonaciju].onAction
-		@FXML
-		public void dodajDonaciju(ActionEvent event) {
-			if ((rbNovcana.isSelected() && InputValidator.allEntered(tfNovcaniIznos.getText(), taOpisDonacije.getText()))
-					|| (rbOprema.isSelected()
-							&& InputValidator.allEntered(tfKolicina.getText(), taOpisDonacije.getText()))) {
-				DonacijaDTO donacija = new DonacijaDTO(null, null, null, taOpisDonacije.getText(), null, null,
-						rbNovcana.isSelected(), false, null);
-				if (rbNovcana.isSelected()) {
-					donacija.setNovcaniIznos(new BigDecimal(tfNovcaniIznos.getText()));
-					tfNovcaniIznos.setText("");
-				} else {
-					donacija.setKolicina(new BigDecimal(tfKolicina.getText()));
-					donacija.setTipOpreme(cbTipOpreme.getValue());
-					tfKolicina.setText("");
-				}
-				taOpisDonacije.setText("");
-				donacije.add(donacija);
-				lstDonacije.setItems(donacije);
-			} else {
-				AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke o donaciji");
-			}
-		}
 
-		@FXML
-		public void azurirajDonaciju(ActionEvent event) {
-			DonacijaDTO selected = donacije.get(donacije.indexOf(lstDonacije.getSelectionModel().getSelectedItem()));
-			if(selected.getNovcanaDonacija()){
-				selected.setNovcaniIznos(new BigDecimal(tfNovcaniIznos.getText()));
-			} else{
-				selected.setTipOpreme(cbTipOpreme.getSelectionModel().getSelectedItem());
-				selected.setKolicina(new BigDecimal(tfKolicina.getText()));
+	// Event Listener on Button[#btnDodajDonaciju].onAction
+	@FXML
+	public void dodajDonaciju(ActionEvent event) {
+		if ((rbNovcana.isSelected() && InputValidator.allEntered(tfNovcaniIznos.getText(), taOpisDonacije.getText()))
+				|| (rbOprema.isSelected()
+						&& InputValidator.allEntered(tfKolicina.getText(), taOpisDonacije.getText()))) {
+			DonacijaDTO donacija = new DonacijaDTO(null, null, null, taOpisDonacije.getText(), null, null,
+					rbNovcana.isSelected(), false, null);
+			if (rbNovcana.isSelected()) {
+				donacija.setNovcaniIznos(new BigDecimal(tfNovcaniIznos.getText()));
+				tfNovcaniIznos.setText("");
+			} else {
+				donacija.setKolicina(new BigDecimal(tfKolicina.getText()));
+				donacija.setTipOpreme(cbTipOpreme.getValue());
+				tfKolicina.setText("");
 			}
-			selected.setOpis(taOpisDonacije.getText());
-			lstDonacije.refresh();
+			taOpisDonacije.setText("");
+			donacije.add(donacija);
+			lstDonacije.setItems(donacije);
+		} else {
+			AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke o donaciji");
 		}
+	}
+
+	@FXML
+	public void azurirajDonaciju(ActionEvent event) {
+		DonacijaDTO selected = donacije.get(donacije.indexOf(lstDonacije.getSelectionModel().getSelectedItem()));
+		if (selected.getNovcanaDonacija()) {
+			selected.setNovcaniIznos(new BigDecimal(tfNovcaniIznos.getText()));
+		} else {
+			selected.setTipOpreme(cbTipOpreme.getSelectionModel().getSelectedItem());
+			selected.setKolicina(new BigDecimal(tfKolicina.getText()));
+		}
+		selected.setOpis(taOpisDonacije.getText());
+		lstDonacije.refresh();
+	}
 
 	// Event Listener on Button[#btnUkloniDonaciju].onAction
 	@FXML
 	public void ukloniDonaciju(ActionEvent event) {
 		donacije.remove(lstDonacije.getSelectionModel().getSelectedItem());
+	}
+
+	@FXML
+	public void dodajTip(ActionEvent event) {
+		Stage noviStage = new Stage();
+
+		try {
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getClassLoader().getResource("application/gui/trener/view/DodajTipOpremeView.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root, 267, 207);
+			DodajTipOpremeController controller = loader.<DodajTipOpremeController>getController();
+			controller.setPrimaryStage(noviStage);
+			noviStage.setScene(scene);
+			noviStage.setResizable(false);
+			noviStage.setTitle("Stonoteniski klub");
+			noviStage.initModality(Modality.APPLICATION_MODAL);
+			noviStage.showAndWait();
+
+			if ("YES".equals(controller.getPovratnaVrijednost())) {
+				OpremaTip noviTipOpreme = controller.vratiTipOpreme();
+				DAOFactory.getDAOFactory().getOpremaTipDAO().INSERT(noviTipOpreme);
+				cbTipOpreme.getItems().add(noviTipOpreme);
+				cbTipOpreme.getSelectionModel().selectLast();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		}
 	}
 
 	// Event Listener on Button[#btnSacuvaj].onAction
@@ -152,7 +191,7 @@ public class DodavanjeUgovoraController extends BaseController {
 					new ErrorLogger().log(e);
 				}
 				UgovorDTO ugovor = new UgovorDTO(null, datumOd, datumDo, taOpisUgovora.getText(), null);
-				if(DAOFactory.getDAOFactory().getUgovorDAO().insert(sponzor, ugovor)){
+				if (DAOFactory.getDAOFactory().getUgovorDAO().insert(sponzor, ugovor)) {
 					sponzor.getUgovori().add(ugovor);
 					if (cbUkljucujeDonacije.isSelected()) {
 						ugovor.setDonacije(donacije);
@@ -164,7 +203,7 @@ public class DodavanjeUgovoraController extends BaseController {
 					}
 					AlertDisplay.showInformation("Dodavanje", "Ugovor uspješno dodan.");
 				}
-				
+
 			} else {
 				AlertDisplay.showError("Dodavanje", "Niste dodali donaciju!");
 			}
@@ -173,7 +212,6 @@ public class DodavanjeUgovoraController extends BaseController {
 		}
 	}
 
-	
 	public void setSponzor(SponzorDTO sponzor) {
 		this.sponzor = sponzor;
 		lblSponzor.setText(sponzor.toString());
@@ -181,7 +219,8 @@ public class DodavanjeUgovoraController extends BaseController {
 
 	private SponzorDTO sponzor;
 	private ObservableList<DonacijaDTO> donacije;
-	private void bindDisable(){
+
+	private void bindDisable() {
 		rbNovcana.disableProperty().bind(cbUkljucujeDonacije.selectedProperty().not());
 		rbOprema.disableProperty().bind(cbUkljucujeDonacije.selectedProperty().not());
 		taOpisDonacije.disableProperty().bind(cbUkljucujeDonacije.selectedProperty().not());
@@ -198,6 +237,7 @@ public class DodavanjeUgovoraController extends BaseController {
 		tfKolicina.disableProperty()
 				.bind((cbUkljucujeDonacije.selectedProperty().and(rbOprema.selectedProperty()).not()));
 	}
+
 	private void populateComboBoxes() {
 		ObservableList<OpremaTip> cbItems = DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_ALL();
 		cbTipOpreme.setItems(cbItems);
