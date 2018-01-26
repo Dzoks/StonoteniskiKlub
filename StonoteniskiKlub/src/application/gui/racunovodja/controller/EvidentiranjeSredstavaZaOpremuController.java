@@ -200,7 +200,7 @@ public class EvidentiranjeSredstavaZaOpremuController extends TransakcijaDecorat
 		
 		try {
 			root = (AnchorPane) loader.load();//initialize
-			Scene scene = new Scene(root,300,400);
+			Scene scene = new Scene(root,329,327);
 			controller = loader.<IzmijeniSredstvaZaOpremuController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);

@@ -175,7 +175,7 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 		
 		try {
 			root = (AnchorPane) loader.load();//initialize
-			Scene scene = new Scene(root,300,400);
+			Scene scene = new Scene(root,328,344);
 			controller = loader.<IzmijeniPlatuController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);

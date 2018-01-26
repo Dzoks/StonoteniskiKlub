@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="348.0" prefWidth="339.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniClanarinuController">
+<AnchorPane prefHeight="333.0" prefWidth="311.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniClanarinuController">
    <children>
       <Label fx:id="lblMjesec" layoutX="18.0" layoutY="31.0" prefHeight="17.0" prefWidth="55.0" text="Mjesec:" />
       <Label fx:id="lblGodina" layoutX="20.0" layoutY="75.0" prefHeight="17.0" prefWidth="55.0" text="Godina:" />

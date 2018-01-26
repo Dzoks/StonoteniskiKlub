@@ -190,7 +190,7 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaDecora
 		
 		try {
 			root = (AnchorPane) loader.load();//initialize
-			Scene scene = new Scene(root,300,400);
+			Scene scene = new Scene(root,340,275);
 			controller = loader.<IzmijeniSredstvaZaTurnirController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
