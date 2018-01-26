@@ -1,6 +1,7 @@
 package application.model.dto;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -29,7 +30,7 @@ public class Narudzba {
 		super();
 	}
 
-	public Narudzba(Integer id, Date datum, Boolean opremaKluba, Boolean obradjeno, Integer idDistributeraOpreme) {
+	public Narudzba(Integer id, Date datum, Boolean opremaKluba, Boolean obradjeno, Integer idDistributeraOpreme) throws ParseException {
 		super();
 		this.id = id==null ? null : new SimpleIntegerProperty(id);
 		this.datum = datum;
@@ -54,7 +55,7 @@ public class Narudzba {
 		}
 	}
 	
-	public Narudzba(Integer id, Date datum, Boolean opremaKluba, Boolean obradjeno, Integer idDistributeraOpreme, ObservableList<NarudzbaStavka> listaStavki) {
+	public Narudzba(Integer id, Date datum, Boolean opremaKluba, Boolean obradjeno, Integer idDistributeraOpreme, ObservableList<NarudzbaStavka> listaStavki) throws ParseException {
 		super();
 		this.id = id==null ? null : new SimpleIntegerProperty(id);
 		this.datum = datum;
@@ -149,7 +150,7 @@ public class Narudzba {
 
 	@Override
 	public String toString() {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
 		Date datumNarudzbe = datum; 
 		String datumNarudzbeString = df.format(datumNarudzbe); 
 		
