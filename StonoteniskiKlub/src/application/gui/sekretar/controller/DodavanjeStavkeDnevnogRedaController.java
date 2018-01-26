@@ -47,7 +47,9 @@ public class DodavanjeStavkeDnevnogRedaController extends BaseController{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
+		bindDisable();
+	}
+	private void bindDisable(){
+		btnSacuvaj.disableProperty().bind(taTekst.textProperty().isEmpty().or(txtNaslov.textProperty().isEmpty()));
 	}
 }

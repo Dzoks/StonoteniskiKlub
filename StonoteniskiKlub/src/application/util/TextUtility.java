@@ -65,7 +65,7 @@ public class TextUtility {
 				textFlow.getChildren().addAll(naslov, opis, potpis);
 			}
 		} else{
-			Text naslov = new Text("Nema dogadjaja.");
+			Text naslov = new Text("Nema događaja.");
 			naslov.setStyle("-fx-font-weight: bold; -fx-font-size: 20");
 			textFlow.setStyle(textFlow.getStyle() + "; -fx-text-alignment: center");
 			textFlow.getChildren().add(naslov);
@@ -95,7 +95,6 @@ public class TextUtility {
 	}
 	public static Map<String, String> IMAGE_EXTENSIONS = new HashMap<String, String>();
 	static {
-		IMAGE_EXTENSIONS.put("All Images", "*.*");
 		IMAGE_EXTENSIONS.put("JPG", "*.jpg");
 		IMAGE_EXTENSIONS.put("JPEG", "*.jpeg");
 		IMAGE_EXTENSIONS.put("PNG", "*.png");

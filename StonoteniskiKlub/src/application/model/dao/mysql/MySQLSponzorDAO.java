@@ -19,15 +19,15 @@ import javafx.collections.ObservableList;
 
 public class MySQLSponzorDAO implements SponzorDAO {
 
-	private static final String SQL_SELECT_ALL = "select * from SPONZOR";
+	private static final String SQL_SELECT_ALL = "select * from SPONZOR where Aktivan=true";
 	private static final String SQL_INSERT = "{call dodaj_sponzora(?,?,?,?,?,?,?,?)}";
-	private static final String SQL_GET_BY_ID = "select * from SPONZOR where Id=?";
+	private static final String SQL_GET_BY_ID = "select * from SPONZOR where Id=? and Aktivan=true";
 	private static final String SQL_UPDATE = "update SPONZOR set Naziv=?, Adresa=?, Mail=? where Id=?";
-	private static final String SQL_GET_BY_NAME = "select * from SPONZOR where Naziv like ?";
+	private static final String SQL_GET_BY_NAME = "select * from SPONZOR where Aktivan=true and Naziv like ?";
 	private static final String SQL_GET_TELEFONI = "select * from TELEFON where SPONZOR_Id=?";
 	private static final String SQL_DELETE_TELEFON = "delete from TELEFON where BrojTelefona=?";
 	private static final String SQL_INSERT_TELEFON = "insert into TELEFON values(?,null,?)";
-
+	private static final String SQL_DELETE = "update SPONZOR set Aktivan=false where Id=?";
 	@Override
 	public ObservableList<SponzorDTO> selectAll() {
 		ObservableList<SponzorDTO> result = FXCollections.observableArrayList();
@@ -222,6 +222,26 @@ public class MySQLSponzorDAO implements SponzorDAO {
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
+		}
+		return result;
+	}
+
+	@Override
+	public boolean delete(SponzorDTO sponzor) {
+		boolean result = false;
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_DELETE, false, sponzor.getId());
+			statement.executeUpdate();
+			result = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(statement);
 		}
 		return result;
 	}

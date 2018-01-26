@@ -7,12 +7,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.jfoenix.controls.JFXTimePicker;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.DogadjajDTO;
 import application.model.dto.DogadjajTipDTO;
+import application.model.dto.KorisnickiNalogDTO;
 import application.util.AlertDisplay;
 import application.util.InputValidator;
 import javafx.collections.ObservableList;
@@ -23,6 +25,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.util.converter.LocalTimeStringConverter;
 
 public class DodavanjeDogadjajaController extends BaseController {
@@ -47,6 +50,7 @@ public class DodavanjeDogadjajaController extends BaseController {
 	public void initialize(URL location, ResourceBundle resources) {
 		populateComboBoxes();
 		initTimePicker();
+		bindDisable();
 	}
 
 	// Event Listener on Button[#btnDodajNoviTip].onAction
@@ -68,12 +72,15 @@ public class DodavanjeDogadjajaController extends BaseController {
 			LocalDateTime pocetak = LocalDateTime.of(datum, tpPocetak.getValue());
 			LocalDateTime kraj = LocalDateTime.of(datum, tpKraj.getValue());
 			DogadjajDTO dogadjaj = new DogadjajDTO(null, pocetak, kraj, taOpis.getText(),
-					cbTIpDogadjaja.getSelectionModel().getSelectedItem(),
-					null);
+					cbTIpDogadjaja.getSelectionModel().getSelectedItem(), new KorisnickiNalogDTO(username,
+							DAOFactory.getDAOFactory().getKorisnickiNalogDAO().getId(username)));
 			int result = DAOFactory.getDAOFactory().getDogadjajDAO().insert(dogadjaj);
+
 			if (result > 0) {
 				parentController.dodajDogadjajUKalendar(dogadjaj);
 				AlertDisplay.showInformation("Dodavanje", "Dodavanje događaja uspješno.");
+				Stage stage = (Stage) btnDodajDogadjaj.getScene().getWindow();
+				stage.close();
 			} else if (result == -1) {
 				AlertDisplay.showError("Dodavanje", "Događaj se preklapa sa drugim događajem u istom terminu.");
 			} else if (result == -2) {
@@ -109,4 +116,8 @@ public class DodavanjeDogadjajaController extends BaseController {
 				DateTimeFormatter.ofPattern("HH:mm")));
 	}
 
+	private void bindDisable() {
+		btnDodajDogadjaj.disableProperty().bind(taOpis.textProperty().isEmpty().or(tpKraj.valueProperty().isNull())
+				.or(tpPocetak.valueProperty().isNull()));
+	}
 }

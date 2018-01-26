@@ -10,10 +10,13 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
+import application.model.dao.mysql.MySQLZaposleniDAO;
+import application.model.dto.OsobaDTO;
 import application.model.dto.ZaposleniDTO;
 import application.model.dto.ZaposleniTipDTO;
 import application.model.dto.ZaposlenjeDTO;
@@ -27,6 +30,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
@@ -35,6 +40,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public class DodavanjeZaposlenogController extends BaseController {
 
@@ -148,113 +154,12 @@ public class DodavanjeZaposlenogController extends BaseController {
 	// Event Listener on Button[#btnSacuvajPodatke].onAction
 	@FXML
 	public void sacuvaj(ActionEvent event) {
-
-		if ((tip == AZURIRANJE_ZAPOSLENOG && !InputValidator.allEntered(txtIme.getText(), txtPrezime.getText(),
-				txtImeRoditelja.getText(), txtJMB.getText(), dpDatumRodjenja.getValue()))
-				|| (tip == DODAVANJE_ZAPOSLENJA
-						&& !InputValidator.allEntered(dpZaposlenOd.getValue(), txtPlata.getText()))
-				|| (tip == DODAVANJE_ZAPOSLENOG && !InputValidator.allEntered(txtIme.getText(), txtPrezime.getText(),
-						txtImeRoditelja.getText(), txtJMB.getText(), dpDatumRodjenja.getValue(),
-						dpZaposlenOd.getValue(), txtPlata.getText()))) {
-			AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke!");
-		} else {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			Date datumRodjenja = null;
-			Date datumOd = null;
-			Date datumDo = null;
-			try {
-				if (dpDatumRodjenja.getValue() != null) {
-					datumRodjenja = formatter.parse(dpDatumRodjenja.getValue().toString());
-				}
-				if (dpZaposlenOd.getValue() != null) {
-					datumOd = formatter.parse(dpZaposlenOd.getValue().toString());
-				}
-				if (dpZaposlenDo.getValue() != null) {
-					datumDo = formatter.parse(dpZaposlenDo.getValue().toString());
-				}
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-				new ErrorLogger().log(e1);
-			}
-			if (tip == AZURIRANJE_ZAPOSLENOG) {
-				this.zaposleniZaAzurirati.setIme(txtIme.getText());
-				this.zaposleniZaAzurirati.setImeRoditelja(txtImeRoditelja.getText());
-				this.zaposleniZaAzurirati.setPrezime(txtPrezime.getText());
-				this.zaposleniZaAzurirati.setJmb(txtJMB.getText());
-				this.zaposleniZaAzurirati.setDatumRodjenja(datumRodjenja);
-				this.zaposleniZaAzurirati.setPol(rbMuskiPol.isSelected() ? 'M' : 'Z');
-				this.zaposleniZaAzurirati.setTelefoni(lstTelefoni.getItems());
-				if (promjena) {
-					try {
-						if (fotografijaLik != null) {
-							this.zaposleniZaAzurirati.setSlika(TextUtility.convertImageToBlob(fotografijaLik));
-						} else {
-							this.zaposleniZaAzurirati.setSlika(null);
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-						new ErrorLogger().log(e);
-					}
-				}
-				DAOFactory.getDAOFactory().getOsobaDAO().update(zaposleniZaAzurirati);
-				parent.zamijeni(zaposleniZaAzurirati);
-				AlertDisplay.showInformation("Izmjena", "Zaposleni uspješno ažuriran.");
-				for (String telefon : noviTelefoni) {
-					DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleniZaAzurirati);
-				}
-			} else if (tip == DODAVANJE_ZAPOSLENJA) {
-				ZaposlenjeDTO zaposlenje = new ZaposlenjeDTO(
-						cmbRadnoMjesto.getSelectionModel().getSelectedItem().getId(),
-						cmbRadnoMjesto.getSelectionModel().getSelectedItem().getTip(), datumOd, datumDo,
-						Double.parseDouble(txtPlata.getText()));
-				if (DAOFactory.getDAOFactory().getZaposlenjeDAO().insert(zaposleniZaAzurirati, zaposlenje)) {
-					zaposleniZaAzurirati.getZaposljenja().add(zaposlenje);
-					AlertDisplay.showInformation("Dodavanje", "Zaposlenje uspješno dodano");
-				} else {
-					AlertDisplay.showError("Dodavanje", "Nešto nije u redu.");
-				}
-			} else {
-				if (InputValidator.validateJMB(txtJMB.getText())) {
-					if (InputValidator.validateDouble(txtPlata.getText())) {
-
-						ZaposleniTipDTO tip = cmbRadnoMjesto.getValue();
-						ZaposlenjeDTO zaposlenje = new ZaposlenjeDTO(tip.getId(), tip.getTip(), datumOd, datumDo,
-								Double.parseDouble(txtPlata.getText()));
-						char pol = rbMuskiPol.isSelected() ? 'M' : 'Z';
-						Blob slika = null;
-						if (fotografijaLik != null) {
-							try {
-								slika = TextUtility.convertImageToBlob(fotografijaLik);
-							} catch (IOException e) {
-								e.printStackTrace();
-								new ErrorLogger().log(e);
-							}
-						}
-						ZaposleniDTO zaposleni = new ZaposleniDTO(null, txtIme.getText(), txtPrezime.getText(),
-								txtImeRoditelja.getText(), txtJMB.getText(), pol, datumRodjenja, slika,
-								lstTelefoni.getItems(), true, null);
-						if (DAOFactory.getDAOFactory().getZaposleniDAO().insert(zaposleni, zaposlenje, tip)) {
-							zaposleni.setZaposljenja(FXCollections.observableArrayList());
-							zaposleni.getZaposljenja().add(zaposlenje);
-							AlertDisplay.showInformation("Dodavanje", "Zaposleni uspješno dodan.");
-							parent.dodajZaposlenog(zaposleni);
-							for (String telefon : noviTelefoni) {
-								DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleni);
-							}
-						} else {
-							AlertDisplay.showError("Dodavanje", "Nešto nije u redu");
-						}
-
-					} else {
-						AlertDisplay.showError("Dodavanje", "Pogrešan format podatka za platu.");
-					}
-				} else {
-					AlertDisplay.showError("Dodavanje", "Pogrešan format JMB-a.");
-				}
-			}
-		}
-		for (String tel : uklonjeniTelefoni) {
-			DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(tel);
+		if (tip == DODAVANJE_ZAPOSLENOG) {
+			dodajNovog();
+		} else if (tip == DODAVANJE_ZAPOSLENJA) {
+			dodajZaposlenje();
+		} else if (tip == AZURIRANJE_ZAPOSLENOG) {
+			azuriraj();
 		}
 	}
 
@@ -320,6 +225,216 @@ public class DodavanjeZaposlenogController extends BaseController {
 
 	private void bindDisable() {
 		btnUkloniTelefon.disableProperty().bind(lstTelefoni.getSelectionModel().selectedItemProperty().isNull());
+	}
+
+	private void azuriraj() {
+		if (!InputValidator.allEntered(txtIme.getText(), txtPrezime.getText(), txtImeRoditelja.getText(),
+				txtJMB.getText(), dpDatumRodjenja.getValue())) {
+			AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke!");
+		} else if (!InputValidator.validateDate(dpDatumRodjenja.getValue(), 18)) {
+			AlertDisplay.showError("Dodavanje", "Zaposleni mora biti punoljetan!");
+		} else if (!InputValidator.validateJMB(txtJMB.getText())) {
+			AlertDisplay.showError("Dodavanje", "Pogrešan format JMB-a.");
+		} else {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date datumRodjenja = null;
+			try {
+				if (dpDatumRodjenja.getValue() != null) {
+					datumRodjenja = formatter.parse(dpDatumRodjenja.getValue().toString());
+				}
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+				new ErrorLogger().log(e1);
+			}
+
+			this.zaposleniZaAzurirati.setIme(txtIme.getText());
+			this.zaposleniZaAzurirati.setImeRoditelja(txtImeRoditelja.getText());
+			this.zaposleniZaAzurirati.setPrezime(txtPrezime.getText());
+			this.zaposleniZaAzurirati.setJmb(txtJMB.getText());
+			this.zaposleniZaAzurirati.setDatumRodjenja(datumRodjenja);
+			this.zaposleniZaAzurirati.setPol(rbMuskiPol.isSelected() ? 'M' : 'Ž');
+			this.zaposleniZaAzurirati.setTelefoni(lstTelefoni.getItems());
+			if (promjena) {
+				try {
+					if (fotografijaLik != null) {
+						this.zaposleniZaAzurirati.setSlika(TextUtility.convertImageToBlob(fotografijaLik));
+					} else {
+						this.zaposleniZaAzurirati.setSlika(null);
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+					new ErrorLogger().log(e);
+				}
+			}
+			DAOFactory.getDAOFactory().getOsobaDAO().update(zaposleniZaAzurirati);
+			parent.zamijeni(zaposleniZaAzurirati);
+			AlertDisplay.showInformation("Izmjena", "Zaposleni uspješno ažuriran.");
+			for (String telefon : noviTelefoni) {
+				DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleniZaAzurirati);
+			}
+			for (String tel : uklonjeniTelefoni) {
+				DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(tel);
+			}
+			Stage stage = (Stage) btnSacuvajPodatke.getScene().getWindow();
+			stage.close();
+		}
+	}
+
+	private void dodajNovog() {
+		if (!InputValidator.allEntered(txtIme.getText(), txtPrezime.getText(), txtImeRoditelja.getText(),
+				txtJMB.getText(), dpDatumRodjenja.getValue(), dpZaposlenOd.getValue(), txtPlata.getText())) {
+			AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke!");
+		} else if (!InputValidator.validateDate(dpDatumRodjenja.getValue(), 18)) {
+			AlertDisplay.showError("Dodavanje", "Zaposleni mora biti punoljetan!");
+		} else if (dpZaposlenDo.getValue() != null && dpZaposlenOd.getValue().compareTo(dpZaposlenDo.getValue()) > 0) {
+			AlertDisplay.showError("Dodavanje", "Datum od mora biti prije datuma do!");
+		} else if (!InputValidator.validateJMB(txtJMB.getText())) {
+			AlertDisplay.showError("Dodavanje", "Pogrešan format JMB-a.");
+		} else if (!InputValidator.validateDouble(txtPlata.getText())) {
+			AlertDisplay.showError("Dodavanje", "Pogrešan format podatka za platu.");
+		} else {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date datumRodjenja = null;
+			Date datumOd = null;
+			Date datumDo = null;
+			try {
+				if (dpDatumRodjenja.getValue() != null) {
+					datumRodjenja = formatter.parse(dpDatumRodjenja.getValue().toString());
+				}
+				if (dpZaposlenOd.getValue() != null) {
+					datumOd = formatter.parse(dpZaposlenOd.getValue().toString());
+				}
+				if (dpZaposlenDo.getValue() != null) {
+					datumDo = formatter.parse(dpZaposlenDo.getValue().toString());
+				}
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+				new ErrorLogger().log(e1);
+			}
+			ZaposleniTipDTO tip = cmbRadnoMjesto.getValue();
+			ZaposlenjeDTO zaposlenje = new ZaposlenjeDTO(tip.getId(), tip.getTip(), datumOd, datumDo,
+					Double.parseDouble(txtPlata.getText()));
+			char pol = rbMuskiPol.isSelected() ? 'M' : 'Ž';
+			Blob slika = null;
+			if (fotografijaLik != null) {
+				try {
+					slika = TextUtility.convertImageToBlob(fotografijaLik);
+				} catch (IOException e) {
+					e.printStackTrace();
+					new ErrorLogger().log(e);
+				}
+			}
+			ZaposleniDTO zaposleni = new ZaposleniDTO(null, txtIme.getText(), txtPrezime.getText(),
+					txtImeRoditelja.getText(), txtJMB.getText(), pol, datumRodjenja, slika, lstTelefoni.getItems(),
+					true, null);
+			Integer uspjesno = DAOFactory.getDAOFactory().getZaposleniDAO().insert(zaposleni, zaposlenje, tip);
+			if (uspjesno > -1) {
+				zaposleni.setZaposljenja(FXCollections.observableArrayList());
+				zaposleni.getZaposljenja().add(zaposlenje);
+				AlertDisplay.showInformation("Dodavanje", "Zaposleni uspješno dodan.");
+				parent.dodajZaposlenog(zaposleni);
+				for (String telefon : noviTelefoni) {
+					DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleni);
+				}
+				for (String tel : uklonjeniTelefoni) {
+					DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(tel);
+				}
+				Stage stage = (Stage) btnSacuvajPodatke.getScene().getWindow();
+				stage.close();
+			} else if (uspjesno == MySQLZaposleniDAO.DUPLICATE_KEY) {
+				OsobaDTO osoba = DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(zaposleni.getJmb());
+				zaposleni = DAOFactory.getDAOFactory().getZaposleniDAO().selectById(osoba.getId());
+				if (zaposleni != null) {
+					Optional<ButtonType> opcija = AlertDisplay.showConfirmation("Dodavanje",
+							"Zaposleni vec postoji! Zelite li da dodate zaposlenje?");
+					if (opcija.get().getButtonData().equals(ButtonData.YES)) {
+						if (DAOFactory.getDAOFactory().getZaposlenjeDAO().insert(zaposleni, zaposlenje)) {
+							zaposleni.getZaposljenja().add(zaposlenje);
+							AlertDisplay.showInformation("Dodavanje", "Zaposleni uspješno dodan.");
+							parent.zamijeni(zaposleni);
+							for (String telefon : noviTelefoni) {
+								DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleni);
+							}
+							for (String tel : uklonjeniTelefoni) {
+								DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(tel);
+							}
+							Stage stage = (Stage) btnSacuvajPodatke.getScene().getWindow();
+							stage.close();
+						} else {
+							AlertDisplay.showError("Dodavanje", "Nešto nije u redu");
+						}
+					}
+				} else {
+					Optional<ButtonType> opcija = AlertDisplay.showConfirmation("Dodavanje",
+							"Osoba vec postoji, ali nije zaposlena! Zelite li da dodate zaposlenog?");
+					if (opcija.get().getButtonData().equals(ButtonData.YES)) {
+						zaposleni = new ZaposleniDTO(osoba.getId(), osoba.getIme(), osoba.getPrezime(),
+								osoba.getImeRoditelja(), osoba.getJmb(), osoba.getPol(), osoba.getDatumRodjenja(),
+								osoba.getSlika(), osoba.getTelefoni(), true, null);
+						zaposlenje = new ZaposlenjeDTO(cmbRadnoMjesto.getSelectionModel().getSelectedItem().getId(),
+								cmbRadnoMjesto.getSelectionModel().getSelectedItem().getTip(), datumOd, datumDo,
+								Double.parseDouble(txtPlata.getText()));
+						zaposleni.setZaposljenja(FXCollections.observableArrayList());
+						zaposleni.getZaposljenja().add(zaposlenje);
+						if (DAOFactory.getDAOFactory().getZaposleniDAO().add(zaposleni)) {
+							
+							if (DAOFactory.getDAOFactory().getZaposlenjeDAO().insert(zaposleni, zaposlenje)) {
+								AlertDisplay.showInformation("Dodavanje", "Zaposleni uspješno dodan.");
+								parent.dodajZaposlenog(zaposleni);
+								for (String telefon : noviTelefoni) {
+									DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleni);
+								}
+								for (String tel : uklonjeniTelefoni) {
+									DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(tel);
+								}
+								Stage stage = (Stage) btnSacuvajPodatke.getScene().getWindow();
+								stage.close();
+							} else {
+								AlertDisplay.showError("Dodavanje", "Nešto nije u redu");
+							}
+						} else{
+							AlertDisplay.showError("Dodavanje", "Nešto nije u redu");
+						}
+					}
+				}
+			} else {
+				AlertDisplay.showError("Dodavanje", "Nešto nije u redu");
+			}
+		}
+	}
+
+	private void dodajZaposlenje() {
+		if (!InputValidator.allEntered(dpZaposlenOd.getValue(), txtPlata.getText())) {
+			AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke!");
+		} else if (dpZaposlenDo.getValue() != null && dpZaposlenOd.getValue().compareTo(dpZaposlenDo.getValue()) > 0) {
+			AlertDisplay.showError("Dodavanje", "Datum od mora biti prije datuma do!");
+		} else {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date datumOd = null;
+			Date datumDo = null;
+			try {
+				if (dpZaposlenOd.getValue() != null) {
+					datumOd = formatter.parse(dpZaposlenOd.getValue().toString());
+				}
+				if (dpZaposlenDo.getValue() != null) {
+					datumDo = formatter.parse(dpZaposlenDo.getValue().toString());
+				}
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+				new ErrorLogger().log(e1);
+			}
+			ZaposlenjeDTO zaposlenje = new ZaposlenjeDTO(cmbRadnoMjesto.getSelectionModel().getSelectedItem().getId(),
+					cmbRadnoMjesto.getSelectionModel().getSelectedItem().getTip(), datumOd, datumDo,
+					Double.parseDouble(txtPlata.getText()));
+			if (DAOFactory.getDAOFactory().getZaposlenjeDAO().insert(zaposleniZaAzurirati, zaposlenje)) {
+				zaposleniZaAzurirati.getZaposljenja().add(zaposlenje);
+				AlertDisplay.showInformation("Dodavanje", "Zaposlenje uspješno dodano");
+				Stage stage = (Stage) btnSacuvajPodatke.getScene().getWindow();
+				stage.close();
+			} else {
+				AlertDisplay.showError("Dodavanje", "Nešto nije u redu.");
+			}
+		}
 	}
 
 	private Image defaultImage;

@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 public abstract class BaseController implements Initializable{
 
 	protected Stage primaryStage;
+	protected static String username;
 	
 	@FXML
 	protected Label lblUsername;
@@ -43,7 +44,7 @@ public abstract class BaseController implements Initializable{
 	
 	public void setUsername(String username) {
 		lblUsername.setText("Zdravo, "+username);
-		
+		BaseController.username = username;
 	}
 	@FXML
 	public void odjaviteSe() {

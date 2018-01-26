@@ -202,6 +202,8 @@ public class DodavanjeUgovoraController extends BaseController {
 						}
 					}
 					AlertDisplay.showInformation("Dodavanje", "Ugovor uspješno dodan.");
+					Stage stage = (Stage)btnSacuvaj.getScene().getWindow();
+					stage.close();
 				}
 
 			} else {

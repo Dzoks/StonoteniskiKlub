@@ -40,7 +40,7 @@ public class PlataDTO extends TransakcijaDTO{
 		}
 		if(!s.isEmpty()) {
 			s=s.substring(0,s.length()-1);
-			System.out.println(s);
+			
 			return new SimpleStringProperty(s);
 		}
 		return new SimpleStringProperty("");

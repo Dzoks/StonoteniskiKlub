@@ -38,14 +38,20 @@ public class MySQLDogadjajDAO implements DogadjajDAO {
 					java.sql.Date.valueOf(prviDan), java.sql.Date.valueOf(zadnjiDan));
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
-				result.add(new DogadjajDTO(resultSet.getInt("Id"),
+				DogadjajDTO dogadjaj = new DogadjajDTO(resultSet.getInt("Id"),
 						LocalDateTime.of(new java.sql.Date(resultSet.getTimestamp("Pocetak").getTime()).toLocalDate(),
 								new java.sql.Time(resultSet.getTimestamp("Pocetak").getTime()).toLocalTime()),
 						LocalDateTime.of(new java.sql.Date(resultSet.getTimestamp("Kraj").getTime()).toLocalDate(),
 								new java.sql.Time(resultSet.getTimestamp("Kraj").getTime()).toLocalTime()),
 						resultSet.getString("Opis"),
 						DAOFactory.getDAOFactory().getDogadjajTipDAO().selectById(resultSet.getInt("DOGADJAJ_TIP_Id")),
-						null));
+						null);
+				Integer nalogId = resultSet.getInt("KORISNICKI_NALOG_Id");
+				
+				if(nalogId != null){
+					dogadjaj.setKorisnickiNalog(DAOFactory.getDAOFactory().getKorisnickiNalogDAO().getNalogById(nalogId));
+				}
+				result.add(dogadjaj);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,7 +86,7 @@ public class MySQLDogadjajDAO implements DogadjajDAO {
 			statement = connection.prepareCall(SQL_INSERT);
 			statement.setString("pOpis", dogadjaj.getOpis());
 			statement.setInt("pDogadjajTipId", dogadjaj.getTipDogadjaja().getId());
-			statement.setInt("pKorisnickiNalogId", 1); // IZMIJENITI!!!!
+			statement.setInt("pKorisnickiNalogId", dogadjaj.getKorisnickiNalog().getNalogId());
 			statement.setTimestamp("pPocetak", Timestamp.valueOf(dogadjaj.getPocetak()));
 			statement.setTimestamp("pKraj", Timestamp.valueOf(dogadjaj.getKraj()));
 			statement.registerOutParameter("pRezId", Types.INTEGER);

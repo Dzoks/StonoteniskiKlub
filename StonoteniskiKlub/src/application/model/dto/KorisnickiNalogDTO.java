@@ -13,26 +13,37 @@ public class KorisnickiNalogDTO {
 	private Integer nalogId;
 	private String nazivUloge;
 	private String ime;
+
 	public String getNazivUloge() {
 		return nazivUloge;
 	}
+
 	public void setNazivUloge(String nazivUloge) {
 		this.nazivUloge = nazivUloge;
 	}
+
 	public String getIme() {
 		return ime;
 	}
+
 	public void setIme(String ime) {
 		this.ime = ime;
 	}
+
 	public String getPrezime() {
 		return prezime;
 	}
+
 	public void setPrezime(String prezime) {
 		this.prezime = prezime;
 	}
 
 	private String prezime;
+
+	public KorisnickiNalogDTO(String korisnickoIme, Integer nalogId) {
+		this.nalogId = nalogId;
+		this.korisnickoIme = korisnickoIme;
+	}
 
 	public KorisnickiNalogDTO(String korisnickoIme, byte[] lozinkaHash, Date datumRegistracije, Boolean aktivan,
 			Integer ulogaId, Integer zaposleniId) {
@@ -45,12 +56,13 @@ public class KorisnickiNalogDTO {
 		this.zaposleniId = zaposleniId;
 
 	}
-	public KorisnickiNalogDTO(String korisnickoIme,String nazivUloge,String ime,String prezime,Integer nalogId) {
-		this.korisnickoIme=korisnickoIme;
-		this.ime=ime;
-		this.prezime=prezime;
-		this.nazivUloge=nazivUloge;
-		this.nalogId=nalogId;
+
+	public KorisnickiNalogDTO(String korisnickoIme, String nazivUloge, String ime, String prezime, Integer nalogId) {
+		this.korisnickoIme = korisnickoIme;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.nazivUloge = nazivUloge;
+		this.nalogId = nalogId;
 	}
 
 	public Integer getNalogId() {
@@ -113,4 +125,8 @@ public class KorisnickiNalogDTO {
 		this.zaposleniId = zaposleniId;
 	}
 
+	@Override
+	public String toString() {
+		return korisnickoIme;
+	}
 }

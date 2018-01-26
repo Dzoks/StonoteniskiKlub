@@ -30,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class RadSaSkupstinamaController extends BaseController {
@@ -154,7 +155,8 @@ public class RadSaSkupstinamaController extends BaseController {
 				newStage.setScene(scene);
 				newStage.setResizable(false);
 				newStage.setTitle("Stoneteniski klub");
-				newStage.show();
+				newStage.initModality(Modality.APPLICATION_MODAL);
+				newStage.showAndWait();
 			} catch (IOException e) {
 				e.printStackTrace();
 				new ErrorLogger().log(e);
@@ -180,6 +182,7 @@ public class RadSaSkupstinamaController extends BaseController {
 			newStage.setScene(scene);
 			newStage.setResizable(false);
 			newStage.setTitle("Stonoteniski klub");
+			newStage.initModality(Modality.APPLICATION_MODAL);
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -222,5 +225,6 @@ public class RadSaSkupstinamaController extends BaseController {
 
 	private void bindDisable() {
 		btnDodajIzvjestaj.disableProperty().bind(tblSkupstine.getSelectionModel().selectedItemProperty().isNull());
+		btnPretrazi.disableProperty().bind(dpDo.valueProperty().isNull().and(dpOd.valueProperty().isNull()));
 	}
 }

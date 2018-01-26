@@ -13,4 +13,5 @@ public interface SponzorDAO {
 	ObservableList<String> getTelefoni(SponzorDTO sponzor);
 	boolean deleteTelefon(String brojTelefona);
 	boolean insertTelefon(SponzorDTO sponzor, String telefon);
+	boolean delete(SponzorDTO sponzor);
 }

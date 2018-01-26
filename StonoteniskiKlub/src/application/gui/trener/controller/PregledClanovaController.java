@@ -471,6 +471,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 		try {
 			controller = (RegistracijaController) BaseController.changeScene("/application/gui/trener/view/RegistracijaView.fxml",
 					stage);
+			controller.setClan(twTabela.getSelectionModel().getSelectedItem());
 			stage.setResizable(false);
 			stage.show();
 		} catch (IOException e) {

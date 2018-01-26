@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.DogadjajDTO;
+import application.util.AlertDisplay;
 import application.util.ErrorLogger;
 import application.util.TextUtility;
 import javafx.event.ActionEvent;
@@ -26,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class CalendarController extends BaseController {
@@ -67,11 +69,14 @@ public class CalendarController extends BaseController {
 				newStage.setScene(scene);
 				newStage.setResizable(false);
 				newStage.setTitle("Stonoteniski klub");
-				newStage.show();
+				newStage.initModality(Modality.APPLICATION_MODAL);
+				newStage.showAndWait();
 			} catch (IOException e) {
 				e.printStackTrace();
 				new ErrorLogger().log(e);
 			}
+		} else{
+			AlertDisplay.showInformation("Dodavanje", "Izaberite datum.");
 		}
 	}
 

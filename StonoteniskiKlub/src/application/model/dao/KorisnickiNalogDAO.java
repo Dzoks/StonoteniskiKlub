@@ -14,4 +14,6 @@ public interface KorisnickiNalogDAO {
 	public String getHashByUsername(String username);
 	public ObservableList<KorisnickiNalogDTO> selectAll();
 	public String getUloga(String text);
+	public Integer getId(String username);
+	public KorisnickiNalogDTO getNalogById(Integer id);
 }

@@ -23,12 +23,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class RadSaSponzorimaController extends BaseController {
@@ -45,14 +44,6 @@ public class RadSaSponzorimaController extends BaseController {
 	@FXML
 	private TableColumn<SponzorDTO, String> colAktivan;
 	@FXML
-	private RadioButton rbSvi;
-	@FXML
-	private ToggleGroup grpSvi;
-	@FXML
-	private RadioButton rbAktivni;
-	@FXML
-	private RadioButton rbNeaktivni;
-	@FXML
 	private Button btnPretrazi;
 	@FXML
 	private TextField txtPretraga;
@@ -68,6 +59,10 @@ public class RadSaSponzorimaController extends BaseController {
 	private Button btnObrisi;
 	@FXML
 	private Button btnDodajUgovor;
+	@FXML
+	private ComboBox<String> cbTip;
+	@FXML
+	private Button btnOsvjezi;
 
 	// Inicijalizacija prozora
 	@Override
@@ -78,15 +73,23 @@ public class RadSaSponzorimaController extends BaseController {
 		bindDisable();
 	}
 
-	// Event Listener on RadioButton[#rbSvi].onAction
-	@FXML
-	public void prikaziSve(ActionEvent event) {
+	public void prikaziSve() {
 		tblSponzori.setItems(listaSponzora);
 	}
 
-	// Event Listener on RadioButton[#rbAktivni].onAction
 	@FXML
-	public void prikaziAktivne(ActionEvent event) {
+	public void show(ActionEvent event) {
+		String option = cbTip.getSelectionModel().getSelectedItem();
+		if ("Svi".equals(option)) {
+			prikaziSve();
+		} else if ("Aktivni".equals(option)) {
+			prikaziAktivne();
+		} else {
+			prikaziNeaktivne();
+		}
+	}
+
+	public void prikaziAktivne() {
 		ObservableList<SponzorDTO> filtered = FXCollections.observableArrayList();
 		for (SponzorDTO sponzor : listaSponzora) {
 			if (sponzor.daLiJeAktivan()) {
@@ -96,9 +99,7 @@ public class RadSaSponzorimaController extends BaseController {
 		tblSponzori.setItems(filtered);
 	}
 
-	// Event Listener on RadioButton[#rbNeaktivni].onAction
-	@FXML
-	public void prikaziNeaktivne(ActionEvent event) {
+	public void prikaziNeaktivne() {
 		ObservableList<SponzorDTO> filtered = FXCollections.observableArrayList();
 		for (SponzorDTO sponzor : listaSponzora) {
 			if (!sponzor.daLiJeAktivan()) {
@@ -107,15 +108,16 @@ public class RadSaSponzorimaController extends BaseController {
 		}
 		tblSponzori.setItems(filtered);
 	}
-	  @FXML
-	    void odjaviteSe(ActionEvent event) {
-	    	try {
-				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new ErrorLogger().log(e);
-			}
-	    }
+
+	@FXML
+	void odjaviteSe(ActionEvent event) {
+		try {
+			BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+		} catch (IOException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		}
+	}
 
 	// Event Listener on Button[#btnPretrazi].onAction
 	@FXML
@@ -126,7 +128,7 @@ public class RadSaSponzorimaController extends BaseController {
 				ObservableList<SponzorDTO> result = FXCollections.observableArrayList();
 				ObservableList<SponzorDTO> tableList = tblSponzori.getItems();
 				for (SponzorDTO sponzor : tableList) {
-					if(sponzor.getNaziv().contains(txtPretraga.getText())){
+					if (sponzor.getNaziv().contains(txtPretraga.getText())) {
 						result.add(sponzor);
 					}
 				}
@@ -140,11 +142,13 @@ public class RadSaSponzorimaController extends BaseController {
 	// Event Listener on Button[#btnUgovori].onAction
 	@FXML
 	public void pregledajUgovore(ActionEvent event) {
-		SponzorDTO sponzor = listaSponzora.get(listaSponzora.indexOf(tblSponzori.getSelectionModel().getSelectedItem()));
+		SponzorDTO sponzor = listaSponzora
+				.get(listaSponzora.indexOf(tblSponzori.getSelectionModel().getSelectedItem()));
 		Stage newStage = new Stage();
 		RadSaUgovorimaController controller = null;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/sekretar/view/RadSaUgovorimaView.fxml"));
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getClassLoader().getResource("application/gui/sekretar/view/RadSaUgovorimaView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			controller = loader.<RadSaUgovorimaController>getController();
 			Scene scene = new Scene(root, 710, 355);
@@ -152,7 +156,8 @@ public class RadSaSponzorimaController extends BaseController {
 			newStage.setScene(scene);
 			newStage.setResizable(false);
 			newStage.setTitle("Stonoteniski klub");
-			newStage.show();
+			newStage.initModality(Modality.APPLICATION_MODAL);
+			newStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 			new ErrorLogger().log(e);
@@ -162,13 +167,13 @@ public class RadSaSponzorimaController extends BaseController {
 	// Event Listener on Button[#btnDodajSponzora].onAction
 	@FXML
 	public void dodajSponzora(ActionEvent event) {
-		rbSvi.setSelected(true);
-		prikaziSve(event);
+		prikaziSve();
 		Stage newStage = new Stage();
 		DodavanjeSponzoraController controller = null;
 		tblSponzori.getSelectionModel().clearSelection();
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/sekretar/view/DodavanjeSponzoraView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader()
+					.getResource("application/gui/sekretar/view/DodavanjeSponzoraView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			Scene scene = new Scene(root, 410, 530);
 			controller = loader.<DodavanjeSponzoraController>getController();
@@ -177,7 +182,8 @@ public class RadSaSponzorimaController extends BaseController {
 			newStage.setScene(scene);
 			newStage.setResizable(false);
 			newStage.setTitle("Stonoteniski klub");
-			newStage.show();
+			newStage.initModality(Modality.APPLICATION_MODAL);
+			newStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 			new ErrorLogger().log(e);
@@ -187,14 +193,15 @@ public class RadSaSponzorimaController extends BaseController {
 	// Event Listener on Button[#btnAzuriraj].onAction
 	@FXML
 	public void azuriraj(ActionEvent event) {
-		SponzorDTO odabrani = listaSponzora.get(listaSponzora.indexOf(tblSponzori.getSelectionModel().getSelectedItem()));
-		rbSvi.setSelected(true);
-		prikaziSve(event);
+		SponzorDTO odabrani = listaSponzora
+				.get(listaSponzora.indexOf(tblSponzori.getSelectionModel().getSelectedItem()));
+		prikaziSve();
 		Stage newStage = new Stage();
 		DodavanjeSponzoraController controller = null;
 		tblSponzori.getSelectionModel().clearSelection();
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/sekretar/view/DodavanjeSponzoraView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader()
+					.getResource("application/gui/sekretar/view/DodavanjeSponzoraView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			controller = loader.<DodavanjeSponzoraController>getController();
 			Scene scene = new Scene(root, 410, 530);
@@ -203,26 +210,49 @@ public class RadSaSponzorimaController extends BaseController {
 			newStage.setScene(scene);
 			newStage.setResizable(false);
 			newStage.setTitle("Stonoteniski klub");
-			newStage.show();
+			newStage.initModality(Modality.APPLICATION_MODAL);
+			newStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 			new ErrorLogger().log(e);
 		}
 	}
 
+	@FXML
+	public void osvjezi(ActionEvent event) {
+		cbTip.getSelectionModel().select(0);
+		cbTip.fireEvent(event);
+	}
+
 	// Event Listener on Button[#btnObrisi].onAction
 	@FXML
 	public void obrisi(ActionEvent event) {
+		SponzorDTO sponzor = tblSponzori.getSelectionModel().getSelectedItem();
+		if (sponzor != null) {
+			if (DAOFactory.getDAOFactory().getSponzorDAO().delete(sponzor)) {
+				int index = listaSponzora.indexOf(sponzor);
+				if (index >= 0) {
+					listaSponzora.remove(index);
+				}
+				index = tblSponzori.getItems().indexOf(sponzor);
+				if (index >= 0) {
+					listaSponzora.remove(index);
+				}
+				AlertDisplay.showInformation("Brisanje", "Brisanje uspješno!");
+			}
+		}
 	}
 
 	// Event Listener on Button[#btnDodajUgovor].onAction
 	@FXML
 	public void dodajUgovor(ActionEvent event) {
-		SponzorDTO odabrani = listaSponzora.get(listaSponzora.indexOf(tblSponzori.getSelectionModel().getSelectedItem()));
+		SponzorDTO odabrani = listaSponzora
+				.get(listaSponzora.indexOf(tblSponzori.getSelectionModel().getSelectedItem()));
 		Stage newStage = new Stage();
 		DodavanjeUgovoraController controller = null;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/gui/sekretar/view/DodavanjeUgovoraView.fxml"));
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getClassLoader().getResource("application/gui/sekretar/view/DodavanjeUgovoraView.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			controller = loader.<DodavanjeUgovoraController>getController();
 			Scene scene = new Scene(root, 600, 650);
@@ -230,7 +260,9 @@ public class RadSaSponzorimaController extends BaseController {
 			newStage.setScene(scene);
 			newStage.setResizable(false);
 			newStage.setTitle("Stonoteniski klub");
-			newStage.show();
+			newStage.initModality(Modality.APPLICATION_MODAL);
+			newStage.showAndWait();
+			refresh();
 		} catch (IOException e) {
 			e.printStackTrace();
 			new ErrorLogger().log(e);
@@ -241,27 +273,35 @@ public class RadSaSponzorimaController extends BaseController {
 	public void deselect() {
 		tblSponzori.getSelectionModel().clearSelection();
 	}
-	
-	
+
 	// invoking from other controller
 	public void dodajSponzora(SponzorDTO sponzor) {
 		listaSponzora.add(sponzor);
 	}
-	
+
 	// invoking from other controller
 	public void zamijeni(SponzorDTO sponzor) {
 		int index = listaSponzora.indexOf(sponzor);
 		listaSponzora.remove(index);
 		listaSponzora.add(index, sponzor);
 	}
-	public void refresh(){
+
+	public void refresh() {
 		tblSponzori.refresh();
 	}
-	
+
 	// fields
 	private ObservableList<SponzorDTO> listaSponzora;
 	private static ObservableList<String> CB_ITEMS = FXCollections.observableArrayList();
-		static {CB_ITEMS.add("Naziv");}
+	static {
+		CB_ITEMS.add("Naziv");
+	}
+	private static ObservableList<String> CB_TIP_ITEMS = FXCollections.observableArrayList();
+	static {
+		CB_TIP_ITEMS.add("Svi");
+		CB_TIP_ITEMS.add("Aktivni");
+		CB_TIP_ITEMS.add("Neaktivni");
+	}
 
 	// Pomocne metode
 	private void buildTable() {
@@ -295,6 +335,8 @@ public class RadSaSponzorimaController extends BaseController {
 	private void populateComboBoxes() {
 		cbPretraga.setItems(CB_ITEMS);
 		cbPretraga.getSelectionModel().select(0);
+		cbTip.setItems(CB_TIP_ITEMS);
+		cbTip.getSelectionModel().select(0);
 	}
 
 	private void bindDisable() {
@@ -302,5 +344,6 @@ public class RadSaSponzorimaController extends BaseController {
 		btnDodajUgovor.disableProperty().bind(tblSponzori.getSelectionModel().selectedItemProperty().isNull());
 		btnObrisi.disableProperty().bind(tblSponzori.getSelectionModel().selectedItemProperty().isNull());
 		btnUgovori.disableProperty().bind(tblSponzori.getSelectionModel().selectedItemProperty().isNull());
+		btnPretrazi.disableProperty().bind(txtPretraga.textProperty().isEmpty());
 	}
 }

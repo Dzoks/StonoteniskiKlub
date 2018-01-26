@@ -1,5 +1,7 @@
 package application.util;
 
+import java.time.LocalDate;
+
 public class InputValidator {
 	
 	public static boolean allEntered(Object... values){
@@ -28,5 +30,14 @@ public class InputValidator {
 			return true;
 		}
 		return false;
+	}
+	public static boolean validateDate(LocalDate date, Integer span){
+		boolean result = false;
+		Integer year = LocalDate.now().getYear() - date.getYear();
+		Integer days = LocalDate.now().getDayOfYear() - date.getDayOfYear();
+		if(year>span || (year==span && days>=0)){
+			result = true;
+		}
+		return result;
 	}
 }

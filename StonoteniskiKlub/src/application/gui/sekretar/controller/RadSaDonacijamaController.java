@@ -71,15 +71,16 @@ public class RadSaDonacijamaController extends BaseController {
 		populateComboBoxes();
 		bindDisable();
 	}
-	  @FXML
-	    void odjaviteSe(ActionEvent event) {
-	    	try {
-				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new ErrorLogger().log(e);
-			}
-	    }
+
+	@FXML
+	void odjaviteSe(ActionEvent event) {
+		try {
+			BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+		} catch (IOException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		}
+	}
 
 	@FXML
 	public void updateOpis(MouseEvent event) {
@@ -102,7 +103,7 @@ public class RadSaDonacijamaController extends BaseController {
 		String option = cbTipDonacije.getSelectionModel().getSelectedItem();
 		if ("Sve".equals(option)) {
 			tblDonacije.setItems(donacije);
-		} else if ("Novcane".equals(option)) {
+		} else if ("Novčane".equals(option)) {
 			ObservableList<DonacijaDTO> filtered = FXCollections.observableArrayList();
 			for (DonacijaDTO donacija : donacije) {
 				if (donacija.getNovcanaDonacija()) {
@@ -205,16 +206,19 @@ public class RadSaDonacijamaController extends BaseController {
 			}
 		}
 	}
+
 	@FXML
-	public void prikaziNovcane(ActionEvent event){
+	public void prikaziNovcane(ActionEvent event) {
 		cbTipDonacije.getSelectionModel().select(1);
 		cbTipDonacije.fireEvent(event);
 	}
+
 	@FXML
-	public void prikaziOpremu(ActionEvent event){
+	public void prikaziOpremu(ActionEvent event) {
 		cbTipDonacije.getSelectionModel().select(2);
 		cbTipDonacije.fireEvent(event);
 	}
+
 	public void setDonacije(ObservableList<DonacijaDTO> donacije) {
 		this.donacije = donacije;
 		tblDonacije.setItems(donacije);
@@ -230,7 +234,7 @@ public class RadSaDonacijamaController extends BaseController {
 	private static ObservableList<String> cbTipItems = FXCollections.observableArrayList();
 	static {
 		cbTipItems.add("Sve");
-		cbTipItems.add("Novcane");
+		cbTipItems.add("Novčane");
 		cbTipItems.add("Oprema");
 	}
 
@@ -256,5 +260,10 @@ public class RadSaDonacijamaController extends BaseController {
 		tfOdKolicina.disableProperty().bind(rbNovcane.selectedProperty());
 		tfDoKolicina.disableProperty().bind(rbNovcane.selectedProperty());
 		cbTipOpreme.disableProperty().bind(rbNovcane.selectedProperty());
+		btnPretraga.disableProperty()
+				.bind(rbNovcane.selectedProperty()
+						.and(tfOdNovac.textProperty().isEmpty().and(tfDoNovac.textProperty().isEmpty()))
+						.or(rbOprema.selectedProperty().and(
+								tfOdKolicina.textProperty().isEmpty().and(tfDoKolicina.textProperty().isEmpty()))));
 	}
 }

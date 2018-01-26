@@ -15,6 +15,7 @@ import application.util.AlertDisplay;
 import application.util.ErrorLogger;
 import application.util.InputValidator;
 import application.util.TextUtility;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class DodavanjeSkupstineController extends BaseController {
@@ -48,7 +50,7 @@ public class DodavanjeSkupstineController extends BaseController {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		lstListaStavki.setItems(stavke);
-		btnUkloniStavku.disableProperty().bind(lstListaStavki.getSelectionModel().selectedItemProperty().isNull());
+		bindDisable();
 	}
 
 	// Event Listener on Button[#btnDodajStavku].onAction
@@ -68,6 +70,7 @@ public class DodavanjeSkupstineController extends BaseController {
 			newStage.setScene(scene);
 			newStage.setResizable(false);
 			newStage.setTitle("Stonoteniski klub");
+			newStage.initModality(Modality.APPLICATION_MODAL);
 			newStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -98,21 +101,24 @@ public class DodavanjeSkupstineController extends BaseController {
 				datumOdrzavanja = dpDatumOdrzavanja.getValue();
 				skupstina = new SkupstinaDTO(null, datumOdrzavanja, stavke, null);
 				uspjesno = DAOFactory.getDAOFactory().getSkupstinaDAO().insert(skupstina);
-			} if (uspjesno) {
-					for (Iterator<StavkaSkupstinaDTO> it = stavke.iterator(); it.hasNext();) {
-						StavkaSkupstinaDTO stavka = it.next();
-						DAOFactory.getDAOFactory().getStavkaSkupstinaDAO().insert(skupstina, stavka, tip);
-					}
-					if(this.tip == StavkaSkupstinaDAO.IZVJESTAJ){
-						this.skupstina.setStavkeIzvjestaja(stavke);
-					} else{
-						parentController.addItem(skupstina);
-					}
-					parentController.refresh();
-					AlertDisplay.showInformation("Dodavanje", "Uspješno dodavanje");
 			}
-			Stage stage = (Stage) btnSacuvaj.getScene().getWindow();
-			stage.close();
+			if (uspjesno) {
+				for (Iterator<StavkaSkupstinaDTO> it = stavke.iterator(); it.hasNext();) {
+					StavkaSkupstinaDTO stavka = it.next();
+					DAOFactory.getDAOFactory().getStavkaSkupstinaDAO().insert(skupstina, stavka, tip);
+				}
+				if (this.tip == StavkaSkupstinaDAO.IZVJESTAJ) {
+					this.skupstina.setStavkeIzvjestaja(stavke);
+				} else {
+					parentController.addItem(skupstina);
+				}
+				parentController.refresh();
+				AlertDisplay.showInformation("Dodavanje", "Uspješno dodavanje");
+				Stage stage = (Stage) btnSacuvaj.getScene().getWindow();
+				stage.close();
+			} else {
+				AlertDisplay.showWarning("Dodavanje", "Došlo je do greške.");
+			}
 		} else {
 			AlertDisplay.showInformation("Dodavanje", "Niste unijeli datum održavanja skupštine.");
 		}
@@ -137,13 +143,21 @@ public class DodavanjeSkupstineController extends BaseController {
 		this.tip = tip;
 		if (tip == StavkaSkupstinaDAO.IZVJESTAJ) {
 			dpDatumOdrzavanja.setDisable(true);
+			btnSacuvaj.disableProperty().bind((Bindings.isEmpty(lstListaStavki.getItems())));
+		} else {
+			btnSacuvaj.disableProperty()
+					.bind((Bindings.isEmpty(lstListaStavki.getItems()).or(dpDatumOdrzavanja.valueProperty().isNull())));
 		}
 	}
-	
-	public void setSkupstina(SkupstinaDTO skupstina){
+
+	public void setSkupstina(SkupstinaDTO skupstina) {
 		this.skupstina = skupstina;
 	}
-	
+
+	private void bindDisable() {
+		btnUkloniStavku.disableProperty().bind(lstListaStavki.getSelectionModel().selectedItemProperty().isNull());
+	}
+
 	private ObservableList<StavkaSkupstinaDTO> stavke = FXCollections.observableArrayList();
 	private RadSaSkupstinamaController parentController;
 	private int tip;

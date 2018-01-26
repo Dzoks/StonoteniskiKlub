@@ -30,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class RadSaUgovorimaController extends BaseController {
@@ -55,15 +56,18 @@ public class RadSaUgovorimaController extends BaseController {
 	private TextArea taOpis;
 	@FXML
 	private Button btnPregledajDonacije;
-	  @FXML
-	    void odjaviteSe(ActionEvent event) {
-	    	try {
-				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new ErrorLogger().log(e);
-			}
-	    }
+	@FXML
+	private Button btnOsvjezi;
+	@FXML
+	void odjaviteSe(ActionEvent event) {
+		try {
+			BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+		} catch (IOException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		}
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		buildTable();
@@ -145,7 +149,11 @@ public class RadSaUgovorimaController extends BaseController {
 			tblUgovori.setItems(filtered);
 		}
 	}
-
+	@FXML
+	public void osvjezi(ActionEvent event){
+		cbTip.getSelectionModel().select(0);
+		cbTip.fireEvent(event);
+	}
 	// Event Listener on Button[#btnPregledajDonacije].onAction
 	@FXML
 	public void pregledajDonacije(ActionEvent event) {
@@ -163,13 +171,18 @@ public class RadSaUgovorimaController extends BaseController {
 				newStage.setScene(scene);
 				newStage.setResizable(false);
 				newStage.setTitle("Stonoteniski klub");
-				newStage.show();
+				newStage.initModality(Modality.APPLICATION_MODAL);
+				newStage.showAndWait();
 			} catch (IOException e) {
 				e.printStackTrace();
 				new ErrorLogger().log(e);
 			}
-		} else{
-			AlertDisplay.showInformation("Pregled", "Nema donacija u ugovoru.");//ŠTA OVDJE TREBA BITI??? Dzoks
+		} else {
+			AlertDisplay.showInformation("Pregled", "Nema donacija u ugovoru.");// ŠTA
+																				// OVDJE
+																				// TREBA
+																				// BITI???
+																				// Dzoks
 		}
 	}
 
@@ -187,7 +200,7 @@ public class RadSaUgovorimaController extends BaseController {
 	}
 
 	@FXML
-	public void deselect() {
+	public void deselect(MouseEvent event) {
 		tblUgovori.getSelectionModel().clearSelection();
 		taOpis.setText("");
 	}
@@ -199,24 +212,26 @@ public class RadSaUgovorimaController extends BaseController {
 		cbItems.add("Bez donacija");
 		cbItems.add("Sa donacijama");
 	}
+
 	// Pomocne metode
-		private void buildTable() {
-			Map<String, TableColumn<UgovorDTO, Integer>> mapInteger = new HashMap<String, TableColumn<UgovorDTO, Integer>>();
-			mapInteger.put("redniBroj", colRb);
-			GUIBuilder.<UgovorDTO, Integer>initializeTableColumns(mapInteger);
-			Map<String, TableColumn<UgovorDTO, String>> mapString = new HashMap<String, TableColumn<UgovorDTO, String>>();
-			mapString.put("datumOd", colDatumOd);
-			mapString.put("datumDo", colDatumDo);
-			mapString.put("saDonacijom", colSaDonacijom);
-			GUIBuilder.<UgovorDTO, String>initializeTableColumns(mapString);
-		}
+	private void buildTable() {
+		Map<String, TableColumn<UgovorDTO, Integer>> mapInteger = new HashMap<String, TableColumn<UgovorDTO, Integer>>();
+		mapInteger.put("redniBroj", colRb);
+		GUIBuilder.<UgovorDTO, Integer>initializeTableColumns(mapInteger);
+		Map<String, TableColumn<UgovorDTO, String>> mapString = new HashMap<String, TableColumn<UgovorDTO, String>>();
+		mapString.put("datumOd", colDatumOd);
+		mapString.put("datumDo", colDatumDo);
+		mapString.put("saDonacijom", colSaDonacijom);
+		GUIBuilder.<UgovorDTO, String>initializeTableColumns(mapString);
+	}
 
-		private void populateComboBoxes() {
-			cbTip.setItems(cbItems);
-			cbTip.getSelectionModel().select(0);
-		}
+	private void populateComboBoxes() {
+		cbTip.setItems(cbItems);
+		cbTip.getSelectionModel().select(0);
+	}
 
-		private void bindDisable() {
-			btnPregledajDonacije.disableProperty().bind(tblUgovori.getSelectionModel().selectedItemProperty().isNull());
-		}
+	private void bindDisable() {
+		btnPregledajDonacije.disableProperty().bind(tblUgovori.getSelectionModel().selectedItemProperty().isNull());
+		btnPretrazi.disableProperty().bind(dpDatumOd.valueProperty().isNull().and(dpDatumDo.valueProperty().isNull()));
+	}
 }

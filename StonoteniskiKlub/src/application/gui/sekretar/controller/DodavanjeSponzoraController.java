@@ -111,6 +111,12 @@ public class DodavanjeSponzoraController extends BaseController {
 					noviTelefoni.clear();
 					sponzor.setTelefoni(lstTelefoni.getItems());
 					AlertDisplay.showInformation("Dodavanje", "Sponzor uspješno dodat.");
+					for(String telefon: uklonjeniTelefoni){
+						DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(telefon);
+					}
+					uklonjeniTelefoni.clear();
+					Stage stage = (Stage)btnDodajSponzora.getScene().getWindow();
+					stage.close();
 				} else {
 					AlertDisplay.showError("Dodavanje", "Dodavanje nije uspjelo.");
 				}
@@ -131,16 +137,16 @@ public class DodavanjeSponzoraController extends BaseController {
 				noviTelefoni.clear();
 				AlertDisplay.showInformation("Izmjena", "Sponzor uspješno ažuriran.");
 				parent.refresh();
+				for(String telefon: uklonjeniTelefoni){
+					DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(telefon);
+				}
+				uklonjeniTelefoni.clear();
+				Stage stage = (Stage)btnDodajSponzora.getScene().getWindow();
+				stage.close();
 			}else {
 				AlertDisplay.showError("Izmjena", "Niste unijeli sve podatke.");
 			}
 		}
-		for(String telefon: uklonjeniTelefoni){
-			DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(telefon);
-		}
-		uklonjeniTelefoni.clear();
-		Stage stage = (Stage)btnDodajSponzora.getScene().getWindow();
-		stage.close();
 	}
 
 	public void setParentController(RadSaSponzorimaController parent) {

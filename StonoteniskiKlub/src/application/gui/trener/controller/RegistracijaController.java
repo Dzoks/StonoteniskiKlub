@@ -1,6 +1,7 @@
 package application.gui.trener.controller;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -12,6 +13,7 @@ import application.model.dto.KategorijaDTO;
 import application.model.dto.RegistracijaDTO;
 import application.util.AlertDisplay;
 import application.util.InputValidator;
+import application.util.TextUtility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +23,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class RegistracijaController extends BaseController {
@@ -63,7 +66,7 @@ public class RegistracijaController extends BaseController {
 			RegistracijaDTO registracijaDTO = new RegistracijaDTO(this.clan.getId(),
 					cbSezona.getSelectionModel().getSelectedItem(),
 					cbKategorija.getSelectionModel().getSelectedItem().getId(), dpDatum.getValue(), null, clan);
-			if(DAOFactory.getDAOFactory().getRegistracijaDAO().insert(registracijaDTO)){
+			if (DAOFactory.getDAOFactory().getRegistracijaDAO().insert(registracijaDTO)) {
 				DAOFactory.getDAOFactory().getClanDAO().setRegistrovan(true, this.clan.getId());
 				AlertDisplay.showInformation("Registracija", "Registracija uspješna.");
 			}
@@ -92,6 +95,13 @@ public class RegistracijaController extends BaseController {
 			tels.add(tel);
 		}
 		lstBrojeviTelefona.setItems(tels);
+		try {
+			if (clan.getSlika() != null) {
+				imgSlika.setImage(new Image(clan.getSlika().getBinaryStream()));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private ClanDTO clan;

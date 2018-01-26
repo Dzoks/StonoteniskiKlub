@@ -3,11 +3,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane onMouseClicked="#deselect" prefHeight="588.0" prefWidth="770.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.sekretar.controller.RadSaSponzorimaController">
@@ -24,13 +22,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <RadioButton fx:id="rbSvi" layoutX="34.0" layoutY="27.0" mnemonicParsing="false" onAction="#prikaziSve" selected="true" text="Svi" textFill="#f2e9e9">
-         <toggleGroup>
-            <ToggleGroup fx:id="grpSvi" />
-         </toggleGroup>
-      </RadioButton>
-      <RadioButton fx:id="rbAktivni" layoutX="83.0" layoutY="27.0" mnemonicParsing="false" onAction="#prikaziAktivne" text="Aktivni" textFill="#f2e9e9" toggleGroup="$grpSvi" />
-      <RadioButton fx:id="rbNeaktivni" layoutX="153.0" layoutY="27.0" mnemonicParsing="false" onAction="#prikaziNeaktivne" text="Neaktivni" textFill="#f2e9e9" toggleGroup="$grpSvi" />
       <Button fx:id="btnPretrazi" layoutX="678.0" layoutY="24.0" mnemonicParsing="false" onAction="#pretrazi" text="Pretražite" />
       <TextField fx:id="txtPretraga" layoutX="522.0" layoutY="24.0" />
       <ComboBox fx:id="cbPretraga" layoutX="413.0" layoutY="24.0" prefWidth="100.0" />
@@ -40,5 +31,7 @@
       <Button fx:id="btnAzuriraj" layoutX="175.0" layoutY="535.0" mnemonicParsing="false" onAction="#azuriraj" prefHeight="25.0" prefWidth="124.0" text="Ažurirajte" />
       <Button fx:id="btnObrisi" layoutX="321.0" layoutY="535.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="124.0" text="Obrišite " />
       <Button fx:id="btnDodajUgovor" layoutX="467.0" layoutY="535.0" mnemonicParsing="false" onAction="#dodajUgovor" prefHeight="25.0" prefWidth="124.0" text="Dodajte ugovor" />
+      <ComboBox fx:id="cbTip" layoutX="14.0" layoutY="24.0" onAction="#show" prefWidth="150.0" />
+      <Button fx:id="btnOsvjezi" layoutX="267.0" layoutY="24.0" mnemonicParsing="false" onAction="#osvjezi" text="Osvježite" />
    </children>
 </AnchorPane>

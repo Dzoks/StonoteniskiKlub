@@ -19,7 +19,6 @@ public class ZaposleniDTO extends OsobaDTO {
 
 	public ZaposleniDTO() {
 	}
-
 	public ZaposleniDTO(Integer id, String ime, String prezime, String imeRoditelja, String jmb, Character pol,
 			Date datumRodjenja, Blob slika, List<String> telefoni, Boolean aktivan,
 			ObservableList<ZaposlenjeDTO> zaposlenja) {
