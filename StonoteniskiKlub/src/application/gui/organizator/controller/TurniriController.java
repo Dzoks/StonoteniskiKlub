@@ -120,6 +120,7 @@ public class TurniriController extends BaseController{
 				SinglTurnirController noviStage=(SinglTurnirController)changeScene("/application/gui/organizator/view/SinglTurnirView.fxml",primaryStage);
 				noviStage.inicijalizuj(tblTurniri.getSelectionModel().getSelectedItem().getId(),
 						cbKategorija.getSelectionModel().getSelectedItem().getId());
+				noviStage.setUsername(lblUsername.getText());
 			} catch (IOException e) {
 				e.printStackTrace();
 				new ErrorLogger().log(e);
