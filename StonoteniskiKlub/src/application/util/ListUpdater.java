@@ -38,7 +38,7 @@ public class ListUpdater extends Task<Void> {
 			folder.delete();
 			
 			Platform.runLater(()->{
-				AlertDisplay.showConfirmation("Preuzimanje", "Rezultati su uspješno preuzeti i ažurirani u bazi podataka");
+				AlertDisplay.showInformation("Preuzimanje", "Rezultati su uspješno preuzeti i ažurirani u bazi podataka");
 			});
 		} catch (Exception e) {
 			
