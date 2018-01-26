@@ -5,6 +5,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
@@ -54,7 +55,11 @@
       <Label fx:id="lblGodina" layoutX="458.0" layoutY="361.0" text="Godina:" />
       <Spinner fx:id="spinnerGodina" layoutX="529.0" layoutY="357.0" />
       <Label fx:id="lblOpis" layoutX="26.0" layoutY="101.0" text="Opis:" />
-      <TextArea fx:id="txtOpis" layoutX="115.0" layoutY="104.0" prefHeight="65.0" prefWidth="316.0" />
+      <ScrollPane layoutX="115.0" layoutY="104.0">
+         <content>
+            <TextArea fx:id="txtOpis" prefHeight="65.0" prefWidth="316.0" />
+         </content>
+      </ScrollPane>
       <RadioButton fx:id="radiobtnSve" layoutX="533.0" layoutY="280.0" mnemonicParsing="false" onAction="#radioSve" prefHeight="17.0" prefWidth="75.0" text="Sve" textFill="#f2e9e9" />
    </children>
 </AnchorPane>

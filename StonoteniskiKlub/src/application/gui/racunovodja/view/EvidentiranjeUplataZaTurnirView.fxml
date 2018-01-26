@@ -46,7 +46,7 @@
       <Label fx:id="lblKM" layoutX="707.0" layoutY="55.0" text="KM" />
       <Label fx:id="lblDatumUplate" layoutX="464.0" layoutY="95.0" text="Datum uplate:" />
       <DatePicker fx:id="datePicker" layoutX="556.0" layoutY="91.0" />
-      <Button fx:id="btnPrikazi" layoutX="559.0" layoutY="449.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="149.0" text="Pretražite" />
+      <Button fx:id="btnPrikazi" layoutX="559.0" layoutY="461.0" mnemonicParsing="false" onAction="#prikazi" prefHeight="25.0" prefWidth="149.0" text="Pretražite" />
       <Button fx:id="btnObrisi" layoutX="116.0" layoutY="461.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="83.0" text="Obrišite" />
       <Button fx:id="btnIzmijeni" layoutX="222.0" layoutY="461.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="83.0" text="Izmijenite" />
       <Label fx:id="lblTurnirPrikazi" layoutX="491.0" layoutY="387.0" text="Turnir:" />

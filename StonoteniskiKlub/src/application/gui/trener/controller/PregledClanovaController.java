@@ -449,18 +449,8 @@ public class PregledClanovaController extends BaseController implements Initiali
 		lblPol.setText(clan.getPol().equals('M') ? "Muški" : "Ženski");
 		// lblDatumRodjenja.setText(clan.getDatumRodjenja().toString());
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		formatter = formatter.withLocale(Locale.US); // Locale specifies human language for translating, and cultural
-														// norms for lowercase/uppercase and abbreviations and such.
-														// Example: Locale.US or Locale.CANADA_FRENCH
-		LocalDate date = null;
-		try {
-			date = LocalDate.parse(clan.getDatumRodjenja().toString(), formatter);
-		} catch (DateTimeParseException e) {
-			date = clan.getDatumRodjenja().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		}
-
-		lblDatumRodjenja.setText(date.toString());
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
+		lblDatumRodjenja.setText(df.format(clan.getDatumRodjenja()));
 
 		try {
 			java.sql.Blob blob = clan.getSlika();
