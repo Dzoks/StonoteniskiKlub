@@ -8,12 +8,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="275.0" prefWidth="329.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniSredstvaZaTurnirController">
+<AnchorPane prefHeight="275.0" prefWidth="329.0" styleClass="body" stylesheets="/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.IzmijeniSredstvaZaTurnirController">
    <children>
       <Label fx:id="lblDatum" layoutX="23.0" layoutY="30.0" text="Datum:" />
       <DatePicker fx:id="datePicker" layoutX="126.0" layoutY="26.0" />
-      <Button fx:id="btnIzmijeni" layoutX="125.0" layoutY="228.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="69.0" text="Izmijenite" />
-      <Button fx:id="btnOtkazi" layoutX="231.0" layoutY="228.0" mnemonicParsing="false" onAction="#otkazi" prefHeight="25.0" prefWidth="69.0" text="Otkažite" />
+      <Button fx:id="btnIzmijeni" layoutX="125.0" layoutY="228.0" mnemonicParsing="false" onAction="#izmijeni" prefHeight="25.0" prefWidth="80.0" text="Izmijenite" />
+      <Button fx:id="btnOtkazi" layoutX="220.0" layoutY="228.0" mnemonicParsing="false" onAction="#otkazi" prefHeight="25.0" prefWidth="80.0" text="Otkažite" />
       <Label fx:id="lblIznos" layoutX="20.0" layoutY="67.0" prefHeight="17.0" prefWidth="46.0" text="Iznos:" />
       <TextField fx:id="txtIznos" layoutX="127.0" layoutY="63.0" prefHeight="25.0" prefWidth="174.0" />
       <Label fx:id="lblKM" layoutX="306.0" layoutY="67.0" text="KM" />

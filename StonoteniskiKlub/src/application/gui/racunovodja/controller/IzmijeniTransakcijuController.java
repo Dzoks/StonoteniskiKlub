@@ -40,8 +40,6 @@ public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 	@FXML
 	private ComboBox<TipTransakcijeDTO> comboBoxTipTransakcije;
 	@FXML
-	private ComboBox<String> comboBoxVrsta;
-	@FXML
 	private Label lblOpis;
 	@FXML
 	private ScrollPane scrollPane;
@@ -57,12 +55,6 @@ public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		super.setController(new TransakcijaIzmijeniController(txtIznos, datePicker, txtOpis));
-
-		ObservableList<String> vrsta = FXCollections.observableArrayList();
-		vrsta.add("Prihod");
-		vrsta.add("Rashod");
-		comboBoxVrsta.setItems(vrsta);
-		comboBoxVrsta.getSelectionModel().select(0);
 	}
 	public void setListaTransakcija(ObservableList<TransakcijaDTO> listaTransakcija) {
 		this.listaTransakcija = listaTransakcija;
@@ -98,16 +90,12 @@ public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 			return null;
 		TipTransakcijeDTO tip = (TipTransakcijeDTO)comboBoxTipTransakcije.getValue();
 		
-		boolean jeUplata = false;
-		String vrsta = comboBoxVrsta.getValue();
-		if(vrsta.equals("Prihod"))
-			jeUplata=true;
 		
-		TransakcijaDTO transakcija1 = new TransakcijaDTO(transakcija.getId(), trans.getDatum(), trans.getIznos().get(), trans.getOpis().get(), tip.getTip(), jeUplata);
+		TransakcijaDTO transakcija1 = new TransakcijaDTO(transakcija.getId(), trans.getDatum(), trans.getIznos().get(), trans.getOpis().get(), tip.getTip(), transakcija.getJeUplata());
 		evidentiranjeController.getListaTransakcija().remove(transakcija1);
 		evidentiranjeController.getListaTransakcija().add(transakcija1);
 		DAOFactory.getDAOFactory().getTransakcijaDAO().UPDATE(transakcija1,tip);
-		if(jeUplata) {
+		if(transakcija.getJeUplata()) {
 			DAOFactory.getDAOFactory().getNovcanaSredstvaDAO().dodajPrihode(transakcija1.getIznos().get()-transakcija.getIznos().get());
 
 		}else {
