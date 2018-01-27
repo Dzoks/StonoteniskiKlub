@@ -70,7 +70,7 @@ public class RegistracijaController extends BaseController {
 				AlertDisplay.showInformation("Registracija", "Registracija uspješna.");
 				primaryStage.close();
 			}else
-				AlertDisplay.showError("Registracija", "Unesite datum.");
+				AlertDisplay.showError("Registracija", "Igrač već registrovan.");
 		} else {
 			AlertDisplay.showError("Registracija", "Unesite datum.");
 		}
