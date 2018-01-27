@@ -70,7 +70,8 @@ public class RegistracijaController extends BaseController {
 				DAOFactory.getDAOFactory().getClanDAO().setRegistrovan(true, this.clan.getId());
 				AlertDisplay.showInformation("Registracija", "Registracija uspješna.");
 				primaryStage.close();
-			}
+			}else
+				AlertDisplay.showError("Registracija", "Unesite datum.");
 		} else {
 			AlertDisplay.showError("Registracija", "Unesite datum.");
 		}
