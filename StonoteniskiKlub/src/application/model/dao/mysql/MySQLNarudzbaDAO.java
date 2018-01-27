@@ -57,8 +57,7 @@ public class MySQLNarudzbaDAO implements NarudzbaDAO {
 		return listaNarudzbi;
 	}
 
-	public ObservableList<Narudzba> SELECT_OPREMA_KLUBA() {// dodala Helena, ne
-															// brisite
+	public ObservableList<Narudzba> SELECT_OPREMA_KLUBA() {															
 		ObservableList<Narudzba> listaNarudzbi = FXCollections.observableArrayList();
 		Connection c = null;
 		Statement s = null;
