@@ -12,7 +12,9 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 import application.gui.controller.BaseController;
+import application.model.dao.DAOFactory;
 import application.model.dto.SkupstinaDTO;
+import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
 import application.util.ErrorLogger;
@@ -60,6 +62,22 @@ public class RadSaUgovorimaController extends BaseController {
 	private Button btnPregledajDonacije;
 	@FXML
 	private Button btnOsvjezi;
+	@FXML
+	private Button btnObrisi;
+	@FXML
+	public void obrisi(ActionEvent event){
+		UgovorDTO ugovor = tblUgovori.getSelectionModel().getSelectedItem();
+		if(ugovor.getRedniBroj().equals(Integer.valueOf("1"))){
+			AlertDisplay.showError("Brisanje", "Ne možete obrisati osnovni ugovor.");
+		} else{
+			if(DAOFactory.getDAOFactory().getUgovorDAO().delete(sponzor, ugovor)){
+				int index = listaUgovora.indexOf(ugovor);
+				listaUgovora.remove(index);
+				osvjezi(event);
+				AlertDisplay.showInformation("Brisanje", "Ugovor obrisan!");
+			}
+		}
+	}
 	@FXML
 	void odjaviteSe(ActionEvent event) {
 		try {
@@ -178,7 +196,10 @@ public class RadSaUgovorimaController extends BaseController {
 		cbItems.add("Bez donacija");
 		cbItems.add("Sa donacijama");
 	}
-
+	private SponzorDTO sponzor;
+	public void setSponzor(SponzorDTO sponzor){
+		this.sponzor = sponzor;
+	}
 	// Pomocne metode
 	private void buildTable() {
 		Map<String, TableColumn<UgovorDTO, Integer>> mapInteger = new HashMap<String, TableColumn<UgovorDTO, Integer>>();
@@ -199,5 +220,6 @@ public class RadSaUgovorimaController extends BaseController {
 	private void bindDisable() {
 		btnPregledajDonacije.disableProperty().bind(tblUgovori.getSelectionModel().selectedItemProperty().isNull());
 		btnPretrazi.disableProperty().bind(dpDatumOd.valueProperty().isNull().and(dpDatumDo.valueProperty().isNull()));
+		btnObrisi.disableProperty().bind(tblUgovori.getSelectionModel().selectedItemProperty().isNull());
 	}
 }

@@ -18,10 +18,10 @@ import javafx.collections.ObservableList;
 
 public class MySQLUgovorDAO implements UgovorDAO {
 
-	private static final String SQL_SELECT_ALL_BY_ID = "select * from UGOVOR_SPONZOR where SPONZOR_Id=?";
-	private static final String SQL_SELECT_ONE = "select * from UGOVOR_SPONZOR where SPONZOR_Id=? and RedniBroj=?";
+	private static final String SQL_SELECT_ALL_BY_ID = "select * from UGOVOR_SPONZOR where SPONZOR_Id=? and Aktivan=true";
+	private static final String SQL_SELECT_ONE = "select * from UGOVOR_SPONZOR where SPONZOR_Id=? and RedniBroj=? and Aktivan=true";
 	private static final String SQL_INSERT = "{call dodaj_sponzorski_ugovor(?,?,?,?,?)}";
-
+	private static final String SQL_DELETE = "update UGOVOR_SPONZOR set Aktivan=false where SPONZOR_Id=? and RedniBroj=?";
 	@Override
 	public ObservableList<UgovorDTO> selectAllById(Integer idSponzora) {
 		ObservableList<UgovorDTO> result = FXCollections.observableArrayList();
@@ -100,6 +100,27 @@ public class MySQLUgovorDAO implements UgovorDAO {
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(statement);
+		}
+		return result;
+	}
+
+	@Override
+	public boolean delete(SponzorDTO sponzor, UgovorDTO ugovor) {
+		boolean result = false;
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_DELETE, false, sponzor.getId(), ugovor.getRedniBroj());
+			statement.executeUpdate();
+			result = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(resultSet, statement);
 		}
 		return result;
 	}

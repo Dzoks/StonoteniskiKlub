@@ -21,10 +21,10 @@ import javafx.collections.ObservableList;
 
 public class MySQLZaposlenjeDAO implements ZaposlenjeDAO {
 
-	private static final String SQL_GET_BY_ID = "select * from ZAPOSLENJE where ZAPOSLENI_OSOBA_Id=?";
+	private static final String SQL_GET_BY_ID = "select * from ZAPOSLENJE where ZAPOSLENI_OSOBA_Id=? and Aktivan=true";
 	private static final String SQL_INSERT = "{call dodaj_zaposlenje(?,?,?,?,?,?)}";
 	private static final String SQL_UPDATE = "update ZAPOSLENJE set DatumDo=? where ZAPOSLENI_OSOBA_Id=? and ZAPOSLENI_TIP_Id=? and DatumOd=?";
-	
+	private static final String MY_SQL_DELETE = "update ZAPOSLENJE set Aktivan=false where ZAPOSLENI_OSOBA_Id=? and ZAPOSLENI_TIP_Id=? and DatumOd=?";
 	@Override
 	public ObservableList<ZaposlenjeDTO> selectAllById(Integer id) {
 		ObservableList<ZaposlenjeDTO> result = FXCollections.observableArrayList();
@@ -90,6 +90,27 @@ public class MySQLZaposlenjeDAO implements ZaposlenjeDAO {
 		try {
 			connection = ConnectionPool.getInstance().checkOut();
 			statement = ConnectionPool.prepareStatement(connection, SQL_UPDATE, false, zaposlenje.getDatumDo(), zaposleni.getId(), zaposlenje.getTipID(), zaposlenje.getDatumOd());
+			statement.executeUpdate();
+			result = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(resultSet, statement);
+		}
+		return result;
+	}
+
+	@Override
+	public boolean delete(ZaposleniDTO zaposleni, ZaposlenjeDTO zaposlenje) {
+		boolean result = false;
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, MY_SQL_DELETE, false, zaposleni.getId(), zaposlenje.getTipID(), zaposlenje.getDatumOd());
 			statement.executeUpdate();
 			result = true;
 		} catch (SQLException e) {

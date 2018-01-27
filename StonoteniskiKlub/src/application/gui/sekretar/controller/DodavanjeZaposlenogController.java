@@ -330,7 +330,6 @@ public class DodavanjeZaposlenogController extends BaseController {
 			ZaposleniDTO zaposleni = new ZaposleniDTO(null, txtIme.getText(), txtPrezime.getText(),
 					txtImeRoditelja.getText(), txtJMB.getText(), pol, datumRodjenja, slika, lstTelefoni.getItems(),
 					true, null);
-			System.out.println(zaposlenje.getDatumOd() + " - " + zaposlenje.getDatumDo());
 			Integer uspjesno = DAOFactory.getDAOFactory().getZaposleniDAO().insert(zaposleni, zaposlenje, tip);
 			if (uspjesno > -1) {
 				zaposleni.setZaposljenja(FXCollections.observableArrayList());

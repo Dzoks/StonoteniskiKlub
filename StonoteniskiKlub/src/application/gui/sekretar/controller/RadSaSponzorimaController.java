@@ -153,6 +153,7 @@ public class RadSaSponzorimaController extends BaseController {
 			controller = loader.<RadSaUgovorimaController>getController();
 			Scene scene = new Scene(root, 710, 355);
 			controller.setListaUgovora(sponzor.getUgovori());
+			controller.setSponzor(sponzor);
 			newStage.setScene(scene);
 			newStage.setResizable(false);
 			newStage.setTitle("Stonoteniski klub");
@@ -234,10 +235,7 @@ public class RadSaSponzorimaController extends BaseController {
 				if (index >= 0) {
 					listaSponzora.remove(index);
 				}
-				index = tblSponzori.getItems().indexOf(sponzor);
-				if (index >= 0) {
-					listaSponzora.remove(index);
-				}
+				osvjezi(event);
 				AlertDisplay.showInformation("Brisanje", "Brisanje uspješno!");
 			}
 		}

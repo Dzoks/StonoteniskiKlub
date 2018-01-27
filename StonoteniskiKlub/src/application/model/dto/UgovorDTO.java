@@ -109,4 +109,30 @@ public class UgovorDTO {
 	public String toString() {
 		return redniBroj + " [" + datumOd + " - " + datumDo + "]" + ", " + opis;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((redniBroj == null) ? 0 : redniBroj.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UgovorDTO other = (UgovorDTO) obj;
+		if (redniBroj == null) {
+			if (other.redniBroj != null)
+				return false;
+		} else if (!Integer.valueOf(redniBroj.get()).equals(Integer.valueOf(other.redniBroj.get())))
+			return false;
+		return true;
+	}
+	
 }

@@ -21,9 +21,10 @@ import application.util.ErrorLogger;
 
 public class MySQLDogadjajDAO implements DogadjajDAO {
 
-	private static final String SELECT_ALL_FOR_MONTH = "select * from DOGADJAJ where Pocetak between ? and ?";
+	private static final String SELECT_ALL_FOR_MONTH = "select * from DOGADJAJ where (Pocetak between ? and ?) and (Aktivan=true)";
 	private static final String SQL_INSERT = "{call dodaj_dogadjaj(?,?,?,?,?,?)}";
-
+	private static final String SQL_DELETE = "update DOGADJAJ set Aktivan=false where Id=?";
+	
 	@Override
 	public List<DogadjajDTO> selectAll(YearMonth yearMonth) {
 		List<DogadjajDTO> result = new ArrayList<DogadjajDTO>();
@@ -95,6 +96,26 @@ public class MySQLDogadjajDAO implements DogadjajDAO {
 			if (result > 0) {
 				dogadjaj.setId(result);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(statement);
+		}
+		return result;
+	}
+
+	@Override
+	public boolean delete(DogadjajDTO dogadjaj) {
+		boolean result = false;
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_DELETE, false, dogadjaj.getId());
+			statement.executeUpdate();
+			result = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			new ErrorLogger().log(e);

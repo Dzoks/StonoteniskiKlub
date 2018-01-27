@@ -8,4 +8,5 @@ public interface UgovorDAO {
 	ObservableList<UgovorDTO> selectAllById(Integer idSponzora);
 	UgovorDTO selectOne(Integer idSponzora, Integer redniBroj);
 	boolean insert(SponzorDTO sponzor, UgovorDTO ugovor);
+	boolean delete(SponzorDTO sponzor, UgovorDTO ugovor);
 }

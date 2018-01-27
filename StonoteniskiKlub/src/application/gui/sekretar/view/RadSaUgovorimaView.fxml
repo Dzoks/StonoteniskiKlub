@@ -33,5 +33,6 @@
       <TextArea fx:id="taOpis" layoutX="495.0" layoutY="80.0" prefHeight="225.0" prefWidth="200.0" wrapText="true" />
       <Button fx:id="btnPregledajDonacije" layoutX="572.0" layoutY="315.0" mnemonicParsing="false" onAction="#pregledajDonacije" text="Pregledajte donacije" />
       <Button fx:id="btnOsvjezi" layoutX="252.0" layoutY="10.0" mnemonicParsing="false" onAction="#osvjezi" text="Osvježite" />
+      <Button fx:id="btnObrisi" layoutX="443.0" layoutY="315.0" mnemonicParsing="false" onAction="#obrisi" prefHeight="25.0" prefWidth="124.0" text="Obrišite" />
    </children>
 </AnchorPane>

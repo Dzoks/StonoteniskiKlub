@@ -16,9 +16,10 @@ import javafx.collections.ObservableList;
 
 public class MySQLSkupstinaDAO implements SkupstinaDAO {
 
-	private static final String SQL_SELECT_ALL = "select * from SKUPSTINA";
-	private static final String SQL_INSERT = "insert into SKUPSTINA values(null,?)";
-
+	private static final String SQL_SELECT_ALL = "select * from SKUPSTINA where Aktivan=true";
+	private static final String SQL_INSERT = "insert into SKUPSTINA values(null,?, true)";
+	private static final String SQL_DELETE = "update SKUPSTINA set Aktivan=false where Id=?";
+	
 	@Override
 	public ObservableList<SkupstinaDTO> selectAll() {
 		ObservableList<SkupstinaDTO> result = FXCollections.observableArrayList();
@@ -81,4 +82,24 @@ public class MySQLSkupstinaDAO implements SkupstinaDAO {
 	}
 
 	private static MySQLSkupstinaDAO INSTANCE = null;
+
+	@Override
+	public boolean delete(SkupstinaDTO skupstina) {
+		boolean result = false;
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			statement = ConnectionPool.prepareStatement(connection, SQL_DELETE, false, skupstina.getId());
+			statement.executeUpdate();
+			result = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		} finally {
+			ConnectionPool.getInstance().checkIn(connection);
+			ConnectionPool.close(statement);
+		}
+		return result;
+	}
 }

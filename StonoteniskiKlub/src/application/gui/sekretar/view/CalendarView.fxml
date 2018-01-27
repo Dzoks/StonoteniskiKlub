@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -44,9 +45,9 @@
       <Button fx:id="btnPrije" layoutX="14.0" layoutY="32.0" mnemonicParsing="false" onAction="#prethodni" text="&lt;&lt;" />
       <Button fx:id="btnPoslije" layoutX="399.0" layoutY="32.0" mnemonicParsing="false" onAction="#sledeci" text="&gt;&gt;" />
       <Label fx:id="lblNaslov" layoutX="157.0" layoutY="30.0" style="-fx-font-weight: bold; -fx-font-size: 20; -fx-alignment: center;" text="JANUAR 2018" />
-      <ScrollPane layoutX="459.0" layoutY="80.0" style="-fx-border-color: grey;">
+      <ScrollPane layoutX="459.0" layoutY="80.0" prefHeight="282.0" prefWidth="290.0" style="-fx-border-color: grey;">
          <content>
-            <TextFlow fx:id="taDnevniPregled" prefHeight="427.0" prefWidth="286.0" style="-fx-background-color: white;">
+            <TextFlow fx:id="taDnevniPregled" prefHeight="270.0" prefWidth="286.0" style="-fx-background-color: white;">
                <padding>
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </padding>
@@ -54,6 +55,8 @@
          </content>
       </ScrollPane>
       <Label layoutX="509.0" layoutY="30.0" prefHeight="30.0" prefWidth="190.0" style="-fx-alignment: center; -fx-font-size: 20; -fx-font-weight: bold;" text="DNEVNI PREGLED" />
-      <Button fx:id="btnDodajDogadjaj" layoutX="550.0" layoutY="528.0" mnemonicParsing="false" onAction="#dodajDogadjaj" text="Dodajte događjaj" />
+      <Button fx:id="btnDodajDogadjaj" layoutX="641.0" layoutY="516.0" mnemonicParsing="false" onAction="#dodajDogadjaj" text="Dodajte događjaj" />
+      <ListView fx:id="lstDogadjaji" layoutX="459.0" layoutY="374.0" prefHeight="127.0" prefWidth="290.0" />
+      <Button fx:id="btnObrisi" layoutX="524.0" layoutY="516.0" mnemonicParsing="false" onAction="#obrisi" text="Obrišite događaj" />
 	</children>
 </AnchorPane>

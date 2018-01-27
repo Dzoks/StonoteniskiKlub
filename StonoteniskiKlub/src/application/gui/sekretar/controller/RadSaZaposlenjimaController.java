@@ -34,7 +34,22 @@ public class RadSaZaposlenjimaController extends BaseController {
 	private DatePicker dpDatum;
 	@FXML
 	private Button btnZakljuci;
-
+	@FXML
+	private Button btnObrisi;
+	
+	@FXML
+	public void obrisi(ActionEvent event){
+		if(tblZaposlenja.getItems().size() == 1){
+			AlertDisplay.showError("Brisanje", "Zaposleni mora imati bar jedno zaposlenje!");
+		} else{
+			ZaposlenjeDTO zaposlenje = tblZaposlenja.getSelectionModel().getSelectedItem();
+			if(DAOFactory.getDAOFactory().getZaposlenjeDAO().delete(zaposleni, zaposlenje)){
+				int index = tblZaposlenja.getSelectionModel().getSelectedIndex();
+				tblZaposlenja.getItems().remove(index);
+				AlertDisplay.showInformation("Brisanje", "Brisanje uspješno!");
+			}
+		}
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		buildTable();
@@ -74,6 +89,7 @@ public class RadSaZaposlenjimaController extends BaseController {
 	private void bindDisable() {
 		btnZakljuci.disableProperty().bind(
 				tblZaposlenja.getSelectionModel().selectedItemProperty().isNull().or(dpDatum.valueProperty().isNull()));
+		btnObrisi.disableProperty().bind(tblZaposlenja.getSelectionModel().selectedItemProperty().isNull());
 	}
 	private ZaposleniDTO zaposleni;
 }

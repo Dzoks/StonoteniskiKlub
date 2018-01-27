@@ -220,12 +220,9 @@ public class RadSaZaposlenimaController extends BaseController {
 			if(DAOFactory.getDAOFactory().getZaposleniDAO().delete(zaposleni)){
 				int index = this.zaposleni.indexOf(zaposleni);
 				if(index >= 0){
-					this.zaposleni.remove(0);
+					this.zaposleni.remove(index);
 				}
-				index = tblZaposleni.getItems().indexOf(zaposleni);
-				if(index >= 0){
-					tblZaposleni.getItems().remove(index);
-				}
+				filtriraj(event);
 				AlertDisplay.showInformation("Brisanje", "Brisanje uspješno!");
 				zaposleni = tblZaposleni.getSelectionModel().getSelectedItem();
 				if(zaposleni != null){

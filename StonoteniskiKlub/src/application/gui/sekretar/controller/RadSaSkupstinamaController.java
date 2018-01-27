@@ -60,7 +60,8 @@ public class RadSaSkupstinamaController extends BaseController {
 	private Button btnDodajSkupstinu;
 	@FXML
 	private Button btnOsvjezi;
-
+	@FXML
+	private Button btnObrisi;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		buildTable();
@@ -179,7 +180,14 @@ public class RadSaSkupstinamaController extends BaseController {
 	public void osvjezi(ActionEvent event) {
 		populateTable();
 	}
-
+	@FXML
+	public void obrisi(ActionEvent event){
+		SkupstinaDTO skupstina = tblSkupstine.getSelectionModel().getSelectedItem();
+		if(DAOFactory.getDAOFactory().getSkupstinaDAO().delete(skupstina)){
+			osvjezi(event);
+			AlertDisplay.showInformation("Brisanje", "Skupština obrisana!");			
+		}
+	}
 	public void addItem(SkupstinaDTO skupstina) {
 		tblSkupstine.getItems().add(skupstina);
 	}
@@ -213,5 +221,6 @@ public class RadSaSkupstinamaController extends BaseController {
 	private void bindDisable() {
 		btnDodajIzvjestaj.disableProperty().bind(tblSkupstine.getSelectionModel().selectedItemProperty().isNull());
 		btnPretrazi.disableProperty().bind(dpDo.valueProperty().isNull().and(dpOd.valueProperty().isNull()));
+		btnObrisi.disableProperty().bind(tblSkupstine.getSelectionModel().selectedItemProperty().isNull());
 	}
 }

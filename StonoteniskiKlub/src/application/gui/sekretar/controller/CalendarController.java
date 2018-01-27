@@ -14,6 +14,8 @@ import application.model.dto.DogadjajDTO;
 import application.util.AlertDisplay;
 import application.util.ErrorLogger;
 import application.util.GUIUtility;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -23,6 +25,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -43,7 +46,11 @@ public class CalendarController extends BaseController {
 	private TextFlow taDnevniPregled;
 	@FXML
 	private Button btnDodajDogadjaj;
-
+	@FXML
+	private ListView<DogadjajDTO> lstDogadjaji;
+	@FXML
+	private Button btnObrisi;
+	
 	  @FXML
 	    void odjaviteSe(ActionEvent event) {
 	    	try {
@@ -85,7 +92,19 @@ public class CalendarController extends BaseController {
 	public void getDay(MouseEvent event) {
 
 	}
-
+	@FXML
+	public void obrisi(ActionEvent event){
+		DogadjajDTO dogadjaj = lstDogadjaji.getSelectionModel().getSelectedItem();
+		if(DAOFactory.getDAOFactory().getDogadjajDAO().delete(dogadjaj)){
+			lstDogadjaji.getItems().remove(lstDogadjaji.getItems().indexOf(dogadjaj));
+			dnevniDogadjaji.remove(dnevniDogadjaji.indexOf(dogadjaj));
+			dogadjaji.remove(dogadjaji.indexOf(dogadjaj));
+			GUIUtility.setTextF(taDnevniPregled, dnevniDogadjaji);
+			sledeci(event);
+			prethodni(event);
+			AlertDisplay.showInformation("Brisanje", "Brisanje uspješno");
+		}
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		for (int i = 0; i < 6; i++) {
@@ -99,10 +118,13 @@ public class CalendarController extends BaseController {
 		currentYearMonth = YearMonth.now();
 		lblNaslov.setText(MJESECI[currentYearMonth.getMonthValue() - 1] + " " + currentYearMonth.getYear());
 		populateCalendar(currentYearMonth);
+		btnObrisi.disableProperty().bind(lstDogadjaji.getSelectionModel().selectedItemProperty().isNull());
 	}
 
 	@FXML
 	public void sledeci(ActionEvent event) {
+		lstDogadjaji.getSelectionModel().clearSelection();
+		lstDogadjaji.getItems().clear();
 		vratiStil(selectedLabel);
 		selectedLabel = null;
 		taDnevniPregled.getChildren().clear();
@@ -115,6 +137,8 @@ public class CalendarController extends BaseController {
 
 	@FXML
 	public void prethodni(ActionEvent event) {
+		lstDogadjaji.getSelectionModel().clearSelection();
+		lstDogadjaji.getItems().clear();
 		vratiStil(selectedLabel);
 		selectedLabel = null;
 		taDnevniPregled.getChildren().clear();
@@ -173,6 +197,9 @@ public class CalendarController extends BaseController {
 							}
 							CalendarController.this.dnevniDogadjaji = dnevniDogadjaji;
 							GUIUtility.setTextF(taDnevniPregled, dnevniDogadjaji);
+							ObservableList<DogadjajDTO> dogadjaji = FXCollections.observableArrayList();
+							dogadjaji.addAll(dnevniDogadjaji);
+							lstDogadjaji.setItems(dogadjaji);
 						}
 					});
 					label.setOnMouseEntered(new EventHandler<Event>() {
