@@ -39,7 +39,7 @@ public class Narudzba {
 			this.vrsta = new SimpleStringProperty("Oprema kluba");
 		}
 		else {
-			this.vrsta = new SimpleStringProperty("Oprema clana");
+			this.vrsta = new SimpleStringProperty("Oprema člana");
 		}
 		
 		this.idDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleIntegerProperty(idDistributeraOpreme);
@@ -64,7 +64,7 @@ public class Narudzba {
 			this.vrsta = new SimpleStringProperty("Oprema kluba");
 		}
 		else {
-			this.vrsta = new SimpleStringProperty("Oprema clana");
+			this.vrsta = new SimpleStringProperty("Oprema člana");
 		}
 		
 		this.idDistributeraOpreme = idDistributeraOpreme==null ? null : new SimpleIntegerProperty(idDistributeraOpreme);
@@ -156,11 +156,4 @@ public class Narudzba {
 		
 		return id.get() + " - " + datumNarudzbeString + " - " + nazivDistributeraOpreme.get();
 	}
-	
-	
-	/*@Override
-	public boolean equals(Object obj) {//Helena dodala
-		// TODO Auto-generated method stub
-		return this.id.get()==((Narudzba)obj).getId().intValue();
-	}*/
 }
