@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dto.Clan;
+import application.model.dto.ClanDTO;
 import application.model.dto.Oprema;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaTip;
@@ -30,7 +30,7 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 	@FXML
 	private ComboBox<OpremaTip> comboBoxTip;
 	@FXML
-	private ComboBox<Clan> comboBoxClan;
+	private ComboBox<ClanDTO> comboBoxClan;
 	@FXML
 	private Button btnDodajTipOpreme;
 	@FXML
@@ -88,11 +88,11 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 	
 	public void ucitajComboBoxeve() {
 		if(!opremaKluba) {
-			ObservableList<Clan> listaClanova = DAOFactory.getDAOFactory().getOpremaClanaDAO().SELECT_AKTIVNE();
+			ObservableList<ClanDTO> listaClanova = DAOFactory.getDAOFactory().getOpremaClanaDAO().SELECT_AKTIVNE();
 			comboBoxClan.setItems(listaClanova);
 			
 			int brojac=0;
-			for(Clan clan : listaClanova) {
+			for(ClanDTO clan : listaClanova) {
 				if(clan.getId() == ((OpremaClana)oprema).getIdClana()) {
 					break;
 				}

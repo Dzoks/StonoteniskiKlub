@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dto.Clan;
+import application.model.dto.ClanDTO;
 import application.model.dto.NarudzbaStavka;
 import application.model.dto.OpremaClana;
 import application.model.dto.OpremaKluba;
@@ -23,7 +23,7 @@ public class ObradiOpremuController extends BaseController implements Initializa
 	@FXML
 	private Spinner<Integer> spinnerPristiglo;
 	@FXML
-	private ListView<Clan> listClanovi;
+	private ListView<ClanDTO> listClanovi;
 	@FXML
 	private Button btnEvidentiraj;
 	
@@ -36,7 +36,7 @@ public class ObradiOpremuController extends BaseController implements Initializa
 	}
 	
 	public void popuniListu() {
-		ObservableList<Clan> listaClanova = DAOFactory.getDAOFactory().getOpremaClanaDAO().SELECT_AKTIVNE();
+		ObservableList<ClanDTO> listaClanova = DAOFactory.getDAOFactory().getOpremaClanaDAO().SELECT_AKTIVNE();
 		listClanovi.setItems(listaClanova);
 		listClanovi.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
@@ -68,8 +68,8 @@ public class ObradiOpremuController extends BaseController implements Initializa
 				AlertDisplay.showError("Dodavanje", "Broj odabranih ljudi mora biti " + spinnerPristiglo.getValue() + ".");
 				return false;
 			}
-			ObservableList<Clan> listaClanova = listClanovi.getSelectionModel().getSelectedItems();
-			for(Clan clan : listaClanova) {
+			ObservableList<ClanDTO> listaClanova = listClanovi.getSelectionModel().getSelectedItems();
+			for(ClanDTO clan : listaClanova) {
 				OpremaClana opremaClana = new OpremaClana(null, stavkaNarudzbe.getIdNarudzbe(), stavkaNarudzbe.getIdTipaOpreme(), stavkaNarudzbe.getVelicina(), clan.getId());
 				DAOFactory.getDAOFactory().getOpremaClanaDAO().INSERT(opremaClana);
 			}

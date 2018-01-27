@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.sql.Types;
 
 import application.model.dao.OpremaClanaDAO;
-import application.model.dto.Clan;
+import application.model.dto.ClanDTO;
 import application.model.dto.OpremaClana;
 import application.util.ConnectionPool;
 import application.util.ErrorLogger;
@@ -50,8 +50,8 @@ public class MySQLOpremaClanaDAO implements OpremaClanaDAO {
 		return listaOpreme;
 	}
 
-	public ObservableList<Clan> SELECT_AKTIVNE() {
-		ObservableList<Clan> listClanova = FXCollections.observableArrayList();
+	public ObservableList<ClanDTO> SELECT_AKTIVNE() {
+		ObservableList<ClanDTO> listClanova = FXCollections.observableArrayList();
 		Connection c = null;
 		Statement s = null;
 		ResultSet rs = null;
@@ -62,7 +62,7 @@ public class MySQLOpremaClanaDAO implements OpremaClanaDAO {
 			rs = s.executeQuery(SQL_SELECT_AKTIVNE);
 
 			while (rs.next()) {
-				listClanova.add(new Clan(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"),
+				listClanova.add(new ClanDTO(rs.getInt("Id"), rs.getString("Ime"), rs.getString("Prezime"),
 						rs.getString("ImeRoditelja"), rs.getString("JMB"), rs.getString("Pol").charAt(0),
 						rs.getDate("DatumRodjenja"), rs.getBlob("Fotografija"), null, rs.getBoolean("Aktivan"),
 						rs.getBoolean("Registrovan")));
