@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.NovcanaSredstvaDTO;
 import application.model.dto.TipTransakcijeDTO;

@@ -1,6 +1,5 @@
 package application.gui.racunovodja.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -13,10 +12,8 @@ import application.model.dao.DAOFactory;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.TipTransakcijeDTO;
 import application.model.dto.TransakcijaDTO;
-import application.util.ErrorLogger;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;

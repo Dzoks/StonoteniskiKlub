@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
-import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.PlataDTO;
 import application.model.dto.TransakcijaDTO;

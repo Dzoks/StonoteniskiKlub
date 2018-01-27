@@ -1,6 +1,5 @@
 package application.gui.racunovodja.controller;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.File;

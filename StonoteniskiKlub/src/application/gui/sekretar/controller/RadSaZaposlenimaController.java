@@ -1,7 +1,5 @@
 package application.gui.sekretar.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Blob;

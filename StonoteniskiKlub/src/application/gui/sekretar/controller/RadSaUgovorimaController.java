@@ -2,9 +2,6 @@ package application.gui.sekretar.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,13 +10,11 @@ import java.util.function.Predicate;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
-import application.model.dto.SkupstinaDTO;
 import application.model.dto.SponzorDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
 import application.util.ErrorLogger;
 import application.util.GUIBuilder;
-import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.TransakcijaDTO;
 import application.model.dto.TroskoviTurnirDTO;
@@ -13,7 +12,6 @@ import application.util.ErrorLogger;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
