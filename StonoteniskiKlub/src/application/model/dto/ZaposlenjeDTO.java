@@ -3,6 +3,7 @@ package application.model.dto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import application.util.GUIUtility;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -37,11 +38,11 @@ public class ZaposlenjeDTO {
 		return tipNaziv;
 	}
 	public StringProperty datumOdProperty() {
-		return new SimpleStringProperty(new SimpleDateFormat("yyyy-MM-dd").format(datumOd));
+		return new SimpleStringProperty(new SimpleDateFormat(GUIUtility.DEFAULT_DATE_FORMAT).format(datumOd));
 	}
 	public StringProperty datumDoProperty() {
 		return datumDo == null ? new SimpleStringProperty("-")
-				: new SimpleStringProperty(new SimpleDateFormat("yyyy-MM-dd").format(datumDo));
+				: new SimpleStringProperty(new SimpleDateFormat(GUIUtility.DEFAULT_DATE_FORMAT).format(datumDo));
 	}
 	public DoubleProperty plataProperty() {
 		return plata;

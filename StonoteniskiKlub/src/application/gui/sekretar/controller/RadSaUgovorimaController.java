@@ -9,8 +9,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 import application.gui.controller.BaseController;
+import application.model.dto.SkupstinaDTO;
 import application.model.dto.UgovorDTO;
 import application.util.AlertDisplay;
 import application.util.ErrorLogger;
@@ -103,51 +105,15 @@ public class RadSaUgovorimaController extends BaseController {
 	// Event Listener on Button[#btnPretrazi].onAction
 	@FXML
 	public void pretrazi(ActionEvent event) {
-		Date datumOd = null;
-		Date datumDo = null;
-		LocalDate localDatumOd = dpDatumOd.getValue();
-		LocalDate localDatumDo = dpDatumDo.getValue();
-		try {
-			if (localDatumOd != null) {
-				datumOd = new SimpleDateFormat("yyyy-MM-dd").parse(localDatumOd.toString());
+		ObservableList<UgovorDTO> sve = tblUgovori.getItems();
+		tblUgovori.setItems(sve.filtered(new Predicate<UgovorDTO>() {
+			@Override
+			public boolean test(UgovorDTO t) {
+				Date donjaGranica = dpDatumOd.getValue() != null ? java.sql.Date.valueOf(dpDatumOd.getValue()) : t.getDatumOd();
+				Date gornjaGranica = dpDatumDo.getValue() != null ? java.sql.Date.valueOf(dpDatumDo.getValue()) : t.getDatumOd();
+				return t.getDatumOd().compareTo(donjaGranica) >= 0 && t.getDatumOd().compareTo(gornjaGranica) <= 0;
 			}
-			if (localDatumDo != null) {
-				datumDo = new SimpleDateFormat("yyyy-MM-dd").parse(localDatumDo.toString());
-			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-			new ErrorLogger().log(e);
-		}
-		boolean dOd = InputValidator.allEntered(dpDatumOd.getValue());
-		boolean dDo = InputValidator.allEntered(dpDatumDo.getValue());
-		ObservableList<UgovorDTO> tableList = tblUgovori.getItems();
-		if (!dOd && !dDo) {
-			AlertDisplay.showError("Pretraga", "Niste unijeli datum.");
-		} else if (dOd && dDo) {
-			ObservableList<UgovorDTO> filtered = FXCollections.observableArrayList();
-			for (UgovorDTO ugovor : tableList) {
-				if (ugovor.getDatumOd().compareTo(datumOd) >= 0 && ugovor.getDatumOd().compareTo(datumDo) <= 0) {
-					filtered.add(ugovor);
-				}
-			}
-			tblUgovori.setItems(filtered);
-		} else if (dOd) {
-			ObservableList<UgovorDTO> filtered = FXCollections.observableArrayList();
-			for (UgovorDTO ugovor : tableList) {
-				if (ugovor.getDatumOd().compareTo(datumOd) >= 0) {
-					filtered.add(ugovor);
-				}
-			}
-			tblUgovori.setItems(filtered);
-		} else {
-			ObservableList<UgovorDTO> filtered = FXCollections.observableArrayList();
-			for (UgovorDTO ugovor : tableList) {
-				if (ugovor.getDatumOd().compareTo(datumDo) <= 0) {
-					filtered.add(ugovor);
-				}
-			}
-			tblUgovori.setItems(filtered);
-		}
+		}));
 	}
 	@FXML
 	public void osvjezi(ActionEvent event){

@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.itextpdf.text.log.SysoCounter;
 import com.jfoenix.controls.JFXTimePicker;
 
 import application.gui.controller.BaseController;
@@ -16,6 +15,7 @@ import application.model.dto.DogadjajDTO;
 import application.model.dto.DogadjajTipDTO;
 import application.model.dto.KorisnickiNalogDTO;
 import application.util.AlertDisplay;
+import application.util.GUIUtility;
 import application.util.InputValidator;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -91,7 +91,7 @@ public class DodavanjeDogadjajaController extends BaseController {
 
 	public void setParams(LocalDate datum, List<DogadjajDTO> dogadjaji) {
 		this.datum = datum;
-		lblDatum.setText(datum.toString());
+		lblDatum.setText(DateTimeFormatter.ofPattern(GUIUtility.DEFAULT_DATE_FORMAT).format(datum));
 	}
 
 	public void setParentController(CalendarController parentController) {

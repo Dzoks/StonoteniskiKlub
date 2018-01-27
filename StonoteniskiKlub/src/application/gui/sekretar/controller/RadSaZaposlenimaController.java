@@ -269,7 +269,11 @@ public class RadSaZaposlenimaController extends BaseController {
 	}
 
 	public void dodajZaposlenog(ZaposleniDTO zaposleni) {
-		tblZaposleni.getItems().add(zaposleni);
+		if("Svi".equals(cbTip.getSelectionModel().getSelectedItem()) ||
+				("Aktivni".equals(cbTip.getSelectionModel().getSelectedItem()) && zaposleni.isAktivan()) ||
+				("Neaktivni".equals(cbTip.getSelectionModel().getSelectedItem()) && !zaposleni.isAktivan())){
+			tblZaposleni.getItems().add(zaposleni);
+		}
 	}
 
 	public void zamijeni(ZaposleniDTO zaposleni) {

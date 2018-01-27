@@ -13,7 +13,7 @@ import application.model.dto.KategorijaDTO;
 import application.model.dto.RegistracijaDTO;
 import application.util.AlertDisplay;
 import application.util.InputValidator;
-import application.util.TextUtility;
+import application.util.GUIUtility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

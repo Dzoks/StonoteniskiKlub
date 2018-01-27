@@ -126,7 +126,7 @@ public class RadSaSponzorimaController extends BaseController {
 			String param = cbPretraga.getSelectionModel().getSelectedItem();
 			if ("Naziv".equals(param)) {
 				ObservableList<SponzorDTO> result = FXCollections.observableArrayList();
-				ObservableList<SponzorDTO> tableList = tblSponzori.getItems();
+				ObservableList<SponzorDTO> tableList = listaSponzora;
 				for (SponzorDTO sponzor : tableList) {
 					if (sponzor.getNaziv().contains(txtPretraga.getText())) {
 						result.add(sponzor);

@@ -14,7 +14,7 @@ import application.model.dto.StavkaSkupstinaDTO;
 import application.util.AlertDisplay;
 import application.util.ErrorLogger;
 import application.util.InputValidator;
-import application.util.TextUtility;
+import application.util.GUIUtility;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -87,7 +87,7 @@ public class DodavanjeSkupstineController extends BaseController {
 		for (int i = index; i < stavke.size(); i++) {
 			stavke.get(i).setRedniBroj(stavke.get(i).getRedniBroj() - 1);
 		}
-		TextUtility.setTextFlow(taTekstDnevnogReda, stavke);
+		GUIUtility.setTextFlow(taTekstDnevnogReda, stavke);
 	}
 
 	// Event Listener on Button[#btnSacuvaj].onAction
@@ -128,7 +128,7 @@ public class DodavanjeSkupstineController extends BaseController {
 		int nextRb = stavke.size() + 1;
 		stavka.setRedniBroj(nextRb);
 		stavke.add(stavka);
-		TextUtility.setTextFlow(taTekstDnevnogReda, stavke);
+		GUIUtility.setTextFlow(taTekstDnevnogReda, stavke);
 	}
 
 	public void setParentController(RadSaSkupstinamaController parentController) {

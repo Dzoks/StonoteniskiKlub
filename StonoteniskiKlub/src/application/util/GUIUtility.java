@@ -29,7 +29,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 
-public class TextUtility {
+public class GUIUtility {
+	
+	public static final String DEFAULT_DATE_FORMAT = "dd.MM.yyyy";
+	
 	public static void setTextFlow(TextFlow textFlow, List<StavkaSkupstinaDTO> stavke) {
 		textFlow.getChildren().clear();
 		if (stavke != null) {

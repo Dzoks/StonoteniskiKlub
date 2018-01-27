@@ -18,9 +18,9 @@ import javafx.collections.ObservableList;
 
 public class MySQLUgovorDAO implements UgovorDAO {
 
-	public static final String SQL_SELECT_ALL_BY_ID = "select * from UGOVOR_SPONZOR where SPONZOR_Id=?";
-	public static final String SQL_SELECT_ONE = "select * from UGOVOR_SPONZOR where SPONZOR_Id=? and RedniBroj=?";
-	public static final String SQL_INSERT = "{call dodaj_sponzorski_ugovor(?,?,?,?,?)}";
+	private static final String SQL_SELECT_ALL_BY_ID = "select * from UGOVOR_SPONZOR where SPONZOR_Id=?";
+	private static final String SQL_SELECT_ONE = "select * from UGOVOR_SPONZOR where SPONZOR_Id=? and RedniBroj=?";
+	private static final String SQL_INSERT = "{call dodaj_sponzorski_ugovor(?,?,?,?,?)}";
 
 	@Override
 	public ObservableList<UgovorDTO> selectAllById(Integer idSponzora) {

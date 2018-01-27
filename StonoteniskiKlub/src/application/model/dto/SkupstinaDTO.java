@@ -3,6 +3,7 @@ package application.model.dto;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import application.util.GUIUtility;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -39,7 +40,7 @@ public class SkupstinaDTO {
 	}
 
 	public StringProperty datumProperty() {
-		return new SimpleStringProperty(datum.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		return new SimpleStringProperty(datum.format(DateTimeFormatter.ofPattern(GUIUtility.DEFAULT_DATE_FORMAT)));
 	}
 
 	public Integer getId() {

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import application.util.GUIUtility;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -34,13 +35,13 @@ public class UgovorDTO {
 	}
 
 	public StringProperty datumOdProperty() {
-		return new SimpleStringProperty(new SimpleDateFormat("dd.MM.YYYY").format(datumOd));
+		return new SimpleStringProperty(new SimpleDateFormat(GUIUtility.DEFAULT_DATE_FORMAT).format(datumOd));
 	}
 
 	public StringProperty datumDoProperty() {
 		if(datumDo == null)
 			return new SimpleStringProperty("-");
-		return new SimpleStringProperty(new SimpleDateFormat("dd.MM.YYYY").format(datumDo));
+		return new SimpleStringProperty(new SimpleDateFormat(GUIUtility.DEFAULT_DATE_FORMAT).format(datumDo));
 	}
 
 	public StringProperty saDonacijomProperty() {

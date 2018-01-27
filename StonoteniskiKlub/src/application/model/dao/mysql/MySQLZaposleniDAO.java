@@ -86,7 +86,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 			if (zaposlenje.getDatumDo() == null) {
 				statement.setNull("pDatum_do", Types.DATE);
 			} else {
-				statement.setDate("pDatum_do", new Date(zaposlenje.getDatumOd().getTime()));
+				statement.setDate("pDatum_do", new Date(zaposlenje.getDatumDo().getTime()));
 			}
 			statement.setBigDecimal("pPlata", new BigDecimal(zaposlenje.getPlata()));
 			statement.registerOutParameter("pId", Types.INTEGER);

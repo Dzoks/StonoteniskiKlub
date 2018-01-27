@@ -13,7 +13,7 @@ import application.model.dao.DAOFactory;
 import application.model.dto.DogadjajDTO;
 import application.util.AlertDisplay;
 import application.util.ErrorLogger;
-import application.util.TextUtility;
+import application.util.GUIUtility;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -172,7 +172,7 @@ public class CalendarController extends BaseController {
 								}
 							}
 							CalendarController.this.dnevniDogadjaji = dnevniDogadjaji;
-							TextUtility.setTextF(taDnevniPregled, dnevniDogadjaji);
+							GUIUtility.setTextF(taDnevniPregled, dnevniDogadjaji);
 						}
 					});
 					label.setOnMouseEntered(new EventHandler<Event>() {
@@ -227,7 +227,7 @@ public class CalendarController extends BaseController {
 		}
 		dogadjaji.add(dogadjaj);
 		dnevniDogadjaji.add(dogadjaj);
-		TextUtility.setTextF(taDnevniPregled, dnevniDogadjaji);
+		GUIUtility.setTextF(taDnevniPregled, dnevniDogadjaji);
 	}
 
 	private void vratiStil(Label label) {

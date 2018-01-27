@@ -9,6 +9,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -23,7 +24,7 @@ import application.model.dto.ZaposlenjeDTO;
 import application.util.AlertDisplay;
 import application.util.ErrorLogger;
 import application.util.InputValidator;
-import application.util.TextUtility;
+import application.util.GUIUtility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -130,7 +131,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 	// Event Listener on Button[#btnDodajFotografiju].onAction
 	@FXML
 	public void dodajFotografiju(ActionEvent event) {
-		File file = TextUtility.configureFileChooser("Izaberite fotografiju", TextUtility.IMAGE_EXTENSIONS)
+		File file = GUIUtility.configureFileChooser("Izaberite fotografiju", GUIUtility.IMAGE_EXTENSIONS)
 				.showOpenDialog(this.primaryStage);
 		if (file != null) {
 			fotografijaLik = file;
@@ -257,7 +258,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 			if (promjena) {
 				try {
 					if (fotografijaLik != null) {
-						this.zaposleniZaAzurirati.setSlika(TextUtility.convertImageToBlob(fotografijaLik));
+						this.zaposleniZaAzurirati.setSlika(GUIUtility.convertImageToBlob(fotografijaLik));
 					} else {
 						this.zaposleniZaAzurirati.setSlika(null);
 					}
@@ -286,6 +287,8 @@ public class DodavanjeZaposlenogController extends BaseController {
 			AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke!");
 		} else if (!InputValidator.validateDate(dpDatumRodjenja.getValue(), 18)) {
 			AlertDisplay.showError("Dodavanje", "Zaposleni mora biti punoljetan!");
+		} else if (dpZaposlenOd.getValue().compareTo(LocalDate.now()) >= 0) {
+			AlertDisplay.showError("Dodavanje", "Datum od mora biti prije današnjeg!");
 		} else if (dpZaposlenDo.getValue() != null && dpZaposlenOd.getValue().compareTo(dpZaposlenDo.getValue()) > 0) {
 			AlertDisplay.showError("Dodavanje", "Datum od mora biti prije datuma do!");
 		} else if (!InputValidator.validateJMB(txtJMB.getText())) {
@@ -318,7 +321,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 			Blob slika = null;
 			if (fotografijaLik != null) {
 				try {
-					slika = TextUtility.convertImageToBlob(fotografijaLik);
+					slika = GUIUtility.convertImageToBlob(fotografijaLik);
 				} catch (IOException e) {
 					e.printStackTrace();
 					new ErrorLogger().log(e);
@@ -327,6 +330,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 			ZaposleniDTO zaposleni = new ZaposleniDTO(null, txtIme.getText(), txtPrezime.getText(),
 					txtImeRoditelja.getText(), txtJMB.getText(), pol, datumRodjenja, slika, lstTelefoni.getItems(),
 					true, null);
+			System.out.println(zaposlenje.getDatumOd() + " - " + zaposlenje.getDatumDo());
 			Integer uspjesno = DAOFactory.getDAOFactory().getZaposleniDAO().insert(zaposleni, zaposlenje, tip);
 			if (uspjesno > -1) {
 				zaposleni.setZaposljenja(FXCollections.observableArrayList());
@@ -377,7 +381,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 						zaposleni.setZaposljenja(FXCollections.observableArrayList());
 						zaposleni.getZaposljenja().add(zaposlenje);
 						if (DAOFactory.getDAOFactory().getZaposleniDAO().add(zaposleni)) {
-							
+
 							if (DAOFactory.getDAOFactory().getZaposlenjeDAO().insert(zaposleni, zaposlenje)) {
 								AlertDisplay.showInformation("Dodavanje", "Zaposleni uspješno dodan.");
 								parent.dodajZaposlenog(zaposleni);
@@ -392,7 +396,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 							} else {
 								AlertDisplay.showError("Dodavanje", "Nešto nije u redu");
 							}
-						} else{
+						} else {
 							AlertDisplay.showError("Dodavanje", "Nešto nije u redu");
 						}
 					}
@@ -406,6 +410,8 @@ public class DodavanjeZaposlenogController extends BaseController {
 	private void dodajZaposlenje() {
 		if (!InputValidator.allEntered(dpZaposlenOd.getValue(), txtPlata.getText())) {
 			AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke!");
+		} else if (dpZaposlenOd.getValue().compareTo(LocalDate.now()) >= 0) {
+			AlertDisplay.showError("Dodavanje", "Datum od mora biti prije današnjeg!");
 		} else if (dpZaposlenDo.getValue() != null && dpZaposlenOd.getValue().compareTo(dpZaposlenDo.getValue()) > 0) {
 			AlertDisplay.showError("Dodavanje", "Datum od mora biti prije datuma do!");
 		} else {

@@ -2,8 +2,10 @@ package application.gui.sekretar.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
@@ -12,9 +14,7 @@ import application.model.dto.SkupstinaDTO;
 import application.model.dto.StavkaSkupstinaDTO;
 import application.util.AlertDisplay;
 import application.util.ErrorLogger;
-import application.util.InputValidator;
-import application.util.TextUtility;
-import javafx.collections.FXCollections;
+import application.util.GUIUtility;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,7 +60,7 @@ public class RadSaSkupstinamaController extends BaseController {
 	private Button btnDodajSkupstinu;
 	@FXML
 	private Button btnOsvjezi;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		buildTable();
@@ -74,25 +74,26 @@ public class RadSaSkupstinamaController extends BaseController {
 		if (skupstina != null) {
 			List<StavkaSkupstinaDTO> stavke = rbDnevniRed.isSelected() ? skupstina.getStavkeDnevnogReda()
 					: skupstina.getStavkeIzvjestaja();
-			TextUtility.setTextFlow(taTekst, stavke);
+			GUIUtility.setTextFlow(taTekst, stavke);
 		}
 	}
-	  @FXML
-	    void odjaviteSe(ActionEvent event) {
-	    	try {
-				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new ErrorLogger().log(e);
-			}
-	    }
+
+	@FXML
+	void odjaviteSe(ActionEvent event) {
+		try {
+			BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+		} catch (IOException e) {
+			e.printStackTrace();
+			new ErrorLogger().log(e);
+		}
+	}
 
 	// Event Listener on RadioButton[#rbDnevniRed].onAction
 	@FXML
 	public void setTekstDnevnogReda(ActionEvent event) {
 		SkupstinaDTO skupstina = tblSkupstine.getSelectionModel().getSelectedItem();
 		if (skupstina != null) {
-			TextUtility.setTextFlow(taTekst, skupstina.getStavkeDnevnogReda());
+			GUIUtility.setTextFlow(taTekst, skupstina.getStavkeDnevnogReda());
 		}
 	}
 
@@ -101,38 +102,22 @@ public class RadSaSkupstinamaController extends BaseController {
 	public void setTekstIzvjestaja(ActionEvent event) {
 		SkupstinaDTO skupstina = tblSkupstine.getSelectionModel().getSelectedItem();
 		if (skupstina != null) {
-			TextUtility.setTextFlow(taTekst, skupstina.getStavkeIzvjestaja());
+			GUIUtility.setTextFlow(taTekst, skupstina.getStavkeIzvjestaja());
 		}
 	}
 
 	// Event Listener on Button[#btnPretrazi].onAction
 	@FXML
 	public void pretrazi(ActionEvent event) {
-		if (!InputValidator.allEntered(dpOd.getValue()) && !InputValidator.allEntered(dpDo.getValue())) {
-			AlertDisplay.showError("Pretraga", "Niste unijeli parametre pretrage.");
-		} else {
-			int type = 0;
-			ObservableList<SkupstinaDTO> filtered = FXCollections.observableArrayList();
-			ObservableList<SkupstinaDTO> sve = tblSkupstine.getItems();
-			if (dpOd.getValue() != null && dpDo.getValue() != null) {
-				type = 1;
-			} else if (dpOd.getValue() != null) {
-				type = 2;
-			} else {
-				type = 3;
+		ObservableList<SkupstinaDTO> sve = tblSkupstine.getItems();
+		tblSkupstine.setItems(sve.filtered(new Predicate<SkupstinaDTO>() {
+			@Override
+			public boolean test(SkupstinaDTO t) {
+				LocalDate donjaGranica = dpOd.getValue() != null ? dpOd.getValue() : t.getDatum().minusDays(1);
+				LocalDate gornjaGranica = dpDo.getValue() != null ? dpDo.getValue() : t.getDatum().plusDays(1);
+				return t.getDatum().compareTo(donjaGranica) >= 0 && t.getDatum().compareTo(gornjaGranica) <= 0;
 			}
-			for (SkupstinaDTO skupstina : sve) {
-				if (type == 1 && skupstina.getDatum().compareTo(dpOd.getValue()) >= 0
-						&& skupstina.getDatum().compareTo(dpDo.getValue()) <= 0) {
-					filtered.add(skupstina);
-				} else if(type == 2 && skupstina.getDatum().compareTo(dpOd.getValue()) >=0){
-					filtered.add(skupstina);
-				} else if(type == 3 && skupstina.getDatum().compareTo(dpDo.getValue()) <=0){
-					filtered.add(skupstina);
-				}
-			}
-			tblSkupstine.setItems(filtered);
-		}
+		}));
 	}
 
 	// Event Listener on Button[#btnDodajIzvjestaj].onAction
@@ -189,20 +174,22 @@ public class RadSaSkupstinamaController extends BaseController {
 			new ErrorLogger().log(e);
 		}
 	}
+
 	@FXML
-	public void osvjezi(ActionEvent event){
+	public void osvjezi(ActionEvent event) {
 		populateTable();
 	}
+
 	public void addItem(SkupstinaDTO skupstina) {
 		tblSkupstine.getItems().add(skupstina);
 	}
 
 	public void refresh() {
 		tblSkupstine.refresh();
-		if(rbIzvjestaj.isSelected()){
+		if (rbIzvjestaj.isSelected()) {
 			SkupstinaDTO skupstina = tblSkupstine.getSelectionModel().getSelectedItem();
 			if (skupstina != null) {
-				TextUtility.setTextFlow(taTekst, skupstina.getStavkeIzvjestaja());
+				GUIUtility.setTextFlow(taTekst, skupstina.getStavkeIzvjestaja());
 			}
 		}
 	}
