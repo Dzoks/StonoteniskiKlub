@@ -210,7 +210,7 @@ public class ObracunavanjePlateController extends BaseController{
 			file.delete();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}

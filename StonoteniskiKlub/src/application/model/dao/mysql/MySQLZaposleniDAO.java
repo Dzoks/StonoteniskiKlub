@@ -52,7 +52,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 						resultSet.getBoolean("Aktivan"), zDAO.selectAllById(resultSet.getInt("Id"))));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -99,7 +99,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 			if (e instanceof MySQLIntegrityConstraintViolationException) {
 				id = DUPLICATE_KEY;
 			}
-			// e.printStackTrace();
+			//  ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -139,7 +139,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 						DAOFactory.getDAOFactory().getZaposlenjeDAO().selectAllById(resultSet.getInt("Id")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -160,7 +160,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 			statement.executeUpdate();
 			result = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -181,7 +181,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 			statement.executeUpdate();
 			result = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);

@@ -3,6 +3,7 @@ package application.gui.trener.controller;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -56,7 +57,6 @@ public class RegistracijaController extends BaseController {
 		cbSezona.getSelectionModel().select(0);
 		cbKategorija.setItems(DAOFactory.getDAOFactory().getKategorijaDAO().getAllMySQL());
 		cbKategorija.getSelectionModel().select(0);
-		this.setClan(DAOFactory.getDAOFactory().getClanDAO().getById(29));
 	}
 
 	// Event Listener on Button[#btnSacuvaj].onAction
@@ -69,6 +69,7 @@ public class RegistracijaController extends BaseController {
 			if (DAOFactory.getDAOFactory().getRegistracijaDAO().insert(registracijaDTO)) {
 				DAOFactory.getDAOFactory().getClanDAO().setRegistrovan(true, this.clan.getId());
 				AlertDisplay.showInformation("Registracija", "Registracija uspješna.");
+				primaryStage.close();
 			}
 		} else {
 			AlertDisplay.showError("Registracija", "Unesite datum.");
@@ -77,7 +78,7 @@ public class RegistracijaController extends BaseController {
 
 	private static ObservableList<String> sezone = FXCollections.observableArrayList();
 	static {
-		for (int i = 2017; i >= 2000; i--) {
+		for (int i = LocalDate.now().getYear(); i >= 2000; i--) {
 			sezone.add(i + "/" + (i + 1));
 		}
 	}
@@ -100,7 +101,7 @@ public class RegistracijaController extends BaseController {
 				imgSlika.setImage(new Image(clan.getSlika().getBinaryStream()));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 		}
 	}
 

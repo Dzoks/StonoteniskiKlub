@@ -30,7 +30,7 @@ public class MySQLClanstvoDAO implements ClanstvoDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -54,7 +54,7 @@ public class MySQLClanstvoDAO implements ClanstvoDAO {
 			while (rs.next())
 				retVal.add(new ClanstvoDTO(rs.getDate("DatumOd"), rs.getDate("DatumDo"), rs.getInt("CLAN_OSOBA_Id")));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -77,7 +77,7 @@ public class MySQLClanstvoDAO implements ClanstvoDAO {
 			return ps.executeUpdate() == 1 ? true : false;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);

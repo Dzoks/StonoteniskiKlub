@@ -32,7 +32,7 @@ public class MySQLZaposleniTipDAO implements ZaposleniTipDAO {
 				result.add(new ZaposleniTipDTO(resultSet.getInt("Id"), resultSet.getString("Tip")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -55,7 +55,7 @@ public class MySQLZaposleniTipDAO implements ZaposleniTipDAO {
 				result = new ZaposleniTipDTO(id, resultSet.getString("Tip"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);

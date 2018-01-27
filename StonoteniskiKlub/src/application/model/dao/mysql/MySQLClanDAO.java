@@ -54,7 +54,7 @@ public class MySQLClanDAO implements ClanDAO {
 				clan.setTelefoni(DAOFactory.getDAOFactory().getOsobaDAO().getTelefoni(clan.getId()));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -86,7 +86,7 @@ public class MySQLClanDAO implements ClanDAO {
 						rs.getBoolean("Registrovan")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -115,7 +115,7 @@ public class MySQLClanDAO implements ClanDAO {
 						rs.getDate("DatumRodjenja"), rs.getBlob("Fotografija"), null, rs.getBoolean("Aktivan"),
 						rs.getBoolean("Registrovan"));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -147,7 +147,7 @@ public class MySQLClanDAO implements ClanDAO {
 				clan.setTelefoni(DAOFactory.getDAOFactory().getOsobaDAO().getTelefoni(clan.getId()));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -170,7 +170,7 @@ public class MySQLClanDAO implements ClanDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -191,7 +191,7 @@ public class MySQLClanDAO implements ClanDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -217,7 +217,7 @@ public class MySQLClanDAO implements ClanDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);

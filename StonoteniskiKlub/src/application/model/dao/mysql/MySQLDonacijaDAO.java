@@ -56,7 +56,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 				} while (resultSet.next());
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -94,7 +94,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 				result.add(d);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -139,7 +139,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 				donacija.setRedniBroj(redniBroj);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -158,7 +158,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 					donacija.getSponzor().getId(), donacija.getUgovor().getRedniBroj(), donacija.getRedniBroj());
 			statement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -175,7 +175,7 @@ public class MySQLDonacijaDAO implements DonacijaDAO {
 					donacija.getSponzor().getId(), donacija.getUgovor().getRedniBroj(), donacija.getRedniBroj());
 			statement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);

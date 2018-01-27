@@ -140,7 +140,7 @@ public class DodajOpremuClanaController extends BaseController{
 			btnDodaj.setDisable(true);
 			tblNarudzbe.setItems(null);
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}

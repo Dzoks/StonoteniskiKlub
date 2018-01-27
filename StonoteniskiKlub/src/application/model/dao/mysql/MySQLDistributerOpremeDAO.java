@@ -35,7 +35,7 @@ public class MySQLDistributerOpremeDAO implements DistributerOpremeDAO {
 						rs.getString("Telefon"), rs.getString("Adresa"), rs.getString("Mail")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -60,7 +60,7 @@ public class MySQLDistributerOpremeDAO implements DistributerOpremeDAO {
 				rezultat = rs.getString("Naziv");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -92,7 +92,7 @@ public class MySQLDistributerOpremeDAO implements DistributerOpremeDAO {
 					distributerOpreme.getTelefon(), distributerOpreme.getAdresa(), distributerOpreme.getMail());
 			ps.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

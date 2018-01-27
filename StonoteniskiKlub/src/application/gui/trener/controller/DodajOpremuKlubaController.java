@@ -363,7 +363,7 @@ public class DodajOpremuKlubaController extends BaseController implements Initia
 				ucitajComboBoxeve();
 				tblNarudzbe.setItems(null);
 			} catch (IOException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			}
 		}

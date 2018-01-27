@@ -30,7 +30,7 @@ public class MySQLKategorijaTurniraDAO implements KategorijaTurniraDAO {
 			while (rs.next())
 				retVal.add(new KategorijaTurniraDTO(rs.getInt("Id"), rs.getString("Kategorija")));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -55,7 +55,7 @@ public class MySQLKategorijaTurniraDAO implements KategorijaTurniraDAO {
 				retVal = new KategorijaTurniraDTO(rs.getInt("Id"), rs.getString("Kategorija"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);

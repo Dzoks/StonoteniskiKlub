@@ -43,7 +43,7 @@ public class MySQLOpremaKlubaDAO implements OpremaKlubaDAO {
 						rs.getString("Opis"), rs.getBoolean("Aktivan")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -76,7 +76,7 @@ public class MySQLOpremaKlubaDAO implements OpremaKlubaDAO {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -111,7 +111,7 @@ public class MySQLOpremaKlubaDAO implements OpremaKlubaDAO {
 						rs.getString("Opis"), rs.getBoolean("Aktivan")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -160,7 +160,7 @@ public class MySQLOpremaKlubaDAO implements OpremaKlubaDAO {
 			cs.setString("inOpis", oprema.getOpis());
 			cs.executeQuery();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -177,7 +177,7 @@ public class MySQLOpremaKlubaDAO implements OpremaKlubaDAO {
 			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_AKTIVNOST, false, aktivan, oprema.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -194,7 +194,7 @@ public class MySQLOpremaKlubaDAO implements OpremaKlubaDAO {
 			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_OPIS, false, opis, oprema.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

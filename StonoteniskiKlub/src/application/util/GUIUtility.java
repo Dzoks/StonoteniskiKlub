@@ -123,7 +123,7 @@ public class GUIUtility {
 			blob.setBytes(1, Files.readAllBytes(fotografija.toPath()));
 			return blob;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 			return null;
 		}

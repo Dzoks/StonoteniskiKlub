@@ -54,7 +54,7 @@ public class MySQLTimDAO implements TimDAO {
 						rs.getInt("UCESNIK1_PRIJAVA_Id"), rs.getInt("TURNIR_Id"), rs.getInt("TURNIR_KATEGORIJA_Id"),
 						rs.getDate("Datum")));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -79,7 +79,7 @@ public class MySQLTimDAO implements TimDAO {
 				retVal.add(new TimDTO(rs.getInt("Id"), rs.getInt("UCESNIK1_PRIJAVA_Id"),
 						rs.getInt("UCESNIK2_PRIJAVA_Id")));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -109,7 +109,7 @@ public class MySQLTimDAO implements TimDAO {
 						rs.getDate(16)));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -135,7 +135,7 @@ public class MySQLTimDAO implements TimDAO {
 						rs.getInt("UCESNIK2_PRIJAVA_Id")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -162,7 +162,7 @@ public class MySQLTimDAO implements TimDAO {
 				retVal = "nema protivnika";
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -189,7 +189,7 @@ public class MySQLTimDAO implements TimDAO {
 				retVal = "nema protivnika";
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -212,7 +212,7 @@ public class MySQLTimDAO implements TimDAO {
 			retVal = cst.getBoolean(2);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(cst);
@@ -236,7 +236,7 @@ public class MySQLTimDAO implements TimDAO {
 			retVal = cst.getBoolean(3);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(cst);

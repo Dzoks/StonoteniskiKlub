@@ -42,7 +42,7 @@ public class MySQLPlataDAO implements PlataDAO {
 						rs.getString("Opis"), rs.getString("Tip"), zaposleni));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -94,7 +94,7 @@ public class MySQLPlataDAO implements PlataDAO {
 			cs.setString("inOpis", plata.getOpis().getValue());
 			cs.executeQuery();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

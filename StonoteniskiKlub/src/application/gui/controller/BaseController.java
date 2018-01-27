@@ -52,7 +52,7 @@ public abstract class BaseController implements Initializable{
 			changeScene("/application/gui/administrator/view/LoginView.fxml",primaryStage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}

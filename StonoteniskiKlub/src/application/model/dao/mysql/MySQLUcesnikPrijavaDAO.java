@@ -42,7 +42,7 @@ public class MySQLUcesnikPrijavaDAO implements UcesnikPrijavaDAO {
 						rs.getInt("TURNIR_KATEGORIJA_Id"), rs.getDate("Datum"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -73,7 +73,7 @@ public class MySQLUcesnikPrijavaDAO implements UcesnikPrijavaDAO {
 			retVal = cst.getInt(9);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(cst);
@@ -97,7 +97,7 @@ public class MySQLUcesnikPrijavaDAO implements UcesnikPrijavaDAO {
 			retVal = ps.executeUpdate() == 1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -123,7 +123,7 @@ public class MySQLUcesnikPrijavaDAO implements UcesnikPrijavaDAO {
 			retVal = cst.getInt(5);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(cst);
@@ -149,7 +149,7 @@ public class MySQLUcesnikPrijavaDAO implements UcesnikPrijavaDAO {
 						rs.getDate("Datum")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, s);
@@ -174,7 +174,7 @@ public class MySQLUcesnikPrijavaDAO implements UcesnikPrijavaDAO {
 				retVal=rs.getInt(1)>0; 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 		}finally {
 			ConnectionPool.close(rs, ps); 
 			ConnectionPool.getInstance().checkIn(c); 

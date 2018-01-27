@@ -46,7 +46,7 @@ public class ConnectionPool {
 			}
 			connectCount = preconnectCount;
 		} catch (Exception e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -65,7 +65,7 @@ public class ConnectionPool {
 			maxIdleConnections = Integer.parseInt(bundle.getString("maxIdleConnections"));
 			maxConnections = Integer.parseInt(bundle.getString("maxConnections"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -86,7 +86,7 @@ public class ConnectionPool {
 					conn = freeConnections.remove(0);
 					usedConnections.add(conn);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					 ;
 					new ErrorLogger().log(e);
 				}
 			}
@@ -105,7 +105,7 @@ public class ConnectionPool {
 				try {
 					c.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					 ;
 					new ErrorLogger().log(e);
 				}
 			}
@@ -127,7 +127,7 @@ public class ConnectionPool {
 			try {
 				s.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			}
 	}
@@ -137,7 +137,7 @@ public class ConnectionPool {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			}
 	}

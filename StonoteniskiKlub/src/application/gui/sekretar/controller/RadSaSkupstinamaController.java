@@ -84,7 +84,7 @@ public class RadSaSkupstinamaController extends BaseController {
 		try {
 			BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -144,7 +144,7 @@ public class RadSaSkupstinamaController extends BaseController {
 				newStage.initModality(Modality.APPLICATION_MODAL);
 				newStage.showAndWait();
 			} catch (IOException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			}
 		} else {
@@ -171,7 +171,7 @@ public class RadSaSkupstinamaController extends BaseController {
 			newStage.initModality(Modality.APPLICATION_MODAL);
 			newStage.show();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}

@@ -55,7 +55,7 @@ public class MySQLDogadjajDAO implements DogadjajDAO {
 				result.add(dogadjaj);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -97,7 +97,7 @@ public class MySQLDogadjajDAO implements DogadjajDAO {
 				dogadjaj.setId(result);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -117,7 +117,7 @@ public class MySQLDogadjajDAO implements DogadjajDAO {
 			statement.executeUpdate();
 			result = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);

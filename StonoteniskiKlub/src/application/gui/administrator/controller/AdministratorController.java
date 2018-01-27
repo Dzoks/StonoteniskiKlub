@@ -43,7 +43,7 @@ public class AdministratorController extends BaseController {
 			BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 		} catch (IOException e) {
 			new ErrorLogger().log(e);
-			e.printStackTrace();
+			 ;
 		}
     }
 	@FXML
@@ -57,7 +57,7 @@ public class AdministratorController extends BaseController {
 			stage.setResizable(false);
 		} catch (IOException e) {
 			new ErrorLogger().log(e);
-			e.printStackTrace();
+			 ;
 		}
 	}
 

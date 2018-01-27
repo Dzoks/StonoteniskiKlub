@@ -36,7 +36,7 @@ public class MySQLStavkaSkupstinaDAO implements StavkaSkupstinaDAO {
 						resultSet.getString("Tekst")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -58,7 +58,7 @@ public class MySQLStavkaSkupstinaDAO implements StavkaSkupstinaDAO {
 			statement.executeUpdate();
 			result = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);

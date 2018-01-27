@@ -200,7 +200,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 				clan.setSlika(convertImageToBlob());
 			} catch (IOException e) {
 				new ErrorLogger().log(e);
-				e.printStackTrace();
+				 ;
 			}
 		}
 		
@@ -220,7 +220,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			blob.setBytes(1, Files.readAllBytes(fotografija.toPath()));
 			return blob;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 			return null;
 		}
@@ -272,7 +272,7 @@ public class IzmjenaClanaController extends BaseController implements Initializa
 			}
 		} catch (SQLException e) {
 			new ErrorLogger().log(e);
-			e.printStackTrace();
+			 ;
 		}
 	}
 	

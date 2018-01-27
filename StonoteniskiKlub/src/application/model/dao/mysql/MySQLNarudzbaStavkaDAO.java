@@ -36,7 +36,7 @@ public class MySQLNarudzbaStavkaDAO implements NarudzbaStavkaDAO {
 						rs.getBoolean("Obradjeno")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -57,7 +57,7 @@ public class MySQLNarudzbaStavkaDAO implements NarudzbaStavkaDAO {
 					narudzbaStavka.getCijena(), narudzbaStavka.getObradjeno());
 			ps.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -75,7 +75,7 @@ public class MySQLNarudzbaStavkaDAO implements NarudzbaStavkaDAO {
 					narudzbaStavka.getIdTipaOpreme(), narudzbaStavka.getVelicina());
 			ps.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -93,7 +93,7 @@ public class MySQLNarudzbaStavkaDAO implements NarudzbaStavkaDAO {
 					stavkaNarudzbe.getIdTipaOpreme(), stavkaNarudzbe.getVelicina());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

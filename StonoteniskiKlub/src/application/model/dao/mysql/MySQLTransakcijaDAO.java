@@ -37,7 +37,7 @@ public class MySQLTransakcijaDAO implements TransakcijaDAO {
 						rs.getString("Opis"), rs.getString("Tip"), rs.getBoolean("jeUplata")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -98,7 +98,7 @@ public class MySQLTransakcijaDAO implements TransakcijaDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -118,7 +118,7 @@ public class MySQLTransakcijaDAO implements TransakcijaDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

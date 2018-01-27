@@ -42,7 +42,7 @@ public class MySQLZaposlenjeDAO implements ZaposlenjeDAO {
 						resultSet.getDate("DatumDo"), resultSet.getDouble("Plata")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -72,7 +72,7 @@ public class MySQLZaposlenjeDAO implements ZaposlenjeDAO {
 			statement.execute();
 			result = statement.getBoolean("pUspjesno");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -93,7 +93,7 @@ public class MySQLZaposlenjeDAO implements ZaposlenjeDAO {
 			statement.executeUpdate();
 			result = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -114,7 +114,7 @@ public class MySQLZaposlenjeDAO implements ZaposlenjeDAO {
 			statement.executeUpdate();
 			result = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);

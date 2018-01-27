@@ -157,7 +157,7 @@ public class IzmjenaOpremeController extends BaseController implements Initializ
 				comboBoxTip.getSelectionModel().selectLast();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}

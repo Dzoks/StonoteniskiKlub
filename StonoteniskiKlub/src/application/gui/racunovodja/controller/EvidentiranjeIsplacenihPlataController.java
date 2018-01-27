@@ -186,7 +186,7 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -296,7 +296,7 @@ public class EvidentiranjeIsplacenihPlataController extends TransakcijaDecorater
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}

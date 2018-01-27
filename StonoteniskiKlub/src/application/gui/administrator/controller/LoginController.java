@@ -43,7 +43,7 @@ public class LoginController extends BaseController {
 								primaryStage);
 					} catch (IOException e) {
 						new ErrorLogger().log(e);
-						e.printStackTrace();
+						 ;
 					}
 				} else {
 					if (checkPassword(new String(txtLozinka.getText()),
@@ -80,7 +80,7 @@ public class LoginController extends BaseController {
 							}
 						} catch (IOException e) {
 							new ErrorLogger().log(e);
-							e.printStackTrace();
+							 ;
 						}
 					} else {
 						AlertDisplay.showError("Prijavljivanje","Pogrešno korisničko ime ili lozinka.");

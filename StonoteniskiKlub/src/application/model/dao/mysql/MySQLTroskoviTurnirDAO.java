@@ -38,7 +38,7 @@ public class MySQLTroskoviTurnirDAO implements TroskoviTurnirDAO {
 						rs.getDouble("Iznos"), rs.getString("Opis"), rs.getString("Tip"), turnir));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -96,7 +96,7 @@ public class MySQLTroskoviTurnirDAO implements TroskoviTurnirDAO {
 			cs.setString("inOpis", trosak.getOpis().getValue());
 			cs.executeQuery();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

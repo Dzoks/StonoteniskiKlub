@@ -40,7 +40,7 @@ public class MySQLNovcanaSredstvaDAO implements NovcanaSredstvaDAO {
 				list.add(rs.getString("Sezona"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -68,7 +68,7 @@ public class MySQLNovcanaSredstvaDAO implements NovcanaSredstvaDAO {
 						rs.getDouble("Prihodi"), rs.getDouble("Rashodi"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -96,7 +96,7 @@ public class MySQLNovcanaSredstvaDAO implements NovcanaSredstvaDAO {
 						rs.getDouble("Prihodi"), rs.getDouble("Rashodi"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -123,7 +123,7 @@ public class MySQLNovcanaSredstvaDAO implements NovcanaSredstvaDAO {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -144,7 +144,7 @@ public class MySQLNovcanaSredstvaDAO implements NovcanaSredstvaDAO {
 						ns.getId());
 				ps.executeUpdate();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			} finally {
 				ConnectionPool.getInstance().checkIn(c);
@@ -168,7 +168,7 @@ public class MySQLNovcanaSredstvaDAO implements NovcanaSredstvaDAO {
 						ns.getId());
 				ps.executeUpdate();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			} finally {
 				ConnectionPool.getInstance().checkIn(c);

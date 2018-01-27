@@ -183,7 +183,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			blob.setBytes(1, Files.readAllBytes(fotografija.toPath()));
 			return blob;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 			return null;
 		}
@@ -264,7 +264,7 @@ public class UclanjivanjeController extends BaseController implements Initializa
 			retClan = clan;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 			return;
 		}

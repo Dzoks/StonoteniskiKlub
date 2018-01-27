@@ -41,7 +41,7 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 				listaClanarina.add(new ClanarinaDTO(rs.getInt("Id"), rs.getDate("Datum"), rs.getDouble("Iznos"), rs.getString("Opis"),rs.getString("Tip"),rs.getInt("Mjesec"),rs.getInt("Godina"), rs.getString("Ime"),rs.getString("Prezime"),rs.getInt("OSOBA_Id")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -78,7 +78,7 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 			
 			clanarina.setId(cs.getInt("outId"));
 		}catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -101,7 +101,7 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 			cs.setInt("inGodina",clanarina.getGodina().intValue());
 			cs.executeQuery();
 		}catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -127,7 +127,7 @@ private static final String SQL_SELECT_ALL = "select * from prikaz_clanarina";
 				retVal.add(new ClanarinaDTO(rs.getInt("Id"), rs.getDate("Datum"), rs.getDouble("Iznos"), rs.getString("Opis"),rs.getString("Tip"),rs.getInt("Mjesec"),rs.getInt("Godina"), rs.getString("Ime"),rs.getString("Prezime"),rs.getInt("OSOBA_Id")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);

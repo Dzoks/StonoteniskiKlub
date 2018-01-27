@@ -33,7 +33,7 @@ public class MySQLUplataZaTurnirDAO implements UplataZaTurnirDAO{
 				listaUplataZaTurnir.add(new UplataZaTurnirDTO(rs.getInt("transakcijaId"), rs.getDate("Datum"), rs.getDouble("Iznos"), rs.getString("Opis"),rs.getString("Tip"),turnir));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();new ErrorLogger().log(e);
+			 ;new ErrorLogger().log(e);
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
 			ConnectionPool.close(rs, s);
@@ -63,7 +63,7 @@ public class MySQLUplataZaTurnirDAO implements UplataZaTurnirDAO{
 			}
 			uplata.setId(cs.getInt("outId"));
 		}catch (SQLException e) {
-			e.printStackTrace();new ErrorLogger().log(e);
+			 ;new ErrorLogger().log(e);
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);
 			ConnectionPool.close(cs);
@@ -87,7 +87,7 @@ public class MySQLUplataZaTurnirDAO implements UplataZaTurnirDAO{
 			cs.setString("inOpis",uplata.getOpis().getValue());
 			cs.executeQuery();
 		}catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}finally {
 			ConnectionPool.getInstance().checkIn(c);

@@ -32,7 +32,7 @@ public class PromjenaLozinkeController extends BaseController {
 							primaryStage);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					 ;
 					new ErrorLogger().log(e);
 				}
 
@@ -56,7 +56,7 @@ public class PromjenaLozinkeController extends BaseController {
 					primaryStage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}

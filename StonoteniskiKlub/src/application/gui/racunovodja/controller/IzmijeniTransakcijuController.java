@@ -126,7 +126,7 @@ public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 			comboBoxTipTransakcije.getSelectionModel().select(0);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}//initialize
 	}

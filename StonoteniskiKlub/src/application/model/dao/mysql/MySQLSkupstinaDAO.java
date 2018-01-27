@@ -36,7 +36,7 @@ public class MySQLSkupstinaDAO implements SkupstinaDAO {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -62,7 +62,7 @@ public class MySQLSkupstinaDAO implements SkupstinaDAO {
 			}
 			result = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -94,7 +94,7 @@ public class MySQLSkupstinaDAO implements SkupstinaDAO {
 			statement.executeUpdate();
 			result = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);

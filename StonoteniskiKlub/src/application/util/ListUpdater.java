@@ -42,7 +42,7 @@ public class ListUpdater extends Task<Void> {
 				AlertDisplay.showInformation("Preuzimanje", "Rezultati su uspješno preuzeti i ažurirani u bazi podataka");
 			});
 		} catch (Exception e) {
-			
+			new ErrorLogger().log(e);
 			Platform.runLater(()->{
 				AlertDisplay.showError("Preuzimanje", "Nije uspjelo preuzimanje liste. Molimo pokušajte ponovo");
 			});		}

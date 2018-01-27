@@ -197,7 +197,7 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			if(temp1.get().getButtonData().equals(ButtonData.YES)) 
 				primaryStage.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -213,7 +213,7 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			blob.setBytes(1, Files.readAllBytes(file.toPath()));
 			return blob;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 			return null;
 		}

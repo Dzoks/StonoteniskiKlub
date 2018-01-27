@@ -280,7 +280,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 				comboBoxTip.getSelectionModel().selectLast();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -306,7 +306,7 @@ public class IzmjenaNarudzbeController extends BaseController implements Initial
 				comboBoxDistributer.getSelectionModel().selectLast();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}

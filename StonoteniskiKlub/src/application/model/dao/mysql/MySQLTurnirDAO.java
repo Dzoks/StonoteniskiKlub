@@ -34,7 +34,7 @@ public class MySQLTurnirDAO implements TurnirDAO {
 				retVal.add(new TurnirDTO(rs.getInt("Id"), rs.getString("Naziv"), rs.getDate("Datum"),
 						rs.getBoolean("Zavrsen")));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -59,7 +59,7 @@ public class MySQLTurnirDAO implements TurnirDAO {
 				retVal = new TurnirDTO(id, rs.getString("Naziv"), rs.getDate("Datum"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -80,7 +80,7 @@ public class MySQLTurnirDAO implements TurnirDAO {
 			return ps.executeUpdate() == 1 ? true : false;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -101,7 +101,7 @@ public class MySQLTurnirDAO implements TurnirDAO {
 			return ps.executeUpdate() == 1 ? true : false;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);

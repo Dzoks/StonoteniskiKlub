@@ -255,7 +255,7 @@ public class EvidentiranjeClanarinaController extends TransakcijaDecorater{
 			tableClanarine.refresh();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 		

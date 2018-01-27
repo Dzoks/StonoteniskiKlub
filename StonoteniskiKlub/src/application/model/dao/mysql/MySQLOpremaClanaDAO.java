@@ -40,7 +40,7 @@ public class MySQLOpremaClanaDAO implements OpremaClanaDAO {
 						rs.getString("Velicina"), rs.getInt("CLAN_Id")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -68,7 +68,7 @@ public class MySQLOpremaClanaDAO implements OpremaClanaDAO {
 						rs.getBoolean("Registrovan")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -96,7 +96,7 @@ public class MySQLOpremaClanaDAO implements OpremaClanaDAO {
 						rs.getString("Velicina"), rs.getInt("CLAN_Id")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -125,7 +125,7 @@ public class MySQLOpremaClanaDAO implements OpremaClanaDAO {
 			cs.setInt("inClanId", oprema.getIdClana());
 			cs.executeQuery();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -142,7 +142,7 @@ public class MySQLOpremaClanaDAO implements OpremaClanaDAO {
 			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE, false, idClana, oprema.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

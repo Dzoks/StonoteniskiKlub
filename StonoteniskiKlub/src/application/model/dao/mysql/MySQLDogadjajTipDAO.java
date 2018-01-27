@@ -33,7 +33,7 @@ public class MySQLDogadjajTipDAO implements DogadjajTipDAO{
 				result.add(new DogadjajTipDTO(resultSet.getInt("Id"), resultSet.getString("Tip")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();new ErrorLogger().log(e);
+			 ;new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -55,7 +55,7 @@ public class MySQLDogadjajTipDAO implements DogadjajTipDAO{
 				result = new DogadjajTipDTO(resultSet.getInt("Id"), resultSet.getString("Tip"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();new ErrorLogger().log(e);
+			 ;new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);
@@ -90,7 +90,7 @@ public class MySQLDogadjajTipDAO implements DogadjajTipDAO{
 				result = true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();new ErrorLogger().log(e);
+			 ;new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
 			ConnectionPool.close(resultSet, statement);

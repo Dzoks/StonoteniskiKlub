@@ -35,7 +35,7 @@ public class MySQLZrijebDAO implements ZrijebDAO {
 						rs.getInt("BrojTimova"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -64,7 +64,7 @@ public class MySQLZrijebDAO implements ZrijebDAO {
 			retVal = cst.getBoolean(4);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(cst);
@@ -90,7 +90,7 @@ public class MySQLZrijebDAO implements ZrijebDAO {
 						rs.getInt("BrojTimova"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -114,7 +114,7 @@ public class MySQLZrijebDAO implements ZrijebDAO {
 			retVal = cst.getBoolean(3);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(cst);

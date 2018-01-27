@@ -26,7 +26,7 @@ public class MySQLTreningDAO implements TreningDAO {
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 			return false;
 		} finally {
@@ -51,7 +51,7 @@ public class MySQLTreningDAO implements TreningDAO {
 						rs.getDate("Datum").toLocalDate(), rs.getBoolean("Aktivan")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -78,7 +78,7 @@ public class MySQLTreningDAO implements TreningDAO {
 			}
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 			return false;
 		} finally {
@@ -100,7 +100,7 @@ public class MySQLTreningDAO implements TreningDAO {
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 			return false;
 		} finally {

@@ -31,6 +31,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
@@ -132,12 +133,15 @@ public class PregledClanovaController extends BaseController implements Initiali
 
 	@FXML
 	private ChoiceBox<RegistracijaDTO> cbxSezona;
+	@FXML
+	private Button btnRegistracija;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		btnRegistracija.disableProperty().bind(twTabela.getSelectionModel().selectedItemProperty().isNull());
 		tcIme.setCellFactory(TextFieldTableCell.forTableColumn());
 		tcIme.setCellValueFactory(new PropertyValueFactory<ClanDTO, String>("ime"));
-
+		
 		tcPrezime.setCellFactory(TextFieldTableCell.forTableColumn());
 		tcPrezime.setCellValueFactory(new PropertyValueFactory<ClanDTO, String>("prezime"));
 
@@ -147,21 +151,21 @@ public class PregledClanovaController extends BaseController implements Initiali
 		tcAktivan.setCellValueFactory(new PropertyValueFactory<ClanDTO, Boolean>("aktivan"));
 		tcAktivan.setVisible(false);
 		tcAktivan.setCellFactory(col -> new TableCell<ClanDTO, Boolean>() {
-		    @Override
-		    protected void updateItem(Boolean item, boolean empty) {
-		        super.updateItem(item, empty) ;
-		        setText(empty ? null : item ? "Da" : "Ne" );
-		    }
+			@Override
+			protected void updateItem(Boolean item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? null : item ? "Da" : "Ne");
+			}
 		});
 
 		tcRegistrovan.setCellValueFactory(new PropertyValueFactory<ClanDTO, Boolean>("registrovan"));
 		tcRegistrovan.setVisible(false);
 		tcRegistrovan.setCellFactory(col -> new TableCell<ClanDTO, Boolean>() {
-		    @Override
-		    protected void updateItem(Boolean item, boolean empty) {
-		        super.updateItem(item, empty) ;
-		        setText(empty ? null : item ? "Da" : "Ne" );
-		    }
+			@Override
+			protected void updateItem(Boolean item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? null : item ? "Da" : "Ne");
+			}
 		});
 
 		listaClanova = FXCollections.observableArrayList();
@@ -179,27 +183,28 @@ public class PregledClanovaController extends BaseController implements Initiali
 			@Override
 			public void changed(ObservableValue<? extends RegistracijaDTO> observable, RegistracijaDTO oldValue,
 					RegistracijaDTO newValue) {
-				if (newValue==null) {
+				if (newValue == null) {
 					lblBodovi.setText("0");
 					lblPozicija.setText("Nepoznato");
 					tblTurniri.setItems(FXCollections.observableArrayList());
-				}else {
-					ObservableList<Rezultat> list=FXCollections.observableArrayList();
-					HashMap<String,Integer> rezultati=newValue.getRezultati();
-					Set<Entry<String,Integer>> set=rezultati.entrySet();
-					Integer plasman=rezultati.get("Plasman");
-					Integer ukupno=rezultati.get("Ukupno");
-					if (plasman!=0)
+				} else {
+					ObservableList<Rezultat> list = FXCollections.observableArrayList();
+					HashMap<String, Integer> rezultati = newValue.getRezultati();
+					Set<Entry<String, Integer>> set = rezultati.entrySet();
+					Integer plasman = rezultati.get("Plasman");
+					Integer ukupno = rezultati.get("Ukupno");
+					if (plasman != 0)
 						lblPozicija.setText(plasman.toString());
-					if (ukupno!=0)
+					if (ukupno != 0)
 						lblBodovi.setText(ukupno.toString());
-					for (Entry<String,Integer> entry:set) {
-						if (!entry.getKey().equals("Plasman")&&!entry.getKey().equals("Ukupno")&&entry.getValue()!=0)
+					for (Entry<String, Integer> entry : set) {
+						if (!entry.getKey().equals("Plasman") && !entry.getKey().equals("Ukupno")
+								&& entry.getValue() != 0)
 							list.add(new Rezultat(entry.getKey(), entry.getValue()));
 					}
 					tblTurniri.setItems(list);
 				}
-				
+
 			}
 		});
 	}
@@ -213,15 +218,17 @@ public class PregledClanovaController extends BaseController implements Initiali
 		tblTurniri.setVisible(uslov);
 		cbxSezona.setVisible(uslov);
 	}
-	  @FXML
-	    void odjaviteSe(ActionEvent event) {
-	    	try {
-				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new ErrorLogger().log(e);
-			}
-	    }
+
+	@FXML
+	void odjaviteSe(ActionEvent event) {
+		try {
+			BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
+		} catch (IOException e) {
+			 ;
+			new ErrorLogger().log(e);
+		}
+	}
+
 	public void idiNaPregledOpreme() {
 		Stage noviStage = new Stage();
 
@@ -235,7 +242,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			noviStage.setTitle("Stonoteniski klub");
 			noviStage.show();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -253,7 +260,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			noviStage.setTitle("Stonoteniski klub");
 			noviStage.show();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -283,14 +290,14 @@ public class PregledClanovaController extends BaseController implements Initiali
 			if (clan != null)
 				listaClanova.add(clan);
 		} catch (Exception e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
 
 	public void izmjeniClana() {
 		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
-		if(clan == null)
+		if (clan == null)
 			return;
 		try {
 			Stage stage = new Stage();
@@ -316,43 +323,43 @@ public class PregledClanovaController extends BaseController implements Initiali
 			stage.show();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
 
 	public void izvrsiIsclanjivanje() {
 		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
-		if(clan == null)
+		if (clan == null)
 			return;
-		
+
 		// provjriti da li je AKTIVAN, ako nije ERROR
-		if(!clan.isAktivan()) {
-			AlertDisplay.showError("Iščlanjivanje", "Odabrani član nije aktivan. Nemoguće je izvršiti njegovo iščlanjivanje.");
+		if (!clan.isAktivan()) {
+			AlertDisplay.showError("Iščlanjivanje",
+					"Odabrani član nije aktivan. Nemoguće je izvršiti njegovo iščlanjivanje.");
 			return;
 		}
-		
+
 		// provjeriti da li je uplatio sve clanarine do tad, ako nije ERROR
 		List<ClanarinaDTO> list = DAOFactory.getDAOFactory().getClanarinaDAO().selectByClanID(clan.getId());
-		if(list.size() == 0) {
-			Optional<ButtonType> tmp = AlertDisplay.showWarning("Iščlanjivanje","Odabrani član nije uplatio ni jednu članarinu. "
-					+ " Da li želite da nastavite?");
-			if(tmp.isPresent() && tmp.get().getButtonData() == ButtonData.NO) {
+		if (list.size() == 0) {
+			Optional<ButtonType> tmp = AlertDisplay.showWarning("Iščlanjivanje",
+					"Odabrani član nije uplatio ni jednu članarinu. " + " Da li želite da nastavite?");
+			if (tmp.isPresent() && tmp.get().getButtonData() == ButtonData.NO) {
 				return;
 			}
-		}
-		else {
+		} else {
 			ClanarinaDTO max = list.get(0);
-			for(int i = 1; i<list.size(); i++) {
-				if(list.get(i).getDatum().after(max.getDatum()))
+			for (int i = 1; i < list.size(); i++) {
+				if (list.get(i).getDatum().after(max.getDatum()))
 					max = list.get(i);
 			}
 			DateFormat df = new SimpleDateFormat("dd.MM.yyyy.");
-			Optional<ButtonType> tmp = AlertDisplay.showWarning("Iščlanjivanje", "Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec "
-					+ max.getNazivMjeseca() +
-					", godine " + max.getGodina().getValue() + ". "
-					+ " Da li želite da nastavite?");
-			if(tmp.isPresent() && tmp.get().getButtonData() == ButtonData.NO) {
+			Optional<ButtonType> tmp = AlertDisplay.showWarning("Iščlanjivanje",
+					"Posljednja uplata članarine od strane odabranog člana izvršena je za mjesec "
+							+ max.getNazivMjeseca() + ", godine " + max.getGodina().getValue() + ". "
+							+ " Da li želite da nastavite?");
+			if (tmp.isPresent() && tmp.get().getButtonData() == ButtonData.NO) {
 				return;
 			}
 		}
@@ -364,10 +371,10 @@ public class PregledClanovaController extends BaseController implements Initiali
 		DAOFactory.getDAOFactory().getClanDAO().setAktivan(false, clan.getId());
 		DAOFactory.getDAOFactory().getClanstvoDAO().update(clan.getId());
 	}
-	
+
 	public void izdavanjePotvrda() {
 		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
-		if(clan == null)
+		if (clan == null)
 			return;
 		try {
 			Stage stage = new Stage();
@@ -385,7 +392,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 			stage.show();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -413,7 +420,7 @@ public class PregledClanovaController extends BaseController implements Initiali
 		TreningController controller = null;
 		trening.setTitle("Stonoteniski klub");
 		trening.initModality(Modality.APPLICATION_MODAL);
-	
+
 		try {
 			controller = (TreningController) BaseController.changeScene("/application/gui/trener/view/TreningView.fxml",
 					trening);
@@ -422,20 +429,20 @@ public class PregledClanovaController extends BaseController implements Initiali
 			trening.showAndWait();
 		} catch (IOException e) {
 			new ErrorLogger().log(e);
-			e.printStackTrace();
+			 ;
 		}
 	}
 
 	public void prikaziDetaljeOClanu() {
 		ClanDTO clan = twTabela.getSelectionModel().getSelectedItem();
-		
-		if(clan == null)
+
+		if (clan == null)
 			return;
 		// Provjera da li je igrac
 		if (clan.isRegistrovan()) {
 			cbxSezona.setItems(DAOFactory.getDAOFactory().getRegistracijaDAO().getAllByMember(clan));
 			setVidljivostZaIgraca(true);
-		}else {
+		} else {
 			setVidljivostZaIgraca(false);
 			cbxSezona.setItems(FXCollections.observableArrayList());
 		}
@@ -457,30 +464,34 @@ public class PregledClanovaController extends BaseController implements Initiali
 				ivFotografija.setImage(new Image(getClass().getResourceAsStream("/avatar.png")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
-    @FXML
-    void registrujIgracaKlik(ActionEvent event) {
-    	Stage stage = new Stage();
+
+	@FXML
+	void registrujIgracaKlik(ActionEvent event) {
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
 		RegistracijaController controller = null;
 		try {
-			controller = (RegistracijaController) BaseController.changeScene("/application/gui/trener/view/RegistracijaView.fxml",
-					stage);
+			controller = (RegistracijaController) BaseController
+					.changeScene("/application/gui/trener/view/RegistracijaView.fxml", stage);
 			controller.setClan(twTabela.getSelectionModel().getSelectedItem());
 			stage.setResizable(false);
-			stage.show();
+			stage.showAndWait();
+			listaClanova = FXCollections.observableArrayList();
+			listaClanova.addAll(DAOFactory.getDAOFactory().getClanDAO().selectAll());
+			twTabela.setItems(listaClanova);
 		} catch (IOException e) {
 			new ErrorLogger().log(e);
-			e.printStackTrace();
+			 ;
 		}
 	}
-    
-
 
 	public void preuzmiRezultate() {
 		new Thread(new ListUpdater()).start();
 	}
+
 	private ObservableList<ClanDTO> listaClanova;
 }

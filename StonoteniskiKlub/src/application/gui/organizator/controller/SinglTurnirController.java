@@ -125,7 +125,7 @@ public class SinglTurnirController extends BaseController{
 						noviStage.showAndWait();
 					}
 				} catch (IOException e) {
-					e.printStackTrace();
+					 ;
 					new ErrorLogger().log(e);
 				}
 				popuniTabelu();
@@ -156,7 +156,7 @@ public class SinglTurnirController extends BaseController{
 				controller.inicijalizujIzmjene(idTurnira,idKategorije,tblIgraci.getSelectionModel().getSelectedItem());
 				noviStage.showAndWait();
 			} catch (IOException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			}
 			popuniTabelu();
@@ -195,7 +195,7 @@ public class SinglTurnirController extends BaseController{
 					noviStage.showAndWait();
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			}
 		}
@@ -238,7 +238,7 @@ public class SinglTurnirController extends BaseController{
 							noviStage.showAndWait();
 						}
 					} catch (IOException e) {
-						e.printStackTrace();
+						 ;
 						new ErrorLogger().log(e);
 					}
 				}
@@ -251,7 +251,7 @@ public class SinglTurnirController extends BaseController{
 			BaseController bc=changeScene("/application/gui/organizator/view/TurniriView.fxml", primaryStage);
 			bc.setUsername(username.split("\\,")[1]);
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}

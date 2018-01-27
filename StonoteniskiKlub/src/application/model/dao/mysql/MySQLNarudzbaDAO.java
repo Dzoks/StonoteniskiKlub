@@ -44,10 +44,10 @@ public class MySQLNarudzbaDAO implements NarudzbaDAO {
 						DAOFactory.getDAOFactory().getNarudzbaStavkaDAO().SELECT_BY_IDNARUDZBE(rs.getInt("Id"))));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -74,10 +74,10 @@ public class MySQLNarudzbaDAO implements NarudzbaDAO {
 						DAOFactory.getDAOFactory().getNarudzbaStavkaDAO().SELECT_BY_IDNARUDZBE(rs.getInt("Id"))));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -104,10 +104,10 @@ public class MySQLNarudzbaDAO implements NarudzbaDAO {
 						DAOFactory.getDAOFactory().getNarudzbaStavkaDAO().SELECT_BY_IDNARUDZBE(rs.getInt("Id"))));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -132,7 +132,7 @@ public class MySQLNarudzbaDAO implements NarudzbaDAO {
 				rezultat = rs.getInt(1) + 1;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -157,7 +157,7 @@ public class MySQLNarudzbaDAO implements NarudzbaDAO {
 			rs.next();
 			id = rs.getInt(1);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -177,7 +177,7 @@ public class MySQLNarudzbaDAO implements NarudzbaDAO {
 					narudzba.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -203,7 +203,7 @@ public class MySQLNarudzbaDAO implements NarudzbaDAO {
 			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_OBRADJENO, false, idNarudzbe);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -220,7 +220,7 @@ public class MySQLNarudzbaDAO implements NarudzbaDAO {
 			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_OBRISAN, false, narudzba.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

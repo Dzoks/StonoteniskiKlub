@@ -171,7 +171,7 @@ public class DodavanjeUgovoraController extends BaseController {
 				cbTipOpreme.getSelectionModel().selectLast();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -190,7 +190,7 @@ public class DodavanjeUgovoraController extends BaseController {
 						datumDo = formatter.parse(dpDatumDo.getValue().toString());
 					}
 				} catch (ParseException e) {
-					e.printStackTrace();
+					 ;
 					new ErrorLogger().log(e);
 				}
 				UgovorDTO ugovor = new UgovorDTO(null, datumOd, datumDo, taOpisUgovora.getText(), null);

@@ -37,7 +37,7 @@ public class MySQLUgovorDAO implements UgovorDAO {
 						resultSet.getDate("DatumDo"), resultSet.getString("Opis"), null));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -61,7 +61,7 @@ public class MySQLUgovorDAO implements UgovorDAO {
 						resultSet.getDate("DatumDo"), resultSet.getString("Opis"), null);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -95,7 +95,7 @@ public class MySQLUgovorDAO implements UgovorDAO {
 				ugovor.setRedniBroj(redniBroj);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -116,7 +116,7 @@ public class MySQLUgovorDAO implements UgovorDAO {
 			statement.executeUpdate();
 			result = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);

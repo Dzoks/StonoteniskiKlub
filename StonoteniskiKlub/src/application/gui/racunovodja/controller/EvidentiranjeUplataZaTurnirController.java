@@ -252,7 +252,7 @@ public class EvidentiranjeUplataZaTurnirController extends TransakcijaDecorater{
 			//popuniTabelu();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 		

@@ -50,7 +50,7 @@ public class MySQLRegistracijaDAO implements RegistracijaDAO {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -85,7 +85,7 @@ public class MySQLRegistracijaDAO implements RegistracijaDAO {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -114,7 +114,7 @@ public class MySQLRegistracijaDAO implements RegistracijaDAO {
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 			return false;
 		} finally {
@@ -134,7 +134,7 @@ public class MySQLRegistracijaDAO implements RegistracijaDAO {
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);

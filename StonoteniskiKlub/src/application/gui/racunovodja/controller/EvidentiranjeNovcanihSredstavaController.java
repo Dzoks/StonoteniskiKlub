@@ -170,7 +170,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			comboBoxTipTransakcije.getSelectionModel().select(0);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}//initialize
 		
@@ -281,7 +281,7 @@ public class EvidentiranjeNovcanihSredstavaController  extends TransakcijaDecora
 			postaviKolone();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 		prikaziLabele(trenutnaNS);

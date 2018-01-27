@@ -155,7 +155,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	    	try {
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			}
 	    }
@@ -833,7 +833,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			noviStage.showAndWait();
 			popuniTabele();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -878,7 +878,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			noviStage.showAndWait();
 			popuniTabele();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -905,7 +905,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			noviStage.showAndWait();
 			popuniTabele();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -944,7 +944,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			noviStage.showAndWait();
 			popuniTabele();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -969,7 +969,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 			noviStage.showAndWait();
 			popuniTabele();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}

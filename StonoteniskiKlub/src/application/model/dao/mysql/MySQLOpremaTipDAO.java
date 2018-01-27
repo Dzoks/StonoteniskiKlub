@@ -38,7 +38,7 @@ public class MySQLOpremaTipDAO implements OpremaTipDAO {
 						rs.getString("Model"), rs.getBoolean("ImaVelicinu")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -58,7 +58,7 @@ public class MySQLOpremaTipDAO implements OpremaTipDAO {
 					opremaTip.getModel(), opremaTip.getImaVelicinu());
 			ps.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -81,7 +81,7 @@ public class MySQLOpremaTipDAO implements OpremaTipDAO {
 				rezultat = rs.getString("Tip");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -106,7 +106,7 @@ public class MySQLOpremaTipDAO implements OpremaTipDAO {
 				rezultat = rs.getString("Proizvodjac");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -131,7 +131,7 @@ public class MySQLOpremaTipDAO implements OpremaTipDAO {
 				rezultat = rs.getString("Model");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -156,7 +156,7 @@ public class MySQLOpremaTipDAO implements OpremaTipDAO {
 				rezultat = rs.getBoolean("ImaVelicinu");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

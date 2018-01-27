@@ -43,7 +43,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 						resultSet.getString("Adresa"), resultSet.getString("Mail"), null, null));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -67,7 +67,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 						resultSet.getString("Adresa"), resultSet.getString("Mail"), null, null);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -107,7 +107,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 				result = true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -126,7 +126,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 					sponzor.getAdresa(), sponzor.getEmail(), sponzor.getId());
 			statement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -149,7 +149,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 						resultSet.getString("Adresa"), resultSet.getString("Mail"), null, null));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -172,7 +172,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 				result.add(resultSet.getString("BrojTelefona"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -193,7 +193,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			statement.execute();
 			result = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -217,7 +217,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 				result = true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -237,7 +237,7 @@ public class MySQLSponzorDAO implements SponzorDAO {
 			statement.executeUpdate();
 			result = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);

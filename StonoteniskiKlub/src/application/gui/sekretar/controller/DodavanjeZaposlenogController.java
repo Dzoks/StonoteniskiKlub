@@ -136,7 +136,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 				promjena = true;
 				imgFotografija.setImage(new Image(new FileInputStream(file)));
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			}
 		}
@@ -185,7 +185,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 			try {
 				imgFotografija.setImage(new Image(zaposleniZaAzurirati.getSlika().getBinaryStream()));
 			} catch (SQLException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			}
 		}
@@ -260,7 +260,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 						this.zaposleniZaAzurirati.setSlika(null);
 					}
 				} catch (IOException e) {
-					e.printStackTrace();
+					 ;
 					new ErrorLogger().log(e);
 				}
 			}
@@ -320,7 +320,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 				try {
 					slika = GUIUtility.convertImageToBlob(fotografijaLik);
 				} catch (IOException e) {
-					e.printStackTrace();
+					 ;
 					new ErrorLogger().log(e);
 				}
 			}

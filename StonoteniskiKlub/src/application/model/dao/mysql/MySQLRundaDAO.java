@@ -31,7 +31,7 @@ public class MySQLRundaDAO implements RundaDAO {
 				retVal = new RundaDTO(idZrijeba, brojRunde);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -52,7 +52,7 @@ public class MySQLRundaDAO implements RundaDAO {
 			return ps.executeUpdate() == 1 ? true : false;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -77,7 +77,7 @@ public class MySQLRundaDAO implements RundaDAO {
 				retVal = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);

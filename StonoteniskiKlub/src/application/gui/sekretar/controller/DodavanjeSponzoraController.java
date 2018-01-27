@@ -94,7 +94,7 @@ public class DodavanjeSponzoraController extends BaseController {
 						datumDo = formatter.parse(dpDatumDo.getValue().toString());
 					}
 				} catch (ParseException e) {
-					e.printStackTrace();
+					 ;
 					new ErrorLogger().log(e);
 				}
 				SponzorDTO sponzor = new SponzorDTO(null, txtNaziv.getText(), txtAdresa.getText(), txtMail.getText(),

@@ -40,7 +40,7 @@ public class MySQLMecDAO implements MecDAO {
 						+ DAOFactory.getDAOFactory().getTimDAO().getSingleById(mec.getIdDrugogTima()));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -67,7 +67,7 @@ public class MySQLMecDAO implements MecDAO {
 				retVal.add(mec);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -96,7 +96,7 @@ public class MySQLMecDAO implements MecDAO {
 						+ DAOFactory.getDAOFactory().getTimDAO().getDoubleById(mec.getIdDrugogTima()));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -120,7 +120,7 @@ public class MySQLMecDAO implements MecDAO {
 			retVal = ps.executeUpdate() == 1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -144,7 +144,7 @@ public class MySQLMecDAO implements MecDAO {
 			retVal = ps.executeUpdate() == 1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -169,7 +169,7 @@ public class MySQLMecDAO implements MecDAO {
 			retVal = ps.executeUpdate() == 1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);

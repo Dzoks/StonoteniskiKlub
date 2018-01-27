@@ -38,14 +38,14 @@ public class MySQLTroskoviOpremaDAO implements TroskoviOpremaDAO {
 					narudzba = new Narudzba(rs.getInt("Id"), rs.getDate("nDatum"), true, true,
 							rs.getInt("DISTRIBUTER_OPREME_Id"));
 				} catch (ParseException e) {
-					e.printStackTrace();
+					 ;
 					new ErrorLogger().log(e);
 				}
 				listaTroskoviOprema.add(new TroskoviOpremaDTO(rs.getInt("TRANSAKCIJA_Id"), rs.getDate("Datum"),
 						rs.getDouble("Iznos"), rs.getString("Opis"), rs.getString("Tip"), narudzba));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -82,7 +82,7 @@ public class MySQLTroskoviOpremaDAO implements TroskoviOpremaDAO {
 
 			troskovi.setId(cs.getInt("outId"));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -108,7 +108,7 @@ public class MySQLTroskoviOpremaDAO implements TroskoviOpremaDAO {
 			cs.setInt("inNarudzbaId", narudzba.getId());
 			cs.executeQuery();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

@@ -46,7 +46,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 						rs.getInt("ZaposleniId"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -68,7 +68,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -88,7 +88,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -112,7 +112,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 			daLiPostoji = rs.next();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -140,7 +140,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -162,7 +162,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 			ps = ConnectionPool.prepareStatement(c, query, false, pom);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -188,7 +188,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 				hashBytes = rs.getBytes("LozinkaHash");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -199,7 +199,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 			hash = new String(hashBytes, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 		return hash;
@@ -223,7 +223,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 						rs.getString("Ime"), rs.getString("Prezime"), rs.getInt("Id")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -250,7 +250,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 				uloga = rs.getString("Naziv");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -278,7 +278,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 				result = rs.getInt("Id");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -305,7 +305,7 @@ public class MySQLKorisnickiNalogDAO implements KorisnickiNalogDAO {
 				result = new KorisnickiNalogDTO(rs.getString("KorisnickoIme"), id);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);

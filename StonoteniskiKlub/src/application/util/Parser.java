@@ -92,6 +92,7 @@ public class Parser {
 				if (igrac != null) {
 					// POPUNJAVANJE
 					for (int indeksImenaTurnira = 0; indeksImenaTurnira < turniri[0].length; indeksImenaTurnira++) {
+					if(	zapisIgrac.getCell((Integer) turniri[1][indeksImenaTurnira]).getCellTypeEnum()!=CellType.STRING)
 						igrac.getRezultati().put((String) turniri[0][indeksImenaTurnira], (int) zapisIgrac
 								.getCell((Integer) turniri[1][indeksImenaTurnira]).getNumericCellValue());
 					}

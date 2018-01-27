@@ -23,7 +23,7 @@ public class MySQLOpremaDAO implements OpremaDAO {
 			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE, false, idOpreme, velicina, oprema.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -40,7 +40,7 @@ public class MySQLOpremaDAO implements OpremaDAO {
 			ps = ConnectionPool.prepareStatement(c, SQL_UPDATE_OBRISAN, false, oprema.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

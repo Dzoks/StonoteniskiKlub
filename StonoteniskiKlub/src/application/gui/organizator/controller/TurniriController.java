@@ -93,7 +93,7 @@ public class TurniriController extends BaseController{
 		try {
 			changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -122,7 +122,7 @@ public class TurniriController extends BaseController{
 						cbKategorija.getSelectionModel().getSelectedItem().getId());
 				noviStage.setUsername(lblUsername.getText());
 			} catch (IOException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			}
 		}
@@ -166,7 +166,7 @@ public class TurniriController extends BaseController{
 						noviStage.show();
 					}
 				} catch (IOException e) {
-					e.printStackTrace();
+					 ;
 					new ErrorLogger().log(e);
 				}
 			}

@@ -32,7 +32,7 @@ public class MySQLKorisnickiNalogTipDAO implements KorisnickiNalogTipDAO {
 				listaTipovaNaloga.add(new KorisnickiNalogTipDTO(rs.getInt("Id"), rs.getString("Naziv")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -51,7 +51,7 @@ public class MySQLKorisnickiNalogTipDAO implements KorisnickiNalogTipDAO {
 			ps = ConnectionPool.prepareStatement(c, SQL_INSERT, false, korisnickiNalogTip.getNaziv());
 			ps.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

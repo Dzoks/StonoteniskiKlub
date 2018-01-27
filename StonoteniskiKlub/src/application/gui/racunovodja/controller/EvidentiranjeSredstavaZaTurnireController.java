@@ -205,7 +205,7 @@ public class EvidentiranjeSredstavaZaTurnireController extends TransakcijaDecora
 			//popuniTabelu();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}	
 	}

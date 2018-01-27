@@ -73,7 +73,7 @@ public class DodavanjeSkupstineController extends BaseController {
 			newStage.initModality(Modality.APPLICATION_MODAL);
 			newStage.show();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}

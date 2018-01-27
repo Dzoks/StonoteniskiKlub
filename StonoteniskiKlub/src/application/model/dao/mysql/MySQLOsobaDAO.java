@@ -42,7 +42,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -66,7 +66,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 			while (rs.next())
 				retVal.add(rs.getString("Tip"));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -96,7 +96,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 			if (osoba != null)
 				osoba.setTelefoni(getTelefoni(osoba.getId()));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -122,7 +122,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 			while (rs.next())
 				retVal.add(rs.getString("BrojTelefona"));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -148,7 +148,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 			while (rs.next())
 				id = rs.getInt("OSOBA_Id");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(rs, ps);
@@ -179,7 +179,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 				osoba.setId(rs.getInt("@@identity"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -227,7 +227,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -249,7 +249,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(ps);
@@ -274,7 +274,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 			retVal = cst.getBoolean(4);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.close(cst);
@@ -299,7 +299,7 @@ public class MySQLOsobaDAO implements OsobaDAO {
 				result = true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);

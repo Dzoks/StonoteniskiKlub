@@ -35,7 +35,7 @@ public class MySQLTipTransakcijeDAO implements TipTransakcijeDAO {
 				list.add(new TipTransakcijeDTO(rs.getInt("Id"), rs.getString("Tip")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -57,7 +57,7 @@ public class MySQLTipTransakcijeDAO implements TipTransakcijeDAO {
 			ps.executeUpdate();
 			;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -80,7 +80,7 @@ public class MySQLTipTransakcijeDAO implements TipTransakcijeDAO {
 			ps.executeUpdate();
 			;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);
@@ -105,7 +105,7 @@ public class MySQLTipTransakcijeDAO implements TipTransakcijeDAO {
 				tip = new TipTransakcijeDTO(rs.getInt("Id"), rs.getString("Tip"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(c);

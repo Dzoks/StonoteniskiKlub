@@ -72,7 +72,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 	    	try {
 				BaseController.changeScene("/application/gui/administrator/view/LoginView.fxml", primaryStage);
 			} catch (IOException e) {
-				e.printStackTrace();
+				 ;
 				new ErrorLogger().log(e);
 			}
 	    }
@@ -233,7 +233,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			noviStage.showAndWait(); 
 			popuniTabelu();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -284,7 +284,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			noviStage.showAndWait(); 
 			popuniTabelu();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -311,7 +311,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 				comboBoxDistributer.getSelectionModel().selectLast();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
@@ -332,7 +332,7 @@ public class NarudzbaGlavniController extends BaseController implements Initiali
 			controller.popuniPodatke();
 			noviStage.showAndWait();
 		} catch (IOException e) {
-			e.printStackTrace();
+			 ;
 			new ErrorLogger().log(e);
 		}
 	}
