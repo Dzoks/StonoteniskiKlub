@@ -45,6 +45,7 @@
                      <children>
                         <TableView fx:id="tblOpremaKluba" layoutX="14.0" layoutY="14.0" prefHeight="334.0" prefWidth="905.0">
                           <columns>
+                                    <TableColumn fx:id="idKlub" prefWidth="75.0" text="Inventarski broj" />
                             <TableColumn fx:id="tipKlub" prefWidth="109.0" text="Tip" />
                               <TableColumn fx:id="proizvodjacKlub" prefWidth="129.0" text="Proizvođač" />
                               <TableColumn fx:id="modelKlub" prefWidth="131.0" text="Model" />

@@ -59,6 +59,8 @@ public class OpremaGlavniController extends BaseController implements Initializa
 	@FXML
 	private TableView<OpremaKluba> tblOpremaKluba;
 	@FXML
+	private TableColumn<OpremaKluba, Integer> idKlub;
+	@FXML
 	private TableColumn<OpremaKluba, String> tipKlub;
 	@FXML
 	private TableColumn<OpremaKluba, String> proizvodjacKlub;
@@ -765,6 +767,7 @@ public class OpremaGlavniController extends BaseController implements Initializa
 
 	public void popuniTabele() {
 
+		idKlub.setCellValueFactory(new PropertyValueFactory<OpremaKluba, Integer>("id"));
 		tipKlub.setCellValueFactory(new PropertyValueFactory<OpremaKluba, String>("tipOpreme"));
 		proizvodjacKlub.setCellValueFactory(new PropertyValueFactory<OpremaKluba, String>("tipProizvodjac"));
 		modelKlub.setCellValueFactory(new PropertyValueFactory<OpremaKluba, String>("tipModel"));
