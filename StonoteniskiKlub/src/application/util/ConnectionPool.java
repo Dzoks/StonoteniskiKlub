@@ -1,5 +1,8 @@
 package application.util;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -49,14 +52,15 @@ public class ConnectionPool {
 	}
 
 	private void readConfiguration() {
-		ResourceBundle bundle = PropertyResourceBundle.getBundle("Properties");
-		jdbcURL = bundle.getString("jdbcURL");
-		username = bundle.getString("username");
-		password = bundle.getString("password");
-		preconnectCount = 0;
-		maxIdleConnections = 10;
-		maxConnections = 10;
+		ResourceBundle bundle;
 		try {
+			bundle = new PropertyResourceBundle(new FileInputStream("Properties.properties"));
+			jdbcURL = bundle.getString("jdbcURL");
+			username = bundle.getString("username");
+			password = bundle.getString("password");
+			preconnectCount = 0;
+			maxIdleConnections = 10;
+			maxConnections = 10;
 			preconnectCount = Integer.parseInt(bundle.getString("preconnectCount"));
 			maxIdleConnections = Integer.parseInt(bundle.getString("maxIdleConnections"));
 			maxConnections = Integer.parseInt(bundle.getString("maxConnections"));

@@ -10,7 +10,9 @@ import application.gui.controller.BaseController;
 import application.model.dao.DAOFactory;
 import application.model.dto.DonacijaDTO;
 import application.model.dto.OpremaTip;
+import application.util.AlertDisplay;
 import application.util.ErrorLogger;
+import application.util.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -124,33 +126,48 @@ public class RadSaDonacijamaController extends BaseController {
 	// Event Listener on Button[#btnPretraga].onAction
 	@FXML
 	public void pretraga(ActionEvent event) {
-		tblDonacije.setItems(donacije.filtered(new Predicate<DonacijaDTO>() {
-			@Override
-			public boolean test(DonacijaDTO t) {
-				BigDecimal donjaGranica = null;
-				BigDecimal gornjaGranica = null;
-				TextField donjiTf = null;
-				TextField gornjiTf = null;
-				if (rbNovcane.isSelected()) {
-					donjiTf = tfOdNovac;
-					gornjiTf = tfDoNovac;
-				} else {
-					donjiTf = tfOdKolicina;
-					gornjiTf = tfDoKolicina;
+		String odT = null;
+		String doT = null;
+		if (rbNovcane.isSelected()) {
+			odT = tfOdNovac.getText();
+			doT = tfDoNovac.getText();
+		} else {
+			odT = tfOdKolicina.getText();
+			doT = tfDoKolicina.getText();
+		}
+		if (!((!"".equals(odT) && !InputValidator.validateDouble(odT))
+				|| (!"".equals(doT) && !InputValidator.validateDouble(doT)))) {
+			tblDonacije.setItems(donacije.filtered(new Predicate<DonacijaDTO>() {
+				@Override
+				public boolean test(DonacijaDTO t) {
+					BigDecimal donjaGranica = null;
+					BigDecimal gornjaGranica = null;
+					TextField donjiTf = null;
+					TextField gornjiTf = null;
+					if (rbNovcane.isSelected()) {
+						donjiTf = tfOdNovac;
+						gornjiTf = tfDoNovac;
+					} else {
+						donjiTf = tfOdKolicina;
+						gornjiTf = tfDoKolicina;
+					}
+					donjaGranica = "".equals(donjiTf.getText()) ? new BigDecimal(-1)
+							: new BigDecimal(donjiTf.getText());
+					gornjaGranica = "".equals(gornjiTf.getText()) ? new BigDecimal(Double.MAX_VALUE)
+							: new BigDecimal(gornjiTf.getText());
+					return (rbNovcane.isSelected() && t.getNovcanaDonacija()
+							&& t.getNovcaniIznos().compareTo(donjaGranica) >= 0
+							&& t.getNovcaniIznos().compareTo(gornjaGranica) <= 0)
+							|| (rbOprema.isSelected() && !t.getNovcanaDonacija()
+									&& t.getTipOpreme().getId()
+											.equals(cbTipOpreme.getSelectionModel().getSelectedItem().getId())
+									&& t.getKolicina().compareTo(donjaGranica) >= 0
+									&& t.getKolicina().compareTo(gornjaGranica) <= 0);
 				}
-				donjaGranica = "".equals(donjiTf.getText()) ? new BigDecimal(-1) : new BigDecimal(donjiTf.getText());
-				gornjaGranica = "".equals(gornjiTf.getText()) ? new BigDecimal(Double.MAX_VALUE)
-						: new BigDecimal(gornjiTf.getText());
-				return (rbNovcane.isSelected() && t.getNovcanaDonacija()
-						&& t.getNovcaniIznos().compareTo(donjaGranica) >= 0
-						&& t.getNovcaniIznos().compareTo(gornjaGranica) <= 0)
-						|| (rbOprema.isSelected() && !t.getNovcanaDonacija()
-								&& t.getTipOpreme().getId()
-										.equals(cbTipOpreme.getSelectionModel().getSelectedItem().getId())
-								&& t.getKolicina().compareTo(donjaGranica) >= 0
-								&& t.getKolicina().compareTo(gornjaGranica) <= 0);
-			}
-		}));
+			}));
+		} else{
+			AlertDisplay.showError("Pretraga", "Format podataka nije ispravan");
+		}
 	}
 
 	@FXML

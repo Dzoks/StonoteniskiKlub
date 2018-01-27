@@ -349,12 +349,8 @@ public class RadSaZaposlenimaController extends BaseController {
 	}
 
 	private void loadImage() {
-		try {
-			defaultImage = new Image(new FileInputStream("resources/avatar.png"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			new ErrorLogger().log(e);
-		}
+			defaultImage = new Image(getClass().getResourceAsStream("/avatar.png"));
+
 	}
 	private void setTelefoni(ZaposleniDTO zap){
 		lstTelefoni.getItems().clear();

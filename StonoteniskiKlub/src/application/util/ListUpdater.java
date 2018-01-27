@@ -1,6 +1,7 @@
 package application.util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.PropertyResourceBundle;
@@ -17,7 +18,7 @@ public class ListUpdater extends Task<Void> {
 	@Override
 	protected Void call() {
 		try {
-			ResourceBundle bundle = PropertyResourceBundle.getBundle("Properties");
+			ResourceBundle bundle = new PropertyResourceBundle(new FileInputStream("Properties.properties"));
 			String season = bundle.getString("Sezona");
 			File folder = new File("rangListe");
 			folder.mkdir();

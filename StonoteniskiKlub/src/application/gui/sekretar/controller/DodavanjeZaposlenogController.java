@@ -94,13 +94,10 @@ public class DodavanjeZaposlenogController extends BaseController {
 	public void initialize(URL location, ResourceBundle resources) {
 		populateComboBoxes();
 		bindDisable();
-		try {
-			defaultImage = new Image(new FileInputStream("resources/avatar.png"));
+
+			defaultImage = new Image(getClass().getResourceAsStream("/avatar.png"));
 			imgFotografija.setImage(defaultImage);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			new ErrorLogger().log(e);
-		}
+
 	}
 
 	// Event Listener on Button[#btnDodajBrojTelefona].onAction
@@ -423,6 +420,8 @@ public class DodavanjeZaposlenogController extends BaseController {
 			AlertDisplay.showError("Dodavanje", "Datum od mora biti prije današnjeg!");
 		} else if (dpZaposlenDo.getValue() != null && dpZaposlenOd.getValue().compareTo(dpZaposlenDo.getValue()) > 0) {
 			AlertDisplay.showError("Dodavanje", "Datum od mora biti prije datuma do!");
+		} else if (!InputValidator.validateDouble(txtPlata.getText())) {
+			AlertDisplay.showError("Dodavanje", "Pogrešan format podatka za platu.");
 		} else {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			Date datumOd = null;

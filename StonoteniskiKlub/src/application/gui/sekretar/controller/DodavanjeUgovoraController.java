@@ -104,9 +104,11 @@ public class DodavanjeUgovoraController extends BaseController {
 	// Event Listener on Button[#btnDodajDonaciju].onAction
 	@FXML
 	public void dodajDonaciju(ActionEvent event) {
-		if ((rbNovcana.isSelected() && InputValidator.allEntered(tfNovcaniIznos.getText(), taOpisDonacije.getText()))
+		if ((rbNovcana.isSelected() && InputValidator.allEntered(tfNovcaniIznos.getText(), taOpisDonacije.getText())
+				&& InputValidator.validateDouble(tfNovcaniIznos.getText()))
 				|| (rbOprema.isSelected()
-						&& InputValidator.allEntered(tfKolicina.getText(), taOpisDonacije.getText()))) {
+						&& InputValidator.allEntered(tfKolicina.getText(), taOpisDonacije.getText()) && 
+						InputValidator.validateDouble(tfKolicina.getText()))) {
 			DonacijaDTO donacija = new DonacijaDTO(null, null, null, taOpisDonacije.getText(), null, null,
 					rbNovcana.isSelected(), false, null);
 			if (rbNovcana.isSelected()) {
@@ -121,7 +123,7 @@ public class DodavanjeUgovoraController extends BaseController {
 			donacije.add(donacija);
 			lstDonacije.setItems(donacije);
 		} else {
-			AlertDisplay.showError("Dodavanje", "Niste unijeli sve podatke o donaciji");
+			AlertDisplay.showError("Dodavanje", "Niste unijeli ispravne podatke o donaciji");
 		}
 	}
 
@@ -203,7 +205,7 @@ public class DodavanjeUgovoraController extends BaseController {
 						}
 					}
 					AlertDisplay.showInformation("Dodavanje", "Ugovor uspješno dodan.");
-					Stage stage = (Stage)btnSacuvaj.getScene().getWindow();
+					Stage stage = (Stage) btnSacuvaj.getScene().getWindow();
 					stage.close();
 				}
 
