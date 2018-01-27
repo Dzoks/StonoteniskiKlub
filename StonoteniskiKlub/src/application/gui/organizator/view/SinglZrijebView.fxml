@@ -48,7 +48,7 @@
       </TableView>
       <TableView fx:id="tblRunda2" layoutX="221.0" layoutY="137.0" prefHeight="332.0" prefWidth="213.0">
          <columns>
-            <TableColumn fx:id="clnMec2" prefWidth="152.0" style="-fx-font: 18px;" text="Meč" />
+            <TableColumn fx:id="clnMec2" prefWidth="152.0" style="-fx-font-size: 18px;" text="Meč" />
             <TableColumn fx:id="clnRezultat2" prefWidth="59.0" text="Rezultat" />
          </columns>
          <columnResizePolicy>
