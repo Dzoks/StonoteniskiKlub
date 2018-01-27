@@ -412,12 +412,14 @@ public class PregledClanovaController extends BaseController implements Initiali
 		Stage trening = new Stage();
 		TreningController controller = null;
 		trening.setTitle("Stonoteniski klub");
+		trening.initModality(Modality.APPLICATION_MODAL);
+	
 		try {
 			controller = (TreningController) BaseController.changeScene("/application/gui/trener/view/TreningView.fxml",
 					trening);
 			controller.setClan(twTabela.getSelectionModel().getSelectedItem().getId());
 			trening.setResizable(false);
-			trening.show();
+			trening.showAndWait();
 		} catch (IOException e) {
 			new ErrorLogger().log(e);
 			e.printStackTrace();
