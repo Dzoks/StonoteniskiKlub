@@ -346,7 +346,7 @@ public class DodavanjeZaposlenogController extends BaseController {
 				stage.close();
 			} else if (uspjesno == MySQLZaposleniDAO.DUPLICATE_KEY) {
 				OsobaDTO osoba = DAOFactory.getDAOFactory().getOsobaDAO().getByJmb(zaposleni.getJmb());
-				zaposleni = DAOFactory.getDAOFactory().getZaposleniDAO().selectById(osoba.getId());
+				zaposleni = DAOFactory.getDAOFactory().getZaposleniDAO().selectById(osoba.getId(), true);
 				if (zaposleni != null) {
 					Optional<ButtonType> opcija = AlertDisplay.showConfirmation("Dodavanje",
 							"Zaposleni vec postoji! Zelite li da dodate zaposlenje?");
@@ -371,33 +371,43 @@ public class DodavanjeZaposlenogController extends BaseController {
 					Optional<ButtonType> opcija = AlertDisplay.showConfirmation("Dodavanje",
 							"Osoba vec postoji, ali nije zaposlena! Zelite li da dodate zaposlenog?");
 					if (opcija.get().getButtonData().equals(ButtonData.YES)) {
-						zaposleni = new ZaposleniDTO(osoba.getId(), osoba.getIme(), osoba.getPrezime(),
-								osoba.getImeRoditelja(), osoba.getJmb(), osoba.getPol(), osoba.getDatumRodjenja(),
-								osoba.getSlika(), osoba.getTelefoni(), true, null);
 						zaposlenje = new ZaposlenjeDTO(cmbRadnoMjesto.getSelectionModel().getSelectedItem().getId(),
 								cmbRadnoMjesto.getSelectionModel().getSelectedItem().getTip(), datumOd, datumDo,
 								Double.parseDouble(txtPlata.getText()));
-						zaposleni.setZaposljenja(FXCollections.observableArrayList());
-						zaposleni.getZaposljenja().add(zaposlenje);
-						if (DAOFactory.getDAOFactory().getZaposleniDAO().add(zaposleni)) {
+						ZaposleniDTO zap = DAOFactory.getDAOFactory().getZaposleniDAO().selectById(osoba.getId(),
+								false);
+						boolean uspjeh = false;
+						if (zap != null) {
+							zaposleni = zap;
+							zaposleni.getZaposljenja().add(zaposlenje);
+							uspjeh = DAOFactory.getDAOFactory().getZaposlenjeDAO().insert(zaposleni, zaposlenje)
+									&& DAOFactory.getDAOFactory().getZaposleniDAO().delete(zaposleni, true);
+						} else {
+							zaposleni = new ZaposleniDTO(osoba.getId(), osoba.getIme(), osoba.getPrezime(),
+									osoba.getImeRoditelja(), osoba.getJmb(), osoba.getPol(), osoba.getDatumRodjenja(),
+									osoba.getSlika(), osoba.getTelefoni(), true, null);
+							zaposleni.setZaposljenja(FXCollections.observableArrayList());
+							zaposleni.getZaposljenja().add(zaposlenje);
+							uspjeh = DAOFactory.getDAOFactory().getZaposleniDAO().add(zaposleni)
+									&& DAOFactory.getDAOFactory().getZaposlenjeDAO().insert(zaposleni, zaposlenje);
+						}
 
-							if (DAOFactory.getDAOFactory().getZaposlenjeDAO().insert(zaposleni, zaposlenje)) {
-								AlertDisplay.showInformation("Dodavanje", "Zaposleni uspješno dodan.");
-								parent.dodajZaposlenog(zaposleni);
-								for (String telefon : noviTelefoni) {
-									DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleni);
-								}
-								for (String tel : uklonjeniTelefoni) {
-									DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(tel);
-								}
-								Stage stage = (Stage) btnSacuvajPodatke.getScene().getWindow();
-								stage.close();
-							} else {
-								AlertDisplay.showError("Dodavanje", "Nešto nije u redu");
+						if (uspjeh) {
+							AlertDisplay.showInformation("Dodavanje", "Zaposleni uspješno dodan.");
+							parent.dodajZaposlenog(zaposleni);
+							for (String telefon : noviTelefoni) {
+								DAOFactory.getDAOFactory().getOsobaDAO().insertTel(telefon, zaposleni);
 							}
+							for (String tel : uklonjeniTelefoni) {
+								DAOFactory.getDAOFactory().getSponzorDAO().deleteTelefon(tel);
+							}
+							Stage stage = (Stage) btnSacuvajPodatke.getScene().getWindow();
+							stage.close();
 						} else {
 							AlertDisplay.showError("Dodavanje", "Nešto nije u redu");
 						}
+					} else {
+						AlertDisplay.showError("Dodavanje", "Nešto nije u redu");
 					}
 				}
 			} else {

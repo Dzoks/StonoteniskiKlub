@@ -217,7 +217,7 @@ public class RadSaZaposlenimaController extends BaseController {
 	public void obrisi(ActionEvent event) {
 		ZaposleniDTO zaposleni = tblZaposleni.getSelectionModel().getSelectedItem();
 		if(zaposleni != null){
-			if(DAOFactory.getDAOFactory().getZaposleniDAO().delete(zaposleni)){
+			if(DAOFactory.getDAOFactory().getZaposleniDAO().delete(zaposleni, false)){
 				int index = this.zaposleni.indexOf(zaposleni);
 				if(index >= 0){
 					this.zaposleni.remove(index);

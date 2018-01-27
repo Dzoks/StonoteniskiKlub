@@ -27,9 +27,9 @@ import javafx.collections.ObservableList;
 public class MySQLZaposleniDAO implements ZaposleniDAO {
 	private static final String MY_SQL_SELECT_ALL = "select * from zaposleni z inner join osoba o on z.OSOBA_Id=o.Id where z.Aktivan=true";
 	private static final String MY_SQL_INSERT = "{call dodaj_zaposlenog(?,?,?,?,?,?,?,?,?,?,?,?)}";
-	private static final String MY_SQL_SELECT_BY_ID = "select * from zaposleni z inner join osoba o on z.OSOBA_Id=o.Id where z.OSOBA_Id=? and z.Aktivan=true";
+	private static final String MY_SQL_SELECT_BY_ID = "select * from zaposleni z inner join osoba o on z.OSOBA_Id=o.Id where z.OSOBA_Id=? and z.Aktivan=?";
 	private static final String MY_SQL_ADD = "insert into zaposleni values(true, ?)";
-	private static final String MY_SQL_DELETE = "update zaposleni set Aktivan=false where OSOBA_Id=?";
+	private static final String MY_SQL_DELETE = "update zaposleni set Aktivan=? where OSOBA_Id=?";
 	public static final int DUPLICATE_KEY = -2;
 
 	@Override
@@ -99,7 +99,7 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 			if (e instanceof MySQLIntegrityConstraintViolationException) {
 				id = DUPLICATE_KEY;
 			}
-			//e.printStackTrace();
+			// e.printStackTrace();
 			new ErrorLogger().log(e);
 		} finally {
 			ConnectionPool.getInstance().checkIn(connection);
@@ -120,14 +120,14 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 	}
 
 	@Override
-	public ZaposleniDTO selectById(Integer id) {
+	public ZaposleniDTO selectById(Integer id, boolean aktivan) {
 		ZaposleniDTO result = null;
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
 			connection = ConnectionPool.getInstance().checkOut();
-			statement = ConnectionPool.prepareStatement(connection, MY_SQL_SELECT_BY_ID, false, id);
+			statement = ConnectionPool.prepareStatement(connection, MY_SQL_SELECT_BY_ID, false, id, aktivan);
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
 				result = new ZaposleniDTO(resultSet.getInt("Id"), resultSet.getString("Ime"),
@@ -170,14 +170,14 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 	}
 
 	@Override
-	public boolean delete(ZaposleniDTO zaposleni) {
+	public boolean delete(ZaposleniDTO zaposleni, boolean aktivan) {
 		boolean result = false;
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
 			connection = ConnectionPool.getInstance().checkOut();
-			statement = ConnectionPool.prepareStatement(connection, MY_SQL_DELETE, false, zaposleni.getId());
+			statement = ConnectionPool.prepareStatement(connection, MY_SQL_DELETE, false, aktivan, zaposleni.getId());
 			statement.executeUpdate();
 			result = true;
 		} catch (SQLException e) {
@@ -189,5 +189,4 @@ public class MySQLZaposleniDAO implements ZaposleniDAO {
 		}
 		return result;
 	}
-
 }

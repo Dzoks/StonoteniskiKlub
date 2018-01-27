@@ -9,7 +9,7 @@ public interface ZaposleniDAO {
 	ObservableList<ZaposleniDTO> selectAll();
 	ObservableList<ZaposleniDTO> selectAktivni(boolean aktivan);
 	Integer insert(ZaposleniDTO zaposleni, ZaposlenjeDTO zaposlenje, ZaposleniTipDTO zaposleniTip);
-	ZaposleniDTO selectById(Integer id);
+	ZaposleniDTO selectById(Integer id, boolean aktivan);
+	boolean delete(ZaposleniDTO zaposleni, boolean aktivan); 
 	boolean add(ZaposleniDTO zaposleni);
-	boolean delete(ZaposleniDTO zaposleni);
 }

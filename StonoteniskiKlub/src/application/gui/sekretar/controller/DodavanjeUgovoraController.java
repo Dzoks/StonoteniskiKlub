@@ -164,7 +164,8 @@ public class DodavanjeUgovoraController extends BaseController {
 			if ("YES".equals(controller.getPovratnaVrijednost())) {
 				OpremaTip noviTipOpreme = controller.vratiTipOpreme();
 				DAOFactory.getDAOFactory().getOpremaTipDAO().INSERT(noviTipOpreme);
-				cbTipOpreme.getItems().add(noviTipOpreme);
+				cbTipOpreme.getItems().clear();
+				cbTipOpreme.setItems(DAOFactory.getDAOFactory().getOpremaTipDAO().SELECT_ALL());
 				cbTipOpreme.getSelectionModel().selectLast();
 			}
 		} catch (IOException e) {

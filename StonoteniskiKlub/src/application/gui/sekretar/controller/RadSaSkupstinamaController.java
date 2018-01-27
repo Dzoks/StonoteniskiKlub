@@ -110,7 +110,7 @@ public class RadSaSkupstinamaController extends BaseController {
 	// Event Listener on Button[#btnPretrazi].onAction
 	@FXML
 	public void pretrazi(ActionEvent event) {
-		ObservableList<SkupstinaDTO> sve = tblSkupstine.getItems();
+		ObservableList<SkupstinaDTO> sve = skupstine;
 		tblSkupstine.setItems(sve.filtered(new Predicate<SkupstinaDTO>() {
 			@Override
 			public boolean test(SkupstinaDTO t) {
@@ -189,7 +189,8 @@ public class RadSaSkupstinamaController extends BaseController {
 		}
 	}
 	public void addItem(SkupstinaDTO skupstina) {
-		tblSkupstine.getItems().add(skupstina);
+		skupstine.add(skupstina);
+		tblSkupstine.setItems(skupstine);
 	}
 
 	public void refresh() {
@@ -208,7 +209,7 @@ public class RadSaSkupstinamaController extends BaseController {
 	}
 
 	private void populateTable() {
-		ObservableList<SkupstinaDTO> skupstine = DAOFactory.getDAOFactory().getSkupstinaDAO().selectAll();
+		skupstine = DAOFactory.getDAOFactory().getSkupstinaDAO().selectAll();
 		for (SkupstinaDTO skupstina : skupstine) {
 			skupstina.setStavkeDnevnogReda(DAOFactory.getDAOFactory().getStavkaSkupstinaDAO()
 					.selectAllById(skupstina.getId(), StavkaSkupstinaDAO.DNEVNI_RED));
@@ -223,4 +224,5 @@ public class RadSaSkupstinamaController extends BaseController {
 		btnPretrazi.disableProperty().bind(dpDo.valueProperty().isNull().and(dpOd.valueProperty().isNull()));
 		btnObrisi.disableProperty().bind(tblSkupstine.getSelectionModel().selectedItemProperty().isNull());
 	}
+	private ObservableList<SkupstinaDTO> skupstine;
 }
