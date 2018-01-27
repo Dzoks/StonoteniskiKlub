@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.RacunovodjaController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gui.racunovodja.controller.RacunovodjaController">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="771.0" styleClass="hbox" stylesheets="/style.css">
          <children>
@@ -31,14 +31,14 @@
    <children>
       <TabPane prefHeight="530.0" prefWidth="767.0" stylesheets="/style.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
+           <Tab fx:id="novcanaSredstvaTab" text="Novčana sredstva">
+             <fx:include source="EvidentiranjeNovcanihSredstavaView.fxml" />
+          </Tab>
           <Tab fx:id="uplateTurniraTab" text="Uplate turnira">
              <fx:include source="EvidentiranjeUplataZaTurnirView.fxml" />
           </Tab>
           <Tab fx:id="uplaeClanarinaTab" text="Uplate članarina">
              <fx:include source="EvidentiranjeClanarinaView.fxml" />
-          </Tab>
-           <Tab fx:id="novcanaSredstvaTab" text="Novčana sredstva">
-             <fx:include source="EvidentiranjeNovcanihSredstavaView.fxml" />
           </Tab>
             <Tab fx:id="sredsvaZaTurnirTab" text="Sredstva za turnir">
                <fx:include source="EvidentiranjeSredstavaZaTurnire.fxml" />
