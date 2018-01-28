@@ -193,6 +193,6 @@ public class OsobaDTO {
 	@Override
 	public String toString() {//dodala Helena
 		// TODO Auto-generated method stub
-		return this.imeProperty().get() +" "+this.prezimeProperty().get();
+		return this.imeProperty().get() +" "+this.prezimeProperty().get()+" - "+getJmb();
 	}
 }

@@ -97,7 +97,7 @@ public class IzdavanjePotvrdaController extends BaseController implements Initia
 			return;
 		}
 		if("Aktivan član".equals(odabraniTip)) {
-			txtSadrzaj.setText("Stonoteniski klub \"Borac Raiffeisen Bank\" ovim pute potvrđuje da je " + imeClana + ", "
+			txtSadrzaj.setText("Stonoteniski klub \"Borac Raiffeisen Bank\" ovim putem potvrđuje da je " + imeClana + ", "
 					+ "aktivan član našeg kluba i da je u protekloj godini postigao/la više zapaženih rezultata na svim takmičenjima "
 					+ "u Republici Srpskoj i Bosni i Hercegovini.\n"
 					+ "Potvrda se izdaje u svrhu ");

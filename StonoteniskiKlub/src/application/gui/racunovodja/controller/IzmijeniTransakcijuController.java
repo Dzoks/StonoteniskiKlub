@@ -113,7 +113,7 @@ public class IzmijeniTransakcijuController extends TransakcijaIzmijeniDecorater{
 		AnchorPane root;
 		try {
 			root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root,300,400);
+			Scene scene = new Scene(root,199,142);
 			DodajTipTransakcijeController controller = loader.<DodajTipTransakcijeController>getController();
 			controller.setPrimaryStage(noviStage);
 			noviStage.setScene(scene);
